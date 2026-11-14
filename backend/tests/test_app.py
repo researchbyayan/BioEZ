@@ -3,9 +3,9 @@ import asyncio
 import json
 import pytest
 from httpx import ASGITransport, AsyncClient
-from chemez.app import create_app, MAX_REPAIRS
-from chemez.models import ProviderConfig
-from chemez.storage import Credentials,Store
+from bioez.app import create_app, MAX_REPAIRS
+from bioez.models import ProviderConfig
+from bioez.storage import Credentials,Store
 
 class MemoryVault:
     warning='Session only for tests.'
@@ -95,7 +95,7 @@ async def test_structure_library_and_response_styles(client):
 
 def test_existing_conversation_database_migrates(tmp_path):
     import sqlite3
-    db=sqlite3.connect(tmp_path/'chemez.sqlite3')
+    db=sqlite3.connect(tmp_path/'bioez.sqlite3')
     db.execute('CREATE TABLE conversations (id TEXT PRIMARY KEY,title TEXT NOT NULL,updated TEXT NOT NULL)')
     db.execute('INSERT INTO conversations VALUES (?,?,?)',('old','Existing chat','2026-01-01'))
     db.commit()
@@ -119,7 +119,7 @@ async def test_chat_restore_delete_and_no_plaintext_secret(client,tmp_path):
     restored=(await client.get('/conversations/'+cid)).json()
     assert restored['messages'][1]['content'][1]['svg']
     assert len((await client.get('/conversations')).json())==1
-    assert b'SECRET' not in (tmp_path/'chemez.sqlite3').read_bytes()
+    assert b'SECRET' not in (tmp_path/'bioez.sqlite3').read_bytes()
     assert (await client.delete('/conversations/'+cid)).status_code==200
     assert (await client.get('/conversations/'+cid)).status_code==404
     await client.delete('/credentials')
@@ -180,7 +180,7 @@ def test_saved_keys_live_in_a_private_file_and_survive_restart(tmp_path):
     assert Credentials(tmp_path).get('openai:')=='SECRET'
     vault.delete('openai:')
     assert Credentials(tmp_path).get('openai:') is None
-    assert not (tmp_path/'chemez.sqlite3').exists() or b'SECRET' not in (tmp_path/'chemez.sqlite3').read_bytes()
+    assert not (tmp_path/'bioez.sqlite3').exists() or b'SECRET' not in (tmp_path/'bioez.sqlite3').read_bytes()
 
 def test_unreadable_key_file_falls_back_without_crashing(tmp_path):
     (tmp_path/'credentials.json').write_text('not json')
@@ -210,7 +210,7 @@ async def test_cancellation_closes_provider_and_releases_busy_flag(tmp_path):
         endpoint=next(route.endpoint for route in app.routes if route.path=='/chat')
         class Disconnected:
             async def is_disconnected(self):return True
-        from chemez.models import ChatRequest
+        from bioez.models import ChatRequest
         response=await endpoint(ChatRequest(text='Explain ethanol'),Disconnected())
         stream=response.body_iterator
         assert json.loads(await anext(stream))['type']=='start'
@@ -228,7 +228,7 @@ async def test_busy_chat_rejected_without_saving_duplicate_user(client):
     assert (await client.get('/conversations')).json()==[]
 
 async def test_provider_failure_becomes_restorable_error(tmp_path):
-    from chemez.providers import ProviderError
+    from bioez.providers import ProviderError
     class FailedProvider:
         def __init__(self,*args):pass
         async def stream(self,*args,**kwargs):
@@ -263,7 +263,7 @@ async def test_bad_repair_retains_original_valid_blocks(tmp_path):
         assert RepairProvider.calls==1+MAX_REPAIRS  # careful mode: up to MAX_REPAIRS repair rounds
 
 def test_explicit_session_only_never_writes_keys(monkeypatch,tmp_path):
-    monkeypatch.setenv('CHEMEZ_SESSION_ONLY','1')
+    monkeypatch.setenv('BIOEZ_SESSION_ONLY','1')
     vault=Credentials(tmp_path);vault.set('test','SECRET')
     assert vault.get('test')=='SECRET'
     assert vault.warning.startswith('Session-only')
@@ -319,7 +319,7 @@ async def test_connection_checks_real_answer_format(tmp_path):
     async with AsyncClient(transport=ASGITransport(app=app),base_url='http://test',headers={'Authorization':'Bearer token'}) as client:
         response=await client.post('/config/test')
         assert response.status_code==502
-        assert 'did not produce a valid ChemEZ answer' in response.text
+        assert 'did not produce a valid BioEZ answer' in response.text
         assert seen==[{}]
 
 async def test_local_chat_and_model_discovery_need_no_credentials(tmp_path):
@@ -387,7 +387,7 @@ async def test_saved_key_badges_survive_restart_and_store_warning_clears(tmp_pat
         reads=[]
         original=vault.get
         vault.get=lambda name:(reads.append(name),original(name))[1]
-        # Gemini's key was saved in an earlier session; ChemEZ remembers that by name only.
+        # Gemini's key was saved in an earlier session; BioEZ remembers that by name only.
         app.state.store.save_config(['gemini:'],3)
         state=(await client.get('/config')).json()
         assert state['saved_keys']['gemini'] and state['saved_keys']['openai'] and not state['saved_keys']['anthropic']
@@ -429,7 +429,7 @@ async def test_learner_level_shapes_the_instructions(client):
     assert (await client.post('/chat',json={'text':'Explain ethanol','level':'expert'})).status_code==422
 
 def test_followups_prefer_model_suggestions_then_fill_from_drawings():
-    from chemez.followups import suggest_followups
+    from bioez.followups import suggest_followups
     blocks=[{'type':'reaction','caption':'Kolbe–Schmitt','products':[{'iupac_name':'salicylic acid'}]}]
     assert suggest_followups(blocks,['Why is high pressure needed','<script>bad</script>'])==['Why is high pressure needed?','What is the mechanism of Kolbe–Schmitt?','Why are these reagents and conditions needed?']
     assert suggest_followups([{'type':'markdown','text':'Hi'}],None)==[]
@@ -492,7 +492,7 @@ async def test_free_question_gets_verified_structures_in_prompt(client):
     assert 'phosgene = ClC(Cl)=O' in FakeProvider.last_system
 
 def test_one_panel_mechanism_is_incomplete():
-    from chemez.styles import diagram_issue
+    from bioez.styles import diagram_issue
     single=[{'type':'mechanism','steps':[{'smiles':'ClCl.[C-]#[O+]','arrows':[{'tail':[0],'head':[0,1]}]}]}]
     assert 'complete' in diagram_issue(single,'What is the mechanism of phosgene synthesis?')
     full=[{'type':'mechanism','steps':[{'smiles':'X','arrows':[{'tail':[0],'head':[1]}]},{'smiles':'Y','arrows':[]}]}]
@@ -500,20 +500,20 @@ def test_one_panel_mechanism_is_incomplete():
 
 
 def test_mechanism_mode_accepts_resonance_answer():
-    from chemez.styles import style_issue
+    from bioez.styles import style_issue
     blocks=[{'type':'markdown','text':'Benzene is delocalized.'},{'type':'resonance','contributors':[]}]
     assert style_issue(blocks,'mechanism','Show me mechanism in detail of resonating structures of benzene step by step') is None
 
 
 def test_resonance_series_keeps_atom_order():
-    from chemez.chemistry import resonance_series
+    from bioez.chemistry import resonance_series
     assert resonance_series('Cc1ccccc1') == ['CC1=CC=CC=C1', 'CC1C=CC=CC=1']
     assert resonance_series('CC(=O)[O-]') == ['CC([O-])=O', 'CC(=O)[O-]']
     assert len(resonance_series('[O-]c1ccccc1')) == 4
 
 
 def test_benzene_vs_toluene_resonance_splits_into_two_drawn_blocks():
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     import json
     arrows=[{'tail':[i,(i+1)%6],'head':[(i+1)%6]} for i in range(6)]
     answer={'blocks':[{'type':'resonance','caption':'Benzene vs toluene','contributors':[{'smiles':'c1ccccc1','label':'Benzene','arrows':arrows},{'smiles':'Cc1ccccc1','label':'Toluene','arrows':arrows}]}]}
@@ -526,7 +526,7 @@ def test_benzene_vs_toluene_resonance_splits_into_two_drawn_blocks():
 
 
 def test_bad_resonance_arrows_and_order_are_regenerated():
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     import json
     answer={'blocks':[{'type':'resonance','contributors':[{'smiles':'CC(=O)[O-]','label':'A','arrows':[{'tail':[0],'head':[1]}]},{'smiles':'[O-]C(C)=O','label':'B'}]}]}
     blocks,failed=prepare_answer(json.dumps(answer))
@@ -534,7 +534,7 @@ def test_bad_resonance_arrows_and_order_are_regenerated():
 
 
 def test_named_mechanism_shortcut_draws_verified_panels():
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     import json
     for name,reactants in [('SN2',['CC(Br)CC','[OH-]']),('SN1',['CC(C)(C)Br','O']),('E2',['CC(Br)CC','[O-]CC']),('Fischer esterification',['CC(=O)O','CCO'])]:
         blocks,failed=prepare_answer(json.dumps({'blocks':[{'type':'mechanism','name':name,'reactants':reactants}]}))
@@ -544,7 +544,7 @@ def test_named_mechanism_shortcut_draws_verified_panels():
 
 
 def test_unreadable_esterification_panels_are_rebuilt():
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     import json
     answer={'blocks':[{'type':'reaction','reactants':[{'smiles':'CC(=O)O','label':'Acetic acid'},{'smiles':'CCO','label':'Ethanol'}],'products':[{'smiles':'CC(=O)OCC','label':'Ethyl acetate'}],'reagents':'H2SO4','caption':'Acid-catalysed esterification'},
         {'type':'mechanism','steps':[{'smiles':'CC(=O)O.CCO.H+','label':'Protonation','arrows':[{'tail':[0,1],'head':[1]}]},{'smiles':'CC(=O+H)O.CCO','label':'Attack','arrows':[]}]}]}
@@ -553,7 +553,7 @@ def test_unreadable_esterification_panels_are_rebuilt():
 
 
 def test_mode_drawing_rules():
-    from chemez.styles import diagram_issue, style_issue
+    from bioez.styles import diagram_issue, style_issue
     long_q='Explain in detail the resonance of phenoxide and how it compares with acetate and with nitrobenzene, and what that means for acidity across these compounds overall please'
     assert diagram_issue([{'type':'markdown','text':'x'}],long_q,'concise') is None
     # Resonance drawings are now chosen after the answer, so the question alone no longer demands one.
@@ -562,7 +562,7 @@ def test_mode_drawing_rules():
 
 
 def test_named_species_replaces_wrong_resonance_structure():
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     import json
     answer={'blocks':[{'type':'resonance','caption':'Resonance in the phenoxide ion','contributors':[{'smiles':'Oc1ccccc1','label':'Phenoxide 1','arrows':[{'tail':[1],'head':[2]}]},{'smiles':'O=c1ccccc1','label':'Phenoxide 2'}]}]}
     blocks,failed=prepare_answer(json.dumps(answer))
@@ -570,7 +570,7 @@ def test_named_species_replaces_wrong_resonance_structure():
 
 
 def test_mechanism_rebuilt_from_structures_and_named_reagent():
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     import json
     answer={'blocks':[{'type':'mechanism','steps':[{'smiles':'CC(C)(C)Br','label':'tert-butyl bromide','arrows':[]},{'smiles':'CC(C)(C)+ O','label':'carbocation and water','arrows':[{'tail':[0],'head':[1]}]},{'smiles':'CC(C)(C)O','label':'alcohol','arrows':[]}]}]}
     blocks,failed=prepare_answer(json.dumps(answer))
@@ -578,13 +578,13 @@ def test_mechanism_rebuilt_from_structures_and_named_reagent():
 
 
 def test_versus_command_is_split_from_question():
-    from chemez.styles import split_command
+    from bioez.styles import split_command
     assert split_command('/versus phenol vs ethanol acidity')==('versus','phenol vs ethanol acidity')
     assert split_command('/other thing')==(None,'/other thing')
 
 
 def test_all_slash_commands_are_known():
-    from chemez.styles import split_command, COMMANDS
+    from bioez.styles import split_command, COMMANDS
     assert set(COMMANDS)=={'versus','stepbystep','synthesis','practice','nomenclature','lab','calc','spectra'}
     assert split_command('/calc 2 g NaOH in 250 mL, molarity?')==('calc','2 g NaOH in 250 mL, molarity?')
 
@@ -616,8 +616,8 @@ async def test_each_slash_command_reaches_the_model_and_passes_checks(tmp_path):
 
 
 def test_split_table_rows_are_joined_and_commands_checked():
-    from chemez.app import prepare_answer
-    from chemez.styles import command_issue
+    from bioez.app import prepare_answer
+    from bioez.styles import command_issue
     import json
     blocks,failed=prepare_answer(json.dumps({'blocks':[{'type':'markdown','text':'| A | B |'},{'type':'markdown','text':'|---|---|'},{'type':'markdown','text':'| 1 | 2 |'}]}))
     assert not failed and len(blocks)==1 and blocks[0]['text'].count('\n')==2
@@ -626,9 +626,9 @@ def test_split_table_rows_are_joined_and_commands_checked():
 
 
 def test_textbook_routes_are_found_and_drawable():
-    from chemez import routes
-    from chemez.app import prepare_answer
-    from chemez.styles import command_issue
+    from bioez import routes
+    from bioez.app import prepare_answer
+    from bioez.styles import command_issue
     import json
     for question in ['benzene to benzoic acid','ethanol to ethyl acetate','aniline from benzene','toluene into benzoic acid']:
         route=routes.find(question)
@@ -641,8 +641,8 @@ def test_textbook_routes_are_found_and_drawable():
 
 
 def test_spectra_checked_against_structure_counts():
-    from chemez.nmr import facts, issue
-    from chemez.styles import command_issue
+    from bioez.nmr import facts, issue
+    from bioez.styles import command_issue
     f=facts('CCOC(C)=O')
     assert (f['carbons'],f['hydrogens'],f['mass'])==(4,8,88) and 'distinct carbon' in f['text']
     good='**IR**\n\n| cm⁻¹ | Bond |\n|---|---|\n| 1740 | C=O |\n\n**¹H NMR**\n\n| δ | H | m |\n|---|---|---|\n| 4.1 | 2H | q |\n| 2.0 | 3H | s |\n| 1.2 | 3H | t |\n\n**¹³C NMR**\n\n| δ | C |\n|---|---|\n| 171 | C=O |\n| 60 | OCH2 |\n| 21 | CH3 |\n| 14 | CH3 |\n\n**MS**\n\n| m/z | Ion | Relative intensity (%) |\n|---|---|---|\n| 88 | M⁺ | 100 |'
@@ -657,7 +657,7 @@ def test_spectra_checked_against_structure_counts():
 
 def test_c13_predictions_from_measured_data():
     import pytest
-    from chemez import c13, nmr
+    from bioez import c13, nmr
     if not c13.available():
         pytest.skip('¹³C table not built')
     shifts=lambda smiles:sorted(d for _,_,d,_,_ in c13.predict(smiles))
@@ -669,7 +669,7 @@ def test_c13_predictions_from_measured_data():
 
 
 def test_rank_prefers_strong_chat_models():
-    from chemez.autopick import rank
+    from bioez.autopick import rank
     ids=['nvidia/nemotron-3.5-bolt-e4b','nvidia/nv-embedqa-e5-v5','z-ai/glm-5.3','nvidia/nemotron-3-ultra-550b-a55b','meta/llama-3.2-11b-vision-instruct','google/diffusiongemma-26b-a4b-it']
     ranked=rank(ids)
     assert ranked[0]=='nvidia/nemotron-3-ultra-550b-a55b' and ranked[1]=='z-ai/glm-5.3'
@@ -678,7 +678,7 @@ def test_rank_prefers_strong_chat_models():
 
 async def test_autopick_and_fallback_skip_silent_models(monkeypatch):
     import asyncio
-    from chemez import autopick
+    from bioez import autopick
     monkeypatch.setattr(autopick,'STALL_SECONDS',0.2)
     monkeypatch.setattr(autopick,'PROBE_SECONDS',0.2)
     class Fake:
@@ -696,7 +696,7 @@ async def test_autopick_and_fallback_skip_silent_models(monkeypatch):
 
 
 async def test_drawing_follows_the_answer(tmp_path,monkeypatch):
-    monkeypatch.setenv('CHEMEZ_MODEL_DECISIONS','1')
+    monkeypatch.setenv('BIOEZ_MODEL_DECISIONS','1')
     class DecidingProvider:
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
@@ -715,7 +715,7 @@ async def test_drawing_follows_the_answer(tmp_path,monkeypatch):
 
 
 async def test_small_talk_is_not_a_compound_lookup(tmp_path,monkeypatch):
-    monkeypatch.setenv('CHEMEZ_MODEL_DECISIONS','1')
+    monkeypatch.setenv('BIOEZ_MODEL_DECISIONS','1')
     class Provider:
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
@@ -734,7 +734,7 @@ async def test_small_talk_is_not_a_compound_lookup(tmp_path,monkeypatch):
 
 
 async def test_chat_gets_a_short_title_unless_renamed(tmp_path,monkeypatch):
-    monkeypatch.setenv('CHEMEZ_MODEL_DECISIONS','1')
+    monkeypatch.setenv('BIOEZ_MODEL_DECISIONS','1')
     class Provider:
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
@@ -758,7 +758,7 @@ async def test_chat_gets_a_short_title_unless_renamed(tmp_path,monkeypatch):
 
 
 async def test_generic_chat_names_are_retried_until_the_chat_has_a_topic(tmp_path,monkeypatch):
-    monkeypatch.setenv('CHEMEZ_MODEL_DECISIONS','1')
+    monkeypatch.setenv('BIOEZ_MODEL_DECISIONS','1')
     class Provider:
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
@@ -800,12 +800,12 @@ async def test_suggestion_follows_mode_and_command(tmp_path):
 
 @pytest.mark.parametrize('text',['{"blocks":[{"type":"reaction","caption":"Grignard"}]}','{"blocks":[','["What next?"]','<b>What next?</b>','```json\n{}\n```','x'*141])
 def test_next_question_rejects_serialized_answers(text):
-    from chemez.followups import clean_next_question
+    from bioez.followups import clean_next_question
     assert clean_next_question(text)==''
 
 
 def test_next_question_preserves_claude_command_and_plain_question_behavior():
-    from chemez.followups import clean_next_question
+    from bioez.followups import clean_next_question
     assert clean_next_question('"/versus Grignard vs organolithium reagents"')=='Grignard vs organolithium reagents'
     assert clean_next_question('{"question":"Why does acetone react?"}')=='Why does acetone react?'
     assert clean_next_question('Why is [NH4+] acidic?')=='Why is [NH4+] acidic?'
@@ -813,7 +813,7 @@ def test_next_question_preserves_claude_command_and_plain_question_behavior():
 
 @pytest.mark.parametrize('selected',[None,'practice'])
 async def test_command_contract_requires_explicit_selection(tmp_path,monkeypatch,selected):
-    monkeypatch.setenv('CHEMEZ_MODEL_DECISIONS','0')
+    monkeypatch.setenv('BIOEZ_MODEL_DECISIONS','0')
     seen=[]
     class Provider:
         def __init__(self,*args):pass
@@ -875,6 +875,6 @@ async def test_retry_keeps_latest_question_after_topic_change(tmp_path):
 
 
 def test_reduced_doctor_visits_does_not_require_mechanism():
-    from chemez.styles import style_issue
+    from bioez.styles import style_issue
     assert style_issue([{'type':'markdown','text':'Evidence is limited.'}],'mechanism','Does fruit juice show the same association with reduced doctor visits?') is None
     assert style_issue([{'type':'markdown','text':'Hydride attacks.'}],'mechanism','Show reduction of acetone with sodium borohydride')

@@ -1,4 +1,4 @@
-// Is the desktop behind the ChemEZ wordmark light or dark? The window is transparent, so
+// Is the desktop behind the BioEZ wordmark light or dark? The window is transparent, so
 // the page cannot see it: read the wallpaper (macOS), shrink it with sips, and average the
 // luminance of the patch behind the logo. No screen-recording permission is needed.
 const { execFile } = require('node:child_process');
@@ -16,7 +16,7 @@ async function wallpaper() {
   const file = await run('/usr/bin/osascript', ['-l', 'JavaScript', '-e', "ObjC.import('AppKit');$.NSWorkspace.sharedWorkspace.desktopImageURLForScreen($.NSScreen.mainScreen).path.js"]);
   if (!file) return null;
   if (file !== cached.path) {
-    const out = path.join(os.tmpdir(), 'chemez-wallpaper.png');
+    const out = path.join(os.tmpdir(), 'bioez-wallpaper.png');
     await run('/usr/bin/sips', ['-s', 'format', 'png', '-z', String(SIZE), String(SIZE), file, '--out', out]);
     const image = nativeImage.createFromPath(out);
     cached = {path:file, bitmap:image.isEmpty() ? null : image.toBitmap()};

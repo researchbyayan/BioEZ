@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react';
 import {Markdown} from './Blocks';
 
-// The answer's words type out while ChemEZ chooses and draws its diagram.
+// The answer's words type out while BioEZ chooses and draws its diagram.
 // With Reduce Motion on, the text appears at once.
 const STEP=6,TICK=16;
 export function TypedText({text}:{text:string}){

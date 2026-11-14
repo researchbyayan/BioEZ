@@ -3,7 +3,7 @@ import {spawnSync} from 'node:child_process';
 import path from 'node:path';
 import {root,python} from './python-path.mjs';
 const lock=JSON.parse(await readFile(path.join(root,'package-lock.json'),'utf8'));
-const notices=['ChemEZ bundled JavaScript dependency licenses\nSee THIRD_PARTY_NOTICES.md for source attribution.'];
+const notices=['BioEZ bundled JavaScript dependency licenses\nSee THIRD_PARTY_NOTICES.md for source attribution.'];
 for(const [location,metadata] of Object.entries(lock.packages)){
   if(!location||metadata.dev)continue;
   const directory=path.join(root,location);

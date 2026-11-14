@@ -7,7 +7,7 @@ import os from 'node:os';
 import {root,python} from './python-path.mjs';
 
 const output=path.join(root,'evaluation','runs','recovery-2026-10-26');await mkdir(output,{recursive:true});
-const profile=await mkdtemp(path.join(os.tmpdir(),'ChemEZ recovery tests '));
+const profile=await mkdtemp(path.join(os.tmpdir(),'BioEZ recovery tests '));
 const answer=JSON.stringify({blocks:[{type:'markdown',text:'Ethanol is a primary alcohol.'},{type:'molecule',smiles:'CCO',label:'Ethanol',formula:'C2H6O'}]});
 let requests=0;
 const server=createServer((req,res)=>{
@@ -21,7 +21,7 @@ const server=createServer((req,res)=>{
  });
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-const app=await electron.launch({args:[path.join(root,'electron','main.cjs')],env:{...process.env,CHEMEZ_PROFILE:profile,CHEMEZ_SESSION_ONLY:'1'},timeout:60000});
+const app=await electron.launch({args:[path.join(root,'electron','main.cjs')],env:{...process.env,BIOEZ_PROFILE:profile,BIOEZ_SESSION_ONLY:'1'},timeout:60000});
 const page=await app.firstWindow();const results=[];
 async function snapshot(id){
  if(id==='R07'){
@@ -32,7 +32,7 @@ async function snapshot(id){
 async function send(text){await page.getByRole('button',{name:'New conversation',exact:true}).click();await page.getByRole('textbox',{name:'Chemistry question'}).fill(text);await page.getByRole('button',{name:'Send question',exact:true}).click();}
 async function test(id,title,fn){try{await fn();if(id!=='R07')await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeEditable();results.push({id,title,status:'passed'});}catch(e){results.push({id,title,status:'failed',error:String(e)});}await snapshot(id);await writeFile(path.join(output,'results.json'),JSON.stringify({kind:'native-controlled-failure-tests',results,requests},null,2));console.log(id,results.at(-1).status,title);}
 try{
- await page.evaluate(async endpoint=>{await window.chemez.request('saveConfig',{provider:'compatible',model:'recovery',endpoint,auth_mode:'none'});},`http://127.0.0.1:${server.address().port}/v1`);
+ await page.evaluate(async endpoint=>{await window.bioez.request('saveConfig',{provider:'compatible',model:'recovery',endpoint,auth_mode:'none'});},`http://127.0.0.1:${server.address().port}/v1`);
  await page.reload();await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible();
  await test('R01','Malformed/truncated output is repaired once then remains a readable error',async()=>{
   const before=requests;await send('truncated-answer');await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:30000});await expect(page.getByRole('alert')).toContainText('valid structured answer');if(requests-before!==2)throw new Error('Malformed answer was not limited to one repair.');
@@ -44,7 +44,7 @@ try{
  await test('R04','A corrupt saved answer is contained inside its render boundary',async()=>{
   const cid='11111111-1111-4111-8111-111111111111';
   const result=spawnSync(python,['-c',`import sqlite3,json,sys,pathlib
-c=sqlite3.connect(pathlib.Path(sys.argv[1])/'chemez.sqlite3');cid=sys.argv[2]
+c=sqlite3.connect(pathlib.Path(sys.argv[1])/'bioez.sqlite3');cid=sys.argv[2]
 c.execute('insert into conversations(id,title,updated) values(?,?,?)',(cid,'Corrupt saved answer','2026-10-26T00:00:00Z'))
 c.execute('insert into messages(id,conversation_id,role,content,created) values(?,?,?,?,?)',('broken',cid,'assistant',json.dumps([{'id':'broken-block','type':'markdown','text':{'not':'text'}}]),'2026-10-26'))
 c.commit()` ,profile,cid],{encoding:'utf8'});
@@ -54,7 +54,7 @@ c.commit()` ,profile,cid],{encoding:'utf8'});
  await test('R05','Native backend exit restarts the service without quitting the window',async()=>{
   const processes=spawnSync('/bin/ps',['-axo','pid=,ppid=,comm='],{encoding:'utf8'}).stdout;
   const pid=app.process().pid;
-  const child=processes.split('\n').map(line=>line.trim().split(/\s+/)).find(parts=>Number(parts[1])===pid&&/python|chemez-backend/i.test(parts.slice(2).join(' ')));
+  const child=processes.split('\n').map(line=>line.trim().split(/\s+/)).find(parts=>Number(parts[1])===pid&&/python|bioez-backend/i.test(parts.slice(2).join(' ')));
   if(!child)throw new Error('Could not identify the isolated test backend process.');
   process.kill(Number(child[0]),'SIGKILL');
   await expect(page.getByRole('alert').filter({hasText:'service restarted'})).toBeVisible({timeout:30000});
@@ -63,7 +63,7 @@ c.commit()` ,profile,cid],{encoding:'utf8'});
  await test('R06','Answer mode is persisted with the message through reload',async()=>{
   await page.getByRole('combobox',{name:'Answer style'}).selectOption('concise');await send('healthy mode persistence');await expect(page.getByRole('img',{name:/^ethanol molecular structure$/i})).toBeVisible({timeout:30000});
   await page.getByRole('button',{name:'Stop generation'}).waitFor({state:'hidden'});
-  const saved=await page.evaluate(async()=>{const chats=await window.chemez.request('listConversations');return window.chemez.request('getConversation',chats[0].id);});
+  const saved=await page.evaluate(async()=>{const chats=await window.bioez.request('listConversations');return window.bioez.request('getConversation',chats[0].id);});
   if(saved.messages.at(-1).response_style!=='concise')throw new Error('Selected mode was not saved.');
   await page.reload();await page.getByRole('button',{name:'healthy mode persistence',exact:true}).click();await expect(page.locator('.answer-mode')).toHaveText('Quick answer');
  });

@@ -813,7 +813,7 @@ main:not(:has(.welcome)) .composer-area.composer-floating:not(.composer-compact)
 /* Reply mode: the typing area wraps before the X in the corner, so the box grows instead of overlapping. */
 :root .app-shell .composer-reply .composer textarea{padding-right:52px}
 
-/* Selected text: ChemEZ green instead of the system blue (browsers allow a single colour here, not a gradient). */
+/* Selected text: BioEZ green instead of the system blue (browsers allow a single colour here, not a gradient). */
 ::selection{background:#2f8f5c99;color:#f2fff6}
 textarea::selection,input::selection{background:#2f8f5cb3;color:#ffffff}
 .markdown .katex:not(.katex-display .katex){font-size:1.04em}

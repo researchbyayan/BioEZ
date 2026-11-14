@@ -1,4 +1,4 @@
-# ChemEZ
+# BioEZ
 
 A local Electron workspace for chemistry questions. Bring your own API key for
 OpenAI, Anthropic, Google Gemini, or an OpenAI-compatible endpoint. Answers combine
@@ -23,7 +23,7 @@ API base URL, e.g. `https://provider.example/v1` or a local
 that ignore authentication. Each model must support text streaming and follow
 structured JSON instructions; native tool-calling support is not required. Gemini chemistry requests additionally use JSON MIME mode and an answer schema.
 
-`CHEMEZ_PYTHON` can select a Python executable for initial setup. Development
+`BIOEZ_PYTHON` can select a Python executable for initial setup. Development
 uses `.venv`; packaged applications include their own Python runtime and RDKit.
 No external LaTeX installation or system-wide pip packages are required.
 
@@ -54,8 +54,8 @@ per-launch bearer token and keeps it in the main process; the isolated renderer
 uses a small, allowlisted IPC interface. Provider requests run in Python, never in
 the renderer. No telemetry or remote images/fonts are used.
 
-`CHEMEZ_SESSION_ONLY=1` explicitly disables credential persistence. Otherwise, API keys are saved in
-`credentials.json` in ChemEZ's data folder with owner-only permissions (0600); the OS keychain is not used,
+`BIOEZ_SESSION_ONLY=1` explicitly disables credential persistence. Otherwise, API keys are saved in
+`credentials.json` in BioEZ's data folder with owner-only permissions (0600); the OS keychain is not used,
 so there are no keychain password prompts. If that file cannot be written, keys stay in memory and the app
 shows a session-only warning. Keys are separate for each provider/compatible
 endpoint. Select that provider/endpoint and save settings before using **Delete
@@ -65,11 +65,11 @@ SQLite history and generated diagrams live in Electron's user-data directory:
 
 | Platform | Default location |
 | --- | --- |
-| macOS | `~/Library/Application Support/ChemEZ/` |
-| Windows | `%APPDATA%/ChemEZ/` |
-| Linux | `$XDG_CONFIG_HOME/ChemEZ/` or `~/.config/ChemEZ/` |
+| macOS | `~/Library/Application Support/BioEZ/` |
+| Windows | `%APPDATA%/BioEZ/` |
+| Linux | `$XDG_CONFIG_HOME/BioEZ/` or `~/.config/BioEZ/` |
 
-Application naming may use `chemez` in development. Conversation deletion removes
+Application naming may use `bioez` in development. Conversation deletion removes
 its messages and diagrams from the active database; OS backups remain outside the
 app's control. Questions and the latest 24 history messages are sent to the chosen
 provider. No provider key is included in saved settings or conversations.
@@ -85,7 +85,7 @@ npm run package
 
 Outputs are in `release/`: macOS DMG, Windows NSIS installer, or Linux AppImage.
 `npm run package:dir` creates an unpacked app. `npm run bundle:backend` freezes the
-Python service into `backend-dist/chemez-backend`; Electron Builder copies the
+Python service into `backend-dist/bioez-backend`; Electron Builder copies the
 entire runtime into the application's resources. The macOS Intel build currently
 requires macOS 14+ because of the bundled NumPy wheel.
 
@@ -144,7 +144,7 @@ chemistry question using your account. No provider credentials are bundled.
 ## Architecture and answer protocol
 
 - `electron/`: application lifecycle, backend subprocess, narrow IPC, native export.
-- `backend/chemez/`: FastAPI, provider adapters, Pydantic answer schemas, RDKit,
+- `backend/bioez/`: FastAPI, provider adapters, Pydantic answer schemas, RDKit,
   secure credentials, and SQLite persistence.
 - `frontend/src/`: React chat, structured answer blocks, KaTeX, and diagram export.
 - `scripts/`: portable setup, freezing, development, and smoke checks.
@@ -168,7 +168,7 @@ not save an incomplete assistant answer.
 See [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). `seq_encode` is vendored under
 its MIT license. The provided chatbot template was an architecture reference;
 it had no license file at the reviewed commit, so none of its code/assets are
-redistributed. ChemEZ's original code is MIT-licensed.
+redistributed. BioEZ's original code is MIT-licensed.
 
 ### Optional gateways
 

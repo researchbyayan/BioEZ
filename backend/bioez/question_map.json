@@ -1,5 +1,5 @@
 {
-  "_about": "Questions ChemEZ answers from verified data before (or instead of) asking the AI model. Checked top to bottom; the first pattern that matches wins. {name}, {a} and {b} are compound names looked up locally or on PubChem. 'show' lists what the answer contains; 'ai' says what the model writes (never structures).",
+  "_about": "Questions BioEZ answers from verified data before (or instead of) asking the AI model. Checked top to bottom; the first pattern that matches wins. {name}, {a} and {b} are compound names looked up locally or on PubChem. 'show' lists what the answer contains; 'ai' says what the model writes (never structures).",
   "intents": [
     {
       "id": "compare",

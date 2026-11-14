@@ -5,7 +5,7 @@ type Mode='concise'|'balanced'|'mechanism';
 // "Ethanol" reads as "ethanol" mid-sentence; names like "SN2" or "DMSO" keep their case.
 const plain=(name:string)=>/^[A-Z][a-z]+$/.test(name)?name.toLowerCase():name;
 
-// The compound the conversation is about: the last one ChemEZ drew.
+// The compound the conversation is about: the last one BioEZ drew.
 export function topic(messages:Message[]){
   for(const message of [...messages].reverse()){
     if(message.role!=='assistant'||!Array.isArray(message.content))continue;

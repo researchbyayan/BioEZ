@@ -7,10 +7,10 @@ import {root,python} from './python-path.mjs';
 
 const directory=path.join(root,'evaluation','runs','final-replay-2026-10-26');
 const report=JSON.parse(await readFile(path.join(directory,'results.json'),'utf8'));
-const profile=await mkdtemp(path.join(os.tmpdir(),'ChemEZ live-answer replay '));
+const profile=await mkdtemp(path.join(os.tmpdir(),'BioEZ live-answer replay '));
 const seeded=spawnSync(python,['-c',`import json,sys,pathlib
 sys.path.insert(0,str(pathlib.Path(sys.argv[1])/'backend'))
-from chemez.storage import Store
+from bioez.storage import Store
 store=Store(pathlib.Path(sys.argv[2]))
 store.save_config({'provider':'compatible','model':'Live NVIDIA output replay','endpoint':'http://127.0.0.1:9/v1','auth_mode':'none'})
 report=json.loads(pathlib.Path(sys.argv[3]).read_text())
@@ -19,7 +19,7 @@ for item in report['results']:
  store.add(cid,'user',{'text':item['prompt'],'images':[]})
  store.add(cid,'assistant',item['blocks'],response_style=item['mode'])`,root,profile,path.join(directory,'results.json')],{encoding:'utf8'});
 if(seeded.status!==0)throw new Error(seeded.stderr);
-const app=await electron.launch({args:[path.join(root,'electron','main.cjs')],env:{...process.env,CHEMEZ_PROFILE:profile,CHEMEZ_SESSION_ONLY:'1'},timeout:60000});
+const app=await electron.launch({args:[path.join(root,'electron','main.cjs')],env:{...process.env,BIOEZ_PROFILE:profile,BIOEZ_SESSION_ONLY:'1'},timeout:60000});
 const page=await app.firstWindow();const errors=[];
 page.on('pageerror',e=>errors.push(e.message));page.on('crash',()=>errors.push('Renderer crashed'));
 try{

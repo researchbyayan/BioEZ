@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       readiness_run_id:
-        description: 'Actions run containing owner-reviewed chemez-readiness artifact for this exact commit'
+        description: 'Actions run containing owner-reviewed bioez-readiness artifact for this exact commit'
         required: false
         type: string
 permissions:
@@ -105,13 +105,13 @@ jobs:
           path: candidates
       - uses: actions/download-artifact@v4
         with:
-          name: chemez-readiness
+          name: bioez-readiness
           run-id: ${{ inputs.readiness_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: approved-readiness
       - run: node scripts/release-gate.mjs --readiness
         env:
-          CHEMEZ_READINESS_FILE: approved-readiness/readiness.json
+          BIOEZ_READINESS_FILE: approved-readiness/readiness.json
       - name: Assemble draft only after every target and owner evidence pass
         shell: bash
         env:
@@ -120,8 +120,8 @@ jobs:
           VERSION=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
           find candidates -name '*.dmg' -o -name '*.exe' > installers.txt
           test "$(wc -l < installers.txt)" -eq 3
-          git archive --format=tar.gz --output="ChemEZ-$VERSION-source.tar.gz" HEAD
-          gh release create "v$VERSION" --draft --target "$GITHUB_SHA" --title "ChemEZ $VERSION" --notes "Signed native candidates. See attached validation reports and checksums. Owner approval is required before publication."
-          gh release upload "v$VERSION" "ChemEZ-$VERSION-source.tar.gz"
+          git archive --format=tar.gz --output="BioEZ-$VERSION-source.tar.gz" HEAD
+          gh release create "v$VERSION" --draft --target "$GITHUB_SHA" --title "BioEZ $VERSION" --notes "Signed native candidates. See attached validation reports and checksums. Owner approval is required before publication."
+          gh release upload "v$VERSION" "BioEZ-$VERSION-source.tar.gz"
           while IFS= read -r file; do gh release upload "v$VERSION" "$file"; done < installers.txt
           for report in candidates/*/artifacts.json; do TARGET=$(basename "$(dirname "$report")"); cp "$report" "$TARGET-validation.json"; gh release upload "v$VERSION" "$TARGET-validation.json"; done

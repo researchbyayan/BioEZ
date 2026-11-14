@@ -73,7 +73,7 @@ class Provider:
             if self.is_nvidia() and 'nemotron-3.5-bolt-e4b' in model.lower() and system.startswith(SYSTEM):
                 # NVIDIA documents constrained JSON-schema output for this endpoint.
                 # Instructions alone produced invalid JSON in the live baseline run.
-                body.update(response_format={'type':'json_schema','json_schema':{'name':'ChemEZAnswer','strict':True,'schema':gemini_answer_schema()}},max_tokens=12288)
+                body.update(response_format={'type':'json_schema','json_schema':{'name':'BioEZAnswer','strict':True,'schema':gemini_answer_schema()}},max_tokens=12288)
             elif self.is_nvidia() and model=='qwen/qwen3.5-122b-a10b' and system.startswith(SYSTEM):
                 # NVIDIA documents vision content parts and these thinking controls
                 # for this model. Reasoning deltas remain outside the final answer.

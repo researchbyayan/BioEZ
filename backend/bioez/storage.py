@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 class Store:
     def __init__(self, directory: Path):
         directory.mkdir(parents=True, exist_ok=True)
-        self.db = sqlite3.connect(directory / 'chemez.sqlite3')
+        self.db = sqlite3.connect(directory / 'bioez.sqlite3')
         self.db.execute('PRAGMA journal_mode=WAL')
         self.db.executescript('''
         CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY, value TEXT NOT NULL);
@@ -135,7 +135,7 @@ class Store:
         self.db.execute('VACUUM')
 
 class Credentials:
-    """API keys in a private file in ChemEZ's data folder, readable only by this user account.
+    """API keys in a private file in BioEZ's data folder, readable only by this user account.
 
     The operating-system keychain is deliberately not used: on unsigned builds macOS asked for a
     keychain password that need not match the login password. Keys never enter SQLite or chats.
@@ -145,9 +145,9 @@ class Credentials:
         self.warning = ''
         self.path = Path(directory) / 'credentials.json' if directory else None
         # Evaluation runs use an isolated profile but may reuse the keys the app already saved.
-        if os.environ.get('CHEMEZ_CREDENTIALS_FILE'):
-            self.path = Path(os.environ['CHEMEZ_CREDENTIALS_FILE'])
-        if os.environ.get('CHEMEZ_SESSION_ONLY') == '1':
+        if os.environ.get('BIOEZ_CREDENTIALS_FILE'):
+            self.path = Path(os.environ['BIOEZ_CREDENTIALS_FILE'])
+        if os.environ.get('BIOEZ_SESSION_ONLY') == '1':
             self.path = None
             self.warning = 'Session-only credentials are enabled. API keys will not be saved on this device.'
         elif not self.path:
@@ -204,4 +204,4 @@ class Credentials:
             try:
                 self._save(data)
             except OSError as exc:
-                raise RuntimeError('The saved API key could not be deleted. Check ChemEZ’s data folder permissions.') from exc
+                raise RuntimeError('The saved API key could not be deleted. Check BioEZ’s data folder permissions.') from exc

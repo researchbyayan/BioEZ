@@ -6,7 +6,7 @@ DMG, and signed Windows x64 setup EXE. It does not publish unsigned substitutes.
 
 ## GitHub environments
 
-Both environments already exist on `researchbyayan/ChemEZ` and require approval by
+Both environments already exist on `researchbyayan/BioEZ` and require approval by
 `researchbyayan`:
 
 - `release-signing`: grants access to signing and notarization inputs.
@@ -35,7 +35,7 @@ settings. Do not print their values or include them in logs, screenshots, or com
    evaluation, and clean-machine installation, upgrade, and uninstall checks on the
    advertised operating systems.
 3. Record the owner-reviewed evidence and exact source commit in a separate
-   `chemez-readiness` artifact. The tracked `release-config/readiness.json` is an
+   `bioez-readiness` artifact. The tracked `release-config/readiness.json` is an
    unapproved template.
 4. Run the signed release workflow. Its signing environment requires owner approval.
    It verifies certificates, notarization, packaged app behavior, attribution, and

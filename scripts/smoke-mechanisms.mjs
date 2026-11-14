@@ -9,15 +9,15 @@ const cases=[
  {question:'Show SN2 mechanism of hydroxide and bromomethane',name:'sn2',raw:{blocks:[{type:'mechanism',steps:[{smiles:'[OH-].CBr',label:'Lone-pair attack and bromide departure',arrows:[{tail:[0],head:[1]},{tail:[1,2],head:[2]}]},{smiles:'CO.[Br-]',label:'Methanol and bromide',limitation:'Final products.'}]}]}}
 ];
 cases.push({question:'Benzene resonating structures',name:'benzene',raw:{blocks:[{type:'resonance',contributors:[{smiles:'c1ccccc1'},{smiles:'c1ccccc1'}],hybrid:true}]}});
-const profile=await mkdtemp(path.join(os.tmpdir(),'ChemEZ mechanism preview '));
+const profile=await mkdtemp(path.join(os.tmpdir(),'BioEZ mechanism preview '));
 let current=cases[0];
 const server=createServer((req,res)=>{req.resume();req.on('end',()=>{res.writeHead(200,{'Content-Type':'text/event-stream'});res.end('data: '+JSON.stringify({choices:[{delta:{content:JSON.stringify(current.raw)}}]})+'\n\ndata: [DONE]\n\n');});});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-const app=await electron.launch({...(process.env.CHEMEZ_ELECTRON_EXE?{executablePath:process.env.CHEMEZ_ELECTRON_EXE,args:[]}:{args:[path.join(root,'electron/main.cjs')]}),env:{...process.env,CHEMEZ_PROFILE:profile,CHEMEZ_SESSION_ONLY:'1'},timeout:60000});
+const app=await electron.launch({...(process.env.BIOEZ_ELECTRON_EXE?{executablePath:process.env.BIOEZ_ELECTRON_EXE,args:[]}:{args:[path.join(root,'electron/main.cjs')]}),env:{...process.env,BIOEZ_PROFILE:profile,BIOEZ_SESSION_ONLY:'1'},timeout:60000});
 try{
  const page=await app.firstWindow(),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.evaluate(()=>localStorage.setItem('chemez-level','undergraduate'));
- await page.evaluate(config=>window.chemez.request('saveConfig',config),{provider:'compatible',model:'mechanism-fixture',endpoint:`http://127.0.0.1:${server.address().port}/v1`,auth_mode:'none'});await page.reload();
+ await page.evaluate(()=>localStorage.setItem('bioez-level','undergraduate'));
+ await page.evaluate(config=>window.bioez.request('saveConfig',config),{provider:'compatible',model:'mechanism-fixture',endpoint:`http://127.0.0.1:${server.address().port}/v1`,auth_mode:'none'});await page.reload();
  await mkdir(path.join(root,'tmp/mechanism-fixes/screenshots'),{recursive:true});
  for(const item of cases){
   current=item;await page.getByRole('button',{name:'New conversation',exact:true}).click();

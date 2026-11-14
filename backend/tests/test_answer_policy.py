@@ -1,9 +1,9 @@
 import json
-from chemez.answer_policy import condensed,prose,references
-from chemez.app import prepare_answer,restored_block
-from chemez.models import Molecule
-from chemez.chemistry import render_block
-from chemez.models import MoleculeBlock
+from bioez.answer_policy import condensed,prose,references
+from bioez.app import prepare_answer,restored_block
+from bioez.models import Molecule
+from bioez.chemistry import render_block
+from bioez.models import MoleculeBlock
 
 def test_condensed_acid_and_model_validation():
     assert condensed('CH₂=CHCH₂COOH')==('C=CCC(=O)O','but-3-enoic acid')
@@ -26,7 +26,7 @@ def test_reference_urls_are_filtered():
 
 
 def test_written_reference_list_moves_to_references():
-    from chemez.answer_policy import move_references
+    from bioez.answer_policy import move_references
     blocks=move_references([{'type':'markdown','text':'About 30 % is lethal.\n\n**References**\n\n- Katz, *Annu. Rev.* (1972).\n- Thomson, Isotope Effects.'}])
     assert blocks[0]['text']=='About 30 % is lethal.'
     assert [r['title'] for r in blocks[0]['references']]==['Katz, Annu. Rev. (1972).','Thomson, Isotope Effects.']
@@ -35,7 +35,7 @@ def test_written_reference_list_moves_to_references():
 
 
 def test_citation_list_without_heading_moves_and_escapes_are_shown():
-    from chemez.answer_policy import move_references, prose
+    from bioez.answer_policy import move_references, prose
     text='The threshold comes from classic studies:\n\n- Katz & Crespy, *Annu. Rev. Biophys. Bioeng.* **1**, 229–254 (1972).\n- Gilby et al., *Nature* **210**, 112–113 (1966).\n\nAsk more.'
     blocks=move_references([{'type':'markdown','text':text}])
     assert blocks[0]['text']=='The threshold comes from classic studies (see References).\n\nAsk more.'
@@ -47,7 +47,7 @@ def test_citation_list_without_heading_moves_and_escapes_are_shown():
 
 def test_step_by_step_splits_the_series_it_is_given_into_one_move_per_step():
     import json
-    from chemez import stepwise
+    from bioez import stepwise
     series=[{'smiles':'C1=CC=CC=C1','arrows':[{'tail':[0,1],'head':[1]}]},
             {'smiles':'[CH+]1[CH-]C=CC=C1','arrows':[{'tail':[1],'head':[1,2]},{'tail':[2,3],'head':[3]}]},
             {'smiles':'[CH+]1C=C[CH-]C=C1'}]
@@ -64,7 +64,7 @@ def test_step_by_step_splits_the_series_it_is_given_into_one_move_per_step():
 
 
 def test_title_only_and_linked_references_can_coexist():
-    from chemez.answer_policy import references
+    from bioez.answer_policy import references
     result=references([{'title':'Book without URL'},{'title':'Linked article','url':'https://example.org/article'}])
     assert len(result)==2 and 'url' not in result[0]
     assert result[1]['url']=='https://example.org/article'

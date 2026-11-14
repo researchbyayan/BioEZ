@@ -3,7 +3,7 @@
 The user resumed release work after UI refinement. Native unsigned candidates passed
 CI on 2026-10-29 at the clean source checkpoint `f217f221a64904463b5e105c1b9fd74747f31772`.
 Do not publish, sign off readiness, or call this a production release. Earlier development
-history is preserved locally in `tmp/chemez-before-attribution-20261029.bundle`.
+history is preserved locally in `tmp/bioez-before-attribution-20261029.bundle`.
 Windows target updated to Windows 10 and Windows 11 x64, using one NSIS installer.
 Both versions require separate clean-machine installation, upgrade and uninstall evidence.
 Neither Windows target has been verified yet.
@@ -31,13 +31,13 @@ Neither Windows target has been verified yet.
 `tmp/production-release/` contains audit logs and artifact sizes/checksums. A full backend
 run passed 206 tests. An earlier browser run passed 32 and timed out clicking a Gemini model
 control once; the native CI browser suites passed on all four targets at `2220004`. Focused suggestion tests
-passed 9 cases after the server guard. Later focused About/UI tests are in `/tmp/chemez-about-*`.
+passed 9 cases after the server guard. Later focused About/UI tests are in `/tmp/bioez-about-*`.
 
 The unsigned DMG is an audit artifact, not an approved installer. The dependency collector
 still fell back from the staged app to root `node_modules`; verify/minimize the resulting
 ASAR before claiming package savings. No Windows/Apple Silicon installation result exists.
 The native unsigned workflow passed on all four jobs: macOS Intel, macOS Apple Silicon,
-Windows x64 and Linux x64. Current checkpoint run: https://github.com/researchbyayan/ChemEZ/actions/runs/40893491087
+Windows x64 and Linux x64. Current checkpoint run: https://github.com/researchbyayan/BioEZ/actions/runs/40893491087
 Packaged UI, frozen backend, dual-provider/image, and About smokes passed on the
 requested Mac/Windows targets. Current test artifact ZIP download sizes: Mac Intel 185,925,885
 bytes; Mac Apple Silicon 178,491,074 bytes; Windows x64 180,471,980 bytes. These are
@@ -49,7 +49,7 @@ GitHub `release-signing` and `release-approval` environments now require review 
 must remain idle until owner certificates are supplied and the remaining readiness gates pass.
 
 `release-config/readiness.json` is a deliberately unapproved template. Supply a separate
-owner-reviewed readiness artifact via `CHEMEZ_READINESS_FILE`, tied to the exact release
+owner-reviewed readiness artifact via `BIOEZ_READINESS_FILE`, tied to the exact release
 commit, to avoid a self-referential tracked commit hash. The draft workflow accepts that
 artifact only after all native candidate jobs pass; protected environments require owner
 approval. Public publication remains a separate owner action.

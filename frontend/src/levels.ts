@@ -4,7 +4,7 @@ export const LEVELS:Record<Level,{label:string;short:string;icon:string;blurb:st
   undergraduate:{label:'University',short:'University',icon:'fas fa-flask',blurb:'Standard textbook terms, full mechanisms, selectivity and common pitfalls.'},
   graduate:{label:'Graduate / professional',short:'Graduate',icon:'fas fa-atom',blurb:'Technical and concise: mechanism, kinetics vs thermodynamics, practical detail.'},
 };
-const KEY='chemez-level';
+const KEY='bioez-level';
 export function storedLevel():Level|null{
   try{const value=localStorage.getItem(KEY);return value==='school'||value==='undergraduate'||value==='graduate'?value:null;}catch{return null;}
 }

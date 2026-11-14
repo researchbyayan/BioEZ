@@ -2,7 +2,7 @@ import importlib.util
 from pathlib import Path
 import sqlite3
 import pytest
-from chemez.storage import Store
+from bioez.storage import Store
 spec=importlib.util.spec_from_file_location('backup',Path(__file__).resolve().parents[2]/'scripts/backup-data.py')
 backup=importlib.util.module_from_spec(spec);spec.loader.exec_module(backup)
 
@@ -14,13 +14,13 @@ def test_wal_backup_restores_images_modes_and_settings_without_overwrite(tmp_pat
     original={'text':'Image question','images':[{'name':'test.png','mime':'image/png','data':'YWJj'}],'image_observations':'Visible ethanol'}
     store.add(cid,'user',original)
     store.add(cid,'assistant',[{'id':'a','type':'markdown','text':'Ethanol'}],response_style='tutor')
-    snapshot=backup.copy_database(tmp_path/'live/chemez.sqlite3',tmp_path/'snapshot.sqlite3')
+    snapshot=backup.copy_database(tmp_path/'live/bioez.sqlite3',tmp_path/'snapshot.sqlite3')
     recovery=tmp_path/'recovery';recovery.mkdir()
-    backup.copy_database(snapshot,recovery/'chemez.sqlite3')
+    backup.copy_database(snapshot,recovery/'bioez.sqlite3')
     restored=Store(recovery)
     assert restored.messages(cid)==store.messages(cid)
     assert restored.config(2)==store.config(2)
-    with pytest.raises(FileExistsError):backup.copy_database(snapshot,recovery/'chemez.sqlite3')
+    with pytest.raises(FileExistsError):backup.copy_database(snapshot,recovery/'bioez.sqlite3')
     store.delete(cid)
     assert restored.messages(cid)[0]['content']==original
     assert restored.messages(cid)[1]['response_style']=='tutor'

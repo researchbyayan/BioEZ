@@ -1,9 +1,9 @@
 import json
 from xml.etree import ElementTree as ET
 import pytest
-from chemez.chemistry import molecule_result, formula_only_question, render_block
-from chemez.models import Molecule, MechanismBlock, ReactionBlock
-from chemez.app import prepare_answer
+from bioez.chemistry import molecule_result, formula_only_question, render_block
+from bioez.models import Molecule, MechanismBlock, ReactionBlock
+from bioez.app import prepare_answer
 
 @pytest.mark.parametrize('smiles,formula',[('CCO','C2H6O'),('c1ccccc1','C6H6'),('[NH4+]','H4N+'),('N[C@@H](C)C(=O)O','C3H7NO2')])
 def test_molecule_preserves_formula_and_valid_svg(smiles,formula):
@@ -42,7 +42,7 @@ def test_reaction_composes_reagents_and_products():
     ET.fromstring(result['svg'])
 
 def test_names_use_connectivity_and_unknown_names_stay_explicit():
-    from chemez.chemistry import enrich_names
+    from bioez.chemistry import enrich_names
     result=molecule_result(Molecule(smiles='Oc1ccccc1',label='Product'))
     assert result['iupac_name']=='phenol' and result['name_source']=='local'
     assert result['formula']=='C6H6O'
@@ -133,14 +133,14 @@ def test_common_compound_names_override_wrong_model_smiles():
     assert product['formula']=='C7H6O' and product['smiles']=='O=Cc1ccccc1'
 
 def test_structure_3d_returns_conformer_and_properties():
-    from chemez.chemistry import structure_3d
+    from bioez.chemistry import structure_3d
     result=structure_3d('CC(=O)Oc1ccccc1C(=O)O')
     assert result['force_field']=='MMFF94' and result['molblock'].count('\n')>20
     assert result['properties']['molar_mass']==180.16 and result['properties']['h_bond_donors']==1
     assert structure_3d('[Na+].[Cl-]')['properties']['formal_charge']==0
 
 def test_export_text_and_teaching_analysis():
-    from chemez.chemistry import plain_chem, analyse
+    from bioez.chemistry import plain_chem, analyse
     assert plain_chem(r'Dimethyl sulfate, $\text{AlCl}_3$')=='Dimethyl sulfate, AlCl₃'
     groups={g['name']:g['atoms'] for g in analyse('CC(=O)Oc1ccccc1C(=O)O')['groups']}
     assert groups['Ester']==[1,2,3] and 'Carboxylic acid' in groups
@@ -169,7 +169,7 @@ def test_benzene_resonance_series_with_arrows_and_hybrid():
 def test_resonance_rejects_contributors_that_move_atoms_or_hydrogens():
     for second in ['C1=CCCCC1','C1=CC=CC=C1C']:
         blocks,failed=prepare_answer(json.dumps({'blocks':[{'type':'resonance','contributors':[{'smiles':'C1=CC=CC=C1'},{'smiles':second}]}]}))
-        # The non-contributor is never drawn; ChemEZ draws benzene's own series instead.
+        # The non-contributor is never drawn; BioEZ draws benzene's own series instead.
         assert not failed and [c['smiles'] for c in blocks[0]['contributors']]==['C1=CC=CC=C1','C1C=CC=CC=1']
 
 def test_named_parent_does_not_erase_a_resonance_contributor():
@@ -216,7 +216,7 @@ def test_unreachable_resonance_step_still_fails_verification():
 
 @pytest.mark.parametrize('smiles,pairs',[('O',2),('[OH-]',3),('N',1),('[NH4+]',0),('[OH3+]',1),('C',0),('C#N',1),('[CH3-]',1)])
 def test_lewis_pair_count_respects_valence_and_charge(smiles,pairs):
-    from chemez.chemistry import lewis_drawing,molecule
+    from bioez.chemistry import lewis_drawing,molecule
     mol,_=molecule(smiles)
     for explicit in [False,True]:
         svg=lewis_drawing(mol,explicit)
@@ -227,7 +227,7 @@ def test_lewis_pair_count_respects_valence_and_charge(smiles,pairs):
 
 
 def test_explicit_hydrogens_cannot_exceed_the_structure_limit():
-    from chemez.chemistry import lewis_drawing,molecule
+    from bioez.chemistry import lewis_drawing,molecule
     mol,_=molecule('C'*90)
     assert lewis_drawing(mol,True) is None
     assert lewis_drawing(mol,False)
@@ -242,7 +242,7 @@ def test_butane_identity_with_absent_annotation_strings_is_one_structure(placeho
 
 
 def test_saved_butane_identity_card_is_restored_as_one_molecule():
-    from chemez.app import restored_block
+    from bioez.app import restored_block
     raw={'id':'saved-butane','type':'reaction','reactants':[{'smiles':'CCCC','label':'Butane','svg':'old'}],'products':[{'smiles':'CCCC','label':'Butane','svg':'old'}],'reagents':'None','conditions':'None','caption':'Structure of Butane','svg':'old reaction'}
     restored=restored_block(raw)
     assert restored['id']=='saved-butane' and restored['type']=='molecule'
@@ -260,7 +260,7 @@ def test_pair_step_tracks_sn2_bond_formation_and_breaking():
 
 
 def test_wrong_pair_step_arrows_are_replaced_not_kept():
-    # O⁻ attacking Br is wrong: ChemEZ replaces it with the verified SN2 pair and says so.
+    # O⁻ attacking Br is wrong: BioEZ replaces it with the verified SN2 pair and says so.
     raw={'type':'mechanism','steps':[{'smiles':'[OH-].CBr','label':'Incorrect attack','arrows':[{'tail':[0],'head':[2]}]},{'smiles':'CO.[Br-]','label':'Products','limitation':'Final products.'}]}
     blocks,failed=prepare_answer(json.dumps({'blocks':[raw]}))
     first=blocks[0]['steps'][0]
@@ -293,7 +293,7 @@ def test_heterolysis_carbonyl_addition_and_explicit_proton_transfer(source,targe
 
 
 def test_old_resonance_drawings_gain_lone_pairs_when_restored():
-    from chemez.app import restored_block
+    from bioez.app import restored_block
     raw={'id':'old-acetate','type':'resonance','caption':'Acetate','hybrid':None,'contributors':[{'smiles':'CC(=O)[O-]','arrows':[{'tail':[3],'head':[1,3]},{'tail':[1,2],'head':[2]}],'svg':'old'},{'smiles':'CC([O-])=O','svg':'old'}]}
     result=restored_block(raw)
     assert result['type']=='resonance' and result['id']=='old-acetate'
@@ -356,14 +356,14 @@ def test_impossible_mechanism_step_gets_a_plain_language_error():
 
 
 def test_condensed_formula_written_as_smiles_is_drawn():
-    from chemez.models import ReactionBlock
+    from bioez.models import ReactionBlock
     result = render_block(ReactionBlock(type='reaction', reactants=[{'smiles': 'CHCl3'}, {'smiles': 'O=O'}], products=[{'smiles': 'COCl2'}, {'smiles': 'HCl'}]))
     assert [m['formula'] for m in result['products']] == ['CCl2O', 'HCl']
 
 
 def test_fishhook_homolysis_and_radical_coupling_are_verified():
-    from chemez.models import MechanismBlock
-    from chemez.chemistry import render_block
+    from bioez.models import MechanismBlock
+    from bioez.chemistry import render_block
     homolysis={'type':'mechanism','steps':[{'smiles':'ClCl','label':'Homolysis','arrows':[{'tail':[0,1],'head':[0],'electrons':1},{'tail':[0,1],'head':[1],'electrons':1}],'limitation':''},{'smiles':'[Cl].[Cl]','label':'Chlorine radicals','arrows':[],'limitation':''}]}
     step=render_block(MechanismBlock(**homolysis))['steps'][0]
     assert step['svg'] and step['bond_changes'][0]['action']=='BREAK_BOND' and 'single-electron' not in step['limitation'].lower()
@@ -374,8 +374,8 @@ def test_fishhook_homolysis_and_radical_coupling_are_verified():
 
 def test_bond_electrons_only_move_to_an_adjacent_bond_or_own_atom():
     from rdkit import Chem
-    from chemez.electron_flow import verify_pair_step
-    from chemez.models import Arrow
+    from bioez.electron_flow import verify_pair_step
+    from bioez.models import Arrow
     mol=Chem.MolFromSmiles('C=CC=C')
     try:
         verify_pair_step(mol,Chem.MolFromSmiles('C=CC=C'),[Arrow(tail=[0,1],head=[2,3])])
@@ -386,7 +386,7 @@ def test_bond_electrons_only_move_to_an_adjacent_bond_or_own_atom():
 
 def test_unbracketed_charges_and_structure_checks():
     from rdkit import Chem
-    from chemez.chemistry import molecule, structure_check
+    from bioez.chemistry import molecule, structure_check
     assert Chem.MolToSmiles(molecule('c1ccc(C+)cc1')[0])=='[CH2+]c1ccccc1'
     assert Chem.MolToSmiles(molecule('CC(=O)O-')[0])=='CC(=O)[O-]'
     for smiles,name in [('C*','x'),('[13CH4]','methane'),('[CH3]','methane'),('CC(=O)O[Na]','sodium acetate')]:
@@ -401,7 +401,7 @@ def test_unbracketed_charges_and_structure_checks():
 
 
 def test_reaction_arrow_kinds():
-    from chemez.models import ReactionBlock
+    from bioez.models import ReactionBlock
     base={'type':'reaction','reactants':[{'smiles':'CC(=O)O','label':'Acetic acid'}],'products':[{'smiles':'CC(=O)OCC','label':'Ethyl acetate'}]}
     assert ReactionBlock(**base).arrow=='forward'
     assert ReactionBlock(**base,arrow='reversible').arrow=='equilibrium'

@@ -12,7 +12,7 @@ const hosted:Partial<Record<Service,string>>={nvidia:nvidiaURL,openrouter:openro
 // A pasted key's prefix tells which service issued it.
 const keyService=(value:string):Service|null=>/^nvapi-/.test(value)?'nvidia':/^sk-ant-/.test(value)?'anthropic':/^sk-or-/.test(value)?'openrouter':/^sk-/.test(value)?'openai':/^AIza/.test(value)?'gemini':null;
 const services:Record<Service,{name:string;icon:string;blurb:string;keyHint?:string;keySource?:string;note:string}>={
-  openrouter:{name:'OpenRouter',icon:'fas fa-route',blurb:'Sign in, no key to copy',keyHint:'Or paste an OpenRouter key (sk-or-…)',keySource:'openrouter.ai',note:'Sign in with your OpenRouter account and ChemEZ receives a key automatically. Free models are available; paid models use your OpenRouter credits.'},
+  openrouter:{name:'OpenRouter',icon:'fas fa-route',blurb:'Sign in, no key to copy',keyHint:'Or paste an OpenRouter key (sk-or-…)',keySource:'openrouter.ai',note:'Sign in with your OpenRouter account and BioEZ receives a key automatically. Free models are available; paid models use your OpenRouter credits.'},
   gemini:{name:'Google Gemini',icon:'fab fa-google',blurb:'Free tier available',keyHint:'Paste your Google AI Studio key',keySource:'aistudio.google.com',note:'Flash-Lite has a free tier on eligible Free-tier projects; paid projects are billed.'},
   openai:{name:'OpenAI',icon:'fas fa-bolt',blurb:'GPT models',keyHint:'Paste your OpenAI API key (sk-…)',keySource:'platform.openai.com',note:'API usage is billed separately from a ChatGPT subscription.'},
   anthropic:{name:'Anthropic',icon:'fas fa-feather-alt',blurb:'Claude models',keyHint:'Paste your Anthropic API key (sk-ant-…)',keySource:'console.anthropic.com',note:'API usage is billed separately from a Claude subscription.'},
@@ -57,7 +57,7 @@ function ConnectionSettings({initial,onClose,onSave,vision=false,onSwitch,level,
     setLoading(true);setStatus(current=>current?.kind==='ok'?current:null);
     try{
       const provider=hosted[service]?'compatible':service;
-      const result=await window.chemez.request('loadModels',{credential_slot:vision?'vision':'chat',provider:provider as 'gemini'|'ollama'|'compatible'|'openai'|'anthropic',...(hosted[service]?{endpoint:hosted[service]}:service==='compatible'?{endpoint,auth_mode:authMode}:{}),...(!keyless&&apiKey?{api_key:apiKey}:{})});
+      const result=await window.bioez.request('loadModels',{credential_slot:vision?'vision':'chat',provider:provider as 'gemini'|'ollama'|'compatible'|'openai'|'anthropic',...(hosted[service]?{endpoint:hosted[service]}:service==='compatible'?{endpoint,auth_mode:authMode}:{}),...(!keyless&&apiKey?{api_key:apiKey}:{})});
       const found=service==='nvidia'?result.models.filter(m=>!/(embed|rerank|guard|reward|safety|qwen-image|stable-diffusion|\/flux)/i.test(m.id)):result.models;
       setModels(found);
       if(!found.length){setManual(true);setStatus({kind:'info',text:'No models were listed. Type the model ID instead.'});return;}
@@ -87,22 +87,22 @@ function ConnectionSettings({initial,onClose,onSave,vision=false,onSwitch,level,
     setBusy(true);setStatus({kind:'info',text:model==='auto'?'Finding the best model that answers this key… (up to 30 seconds)':'Saving and checking with a short test answer…'});
     try{
       const config:Config={provider:(hosted[service]?'compatible':service) as ProviderName,endpoint:hosted[service]||(service==='compatible'?endpoint:service==='ollama'?'http://127.0.0.1:11434/v1':''),model:model.trim(),...(service==='compatible'?{auth_mode:authMode}:{}),...(!keyless&&key.trim()?{api_key:key.trim()}:{})};
-      const result=await window.chemez.request(vision?'saveVisionConfig':'saveConfig',config);
+      const result=await window.bioez.request(vision?'saveVisionConfig':'saveConfig',config);
       setState(vision?{...result,config:result.vision_config||null,has_key:!!result.vision_has_key,ready:!!result.vision_has_key,saved_keys:{}}:result);onSave(result);
-      await window.chemez.request(vision?'testVisionConnection':'testConnection');
+      await window.bioez.request(vision?'testVisionConnection':'testConnection');
       const chosen=(vision?result.vision_config:result.config)?.model;
       setModel(chosen||model);
       setStatus({kind:'ok',text:(model==='auto'&&chosen?`Picked ${chosen.split('/').pop()}${(vision?result.vision_config:result.config)?.fallbacks?.length?`, with ${(vision?result.vision_config:result.config)!.fallbacks!.length} working backups if it stalls`:''}. `:'')+(vision?'Image reader connected. Image input was accepted; accuracy still depends on the model.':'Connected. You’re ready to chat.')});
     }catch(e){setStatus({kind:'error',text:friendly(e)});}finally{setBusy(false);}
   }
   async function signIn(){
-    setBusy(true);setStatus({kind:'info',text:'Approve ChemEZ in your browser. Then it picks the best free model that answers…'});
-    try{const result=await window.chemez.signInOpenRouter!();setState(result);onSave(result);setModel(result.config?.model||'auto');setStatus({kind:'ok',text:`Signed in. Using ${result.config?.model.split('/').pop()}${result.config?.fallbacks?.length?`, with ${result.config.fallbacks.length} working backups`:''}.`});}
+    setBusy(true);setStatus({kind:'info',text:'Approve BioEZ in your browser. Then it picks the best free model that answers…'});
+    try{const result=await window.bioez.signInOpenRouter!();setState(result);onSave(result);setModel(result.config?.model||'auto');setStatus({kind:'ok',text:`Signed in. Using ${result.config?.model.split('/').pop()}${result.config?.fallbacks?.length?`, with ${result.config.fallbacks.length} working backups`:''}.`});}
     catch(e){setStatus({kind:'error',text:friendly(e)});}finally{setBusy(false);}
   }
   async function removeKey(){
     setBusy(true);
-    try{const result=await window.chemez.request(vision?'deleteVisionConfig':'deleteKey');setState(vision?{...result,config:result.vision_config||null,has_key:!!result.vision_has_key,ready:!!result.vision_has_key,saved_keys:{}}:result);onSave(result);setKey('');setModels([]);setStatus({kind:'info',text:'Saved key removed.'});}
+    try{const result=await window.bioez.request(vision?'deleteVisionConfig':'deleteKey');setState(vision?{...result,config:result.vision_config||null,has_key:!!result.vision_has_key,ready:!!result.vision_has_key,saved_keys:{}}:result);onSave(result);setKey('');setModels([]);setStatus({kind:'info',text:'Saved key removed.'});}
     catch(e){setStatus({kind:'error',text:friendly(e)});}finally{setBusy(false);}
   }
   const info=services[service];
@@ -124,9 +124,9 @@ function ConnectionSettings({initial,onClose,onSave,vision=false,onSwitch,level,
         <label className="grow">API base URL<input aria-label="API base URL" type="url" required value={endpoint} disabled={busy} onChange={e=>setEndpoint(e.target.value)} placeholder="https://your-provider.example/v1"/></label>
         <label>Authentication<select aria-label="Authentication" value={authMode} disabled={busy} onChange={e=>setAuthMode(e.target.value as 'api_key'|'none')}><option value="api_key">API key</option><option value="none">No key (localhost only)</option></select></label>
       </div>}
-      {service==='openrouter'&&!vision&&window.chemez.signInOpenRouter&&<button type="button" className="signin-button" disabled={busy} onClick={()=>void signIn()}><i className="fas fa-sign-in-alt" aria-hidden="true"/> Sign in with OpenRouter</button>}
+      {service==='openrouter'&&!vision&&window.bioez.signInOpenRouter&&<button type="button" className="signin-button" disabled={busy} onClick={()=>void signIn()}><i className="fas fa-sign-in-alt" aria-hidden="true"/> Sign in with OpenRouter</button>}
       {!keyless&&<label>API key<span className="key-field"><input aria-label="API key" type={showKey?'text':'password'} autoComplete="off" spellCheck={false} disabled={busy} value={key} onChange={e=>{const value=e.target.value.trim();const detected=keyService(value);if(detected&&detected!==service&&!vision){choose(detected);setStatus({kind:'info',text:`That looks like ${/^[AEIOU]/.test(services[detected].name)?"an":"a"} ${services[detected].name} key, so ${services[detected].name} is selected.`});}setKey(e.target.value);if(status?.kind==='ok')setStatus(null);}} placeholder={savedKey?'Saved key will be used. Paste a new one to replace it.':info.keyHint}/><button type="button" className="key-visibility" aria-label={showKey?'Hide API key':'Show API key'} onClick={()=>setShowKey(!showKey)}><i className={showKey?'far fa-eye-slash':'far fa-eye'} aria-hidden="true"/></button></span>
-        <span className="field-help">{info.keySource&&<>Get a key at {info.keySource}. </>}{state.warning?'This key is kept only until you close the app.':'Saved in ChemEZ’s private data folder on this Mac, readable only by your user account. Never in chats.'}{savedKey&&service===active&&<> <button type="button" className="text-action" disabled={busy} onClick={()=>void removeKey()}>Remove saved key</button></>}</span></label>}
+        <span className="field-help">{info.keySource&&<>Get a key at {info.keySource}. </>}{state.warning?'This key is kept only until you close the app.':'Saved in BioEZ’s private data folder on this Mac, readable only by your user account. Never in chats.'}{savedKey&&service===active&&<> <button type="button" className="text-action" disabled={busy} onClick={()=>void removeKey()}>Remove saved key</button></>}</span></label>}
       <div className="model-field">
         <div className="model-label"><span id="model-label">Model</span>{loading?<span className="model-loading"><i className="fas fa-circle-notch fa-spin" aria-hidden="true"/> Loading models…</span>:canDiscover&&<button type="button" className="text-action" disabled={busy} onClick={()=>void discover()}><i className="fas fa-sync-alt" aria-hidden="true"/> Refresh list</button>}</div>
         {service!=='ollama'&&!manual&&models.length===0&&<select aria-label="Model" value="auto" disabled={busy} onChange={()=>{}}><option value="auto">Automatic: best model that answers</option></select>}

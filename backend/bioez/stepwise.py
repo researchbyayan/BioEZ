@@ -4,7 +4,7 @@ For /stepbystep (or a question asking for steps or electron movement), a resonan
 mechanism is split into consecutive pairs: the structure before, with its curved arrows, and
 the structure after. Each step's sentence is written from those arrows, so text and drawing
 always agree. Nothing is assumed about a particular compound: the series comes from the model,
-or ChemEZ derives it from the structure.
+or BioEZ derives it from the structure.
 """
 import json, re
 
@@ -54,7 +54,7 @@ def describe(n, before):
 def resonance_chain(block):
     contributors = [c for c in block.get('contributors') or [] if isinstance(c, dict) and isinstance(c.get('smiles'), str)]
     if len(contributors) == 1:
-        # The shortcut: ChemEZ derives the series from the structure itself.
+        # The shortcut: BioEZ derives the series from the structure itself.
         from .chemistry import resonance_series
         contributors = [{'smiles': s, 'label': contributors[0].get('label', '') if not i else ''} for i, s in enumerate(resonance_series(contributors[0]['smiles'], most=6))]
     return contributors

@@ -1,6 +1,6 @@
 """Structure facts for /spectra, and checks that a spectrum matches the structure.
 
-No shift tables: ChemEZ describes each symmetry-unique carbon and hydrogen set (what it is
+No shift tables: BioEZ describes each symmetry-unique carbon and hydrogen set (what it is
 bonded to, hybridisation, hydrogen count, neighbouring hydrogens) so the model can reason out
 the shifts, then checks the counts any correct spectrum must satisfy for this structure.
 """
@@ -108,7 +108,7 @@ def _describe_index(smiles, index):
 
 
 def carbon_section(smiles):
-    """The ¹³C table ChemEZ states itself from measured data, or None without the database."""
+    """The ¹³C table BioEZ states itself from measured data, or None without the database."""
     from . import c13
     if not c13.available():
         return None
@@ -119,7 +119,7 @@ def carbon_section(smiles):
 
 
 def replace_carbon_section(text, section):
-    """Swap the ¹³C table in a Markdown answer for ChemEZ's own; append it if missing."""
+    """Swap the ¹³C table in a Markdown answer for BioEZ's own; append it if missing."""
     pattern = re.compile(r'\*\*\s*(?:¹³|13)\s*C[^\n]*\n.*?(?=\n\s*\*\*|\Z)', re.S)
     if pattern.search(text):
         return pattern.sub(lambda _: section, text, count=1)

@@ -13,7 +13,7 @@ const surfaces:[string,Record<string,number>][]= [
 ];
 export type GlassMode='on'|'off';
 // On unless switched off in Preferences (an earlier "follow system" choice counts as on).
-export function storedGlassMode():GlassMode{try{return localStorage.getItem('chemez-glass-effects')==='off'?'off':'on';}catch{return 'on';}}
+export function storedGlassMode():GlassMode{try{return localStorage.getItem('bioez-glass-effects')==='off'?'off':'on';}catch{return 'on';}}
 export function GlassEdges({mode}:{mode:GlassMode}){
   useEffect(()=>{
     if(mode==='off')return;

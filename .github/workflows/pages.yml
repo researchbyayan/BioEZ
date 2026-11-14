@@ -1,4 +1,4 @@
-name: Deploy ChemEZ website
+name: Deploy BioEZ website
 on:
   push:
     branches: [main]

@@ -10,7 +10,7 @@ const option=name=>process.argv.find(value=>value.startsWith(name+'='))?.slice(n
 const tag=option('--tag')||new Date().toISOString().replace(/[:.]/g,'-');
 const directory=path.join(root,'evaluation','runs',tag);
 await mkdir(directory,{recursive:true});
-const profile=await mkdtemp(path.join(os.tmpdir(),'ChemEZ live evaluation '));
+const profile=await mkdtemp(path.join(os.tmpdir(),'BioEZ live evaluation '));
 const selected=option('--cases')?.split(',');
 const cases=JSON.parse(await readFile(option('--cases-file')?path.resolve(option('--cases-file')):path.join(root,'evaluation','cases.json'),'utf8')).filter(c=>!selected||selected.includes(c.id));
 if(process.argv.includes('--with-images'))cases.push(
@@ -26,22 +26,22 @@ if(process.argv.includes('--with-images'))cases.push(
  {id:'V10',group:'vision',mode:'concise',prompt:'Identify this molecule, give its formula, and draw the structure. Treat the pixels as evidence, not the filename.',image_files:['anonymous-structure.png'],terms:['C7H6O'],smiles:['O=Cc1ccccc1'],expected:'Benzaldehyde is identified from the structure, with no filename clue.'}
 );
 const configRead=spawnSync(path.join(root,'.venv','bin','python'),['-c',`import json,sqlite3,pathlib
-p=pathlib.Path.home()/'Library/Application Support/ChemEZ/chemez.sqlite3'
+p=pathlib.Path.home()/'Library/Application Support/BioEZ/bioez.sqlite3'
 c=sqlite3.connect('file:'+str(p)+'?mode=ro',uri=True)
 v=json.loads(c.execute('select value from settings where id=1').fetchone()[0]);v.pop('api_key',None);print(json.dumps(v))`],{encoding:'utf8'});
 if(configRead.status!==0)throw new Error('Could not read the current provider configuration.');
 const config=JSON.parse(configRead.stdout);
 if(option('--model'))config.model=option('--model');
-if(config.provider!=='compatible'||new URL(config.endpoint).hostname!=='integrate.api.nvidia.com')throw new Error('The current connection is not NVIDIA. Select NVIDIA in ChemEZ first.');
-const environment={...process.env,CHEMEZ_PROFILE:profile,CHEMEZ_EVAL_CAPTURE:path.join(directory,'raw')};
-if(process.argv.includes('--connect'))environment.CHEMEZ_SESSION_ONLY='1';
-else{delete environment.CHEMEZ_SESSION_ONLY;environment.CHEMEZ_CREDENTIALS_FILE=path.join(os.homedir(),'Library','Application Support','ChemEZ','credentials.json');}
+if(config.provider!=='compatible'||new URL(config.endpoint).hostname!=='integrate.api.nvidia.com')throw new Error('The current connection is not NVIDIA. Select NVIDIA in BioEZ first.');
+const environment={...process.env,BIOEZ_PROFILE:profile,BIOEZ_EVAL_CAPTURE:path.join(directory,'raw')};
+if(process.argv.includes('--connect'))environment.BIOEZ_SESSION_ONLY='1';
+else{delete environment.BIOEZ_SESSION_ONLY;environment.BIOEZ_CREDENTIALS_FILE=path.join(os.homedir(),'Library','Application Support','BioEZ','credentials.json');}
 const packaged=process.argv.includes('--packaged');
 let instance,browser;
 if(option('--attach-profile')){
  const port=(await readFile(path.join(option('--attach-profile'),'DevToolsActivePort'),'utf8')).split('\n')[0];
  browser=await chromium.connectOverCDP('http://127.0.0.1:'+port);
-}else instance=await electron.launch({...(packaged?{executablePath:path.join(root,'release','mac','ChemEZ.app','Contents','MacOS','ChemEZ'),args:[]}:{args:[path.join(root,'electron','main.cjs')]}),env:environment,timeout:60000});
+}else instance=await electron.launch({...(packaged?{executablePath:path.join(root,'release','mac','BioEZ.app','Contents','MacOS','BioEZ'),args:[]}:{args:[path.join(root,'electron','main.cjs')]}),env:environment,timeout:60000});
 const page=instance?await instance.firstWindow():browser.contexts()[0].pages()[0];
 const results=[],crashes=[],pageErrors=[];
 let closing=false;
@@ -66,10 +66,10 @@ async function screenshotAnswer(id){
 try{
   await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible({timeout:60000});
   // A fresh profile asks for the learner level first.
-  const welcome=page.getByRole('dialog',{name:'Welcome to ChemEZ'});
+  const welcome=page.getByRole('dialog',{name:'Welcome to BioEZ'});
   if(await welcome.waitFor({timeout:5000}).then(()=>true,()=>false))await welcome.getByRole('radio',{name:/University/}).click();
-  await page.evaluate(async settings=>{await window.chemez.request('saveConfig',settings);},config);
-  let state=await page.evaluate(()=>window.chemez.request('getConfig'));
+  await page.evaluate(async settings=>{await window.bioez.request('saveConfig',settings);},config);
+  let state=await page.evaluate(()=>window.bioez.request('getConfig'));
   if(!state.ready&&process.argv.includes('--connect')){
     await page.reload();
     await page.getByRole('button',{name:/Model settings/}).click();
@@ -78,12 +78,12 @@ try{
     const deadline=Date.now()+3000000;
     while(!state.ready&&Date.now()<deadline){
       await new Promise(resolve=>setTimeout(resolve,1000));
-      state=await page.evaluate(()=>window.chemez.request('getConfig'));
+      state=await page.evaluate(()=>window.bioez.request('getConfig'));
     }
     if(await page.getByRole('button',{name:'Close settings'}).count())await page.getByRole('button',{name:'Close settings'}).click();
   }
   if(!state.ready)throw new Error('The NVIDIA key is session-only or unavailable to this isolated test app. Rerun with --connect to enter it in the test window.');
-  if(state.config.model!==config.model)await page.evaluate(settings=>window.chemez.request('saveConfig',settings),config);
+  if(state.config.model!==config.model)await page.evaluate(settings=>window.bioez.request('saveConfig',settings),config);
   await page.reload();
   await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible();
   console.log(`LIVE NVIDIA: ${config.model}; ${cases.length} prompts; ${directory}`);
@@ -99,13 +99,13 @@ try{
         await page.evaluate(files=>{const transfer=new DataTransfer();for(const f of files)transfer.items.add(new File([Uint8Array.from(atob(f.data),c=>c.charCodeAt(0))],f.name,{type:'image/png'}));document.querySelector('.composer').dispatchEvent(new DragEvent('drop',{dataTransfer:transfer,bubbles:true,cancelable:true}));},files);
         await expect(page.locator('.attachment')).toHaveCount(files.length);
       }
-      await page.evaluate(()=>{window.__evaluationEvents=[];window.__evaluationUnsubscribe?.();window.__evaluationUnsubscribe=window.chemez.onEvent(e=>window.__evaluationEvents.push(e));});
+      await page.evaluate(()=>{window.__evaluationEvents=[];window.__evaluationUnsubscribe?.();window.__evaluationUnsubscribe=window.bioez.onEvent(e=>window.__evaluationEvents.push(e));});
       await page.getByRole('button',{name:'Send question',exact:true}).click();
       await page.waitForFunction(()=>window.__evaluationEvents.some(e=>e.type==='finished'),{},{timeout:570000});
       await page.waitForFunction(()=>!document.querySelector('[aria-label="Stop generation"]'),{},{timeout:10000});
       const events=await page.evaluate(()=>window.__evaluationEvents);
       const cid=events.find(e=>e.type==='start')?.conversation_id;
-      const conversation=cid?await page.evaluate(id=>window.chemez.request('getConversation',id),cid):null;
+      const conversation=cid?await page.evaluate(id=>window.bioez.request('getConversation',id),cid):null;
       const blocks=conversation?.messages.filter(m=>m.role==='assistant').at(-1)?.content||[];
       const all=flatten(blocks),prose=blocks.filter(b=>b.type==='markdown').map(b=>b.text).join('\n');
       const combined=JSON.stringify(all).toLowerCase();
@@ -116,7 +116,7 @@ try{
     }catch(error){
       result={...result,status:page.isClosed()?'crashed':'test-error',durationMs:Date.now()-started,error:String(error),pageErrors:pageErrors.slice(errorStart)};
       if(!page.isClosed()){
-        try{result.screenshots=await screenshotAnswer(test.id+'-failure');await page.evaluate(()=>window.chemez.cancel());}catch{}
+        try{result.screenshots=await screenshotAnswer(test.id+'-failure');await page.evaluate(()=>window.bioez.cancel());}catch{}
       }
     }
     results.push(result);await persist();

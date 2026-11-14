@@ -14,7 +14,7 @@ class OfflineClient:
 
 @pytest.fixture(autouse=True)
 def offline_pubchem(monkeypatch):
-    from chemez import compounds
+    from bioez import compounds
     monkeypatch.setattr(compounds, 'pubchem_record', lambda client, name: OFFLINE.get(name.lower()))
     monkeypatch.setattr(compounds, 'suggestions', lambda client, name: ['phosgene'] if name.startswith('fosgen') else [])
     monkeypatch.setattr(compounds.Lookup.__init__, '__defaults__', (lambda: OfflineClient(),))
@@ -23,4 +23,4 @@ def offline_pubchem(monkeypatch):
 @pytest.fixture(autouse=True)
 def no_model_decisions(monkeypatch):
     # Existing tests count model calls; the drawing decision and name check are tested on their own.
-    monkeypatch.setenv('CHEMEZ_MODEL_DECISIONS', '0')
+    monkeypatch.setenv('BIOEZ_MODEL_DECISIONS', '0')

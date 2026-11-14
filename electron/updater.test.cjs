@@ -2,7 +2,7 @@ const test=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');const os=require('node:os');const path=require('node:path');
 const {createUpdater}=require('./updater.cjs');
 test('offers an update at most once a week',{skip:process.platform!=='darwin'},async t=>{
- const dir=await fs.mkdtemp(path.join(os.tmpdir(),'chemez-update-'));t.after(()=>fs.rm(dir,{recursive:true,force:true}));
+ const dir=await fs.mkdtemp(path.join(os.tmpdir(),'bioez-update-'));t.after(()=>fs.rm(dir,{recursive:true,force:true}));
  const sent=[];let now=Date.now();t.mock.method(Date,'now',()=>now);
  const app={isPackaged:true,getPath:()=>dir};
  const make=()=>createUpdater({app,shell:{},releaseInfo:{updates:async()=>({status:'available',version:'0.1.3',url:'https://github.com/x/y.dmg',size:1})},send:v=>sent.push(v)});

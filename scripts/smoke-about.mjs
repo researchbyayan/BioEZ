@@ -1,9 +1,9 @@
 import {_electron as electron,expect} from '@playwright/test';
 import {mkdtemp,rm,mkdir} from 'node:fs/promises';import {createServer} from 'node:http';import path from 'node:path';import os from 'node:os';
 import {root} from './python-path.mjs';
-const profile=await mkdtemp(path.join(os.tmpdir(),'ChemEZ release QA ü '));const packaged=process.argv.includes('--packaged');
+const profile=await mkdtemp(path.join(os.tmpdir(),'BioEZ release QA ü '));const packaged=process.argv.includes('--packaged');
 const captureReadme=process.argv.includes('--capture-readme');
-const executable=process.env.CHEMEZ_ELECTRON_EXE||(packaged?path.join(root,'release',process.platform==='darwin'?(process.arch==='arm64'?'mac-arm64':'mac')+'/ChemEZ.app/Contents/MacOS/ChemEZ':process.platform==='win32'?'win-unpacked/ChemEZ.exe':'linux-unpacked/chemez'):undefined);
+const executable=process.env.BIOEZ_ELECTRON_EXE||(packaged?path.join(root,'release',process.platform==='darwin'?(process.arch==='arm64'?'mac-arm64':'mac')+'/BioEZ.app/Contents/MacOS/BioEZ':process.platform==='win32'?'win-unpacked/BioEZ.exe':'linux-unpacked/bioez'):undefined);
 const answer={blocks:[{type:'reaction',caption:'Grignard addition to a ketone gives a tertiary alcohol',reactants:[{smiles:'CC(=O)C',label:'Acetone'},{smiles:'C[Mg]Br',label:'Methylmagnesium bromide'}],products:[{smiles:'CC(C)(C)O',label:'tert-Butanol'}],reagents:'1. CH3MgBr, Et2O  2. H3O+',conditions:'Dry ether, then dilute acid'}]};
 if(captureReadme){
  answer.blocks=[
@@ -15,10 +15,10 @@ const server=createServer((req,res)=>{let body='';req.on('data',chunk=>body+=chu
 let instance;
 try{
  const captureArgs=captureReadme?['--force-device-scale-factor=2']:[];
- instance=await electron.launch({...(executable?{executablePath:executable,args:captureArgs}:{args:[...captureArgs,path.join(root,'electron/main.cjs')]}),env:{...process.env,CHEMEZ_PROFILE:profile,CHEMEZ_SESSION_ONLY:'1'},timeout:60000});
+ instance=await electron.launch({...(executable?{executablePath:executable,args:captureArgs}:{args:[...captureArgs,path.join(root,'electron/main.cjs')]}),env:{...process.env,BIOEZ_PROFILE:profile,BIOEZ_SESSION_ONLY:'1'},timeout:60000});
  const page=await instance.firstWindow();const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.evaluate(()=>localStorage.setItem('chemez-level','undergraduate'));
- await page.evaluate(config=>window.chemez.request('saveConfig',config),{provider:'compatible',endpoint:`http://127.0.0.1:${server.address().port}/v1`,model:captureReadme?'ChemEZ demo':'release-fixture',auth_mode:'none'});await page.reload();
+ await page.evaluate(()=>localStorage.setItem('bioez-level','undergraduate'));
+ await page.evaluate(config=>window.bioez.request('saveConfig',config),{provider:'compatible',endpoint:`http://127.0.0.1:${server.address().port}/v1`,model:captureReadme?'BioEZ demo':'release-fixture',auth_mode:'none'});await page.reload();
  if(process.argv.includes('--preview-only')||process.argv.includes('--capture-readme')){
   if(captureReadme)await instance.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1120,1060));
   await page.getByRole('textbox',{name:'Chemistry question'}).fill(captureReadme?'Acetone + methylmagnesium bromide, then acidic workup: what forms?':'Show Grignard addition of methylmagnesium bromide to acetone');await page.getByRole('button',{name:'Send question',exact:true}).click();await expect(page.locator('.reaction-card')).toBeVisible({timeout:60000});
@@ -43,7 +43,7 @@ try{
     return {x:messages.x,y:prompt.y,width:messages.width,height:answer.bottom-prompt.y+12};
    });
    await page.screenshot({path:path.join(root,'docs/images/chemistry-chat-demo.png'),clip,scale:'device'});
-   console.log(`README prompt and complete answer captured from ChemEZ at ${scale}x density. Fixed demo response through the real backend and RDKit, with no live provider calls.`);
+   console.log(`README prompt and complete answer captured from BioEZ at ${scale}x density. Fixed demo response through the real backend and RDKit, with no live provider calls.`);
   }else{
   await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'About',exact:true}).click();
   await expect(page.locator('.about-app-menu')).toBeVisible();await instance.evaluate(({BrowserWindow})=>{const win=BrowserWindow.getAllWindows()[0];win.setSize(1100,820);win.show();win.focus();});await page.bringToFront();
@@ -55,7 +55,7 @@ try{
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'About',exact:true}).click();
  await expect(page.getByText('Application license: MIT.',{exact:false})).toBeVisible();
  await page.getByText(/Credits & licenses \(/).click();await page.getByLabel('Search credits').fill('seq_encode');await page.locator('.credit-entry summary').filter({hasText:'seq_encode'}).click();await page.getByRole('button',{name:'Read license',exact:true}).click();await expect(page.locator('.license-reader pre')).toContainText('MIT');
- const result=await page.evaluate(()=>window.chemez.license('../../credentials').then(()=>false,()=>true));if(!result)throw new Error('License path traversal accepted.');
+ const result=await page.evaluate(()=>window.bioez.license('../../credentials').then(()=>false,()=>true));if(!result)throw new Error('License path traversal accepted.');
  await page.getByText('App details',{exact:true}).click();await page.getByRole('button',{name:'Copy app information'}).click();await expect(page.getByRole('status')).toContainText('App information copied.');
  await mkdir(path.join(root,'test-results/release'),{recursive:true});await page.screenshot({path:path.join(root,'test-results/release/about.png')});
  await page.keyboard.press('Escape');

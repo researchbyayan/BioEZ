@@ -62,4 +62,4 @@ export interface Bridge {
   onEvent(callback:(event:ChatEvent)=>void):()=>void;
   onBackdrop?(callback:(value:'light'|'dark')=>void):()=>void;
 }
-declare global {interface Window {chemez:Bridge} const __APP_VERSION__:string}
+declare global {interface Window {bioez:Bridge} const __APP_VERSION__:string}

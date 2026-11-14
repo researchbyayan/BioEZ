@@ -1,8 +1,8 @@
 import json
 import pytest
 from rdkit import Chem
-from chemez import mechanisms, drawing
-from chemez.app import prepare_answer
+from bioez import mechanisms, drawing
+from bioez.app import prepare_answer
 
 FAMILIES = [
     ('SN2', ['CCBr', '[OH-]'], 'CCO.[Br-]'), ('SN1', ['CC(C)(C)Br', 'O'], None), ('E2', ['CC(C)Br', '[O-]CC'], None),
@@ -55,14 +55,14 @@ def test_every_built_mechanism_names_its_family():
 
 
 def test_the_family_badge_survives_reopening_a_chat():
-    from chemez.app import restored_block
+    from bioez.app import restored_block
     blocks, _ = prepare_answer(json.dumps({'blocks': [mechanisms.build('SN2', ['CCBr', '[OH-]'])]}))
     assert restored_block(blocks[0])['family'] == 'SN2'
 
 
 def test_spectra_asks_for_ms_intensities_when_the_table_has_none(monkeypatch):
-    from chemez.styles import command_issue
-    from chemez import nmr
+    from bioez.styles import command_issue
+    from bioez import nmr
     monkeypatch.setattr(nmr, 'issue', lambda *args: None)  # only the MS rule is under test here
     table = lambda header: [{'type': 'molecule', 'smiles': 'O'}, {'type': 'markdown', 'text': '**MS**\n\n' + header + '\n|---|---|\n| 18 | M+ |'}]
     assert 'Relative intensity' in command_issue('spectra', table('| m/z | Ion |'))

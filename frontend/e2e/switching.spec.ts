@@ -4,15 +4,15 @@ import {test,expect,type Page} from '@playwright/test';
 // switched and created while it runs.
 async function mockChats(page:Page){
   await page.addInitScript(()=>{
-    localStorage.setItem('chemez-level','undergraduate');
+    localStorage.setItem('bioez-level','undergraduate');
     type Chat={id:string;title:string;pinned:boolean;archived:boolean;updated:string;messages:unknown[]};
     const chats=new Map<string,Chat>();
     const add=(id:string,title:string,question:string,answer:string)=>chats.set(id,{id,title,pinned:false,archived:false,updated:'2026-10-29T10:00:00Z',messages:[{id:id+'-u',role:'user',content:{text:question,images:[]}},{id:id+'-a',role:'assistant',content:[{id:'m',type:'markdown',text:answer}]}]});
     add('chat-1','Ethanol polarity','Why is ethanol polar?','Ethanol has an O–H bond.');
     add('chat-2','Benzene resonance','Draw benzene resonance','Benzene has two Kekulé structures.');
     let listener:(event:unknown)=>void=()=>{};let next=3;
-    const w=window as unknown as {chemez:unknown;release:()=>void};
-    w.chemez={
+    const w=window as unknown as {bioez:unknown;release:()=>void};
+    w.bioez={
       request:async(command:string,payload:unknown)=>{
         if(command==='getConfig')return {config:{provider:'openai',model:'m',endpoint:''},has_key:true,ready:true,warning:''};
         if(command==='listConversations')return Array.from(chats.values()).map(({messages,...chat})=>chat).sort((a,b)=>b.updated.localeCompare(a.updated));
@@ -141,7 +141,7 @@ test('streamed answers do not force the reader to the bottom',async({page})=>{
 
 test('native fullscreen preference persists and controls the window expand action',async({page})=>{
   await mockChats(page);await page.goto('/');
-  await page.evaluate(()=>{const w=window as unknown as {chemez:{windowAction:(a:string)=>Promise<boolean>};windowActions:string[]};w.windowActions=[];w.chemez.windowAction=async action=>{w.windowActions.push(action);return true;};});
+  await page.evaluate(()=>{const w=window as unknown as {bioez:{windowAction:(a:string)=>Promise<boolean>};windowActions:string[]};w.windowActions=[];w.bioez.windowAction=async action=>{w.windowActions.push(action);return true;};});
   await page.getByRole('button',{name:'Maximize or restore window'}).click();
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {windowActions:string[]}).windowActions.includes('toggle-maximize'))).toBe(true);
   await page.getByRole('button',{name:'Settings',exact:true}).click();
@@ -351,7 +351,7 @@ test('spectra tables always receive local graphs with axes and prediction limits
   const tableFrame=page.locator('.markdown-table-scroll').first();
   await expect(tableFrame).toHaveCSS('border-top-width','1px');await expect(tableFrame).toHaveCSS('border-bottom-width','1px');
   await page.locator('.spectrum-figure').first().scrollIntoViewIfNeeded();
-  await page.evaluate(()=>{window.chemez.saveImage=async payload=>{(window as unknown as {savedSpectrum:string}).savedSpectrum=payload.data;return true;};});
+  await page.evaluate(()=>{window.bioez.saveImage=async payload=>{(window as unknown as {savedSpectrum:string}).savedSpectrum=payload.data;return true;};});
   await page.getByRole('button',{name:'Save IR graph as PNG',exact:true}).click();
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {savedSpectrum?:string}).savedSpectrum?.slice(0,8))).toBe('iVBORw0K');
   await page.screenshot({path:test.info().outputPath('spectra-graphs.png')});
@@ -361,10 +361,10 @@ test('spectra tables always receive local graphs with axes and prediction limits
 test('reference dialog resolves an inline citation to an openable DOI and copies corrected metadata',async({page})=>{
   await mockChats(page);await page.goto('/');await ask(page,'Give me the apple study reference');
   await page.evaluate(()=>{
-    const w=window as unknown as {emit:(e:unknown)=>void;openedSource?:string;copiedSource?:string;chemez:{request:(c:string,p?:unknown)=>Promise<unknown>;openReference:(url:string)=>Promise<boolean>}};
-    const request=w.chemez.request;
-    w.chemez.request=async(c,p)=>c==='resolveCitation'?{status:'matched',title:'Association Between Apple Consumption and Physician Visits',url:'https://doi.org/10.1001/jamainternmed.2014.5466',citation:'Davis MA et al. JAMA Internal Medicine. 2015;175(5):777–783.',provenance:'Publication metadata matched via Crossref; answer claims are not verified.'}:request(c,p);
-    w.chemez.openReference=async url=>{w.openedSource=url;return true;};
+    const w=window as unknown as {emit:(e:unknown)=>void;openedSource?:string;copiedSource?:string;bioez:{request:(c:string,p?:unknown)=>Promise<unknown>;openReference:(url:string)=>Promise<boolean>}};
+    const request=w.bioez.request;
+    w.bioez.request=async(c,p)=>c==='resolveCitation'?{status:'matched',title:'Association Between Apple Consumption and Physician Visits',url:'https://doi.org/10.1001/jamainternmed.2014.5466',citation:'Davis MA et al. JAMA Internal Medicine. 2015;175(5):777–783.',provenance:'Publication metadata matched via Crossref; answer claims are not verified.'}:request(c,p);
+    w.bioez.openReference=async url=>{w.openedSource=url;return true;};
     Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async(text:string)=>{w.copiedSource=text;}}});
     w.emit({type:'block',block:{id:'reference',type:'markdown',text:'An analysis found no difference (Davis et al., “Association Between Apple Consumption and Physician Visits,” JAMA Intern Med 175: 1347–1349).'}});
   });
@@ -386,7 +386,7 @@ test('reference dialog resolves an inline citation to an openable DOI and copies
 test('brand has no Tab outline and settings focus rings stay inset',async({page})=>{
   await mockChats(page);await page.goto('/');
   await page.keyboard.press('Tab');
-  const brand=page.getByRole('link',{name:'ChemEZ home'});await brand.focus();
+  const brand=page.getByRole('link',{name:'BioEZ home'});await brand.focus();
   await expect(brand).toHaveCSS('outline-style','none');
   await page.getByRole('button',{name:'Settings',exact:true}).click();
   const general=page.getByRole('button',{name:'General',exact:true});await page.keyboard.press('Tab');await general.focus();
@@ -398,12 +398,12 @@ test('brand has no Tab outline and settings focus rings stay inset',async({page}
 test('one loading status, one submission and one active stream listener under dev StrictMode',async({page})=>{
   await mockChats(page);
   await page.addInitScript(()=>{
-    const w=window as unknown as {audit:{reads:Record<string,number>;listeners:number;submissions:number;duplicateStatuses:number};beginAnswer:()=>void;chemez:{request:(command:string,payload?:unknown)=>Promise<unknown>;onEvent:(callback:(event:unknown)=>void)=>()=>void;chat:(payload:unknown)=>Promise<void>}};
+    const w=window as unknown as {audit:{reads:Record<string,number>;listeners:number;submissions:number;duplicateStatuses:number};beginAnswer:()=>void;bioez:{request:(command:string,payload?:unknown)=>Promise<unknown>;onEvent:(callback:(event:unknown)=>void)=>()=>void;chat:(payload:unknown)=>Promise<void>}};
     w.audit={reads:{},listeners:0,submissions:0,duplicateStatuses:0};
-    const request=w.chemez.request,subscribe=w.chemez.onEvent,chat=w.chemez.chat;
-    w.chemez.request=async(command,payload)=>{w.audit.reads[command]=(w.audit.reads[command]||0)+1;return request(command,payload);};
-    w.chemez.onEvent=callback=>{w.audit.listeners++;const stop=subscribe(callback);return()=>{w.audit.listeners--;stop();};};
-    w.chemez.chat=async payload=>{w.audit.submissions++;await new Promise<void>(resolve=>{w.beginAnswer=resolve;});await chat(payload);};
+    const request=w.bioez.request,subscribe=w.bioez.onEvent,chat=w.bioez.chat;
+    w.bioez.request=async(command,payload)=>{w.audit.reads[command]=(w.audit.reads[command]||0)+1;return request(command,payload);};
+    w.bioez.onEvent=callback=>{w.audit.listeners++;const stop=subscribe(callback);return()=>{w.audit.listeners--;stop();};};
+    w.bioez.chat=async payload=>{w.audit.submissions++;await new Promise<void>(resolve=>{w.beginAnswer=resolve;});await chat(payload);};
     const observer=new MutationObserver(()=>{if(document.querySelectorAll('[data-pending-answer=true] [role=status]').length>1)w.audit.duplicateStatuses++;});
     observer.observe(document,{childList:true,subtree:true});
   });
@@ -424,9 +424,9 @@ test('one loading status, one submission and one active stream listener under de
 
 test('existing follow-up hints do not trigger another model request',async({page})=>{
   await mockChats(page);await page.addInitScript(()=>{
-    const w=window as unknown as {hintCalls:number;chemez:{request:(command:string,payload?:unknown)=>Promise<any>}};
-    const request=w.chemez.request;w.hintCalls=0;
-    w.chemez.request=async(command,payload)=>{
+    const w=window as unknown as {hintCalls:number;bioez:{request:(command:string,payload?:unknown)=>Promise<any>}};
+    const request=w.bioez.request;w.hintCalls=0;
+    w.bioez.request=async(command,payload)=>{
       if(command==='suggestQuestion'){w.hintCalls++;return {question:'A new hint for another mode?'};}
       const result=await request(command,payload);
       if(command==='getConversation')for(const message of result.messages)if(message.role==='assistant'){message.response_style='concise';message.follow_ups=['Why does ethanol dissolve in water?'];}
@@ -441,7 +441,7 @@ test('existing follow-up hints do not trigger another model request',async({page
 test('saved chats open at their latest message',async({page})=>{
   await mockChats(page);
   await page.addInitScript(()=>{
-    const bridge=window.chemez,original=bridge.request.bind(bridge);
+    const bridge=window.bioez,original=bridge.request.bind(bridge);
     bridge.request=(async(command:string,payload:unknown)=>{
       if(command==='getConversation')return {messages:Array.from({length:30},(_,i)=>({id:'saved-'+i,role:i%2?'assistant':'user',content:i%2?[{id:'b'+i,type:'markdown',text:'Saved answer '+i}]:{text:'Saved question '+i,images:[]}}))};
       return original(command as 'getConversation',payload as string);
@@ -455,7 +455,7 @@ test('saved chats open at their latest message',async({page})=>{
 test('retry preserves the selected question and original command and mode',async({page})=>{
   await mockChats(page);
   await page.addInitScript(()=>{
-    const bridge=window.chemez,original=bridge.request.bind(bridge);
+    const bridge=window.bioez,original=bridge.request.bind(bridge);
     const messages=[{id:'q1',role:'user',content:{text:'Why is iodine unreactive?',images:[]}},{id:'a1',role:'assistant',content:[{id:'b1',type:'markdown',text:'An earlier chemistry answer.'}]},{id:'q2',role:'user',content:{text:'Does fruit juice help?',command:null,images:[]}},{id:'a2',role:'assistant',response_style:'concise',content:[{id:'b2',type:'markdown',text:'The nutrition answer.'}]}];
     bridge.request=(async(command:string,payload:unknown)=>{
       if(command==='getConversation')return {messages};
@@ -474,7 +474,7 @@ test('retry preserves the selected question and original command and mode',async
 test('inline HTTPS sources open through the desktop bridge',async({page})=>{
   await mockChats(page);
   await page.addInitScript(()=>{
-    const bridge=window.chemez,original=bridge.request.bind(bridge);
+    const bridge=window.bioez,original=bridge.request.bind(bridge);
     bridge.request=(async(command:string,payload:unknown)=>command==='getConversation'?{messages:[{id:'linked',role:'assistant',content:[{id:'link',type:'markdown',text:'Read the [source](https://example.org/paper).'}]}]}:original(command as 'getConversation',payload as string)) as typeof bridge.request;
     bridge.openReference=async url=>{(window as unknown as {opened:string}).opened=url;return true;};
   });
@@ -502,7 +502,7 @@ test('editing and follow-up share a tall divided composer and round close button
 });
 
 test('floating reply pill opens when hovering its visible position',async({page})=>{
-  await mockChats(page);await page.addInitScript(()=>localStorage.setItem('chemez-composer-docked','off'));
+  await mockChats(page);await page.addInitScript(()=>localStorage.setItem('bioez-composer-docked','off'));
   await page.goto('/');await history(page).getByTitle('Ethanol polarity',{exact:true}).click();
   await page.getByRole('button',{name:'Reply to this answer',exact:true}).click();
   await page.mouse.click(280,100);await page.mouse.move(280,90);

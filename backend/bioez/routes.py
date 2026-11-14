@@ -1,7 +1,7 @@
-"""Standard textbook routes ChemEZ can draw itself for /synthesis, keyed by start and target.
+"""Standard textbook routes BioEZ can draw itself for /synthesis, keyed by start and target.
 
 Each step is (reactant SMILES, product SMILES, reagents, conditions, caption). The model is
-given the route to explain; if it still returns no reaction blocks, ChemEZ draws these.
+given the route to explain; if it still returns no reaction blocks, BioEZ draws these.
 """
 import re
 from rdkit import Chem

@@ -98,7 +98,7 @@ def prepare_answer(text):
     for item in [part for item in data['blocks'] for part in expand_resonance(item)]:
         try:
             if isinstance(item,dict) and item.get('type')=='mechanism' and item.get('name') and isinstance(item.get('reactants'),list):
-                # Built-in shortcut: ChemEZ draws the named mechanism from the reactants.
+                # Built-in shortcut: BioEZ draws the named mechanism from the reactants.
                 item=mechanisms.build(item['name'],[r for r in item['reactants'] if isinstance(r,str)])
             # Preserve prose accidentally attached to an otherwise typed diagram.
             # This is a presentation normalization, not a chemistry correction.
@@ -119,14 +119,14 @@ def prepare_answer(text):
                 rendered=render_block(block)
             except ValueError:
                 if block.type=='mechanism' and (rebuilt:=mechanisms.recognise(item,data['blocks'])):
-                    # The model's panels could not be read: draw the named mechanism ChemEZ knows.
+                    # The model's panels could not be read: draw the named mechanism BioEZ knows.
                     result.append(render_block(block_adapter.validate_python(rebuilt)))
                     continue
                 if block.type!='resonance':
                     raise
                 rendered=None
             if block.type=='resonance' and (rendered is None or any(c.get('limitation') for c in rendered['contributors'])):
-                # The model's contributors did not check out: draw the series ChemEZ derives itself.
+                # The model's contributors did not check out: draw the series BioEZ derives itself.
                 regenerated=expand_resonance(item,generate=True)
                 if len(regenerated)==1 and regenerated[0].get('type')=='resonance':
                     try:
@@ -408,7 +408,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                     raise ProviderError('The provider test response exceeded the size limit.')
             blocks,failed = await native_work('answer',''.join(chunks))
             if failed:
-                raise ProviderError('The provider connected but did not produce a valid ChemEZ answer. Try a different text model.')
+                raise ProviderError('The provider connected but did not produce a valid BioEZ answer. Try a different text model.')
             return {'ok':True}
         except (ProviderError,ProcessingError) as exc:
             raise HTTPException(502,str(exc)) from exc
@@ -516,7 +516,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
         """A short model answer (markdown text, follow-ups) for routed questions; never structures."""
         provider=provider_factory(config,key)
         chunks=[]
-        async for chunk in provider.stream([{'role':'user','content':{'text':instruction,'images':[]}}],system=answer_system(SYSTEM,'concise',level)+'\nFor this request return exactly one markdown block and no diagrams: ChemEZ draws the verified structures itself.'):
+        async for chunk in provider.stream([{'role':'user','content':{'text':instruction,'images':[]}}],system=answer_system(SYSTEM,'concise',level)+'\nFor this request return exactly one markdown block and no diagrams: BioEZ draws the verified structures itself.'):
             chunks.append(chunk)
         answer=decode_answer(''.join(chunks))
         text=' '.join(b.get('text','') for b in answer.get('blocks',[]) if b.get('type')=='markdown').strip()
@@ -535,7 +535,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
         return not title or bool(GENERIC.match(title.strip()))
 
     def decisions():
-        return os.environ.get('CHEMEZ_MODEL_DECISIONS')!='0'
+        return os.environ.get('BIOEZ_MODEL_DECISIONS')!='0'
 
     async def ask_plain(config,key,instruction):
         """The model's raw reply to a short decision request (no answer formatting)."""
@@ -701,20 +701,20 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                     provider = provider_factory(config,key)
                     # Verified structures for compounds the question names (scenarios D and H).
                     named=router.named_structures(payload.text)
-                    verified=('\nVerified structures for compounds in this question (formula and molar mass computed by ChemEZ; use these exact values): '+'; '.join(f'{n} = {smi} ({facts["formula"]}, {facts["molar_mass"]} g/mol)' for n,smi in named.items() for facts in [computed(smi)])) if named else ''
-                    # SMILES typed in the question: ChemEZ states their formula and mass itself.
+                    verified=('\nVerified structures for compounds in this question (formula and molar mass computed by BioEZ; use these exact values): '+'; '.join(f'{n} = {smi} ({facts["formula"]}, {facts["molar_mass"]} g/mol)' for n,smi in named.items() for facts in [computed(smi)])) if named else ''
+                    # SMILES typed in the question: BioEZ states their formula and mass itself.
                     typed=[token for token in re.findall(r'[A-Za-z0-9@+\-\[\]()=#$/\\%.]{3,}',question) if re.search(r'[()=#\[\]]|[a-z][0-9]|^[CNOS][CNOScnos]',token) and not token.isalpha()]
                     for token in typed:
                         try:
                             facts=computed(token)
                         except Exception:
                             continue
-                        verified+=f'\nThe learner\'s SMILES {token} is {facts["formula"]}, {facts["molar_mass"]} g/mol (computed by ChemEZ; use exactly).'
+                        verified+=f'\nThe learner\'s SMILES {token} is {facts["formula"]}, {facts["molar_mass"]} g/mol (computed by BioEZ; use exactly).'
                     if command=='spectra':
                         for smiles_text in [*named.values(),*typed][:2]:
                             described=nmr.facts(smiles_text)
                             if described:
-                                verified+=f'\nStructure facts for {smiles_text} from ChemEZ (reason from these; one ¹³C signal per carbon environment, ¹H integrations sum to the H count): '+described['text']+'\nFill in every ? of this table template (keep every row; add IR rows as needed) and return it as one markdown block after the molecule block:\n'+described['template']
+                                verified+=f'\nStructure facts for {smiles_text} from BioEZ (reason from these; one ¹³C signal per carbon environment, ¹H integrations sum to the H count): '+described['text']+'\nFill in every ? of this table template (keep every row; add IR rows as needed) and return it as one markdown block after the molecule block:\n'+described['template']
                     route=routes.find(question) if command=='synthesis' else None
                     if route:
                         verified+='\nVerified textbook route for this synthesis (draw each step as a reaction block): '+routes.describe(route)
@@ -747,7 +747,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                         raw=''.join(chunks)
                         # Opt-in evaluation capture: only synthetic test prompts/answers.
                         # Never record config, HTTP headers, or provider credentials.
-                        capture=os.environ.get('CHEMEZ_EVAL_CAPTURE')
+                        capture=os.environ.get('BIOEZ_EVAL_CAPTURE')
                         if capture:
                             destination=Path(capture)
                             destination.mkdir(parents=True,exist_ok=True)
@@ -800,7 +800,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                             failed = True
                         if payload.response_style=='mechanism' and not command and not any(b['type'] in ('resonance','clarification') for b in blocks) and (failed or not any(b['type']=='mechanism' for b in blocks)):
                             # The model explained a pathway without drawing it, or drew it wrongly: when it is a
-                            # family ChemEZ builds, draw it from the answer's own structures instead of asking again.
+                            # family BioEZ builds, draw it from the answer's own structures instead of asking again.
                             rebuilt=mechanisms.recognise({'steps':[]},blocks+[{'type':'markdown','text':question}])
                             if rebuilt:
                                 try:
@@ -828,7 +828,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                         messages = [*messages,{'role':'assistant','content':raw},{'role':'user','content':'Repair the answer JSON, chemistry, and selected answer mode. Return the complete answer with valid blocks. Answer only this current learner question (earlier turns are context, not the task): '+json.dumps(question)+'. Do not switch back to an earlier topic. Do not mention validation, previous answers, internal retries, or the repair request. Validation issues: '+json.dumps([b['text'] for b in blocks if b['type']=='error']+([issue] if issue else []))}]
                     blocks,failed,raw=best
                     if command in ('spectra','nomenclature') and not any(block['type']=='molecule' for block in blocks):
-                        # ChemEZ draws the compound the question names or types when the model did not.
+                        # BioEZ draws the compound the question names or types when the model did not.
                         known=next(iter(named.values()),None) or (typed[0] if typed else None)
                         if known:
                             drawn,_=await native_work('answer',json.dumps({'blocks':[{'type':'molecule','smiles':known,'label':next(iter(named),'').capitalize()}]}),timeout=60,wait=60)
@@ -855,14 +855,14 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                             envelope=None
                         if envelope:blocks.append({'id':str(uuid4()),'type':'markdown','text':envelope})
                     if route and not any(block['type']=='reaction' for block in blocks):
-                        # The model explained the route without drawing it: ChemEZ draws the verified steps.
+                        # The model explained the route without drawing it: BioEZ draws the verified steps.
                         drawn,_=await native_work('answer',json.dumps({'blocks':routes.blocks(route)}),timeout=60,wait=60)
                         blocks=drawn+[block for block in blocks if block['type']=='markdown']
                         failed=False
                     # Mechanism mode keeps its verified panels; the drawing step is for ordinary answers.
                     if not command and payload.response_style!='mechanism' and decisions() and drawing.needed(raw,blocks):
                         # The drawing follows the answer: the model reads what it wrote and picks
-                        # the diagram; ChemEZ draws that choice and keeps the old one if it fails.
+                        # the diagram; BioEZ draws that choice and keeps the old one if it fails.
                         # The text is ready: it types out while the drawing is chosen and drawn.
                         draft='\n\n'.join(b['text'] for b in blocks if b['type']=='markdown')
                         if draft:
@@ -954,7 +954,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                 raise
             except Exception:
                 import logging
-                logging.getLogger('chemez').exception('Local answer processing failed')
+                logging.getLogger('bioez').exception('Local answer processing failed')
                 block = error_block('The local service could not complete this answer. Please retry.')
                 store.add(cid,'assistant',[block],response_style=payload.response_style)
                 yield event('block',block=block)

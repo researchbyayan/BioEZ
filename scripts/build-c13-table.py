@@ -1,4 +1,4 @@
-"""Build ChemEZ's ¹³C shift table from NMRShiftDB2 (nmrshiftdb2withsignals.sd).
+"""Build BioEZ's ¹³C shift table from NMRShiftDB2 (nmrshiftdb2withsignals.sd).
 
 Usage: python scripts/build-c13-table.py path/to/nmrshiftdb2withsignals.sd
 
@@ -11,7 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
 from rdkit import Chem, RDLogger
-from chemez.c13 import environment_keys, RADII
+from bioez.c13 import environment_keys, RADII
 
 RDLogger.DisableLog('rdApp.*')
 SIGNAL = re.compile(r'([\d.]+);[^;|]*;(\d+)')
@@ -39,7 +39,7 @@ def main(source):
     for (radius, key), values in shifts.items():
         if len(values) >= (1 if radius < 4 else 2):
             table.setdefault(str(radius), {})[key] = [round(statistics.median(values), 1), len(values)]
-    out = Path(__file__).resolve().parents[1] / 'backend' / 'chemez' / 'data' / 'c13_shifts.json.gz'
+    out = Path(__file__).resolve().parents[1] / 'backend' / 'bioez' / 'data' / 'c13_shifts.json.gz'
     out.parent.mkdir(exist_ok=True)
     with gzip.open(out, 'wt', encoding='utf8') as handle:
         json.dump({'source': 'NMRShiftDB2 (nmrshiftdb2withsignals.sd)', 'molecules': used, 'radii': RADII, 'table': table}, handle, separators=(',', ':'))

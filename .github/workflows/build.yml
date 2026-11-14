@@ -70,14 +70,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: chemez-${{ matrix.target }}-test-evidence
+          name: bioez-${{ matrix.target }}-test-evidence
           path: |
             test-results/
             playwright-report/
           if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:
-          name: chemez-${{ matrix.target }}
+          name: bioez-${{ matrix.target }}
           path: |
             release/*.dmg
             release/*.exe
@@ -97,7 +97,7 @@ jobs:
         run: test "$(node -p "require('./package.json').version")" = "${{ github.ref_name }}"
       - uses: actions/download-artifact@v4
         with:
-          pattern: chemez-*
+          pattern: bioez-*
           path: out
       - name: Publish release
         env:
@@ -106,5 +106,5 @@ jobs:
           mkdir release
           find out -path '*test-evidence*' -prune -o -type f -print -exec cp {} release/ \;
           rm -f release/latest-mac.yml
-          cd release && sha256sum ChemEZ-* > SHA256SUMS.txt
-          gh release create "${{ github.ref_name }}" * --title "ChemEZ ${{ github.ref_name }}" --generate-notes
+          cd release && sha256sum BioEZ-* > SHA256SUMS.txt
+          gh release create "${{ github.ref_name }}" * --title "BioEZ ${{ github.ref_name }}" --generate-notes

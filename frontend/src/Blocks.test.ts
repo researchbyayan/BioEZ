@@ -22,7 +22,7 @@ it('uses chlorine as the caption and formats its separate molecular formula',()=
 });
 
 it('shows Click Here for both bare URLs and named Markdown links',()=>{
- const html=render({type:'markdown',text:'URL: https://doi.org/10.3945/an.112.002154 and [website](https://researchbyayan.github.io/ChemEZ/).'});
+ const html=render({type:'markdown',text:'URL: https://doi.org/10.3945/an.112.002154 and [website](https://researchbyayan.github.io/BioEZ/).'});
  expect(html.match(/>Click Here<\/a>/g)).toHaveLength(2);
  expect(html).not.toContain('>https://');expect(html).not.toContain('>website</a>');
 });

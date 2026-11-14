@@ -92,10 +92,10 @@ function PropertiesView({data}:{data:Structure3D}){
     <p className="smiles-explorer-credit">Calculated with RDKit from the drawn structure. logP and polar surface area are estimates.</p></>;
 }
 
-// Functional groups highlight on hover/focus; idea from chemdraw-mcp and openmolclaw, drawn by ChemEZ's RDKit backend.
+// Functional groups highlight on hover/focus; idea from chemdraw-mcp and openmolclaw, drawn by BioEZ's RDKit backend.
 function GroupsView({smiles}:{smiles:string}){
   const [data,setData]=useState<StructureAnalysis|null>(null),[failed,setFailed]=useState(false),[active,setActive]=useState<number|null>(null),[copied,setCopied]=useState('');
-  useEffect(()=>{let live=true;window.chemez.request('analyseStructure',{smiles}).then(result=>{if(live)setData(result);}).catch(()=>{if(live)setFailed(true);});return()=>{live=false;};},[smiles]);
+  useEffect(()=>{let live=true;window.bioez.request('analyseStructure',{smiles}).then(result=>{if(live)setData(result);}).catch(()=>{if(live)setFailed(true);});return()=>{live=false;};},[smiles]);
   if(failed)return <p className="notice error" role="alert">Functional groups could not be analysed for this structure.</p>;
   if(!data)return <p className="smiles-explorer-status" role="status">Finding functional groups…</p>;
   const svg=active===null?data.stereo_svg:data.groups[active].svg;
@@ -114,7 +114,7 @@ function Structure2D({molecule:m}:{molecule:Molecule}){
   const [pairs,setPairs]=useState(false),[hydrogens,setHydrogens]=useState(false),[zoom,setZoom]=useState(100);
   const [data,setData]=useState<StructureAnalysis|null>(null),[error,setError]=useState('');
   const needsData=pairs||hydrogens;
-  useEffect(()=>{if(!needsData||data||error)return;let live=true;window.chemez.request('analyseStructure',{smiles:m.smiles}).then(value=>{if(live)setData(value);}).catch(()=>{if(live)setError('This depiction could not be prepared. The original structure is still available.');});return()=>{live=false;};},[needsData,data,error,m.smiles]);
+  useEffect(()=>{if(!needsData||data||error)return;let live=true;window.bioez.request('analyseStructure',{smiles:m.smiles}).then(value=>{if(live)setData(value);}).catch(()=>{if(live)setError('This depiction could not be prepared. The original structure is still available.');});return()=>{live=false;};},[needsData,data,error,m.smiles]);
   const enhanced=hydrogens?(pairs?data?.lewis_hydrogens_svg:data?.hydrogens_svg):data?.lewis_svg;
   const svg=needsData?enhanced:m.svg;
   const baseWidth=Math.max(120,Math.min(640,Number(svg?.match(/\bwidth=[\"']([0-9.]+)/)?.[1]||240)*1.5));
@@ -144,7 +144,7 @@ export function SmilesExplorer({molecule:m,onClose}:{molecule:Molecule;onClose:(
   const [failed,setFailed]=useState(false);
   const geometry=useRef<{smiles:string;promise:Promise<Structure3D>}|null>(null);
   useEffect(()=>{
-    if(!geometry.current||geometry.current.smiles!==m.smiles)geometry.current={smiles:m.smiles,promise:window.chemez.request('structure3d',{smiles:m.smiles})};
+    if(!geometry.current||geometry.current.smiles!==m.smiles)geometry.current={smiles:m.smiles,promise:window.bioez.request('structure3d',{smiles:m.smiles})};
     let live=true;
     geometry.current.promise.then(result=>{if(live)setData(result);}).catch(()=>{if(live)setFailed(true);});
     return()=>{live=false;};

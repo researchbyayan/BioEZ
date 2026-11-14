@@ -41,7 +41,7 @@ export default function App(){
   const submission=useRef<UserContent|null>(null);
   const submissionStarted=useRef(false);
   const [messages,setMessages]=useState<Message[]>([]);
-  const [input,setInput]=useState(()=>localStorage.getItem('chemez-draft')||'');
+  const [input,setInput]=useState(()=>localStorage.getItem('bioez-draft')||'');
   const [images,setImages]=useState<ImageAttachment[]>([]);
   const [busy,setBusy]=useState(false);
   // The chat whose answer is generating; other chats stay open to browse and start meanwhile.
@@ -79,7 +79,7 @@ export default function App(){
   const pinRelease=useRef<(()=>void)|null>(null);
   const [showJump,setShowJump]=useState(false);
   const [search,setSearch]=useState('');
-  const [collapsed,setCollapsed]=useState(()=>localStorage.getItem('chemez-sidebar')==='collapsed');
+  const [collapsed,setCollapsed]=useState(()=>localStorage.getItem('bioez-sidebar')==='collapsed');
   const [composerMenu,setComposerMenu]=useState(false);
   const [toolsPlacement,setToolsPlacement]=useState({below:false,room:380});
   useEffect(()=>{
@@ -89,13 +89,13 @@ export default function App(){
     document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);
     return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);};
   },[composerMenu]);
-  const [composerDocked,setComposerDocked]=useState(()=>localStorage.getItem('chemez-composer-docked')!=='off');
+  const [composerDocked,setComposerDocked]=useState(()=>localStorage.getItem('bioez-composer-docked')!=='off');
   const [replyTarget,setReplyTarget]=useState<{id:string;text:string}|null>(null);
   useEffect(()=>{setReplyTarget(null);setComposerMenu(false);},[cid]);
   const floatDrag=useRef<{start:number;y:number;limit:number}|null>(null);
-  useEffect(()=>{localStorage.setItem('chemez-composer-docked',composerDocked?'on':'off');if(composerDocked)setReplyTarget(null);},[composerDocked]);
+  useEffect(()=>{localStorage.setItem('bioez-composer-docked',composerDocked?'on':'off');if(composerDocked)setReplyTarget(null);},[composerDocked]);
 
-  const [nativeFullscreen,setNativeFullscreen]=useState(()=>localStorage.getItem('chemez-native-fullscreen')==='on');
+  const [nativeFullscreen,setNativeFullscreen]=useState(()=>localStorage.getItem('bioez-native-fullscreen')==='on');
   const [composerCompact,setComposerCompact]=useState(true);
   useEffect(()=>{if(!composerCompact&&focusOnOpen.current){focusOnOpen.current=false;composer.current?.focus({preventScroll:true});}},[composerCompact]);
   useEffect(()=>{
@@ -155,10 +155,10 @@ export default function App(){
   const [deleting,setDeleting]=useState<Conversation|null>(null);
   const [renameTitle,setRenameTitle]=useState('');
   // Background opacity 50–100%; older saved values are clamped into range.
-  const [glass,setGlass]=useState(()=>Math.min(100,Math.max(50,Number(localStorage.getItem('chemez-glass')||85))));
+  const [glass,setGlass]=useState(()=>Math.min(100,Math.max(50,Number(localStorage.getItem('bioez-glass')||85))));
   const [appearance,setAppearance]=useState(false);
   const [settingsTab,setSettingsTab]=useState<'general'|'appearance'|'diagrams'|'model'|'about'>('general');
-  const [followupHints,setFollowupHints]=useState(()=>localStorage.getItem('chemez-followup-hints')!=='off');
+  const [followupHints,setFollowupHints]=useState(()=>localStorage.getItem('bioez-followup-hints')!=='off');
   const [reducedTransparency,setReducedTransparency]=useState(false);
   const [archived,setArchived]=useState(false);
   const [searchOpen,setSearchOpen]=useState(false);
@@ -169,31 +169,31 @@ export default function App(){
   const [preview,setPreview]=useState<ImageAttachment|null>(null);
   const [library,setLibrary]=useState(false);
   // A previously chosen "Step-by-step tutor" style (removed) falls back to Explain.
-  const [answerStyle,setAnswerStyle]=useState<'balanced'|'concise'|'mechanism'>(()=>{const value=localStorage.getItem('chemez-answer-style');return value==='balanced'||value==='mechanism'?value:'concise';});
+  const [answerStyle,setAnswerStyle]=useState<'balanced'|'concise'|'mechanism'>(()=>{const value=localStorage.getItem('bioez-answer-style');return value==='balanced'||value==='mechanism'?value:'concise';});
   const [zoom,setZoom]=useState(100);
   const [editing,setEditing]=useState<Message|null>(null);
   const [toast,setToast]=useState<{text:string;undo?:()=>void}|null>(null);
   const drafts=useRef(new Map<string,UserContent>());
   const menuRef=useRef<HTMLElement>(null);
   const visibleChats=conversations.filter(chat=>!!chat.archived===archived);
-  const refresh=useCallback(async()=>setConversations(await window.chemez.request('listConversations')),[]);
+  const refresh=useCallback(async()=>setConversations(await window.bioez.request('listConversations')),[]);
   useEffect(()=>{document.documentElement.dataset.theme='dark';applyDiagramPreferences();},[]);
-  useEffect(()=>{void window.chemez?.appearance?.().then(state=>setReducedTransparency(state.reducedTransparency));},[]);
-  useEffect(()=>{localStorage.setItem('chemez-draft',input);drafts.current.set(cid||'new',{text:input,images});},[input,images,cid]);
-  useEffect(()=>{localStorage.setItem('chemez-sidebar',collapsed?'collapsed':'expanded');},[collapsed]);
+  useEffect(()=>{void window.bioez?.appearance?.().then(state=>setReducedTransparency(state.reducedTransparency));},[]);
+  useEffect(()=>{localStorage.setItem('bioez-draft',input);drafts.current.set(cid||'new',{text:input,images});},[input,images,cid]);
+  useEffect(()=>{localStorage.setItem('bioez-sidebar',collapsed?'collapsed':'expanded');},[collapsed]);
   // The most likely next question, shown faded in the empty composer (Tab accepts it).
   const last=messages[messages.length-1];
-  useEffect(()=>{localStorage.setItem('chemez-answer-style',answerStyle);},[answerStyle]);
+  useEffect(()=>{localStorage.setItem('bioez-answer-style',answerStyle);},[answerStyle]);
   const [level,setLevel]=useState<Level|null>(storedLevel);
   const [glassMode,setGlassMode]=useState<GlassMode>(storedGlassMode);
-  useEffect(()=>{try{localStorage.setItem('chemez-glass-effects',glassMode);}catch{/* per session */}document.documentElement.dataset.glass=glassMode;},[glassMode]);
+  useEffect(()=>{try{localStorage.setItem('bioez-glass-effects',glassMode);}catch{/* per session */}document.documentElement.dataset.glass=glassMode;},[glassMode]);
   const [levelOpen,setLevelOpen]=useState(()=>storedLevel()===null);
   const chooseLevel=(value:Level)=>{const firstRun=level===null;setLevel(value);saveLevel(value);setLevelOpen(false);if(firstRun&&!(config.ready??config.has_key))setSettings(true);};
   // Repaint after big view changes so the transparent window drops stale pixels (ghosted
   // welcome text). Two frames later, once React and the compositor have committed the change.
   const showingWelcome=messages.length===0;
-  useEffect(()=>{let second=0;const first=requestAnimationFrame(()=>{second=requestAnimationFrame(()=>void window.chemez.windowAction('repaint').catch(()=>{}));});return()=>{cancelAnimationFrame(first);cancelAnimationFrame(second);};},[showingWelcome,cid,settings,levelOpen,appearance]);
-  useEffect(()=>{document.documentElement.style.setProperty('--glass-opacity',String(glass/100));document.documentElement.style.setProperty('--glass-blur',`${Math.round(8+(glass-50)*0.48)}px`);localStorage.setItem('chemez-glass',String(glass));},[glass]);
+  useEffect(()=>{let second=0;const first=requestAnimationFrame(()=>{second=requestAnimationFrame(()=>void window.bioez.windowAction('repaint').catch(()=>{}));});return()=>{cancelAnimationFrame(first);cancelAnimationFrame(second);};},[showingWelcome,cid,settings,levelOpen,appearance]);
+  useEffect(()=>{document.documentElement.style.setProperty('--glass-opacity',String(glass/100));document.documentElement.style.setProperty('--glass-blur',`${Math.round(8+(glass-50)*0.48)}px`);localStorage.setItem('bioez-glass',String(glass));},[glass]);
   useEffect(()=>{const key=(event:KeyboardEvent)=>{if((event.metaKey||event.ctrlKey)&&event.shiftKey&&event.key.toLowerCase()==='o'){event.preventDefault();newChat();}if(event.key==='Escape'){setChatMenu(null);setAppearance(false);}if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();setSearchOpen(true);}if((event.metaKey||event.ctrlKey)&&event.key==='/'){event.preventDefault();setHelp(value=>!value);}};window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);},[busy]);
   useEffect(()=>{if(!chatMenu)return;const close=(event:PointerEvent)=>{if(!menuRef.current?.contains(event.target as Node)&&!chatMenuRef.current?.contains(event.target as Node))setChatMenu(null);};const dismiss=()=>setChatMenu(null);document.addEventListener('pointerdown',close);window.addEventListener('resize',dismiss);document.querySelector('.sidebar nav')?.addEventListener('scroll',dismiss);return()=>{document.removeEventListener('pointerdown',close);window.removeEventListener('resize',dismiss);document.querySelector('.sidebar nav')?.removeEventListener('scroll',dismiss);};},[chatMenu]);
   useEffect(()=>{if(!toast)return;const timer=setTimeout(()=>setToast(null),6000);return()=>clearTimeout(timer);},[toast]);
@@ -201,21 +201,21 @@ export default function App(){
     if(!searchOpen)return;let current=true;
     if(!search.trim()){setResults([]);setSearching(false);setSearchError('');return;}
     setSearching(true);setSearchError('');
-    const timer=setTimeout(()=>{void window.chemez.request('searchConversations',search.trim()).then(items=>{if(current)setResults(items);}).catch(e=>{if(current)setSearchError(errorMessage(e));}).finally(()=>{if(current)setSearching(false);});},180);
+    const timer=setTimeout(()=>{void window.bioez.request('searchConversations',search.trim()).then(items=>{if(current)setResults(items);}).catch(e=>{if(current)setSearchError(errorMessage(e));}).finally(()=>{if(current)setSearching(false);});},180);
     return()=>{current=false;clearTimeout(timer);};
   },[search,searchOpen]);
   useEffect(()=>{
-    if(!window.chemez){setError('Open ChemEZ in Electron with npm run dev. The browser preview cannot access desktop services.');return;}
+    if(!window.bioez){setError('Open BioEZ in Electron with npm run dev. The browser preview cannot access desktop services.');return;}
     let active=true;
     const initialActivity=activity.current;
-    const saved=localStorage.getItem('chemez-active-chat');
-    void Promise.all([sharedRead('config',()=>window.chemez.request('getConfig')).then(value=>{if(active)setConfig(value);}),sharedRead('startup-history',()=>window.chemez.request('listConversations')).then(items=>{if(active&&activity.current===initialActivity)setConversations(items);})]).then(async()=>{
+    const saved=localStorage.getItem('bioez-active-chat');
+    void Promise.all([sharedRead('config',()=>window.bioez.request('getConfig')).then(value=>{if(active)setConfig(value);}),sharedRead('startup-history',()=>window.bioez.request('listConversations')).then(items=>{if(active&&activity.current===initialActivity)setConversations(items);})]).then(async()=>{
       if(active&&saved&&activity.current===initialActivity){
-        const data=await sharedRead('conversation:'+saved,()=>window.chemez.request('getConversation',saved));
+        const data=await sharedRead('conversation:'+saved,()=>window.bioez.request('getConversation',saved));
         if(active&&activity.current===initialActivity){restoreLatest.current=true;cidRef.current=saved;setCid(saved);setMessages(data.messages);}
       }
     }).catch(e=>{if(active)setError(errorMessage(e));});
-    const unsubscribe=window.chemez.onEvent(event=>{
+    const unsubscribe=window.bioez.onEvent(event=>{
       if(!active)return;
       if(event.type==='start'){
         submissionStarted.current=true;
@@ -238,12 +238,12 @@ export default function App(){
         setBusy(false);setStatus('');
         void refresh().catch(e=>setError(errorMessage(e)));
         const completedActivity=activity.current;
-        if(showing&&completedId)void window.chemez.request('getConversation',completedId).then(data=>{if(cidRef.current===completedId&&activity.current===completedActivity)setMessages(data.messages);}).catch(e=>setError(errorMessage(e)));
+        if(showing&&completedId)void window.bioez.request('getConversation',completedId).then(data=>{if(cidRef.current===completedId&&activity.current===completedActivity)setMessages(data.messages);}).catch(e=>setError(errorMessage(e)));
       }
     });
     return()=>{active=false;unsubscribe();};
   },[refresh]);
-  useEffect(()=>{if(cid)localStorage.setItem('chemez-active-chat',cid);else localStorage.removeItem('chemez-active-chat');},[cid]);
+  useEffect(()=>{if(cid)localStorage.setItem('bioez-active-chat',cid);else localStorage.removeItem('bioez-active-chat');},[cid]);
   // Restore the latest saved turn, including lazy diagrams, until the user takes control.
   useEffect(()=>{
     if(!restoreLatest.current)return;
@@ -288,18 +288,18 @@ export default function App(){
     if(fromComposer&&attached===images){setInput('');setImages([]);setEditing(null);drafts.current.set(cid||'new',{text:'',images:[]});}
     try{
       let previous=messages;
-      if(branchQuestion&&cidRef.current){const rewound=await window.chemez.request('rewindConversation',{id:cidRef.current,before_message_id:branchQuestion.id});previous=rewound.messages;}
+      if(branchQuestion&&cidRef.current){const rewound=await window.bioez.request('rewindConversation',{id:cidRef.current,before_message_id:branchQuestion.id});previous=rewound.messages;}
       run.current={cid:cidRef.current,messages:[...previous,{id:'pending-user',role:'user',content:userContent},{id:'pending-assistant',role:'assistant',content:[],response_style:responseStyle}]};
       setMessages(run.current.messages);
-      await window.chemez.chat({text:text.trim(),images:attached.map(({name,mime,data})=>({name,mime,data})),conversation_id:cidRef.current,response_style:responseStyle,level:level||'undergraduate',command:selected?selected.slice(1):null});
+      await window.bioez.chat({text:text.trim(),images:attached.map(({name,mime,data})=>({name,mime,data})),conversation_id:cidRef.current,response_style:responseStyle,level:level||'undergraduate',command:selected?selected.slice(1):null});
     }catch(e){run.current=null;setRunCid(null);setError(errorMessage(e));setBusy(false);setStatus('');submission.current=null;setInput(current=>current||text);setImages(current=>current.length?current:attached);setMessages(items=>items.filter(m=>!m.id.startsWith('pending-')));}
   }
-  async function open(id:string){const requested=++activity.current;try{const data=await window.chemez.request('getConversation',id);if(requested!==activity.current)return;const draft=drafts.current.get(id);cidRef.current=id;setCid(id);setArchived(!!conversations.find(chat=>chat.id===id)?.archived);restoreLatest.current=true;setMessages(run.current?.cid===id?run.current.messages:data.messages);setInput(draft?.text||'');setImages(draft?.images||[]);setEditing(null);setError('');setChatMenu(null);setSearchOpen(false);setSearch('');follows.current=false;}catch(e){setError(errorMessage(e));}}
-  async function remove(id:string){setDeleting(null);try{await window.chemez.request('deleteConversation',id);if(cid===id)newChat();await refresh();}catch(e){setError(errorMessage(e));}}
+  async function open(id:string){const requested=++activity.current;try{const data=await window.bioez.request('getConversation',id);if(requested!==activity.current)return;const draft=drafts.current.get(id);cidRef.current=id;setCid(id);setArchived(!!conversations.find(chat=>chat.id===id)?.archived);restoreLatest.current=true;setMessages(run.current?.cid===id?run.current.messages:data.messages);setInput(draft?.text||'');setImages(draft?.images||[]);setEditing(null);setError('');setChatMenu(null);setSearchOpen(false);setSearch('');follows.current=false;}catch(e){setError(errorMessage(e));}}
+  async function remove(id:string){setDeleting(null);try{await window.bioez.request('deleteConversation',id);if(cid===id)newChat();await refresh();}catch(e){setError(errorMessage(e));}}
   function newChat(){setReplyTarget(null);activity.current++;setSearch('');setArchived(false);setSearchOpen(false);setEditing(null);setChatMenu(null);const draft=drafts.current.get('new');cidRef.current=null;setCid(null);setMessages([]);setError('');setInput(draft?.text||'');setImages(draft?.images||[]);composer.current?.focus();}
   async function pickImage(){
     if(images.length>=4){setError('You can attach up to four images.');return;}
-    try{const image=await window.chemez.pickImage();if(image){setImages(items=>[...items,image]);setError('');composer.current?.focus();}}catch(e){setError(errorMessage(e));}
+    try{const image=await window.bioez.pickImage();if(image){setImages(items=>[...items,image]);setError('');composer.current?.focus();}}catch(e){setError(errorMessage(e));}
   }
   async function intakeFiles(files:File[]){
     if(busy)return;
@@ -324,12 +324,12 @@ export default function App(){
     }catch(e){setError(errorMessage(e));}
   }
   async function copy(message:Message){try{await navigator.clipboard.writeText(answerText(message.content as Block[]));setCopied(message.id);setTimeout(()=>setCopied(''),1600);}catch{setError('Clipboard access failed. Select and copy the answer text.');}}
-  async function updateChat(chat:Conversation,title=chat.title,pinned=!!chat.pinned,archive=!!chat.archived){try{await window.chemez.request('updateConversation',{id:chat.id,title,pinned,archived:archive});await refresh();setChatMenu(null);setRenaming(null);return true;}catch(e){setError(errorMessage(e));return false;}}
+  async function updateChat(chat:Conversation,title=chat.title,pinned=!!chat.pinned,archive=!!chat.archived){try{await window.bioez.request('updateConversation',{id:chat.id,title,pinned,archived:archive});await refresh();setChatMenu(null);setRenaming(null);return true;}catch(e){setError(errorMessage(e));return false;}}
   async function archiveChat(chat:Conversation){if(!await updateChat(chat,chat.title,!!chat.pinned,!chat.archived))return;setToast({text:chat.archived?'Chat restored':'Chat archived',undo:()=>void updateChat(chat,chat.title,!!chat.pinned,!!chat.archived)});}
   function editQuestion(message:Message){reuse(message);setEditing(message);}
   function retryAnswer(index:number){const previous=messages.slice(0,index).reverse().find(message=>message.role==='user');if(previous){const content=userContent(previous);void send(content.text,content.images,previous,{command:content.command??null,style:messages[index].response_style==='tutor'?'balanced':messages[index].response_style??answerStyle});}}
   function reuse(message:Message){const content=typeof message.content==='string'?{text:message.content,images:[]}:message.content as UserContent;const parts=splitReply(content.text);setReplyTarget(parts.quote?{id:message.id,text:parts.fullQuote}:null);setInput(parts.text);setImages(content.images||[]);composer.current?.focus();}
-  async function exportChat(){try{await window.chemez.saveText(messages.map(message=>`## ${message.role==='user'?'You':'ChemEZ'}\n\n${message.role==='assistant'?answerText(message.content as Block[]):typeof message.content==='string'?message.content:(message.content as UserContent).text}`).join('\n\n---\n\n'));}catch(e){setError(errorMessage(e));}}
+  async function exportChat(){try{await window.bioez.saveText(messages.map(message=>`## ${message.role==='user'?'You':'BioEZ'}\n\n${message.role==='assistant'?answerText(message.content as Block[]):typeof message.content==='string'?message.content:(message.content as UserContent).text}`).join('\n\n---\n\n'));}catch(e){setError(errorMessage(e));}}
   const [slash,setSlash]=useState('');
   const [caret,setCaret]=useState(0),[menuDismissed,setMenuDismissed]=useState(false);
   const query=!menuDismissed?commandQuery(input,caret):undefined;
@@ -344,7 +344,7 @@ export default function App(){
     const cached=supplied||liveCache.current.get(liveKey);
     if(cached){setLive({key:liveKey,question:cached});return;}
     let current=true;
-    sharedRead('suggestion:'+liveKey,()=>window.chemez.request('suggestQuestion',{id:cid,mode:answerStyle,command:slash.replace('/','')})).then(result=>{
+    sharedRead('suggestion:'+liveKey,()=>window.bioez.request('suggestQuestion',{id:cid,mode:answerStyle,command:slash.replace('/','')})).then(result=>{
       const question=cleanSuggestion(result.question);
       if(question){liveCache.current.set(liveKey,question);while(liveCache.current.size>64)liveCache.current.delete(liveCache.current.keys().next().value!);if(current)setLive({key:liveKey,question});}
     }).catch(()=>undefined);
@@ -364,7 +364,7 @@ export default function App(){
     <UpdateCard/>
     <div className={'app-shell'+(collapsed?' sidebar-collapsed':'')}>
       <aside className="sidebar" ref={menuRef}>
-        <a className="brand" href="#" aria-label="ChemEZ home" onClick={event=>{event.preventDefault();newChat();}}>
+        <a className="brand" href="#" aria-label="BioEZ home" onClick={event=>{event.preventDefault();newChat();}}>
           <Logo mini/><Wordmark/>
         </a>
         <button className="new-chat" aria-label="New conversation" title="New conversation" onClick={newChat}><i className="fas fa-plus" aria-hidden="true"/><span className="new-chat-label">New conversation</span></button>
@@ -394,10 +394,10 @@ export default function App(){
             <span>{config.config?.model.split('/').pop()||'Choose a model'}</span>
             <i className="fas fa-chevron-down" aria-hidden="true"/>
           </button>
-          {window.chemez?.platform!=='darwin'&&<div className="window-controls" aria-label="Window controls">
-            <button aria-label="Minimize window" title="Minimize" onClick={()=>void window.chemez.windowAction('minimize')}><i className="fas fa-minus" aria-hidden="true"/></button>
-            <button aria-label="Maximize or restore window" title="Maximize or restore" onClick={()=>void window.chemez.windowAction(nativeFullscreen?'toggle-fullscreen':'toggle-maximize')}><i className="far fa-square" aria-hidden="true"/></button>
-            <button className="window-close" aria-label="Close window" title="Close" onClick={()=>void window.chemez.windowAction('close')}><i className="fas fa-times" aria-hidden="true"/></button>
+          {window.bioez?.platform!=='darwin'&&<div className="window-controls" aria-label="Window controls">
+            <button aria-label="Minimize window" title="Minimize" onClick={()=>void window.bioez.windowAction('minimize')}><i className="fas fa-minus" aria-hidden="true"/></button>
+            <button aria-label="Maximize or restore window" title="Maximize or restore" onClick={()=>void window.bioez.windowAction(nativeFullscreen?'toggle-fullscreen':'toggle-maximize')}><i className="far fa-square" aria-hidden="true"/></button>
+            <button className="window-close" aria-label="Close window" title="Close" onClick={()=>void window.bioez.windowAction('close')}><i className="fas fa-times" aria-hidden="true"/></button>
           </div>}
         </header>
         <div ref={scroll} className="conversation-scroll" onScroll={()=>{const element=scroll.current!;follows.current=element.scrollHeight-element.scrollTop-element.clientHeight<100;setShowJump(!follows.current);}}>
@@ -449,7 +449,7 @@ export default function App(){
               if(!next.trim())setReplyTarget(null);setInput(next);setCaret(event.target.selectionStart);setMenuDismissed(false);}} onSelect={event=>{const next=event.currentTarget.selectionStart;if(next!==caret){setCaret(next);setMenuDismissed(false);}}} onKeyDown={event=>{if(event.key==='Enter'&&!event.nativeEvent.isComposing&&(event.metaKey||event.ctrlKey||!event.shiftKey)){event.preventDefault();void send();}if(event.key==='ArrowUp'&&!input&&!busy){const previous=messages.slice().reverse().find(message=>message.role==='user');if(previous){event.preventDefault();editQuestion(previous);}}if(event.key==='Escape'&&slashMatches.length){event.preventDefault();setMenuDismissed(true);}if(event.key==='Backspace'&&!input&&slash){event.preventDefault();setSlash('');}if((event.key==='Tab'||event.key==='ArrowRight')&&!input&&suggestion){event.preventDefault();setInput(suggestion);}}} placeholder={busy?'Draft your next question while the answer finishes…':suggestion?suggestion+'   ⇥ Tab':slash?(COMMAND_PLACEHOLDERS[slash]||'Enter your chemistry question…'):'Ask anything chemistry…'} aria-description={suggestion?'Suggested next question: '+suggestion+'. Press Tab to use it.':undefined} rows={2}/>
             <div className="composer-footer">
               <div className="composer-tools"><button className="attach-button" type="button" disabled={busy||images.length>=4} onClick={()=>{const r=composerArea.current?.getBoundingClientRect();if(r){const above=r.top-16,below=window.innerHeight-r.bottom-16;const down=above<360&&below>above;setToolsPlacement({below:down,room:Math.max(80,Math.min(380,down?below:above))});}setComposerMenu(value=>!value);}} aria-label="Chat tools" aria-expanded={composerMenu} title="Commands and images"><i className="fas fa-plus" aria-hidden="true"/></button><select className="answer-style" aria-label="Answer style" title="Choose how the next answer is explained" disabled={busy} value={answerStyle} onChange={event=>setAnswerStyle(event.target.value as typeof answerStyle)}><option value="concise">Quick answer</option><option value="balanced">Explain</option><option value="mechanism">Mechanism</option></select></div>
-              <span className="send-stack">{busy&&!here?<button className="send-button" type="button" disabled title="Another chat is still answering. You can send when it finishes." aria-label="Send question (waiting for the other chat)"><i className="fas fa-arrow-up" aria-hidden="true"/></button>:busy?<button className="send-button stop" type="button" onClick={()=>void window.chemez.cancel()} aria-label="Stop generation"><i className="fas fa-stop" aria-hidden="true"/></button>:<button className="send-button" type="submit" disabled={!input.trim()&&!images.length} aria-label="Send question"><i className="fas fa-arrow-up" aria-hidden="true"/></button>}</span>
+              <span className="send-stack">{busy&&!here?<button className="send-button" type="button" disabled title="Another chat is still answering. You can send when it finishes." aria-label="Send question (waiting for the other chat)"><i className="fas fa-arrow-up" aria-hidden="true"/></button>:busy?<button className="send-button stop" type="button" onClick={()=>void window.bioez.cancel()} aria-label="Stop generation"><i className="fas fa-stop" aria-hidden="true"/></button>:<button className="send-button" type="submit" disabled={!input.trim()&&!images.length} aria-label="Send question"><i className="fas fa-arrow-up" aria-hidden="true"/></button>}</span>
             </div>
           </form>
           <div className="composer-caption"><span title={config.config?.model}>{config.config?.model||'Choose a model to begin'}</span><span>AI chemistry can be wrong. Check important details.</span></div>
@@ -460,8 +460,8 @@ export default function App(){
       {appearance&&<Dialog title="Settings" className="settings-window" onClose={()=>setAppearance(false)}><div className="settings-layout">
         <nav className="settings-tabs" aria-label="Settings sections">{([['general','General','fa-graduation-cap'],['appearance','Appearance','fa-adjust'],['diagrams','Diagrams','fa-project-diagram'],['model','Model & API','fa-key'],['about','About','fa-info-circle']] as const).map(([id,label,icon])=><button type="button" key={id} aria-current={settingsTab===id?'page':undefined} onClick={()=>setSettingsTab(id)}><i className={'fas '+icon} aria-hidden="true"/>{label}</button>)}</nav>
         <div className="settings-pane">
-          {settingsTab==='general'&&<section aria-label="General"><div className="setting-row"><div><b>Chemistry level</b><small>Sets vocabulary and depth of every answer.</small></div><button type="button" className="setting-value" onClick={()=>setLevelOpen(true)}>{LEVELS[level||'undergraduate'].short}<i className="fas fa-chevron-right" aria-hidden="true"/></button></div><div className="setting-row"><div><b id="followup-hints-label">Follow Up</b><small>Suggest a likely next question in the message box (Tab to use it).</small></div><button type="button" role="switch" aria-checked={followupHints} aria-labelledby="followup-hints-label" className="toggle-switch" onClick={()=>{const next=!followupHints;setFollowupHints(next);localStorage.setItem('chemez-followup-hints',next?'on':'off');}}><span className="toggle-knob"/><span className="toggle-text">{followupHints?'On':'Off'}</span></button></div></section>}
-          {settingsTab==='appearance'&&<section aria-label="Appearance"><div className="setting-row"><div><b id="composer-dock-label">Dock chatbox at bottom</b><small>Turn off to float the chatbox over answers and reply near an earlier question.</small></div><button type="button" role="switch" aria-checked={composerDocked} aria-labelledby="composer-dock-label" className="toggle-switch" onClick={()=>setComposerDocked(value=>!value)}><span className="toggle-knob"/><span className="toggle-text">{composerDocked?'On':'Off'}</span></button></div><div className="setting-row"><div><b id="native-fullscreen-label">Windowed maximize</b><small>Fill the desktop while keeping the menu bar and taskbar. Turn off to use native fullscreen.</small></div><button type="button" role="switch" aria-checked={!nativeFullscreen} aria-labelledby="native-fullscreen-label" className="toggle-switch" onClick={()=>{const next=!nativeFullscreen;setNativeFullscreen(next);localStorage.setItem('chemez-native-fullscreen',next?'on':'off');}}><span className="toggle-knob"/><span className="toggle-text">{nativeFullscreen?'Off':'On'}</span></button></div><div className="setting-row"><div><b id="glass-effects-label">Glass effects</b><small>Glass edges and highlights on cards and panels.</small></div><button type="button" role="switch" aria-checked={glassMode==='on'} aria-labelledby="glass-effects-label" className="toggle-switch" onClick={()=>setGlassMode(glassMode==='on'?'off':'on')}><span className="toggle-knob"/><span className="toggle-text">{glassMode==='on'?'On':'Off'}</span></button></div><div className="setting-row stacked"><label htmlFor="glass"><b>Background opacity</b><span>{glass}%</span></label><input id="glass" type="range" min="50" max="100" value={glass} onChange={event=>setGlass(Number(event.target.value))}/><small>{reducedTransparency?'System Reduce Transparency is enabled. Translucency works; desktop blur is disabled.':'Desktop blur uses your system’s transparency settings.'}</small></div></section>}
+          {settingsTab==='general'&&<section aria-label="General"><div className="setting-row"><div><b>Chemistry level</b><small>Sets vocabulary and depth of every answer.</small></div><button type="button" className="setting-value" onClick={()=>setLevelOpen(true)}>{LEVELS[level||'undergraduate'].short}<i className="fas fa-chevron-right" aria-hidden="true"/></button></div><div className="setting-row"><div><b id="followup-hints-label">Follow Up</b><small>Suggest a likely next question in the message box (Tab to use it).</small></div><button type="button" role="switch" aria-checked={followupHints} aria-labelledby="followup-hints-label" className="toggle-switch" onClick={()=>{const next=!followupHints;setFollowupHints(next);localStorage.setItem('bioez-followup-hints',next?'on':'off');}}><span className="toggle-knob"/><span className="toggle-text">{followupHints?'On':'Off'}</span></button></div></section>}
+          {settingsTab==='appearance'&&<section aria-label="Appearance"><div className="setting-row"><div><b id="composer-dock-label">Dock chatbox at bottom</b><small>Turn off to float the chatbox over answers and reply near an earlier question.</small></div><button type="button" role="switch" aria-checked={composerDocked} aria-labelledby="composer-dock-label" className="toggle-switch" onClick={()=>setComposerDocked(value=>!value)}><span className="toggle-knob"/><span className="toggle-text">{composerDocked?'On':'Off'}</span></button></div><div className="setting-row"><div><b id="native-fullscreen-label">Windowed maximize</b><small>Fill the desktop while keeping the menu bar and taskbar. Turn off to use native fullscreen.</small></div><button type="button" role="switch" aria-checked={!nativeFullscreen} aria-labelledby="native-fullscreen-label" className="toggle-switch" onClick={()=>{const next=!nativeFullscreen;setNativeFullscreen(next);localStorage.setItem('bioez-native-fullscreen',next?'on':'off');}}><span className="toggle-knob"/><span className="toggle-text">{nativeFullscreen?'Off':'On'}</span></button></div><div className="setting-row"><div><b id="glass-effects-label">Glass effects</b><small>Glass edges and highlights on cards and panels.</small></div><button type="button" role="switch" aria-checked={glassMode==='on'} aria-labelledby="glass-effects-label" className="toggle-switch" onClick={()=>setGlassMode(glassMode==='on'?'off':'on')}><span className="toggle-knob"/><span className="toggle-text">{glassMode==='on'?'On':'Off'}</span></button></div><div className="setting-row stacked"><label htmlFor="glass"><b>Background opacity</b><span>{glass}%</span></label><input id="glass" type="range" min="50" max="100" value={glass} onChange={event=>setGlass(Number(event.target.value))}/><small>{reducedTransparency?'System Reduce Transparency is enabled. Translucency works; desktop blur is disabled.':'Desktop blur uses your system’s transparency settings.'}</small></div></section>}
           {settingsTab==='diagrams'&&<section aria-label="Diagrams"><DiagramPreferences inline/></section>}
           {settingsTab==='model'&&<section aria-label="Model and API"><div className="setting-row"><div><b>Model</b><small>{config.config?config.config.model:'Not connected'}</small></div><button type="button" className="setting-value" disabled={busy} onClick={()=>{setAppearance(false);setSettings(true);}}>Manage model &amp; API key<i className="fas fa-chevron-right" aria-hidden="true"/></button></div></section>}
           {settingsTab==='about'&&<Suspense fallback={<p role="status">Loading About…</p>}><About/></Suspense>}

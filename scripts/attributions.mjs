@@ -46,7 +46,7 @@ for d in m.distributions():
 paths=[pathlib.Path(sysconfig.get_path('stdlib'))/'LICENSE.txt',pathlib.Path(sys.base_prefix)/'LICENSE.txt']
 items.append(dict(name='Python',version=sys.version.split()[0],url='https://www.python.org',license='PSF-2.0',text=next((p.read_text() for p in paths if p.exists()),'')))
 print(json.dumps(items))`;
-const result=spawnSync(process.env.CHEMEZ_LICENSE_PYTHON||runtimePython,['-c',script],{encoding:'utf8',maxBuffer:16*1024*1024});
+const result=spawnSync(process.env.BIOEZ_LICENSE_PYTHON||runtimePython,['-c',script],{encoding:'utf8',maxBuffer:16*1024*1024});
 if(result.status!==0)throw new Error('Python license inventory failed: '+result.stderr);
 for(const item of JSON.parse(result.stdout)){
  const {text,...metadata}=item;if(!text)missing.push('python:'+item.name);

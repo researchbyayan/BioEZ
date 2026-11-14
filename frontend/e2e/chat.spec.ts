@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 
 async function mockDesktop(page:import('@playwright/test').Page){
   // Skip the first-launch level question; the onboarding test below clears this.
-  await page.addInitScript(()=>{if(!sessionStorage.getItem('fresh-launch')&&!localStorage.getItem('chemez-level'))localStorage.setItem('chemez-level','undergraduate');});
+  await page.addInitScript(()=>{if(!sessionStorage.getItem('fresh-launch')&&!localStorage.getItem('bioez-level'))localStorage.setItem('bioez-level','undergraduate');});
   await page.addInitScript(()=>{
     const svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340"><path d="M 180 200 L 290 140 L 400 200" stroke="#243b3c" stroke-width="3" fill="none"/><text x="405" y="205" font-size="24" fill="#b42c2c">OH</text></svg>';
     let listener:(event:unknown)=>void=()=>{};
@@ -13,7 +13,7 @@ async function mockDesktop(page:import('@playwright/test').Page){
     let title='Draw ethanol';let pinned=false;
     let archived=false;let activeID='12345678-1234-1234-1234-123456789abc';
     const originals=new Map<string,{id:string;title:string;pinned:boolean;archived:boolean;updated:string;messages:unknown[]}>();
-    (window as unknown as {chemez:unknown}).chemez={
+    (window as unknown as {bioez:unknown}).bioez={
       request:async(command:string,payload:unknown)=>{
         if(command==='startLocal')return {ok:true};
         if(command==='getConfig')return config;
@@ -79,7 +79,7 @@ test('glass canvas, aligned glyphs, drafts and chat management',async({page})=>{
   await page.getByRole('menuitem',{name:'Pin',exact:true}).click();
   await expect(page.getByLabel('Pinned',{exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Export conversation'}).click();
-  await expect.poll(()=>page.evaluate(()=>(window as unknown as {exported:string}).exported)).toContain('## ChemEZ');
+  await expect.poll(()=>page.evaluate(()=>(window as unknown as {exported:string}).exported)).toContain('## BioEZ');
   await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{value:{writeText:async(text:string)=>{(window as unknown as {copiedText:string}).copiedText=text;}},configurable:true});});
   await page.getByRole('button',{name:'Copy question'}).click();await expect.poll(()=>page.evaluate(()=>(window as unknown as {copiedText:string}).copiedText)).toBe('Draw ethanol');await expect(input).toHaveValue('');
   await page.screenshot({path:'test-results/chat-controls-glass.png',omitBackground:true});
@@ -164,7 +164,7 @@ test('drafts survive navigation and images have accessible zoom previews',async(
 });
 test('generation leaves the next draft editable and failed sends keep the question',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  await page.evaluate(()=>{const original=window.chemez.chat;window.chemez.chat=payload=>new Promise(resolve=>{(window as unknown as {finishTestChat:()=>Promise<void>}).finishTestChat=async()=>{await original(payload);resolve();};});});
+  await page.evaluate(()=>{const original=window.bioez.chat;window.bioez.chat=payload=>new Promise(resolve=>{(window as unknown as {finishTestChat:()=>Promise<void>}).finishTestChat=async()=>{await original(payload);resolve();};});});
   const input=page.getByRole('textbox',{name:'Chemistry question'});
   await input.fill('Draw ethanol');await input.press('Enter');
   await expect(page.getByRole('button',{name:'Stop generation'})).toBeVisible();
@@ -173,7 +173,7 @@ test('generation leaves the next draft editable and failed sends keep the questi
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await expect(page.getByRole('button',{name:'Send question'})).toBeVisible();
   await expect(input).toHaveValue('Next question draft');
-  await page.evaluate(()=>{window.chemez.chat=async()=>{throw new Error('Connection unavailable');};});
+  await page.evaluate(()=>{window.bioez.chat=async()=>{throw new Error('Connection unavailable');};});
   await input.press('Enter');
   await expect(page.getByRole('alert')).toContainText('Connection unavailable');
   await expect(input).toHaveValue('Next question draft');
@@ -197,7 +197,7 @@ test('structure library stays beside the chat and answer styles reach the provid
   await library.locator('.structure-trigger').hover();
   await expect(page.getByRole('button',{name:'Copy molecular formula',exact:true})).toBeVisible();
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('link',{name:'ChemEZ home'})).toBeVisible();
+  await expect(page.getByRole('link',{name:'BioEZ home'})).toBeVisible();
   await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))));
   await page.screenshot({path:'test-results/ux-structure-panel.png',omitBackground:true});
   await library.getByRole('button',{name:'Ask about this structure'}).click();
@@ -336,7 +336,7 @@ test('setup needs only a service and key, then starts chat',async({page})=>{
 
 test('setup explains temporary failure without showing connected',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  await page.evaluate(()=>{const original=window.chemez.request;window.chemez.request=((command:string,payload:unknown)=>command==='testConnection'?Promise.reject(new Error('Error invoking remote method \'chemez:request\': Error: Provider returned HTTP 503.')):(original as Function)(command,payload)) as typeof original;});
+  await page.evaluate(()=>{const original=window.bioez.request;window.bioez.request=((command:string,payload:unknown)=>command==='testConnection'?Promise.reject(new Error('Error invoking remote method \'bioez:request\': Error: Provider returned HTTP 503.')):(original as Function)(command,payload)) as typeof original;});
   await page.getByRole('button',{name:/Model settings/}).click();
   await page.getByLabel('API key',{exact:true}).fill('test-key-12345');
   await page.getByRole('button',{name:'Save & connect'}).click();
@@ -417,13 +417,13 @@ test('history search, compact navigation and recovery keep API settings accessib
 });
 
 test('first launch asks for a chemistry level and sends it with questions',async({page})=>{
-  await page.addInitScript(()=>{sessionStorage.setItem('fresh-launch','1');localStorage.removeItem('chemez-level');});
+  await page.addInitScript(()=>{sessionStorage.setItem('fresh-launch','1');localStorage.removeItem('bioez-level');});
   await mockDesktop(page);await page.goto('/');
-  await expect(page.getByRole('heading',{name:'Welcome to ChemEZ'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Welcome to BioEZ'})).toBeVisible();
   await page.getByRole('radio',{name:/High school/}).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.locator('.composer-tools').getByLabel('Chemistry level')).toHaveCount(0);
-  await page.evaluate(()=>{const original=window.chemez.chat;(window as unknown as {sent:unknown[]}).sent=[];window.chemez.chat=(payload=>{(window as unknown as {sent:unknown[]}).sent.push(payload);return original(payload);}) as typeof original;});
+  await page.evaluate(()=>{const original=window.bioez.chat;(window as unknown as {sent:unknown[]}).sent=[];window.bioez.chat=(payload=>{(window as unknown as {sent:unknown[]}).sent.push(payload);return original(payload);}) as typeof original;});
   await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
   await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
   await expect.poll(()=>page.evaluate(()=>((window as unknown as {sent:{level:string}[]}).sent[0]||{}).level)).toBe('school');
@@ -437,7 +437,7 @@ test('first launch asks for a chemistry level and sends it with questions',async
 });
 
 test('first launch without a key goes from the level picker to API setup',async({page})=>{
-  await page.addInitScript(()=>{sessionStorage.setItem('fresh-launch','1');sessionStorage.setItem('no-key','1');localStorage.removeItem('chemez-level');});
+  await page.addInitScript(()=>{sessionStorage.setItem('fresh-launch','1');sessionStorage.setItem('no-key','1');localStorage.removeItem('bioez-level');});
   await mockDesktop(page);await page.goto('/');
   await page.getByRole('radio',{name:/High school/}).click();
   await expect(page.getByRole('heading',{name:'Model & API'})).toBeVisible();
@@ -505,9 +505,9 @@ test('generation keeps answer status free of decorative icons',async({page})=>{
 test('structure explorer opens on 2D and switches to 3D on the same tab',async({page})=>{
  await mockDesktop(page);await page.goto('/');
  await page.evaluate(()=>{
-  const w=window as unknown as {threeDCalls:number;analysisCalls:number;chemez:{request:(...args:unknown[])=>Promise<unknown>}};
-  w.threeDCalls=0;w.analysisCalls=0;const original=w.chemez.request;
-  w.chemez.request=async(...args)=>{
+  const w=window as unknown as {threeDCalls:number;analysisCalls:number;bioez:{request:(...args:unknown[])=>Promise<unknown>}};
+  w.threeDCalls=0;w.analysisCalls=0;const original=w.bioez.request;
+  w.bioez.request=async(...args)=>{
    if(args[0]==='structure3d'){w.threeDCalls++;return {molblock:null,force_field:null,properties:{formula:'C2H6O'}};}
    if(args[0]==='analyseStructure'){w.analysisCalls++;const svg='<svg xmlns="http://www.w3.org/2000/svg" width="180" height="100"><text x="70" y="55">OH</text><circle cx="70" cy="40" r="2"/><circle cx="75" cy="40" r="2"/></svg>';return {lewis_svg:svg,hydrogens_svg:svg,lewis_hydrogens_svg:svg,groups:[],stereo_svg:svg,stereo:[],inchi:'',inchikey:''};}
    return original(...args);
@@ -623,26 +623,26 @@ test('a pasted key selects its service',async({page})=>{
 test('About credits are offline and update checks distinguish success and failure',async({page})=>{
  await mockDesktop(page);await page.goto('/');
  await page.evaluate(()=>{
-  window.chemez.appInfo=async()=>({version:'1.2.3',platform:'darwin',arch:'x64',nativeArch:'arm64',build:'abcdef1234567890',dirty:false,source:'https://github.com/researchbyayan/ChemEZ'});
-  window.chemez.credits=async()=>({entries:[{id:'chemez',name:'ChemEZ',url:'https://github.com/researchbyayan/ChemEZ',group:'software',license:'MIT',note:'Original application',licenseAvailable:true},{id:'nmr',name:'NMRShiftDB2',url:'https://nmrshiftdb.nmr.uni-koeln.de',group:'data',license:'Database license',note:'Derived data',licenseAvailable:true},{id:'rmg',name:'RMG-Py',url:'https://github.com/ReactionMechanismGenerator/RMG-Py',group:'reference',license:'Reference only',note:'Not bundled or executed',licenseAvailable:false}]});
-  window.chemez.license=async()=> 'MIT License\nPermission is hereby granted';
-  window.chemez.openCreditSource=async()=>true;
-  window.chemez.checkUpdates=async()=>({status:'available',version:'1.3.0',url:'https://github.com/researchbyayan/ChemEZ/releases/download/v1.3.0/ChemEZ-1.3.0-mac-arm64.dmg',size:100});
-  window.chemez.openLink=async url=>{(window as unknown as {opened:string}).opened=url;return true;};
+  window.bioez.appInfo=async()=>({version:'1.2.3',platform:'darwin',arch:'x64',nativeArch:'arm64',build:'abcdef1234567890',dirty:false,source:'https://github.com/researchbyayan/BioEZ'});
+  window.bioez.credits=async()=>({entries:[{id:'bioez',name:'BioEZ',url:'https://github.com/researchbyayan/BioEZ',group:'software',license:'MIT',note:'Original application',licenseAvailable:true},{id:'nmr',name:'NMRShiftDB2',url:'https://nmrshiftdb.nmr.uni-koeln.de',group:'data',license:'Database license',note:'Derived data',licenseAvailable:true},{id:'rmg',name:'RMG-Py',url:'https://github.com/ReactionMechanismGenerator/RMG-Py',group:'reference',license:'Reference only',note:'Not bundled or executed',licenseAvailable:false}]});
+  window.bioez.license=async()=> 'MIT License\nPermission is hereby granted';
+  window.bioez.openCreditSource=async()=>true;
+  window.bioez.checkUpdates=async()=>({status:'available',version:'1.3.0',url:'https://github.com/researchbyayan/BioEZ/releases/download/v1.3.0/BioEZ-1.3.0-mac-arm64.dmg',size:100});
+  window.bioez.openLink=async url=>{(window as unknown as {opened:string}).opened=url;return true;};
  });
  await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'About',exact:true}).click();
  await expect(page.locator('.settings-about')).toContainText('Version 1.2.3');
- await page.getByText('Credits & licenses (3)').click();await page.getByLabel('Search credits').fill('ChemEZ');
- await page.locator('.credit-entry summary').filter({hasText:'ChemEZ'}).click();await page.getByRole('button',{name:'Read license'}).click();await expect(page.locator('.license-reader pre')).toContainText('Permission is hereby granted');
+ await page.getByText('Credits & licenses (3)').click();await page.getByLabel('Search credits').fill('BioEZ');
+ await page.locator('.credit-entry summary').filter({hasText:'BioEZ'}).click();await page.getByRole('button',{name:'Read license'}).click();await expect(page.locator('.license-reader pre')).toContainText('Permission is hereby granted');
  await page.getByRole('button',{name:'Check for updates'}).click();await expect(page.getByRole('status')).toContainText('1.3.0');await page.getByRole('button',{name:'Download installer'}).click();
  await expect.poll(()=>page.evaluate(()=>(window as unknown as {opened:string}).opened)).toContain('mac-arm64.dmg');
- await page.evaluate(()=>{window.chemez.checkUpdates=async()=>{throw new Error('offline');};});await page.getByRole('button',{name:'Check for updates'}).click();await expect(page.getByRole('alert')).toContainText('Could not check for updates');await expect(page.getByRole('button',{name:'Download installer'})).toHaveCount(0);
+ await page.evaluate(()=>{window.bioez.checkUpdates=async()=>{throw new Error('offline');};});await page.getByRole('button',{name:'Check for updates'}).click();await expect(page.getByRole('alert')).toContainText('Could not check for updates');await expect(page.getByRole('button',{name:'Download installer'})).toHaveCount(0);
  const navigation=page.getByRole('button',{name:'General',exact:true});await expect(navigation).toBeInViewport();
 });
 
 test('malformed live follow-ups never show answer JSON in the composer',async({page})=>{
  await mockDesktop(page);await page.goto('/');
- await page.evaluate(()=>{const request=window.chemez.request;window.chemez.request=((command:string,payload:unknown)=>command==='suggestQuestion'?Promise.resolve({question:'{"blocks":[{"type":"reaction","caption":"Grignard"}]}'}):request(command as any,payload as any)) as typeof request;});
+ await page.evaluate(()=>{const request=window.bioez.request;window.bioez.request=((command:string,payload:unknown)=>command==='suggestQuestion'?Promise.resolve({question:'{"blocks":[{"type":"reaction","caption":"Grignard"}]}'}):request(command as any,payload as any)) as typeof request;});
  const input=page.getByRole('textbox',{name:'Chemistry question'});await input.fill('Draw ethanol');await input.press('Enter');
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
  await expect(page.getByRole('button',{name:'Send question',exact:true})).toBeVisible();
@@ -656,7 +656,7 @@ test('malformed live follow-ups never show answer JSON in the composer',async({p
 
 test('slash commands apply when typed first or clicked, and preserve mid-sentence text',async({page})=>{
  await mockDesktop(page);await page.goto('/');
- await page.evaluate(()=>{const chat=window.chemez.chat;window.chemez.chat=async payload=>{(window as unknown as {sentCommand:unknown}).sentCommand=payload;return chat(payload);};});
+ await page.evaluate(()=>{const chat=window.bioez.chat;window.bioez.chat=async payload=>{(window as unknown as {sentCommand:unknown}).sentCommand=payload;return chat(payload);};});
  const input=page.getByRole('textbox',{name:'Chemistry question'});
  await input.fill('/versus benzene vs phenol');await expect(page.locator('.composer .slash-chip')).toHaveCount(0);
  await input.press('Enter');await expect.poll(()=>page.evaluate(()=>(window as unknown as {sentCommand:{command:unknown}}).sentCommand?.command)).toBe('versus');

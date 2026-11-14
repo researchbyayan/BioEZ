@@ -2,10 +2,10 @@ import json
 import asyncio
 import pytest
 from httpx import AsyncClient, ASGITransport
-from chemez.app import create_app
-from chemez.storage import Store
-from chemez.providers import ProviderError
-from chemez.vision import interpret_images, VISION_SYSTEM
+from bioez.app import create_app
+from bioez.storage import Store
+from bioez.providers import ProviderError
+from bioez.vision import interpret_images, VISION_SYSTEM
 from test_app import MemoryVault
 
 class SplitProvider:

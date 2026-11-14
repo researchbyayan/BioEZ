@@ -1,6 +1,6 @@
 # Claude desktop window study
 
-Inspected locally with REA and read-only ASAR source inspection. No Claude code was executed, modified, or incorporated into ChemEZ.
+Inspected locally with REA and read-only ASAR source inspection. No Claude code was executed, modified, or incorporated into BioEZ.
 
 ## Artifact and coverage
 
@@ -13,13 +13,13 @@ Inspected locally with REA and read-only ASAR source inspection. No Claude code 
 
 ## Relevant observations
 
-The main chunk has window-state restore logic that independently tests maximized and fullscreen states and invokes Electron's corresponding window methods. This supports keeping desktop maximize and native fullscreen as separate user-selectable operations in ChemEZ. It does not establish exactly how Claude's titlebar buttons behave at runtime.
+The main chunk has window-state restore logic that independently tests maximized and fullscreen states and invokes Electron's corresponding window methods. This supports keeping desktop maximize and native fullscreen as separate user-selectable operations in BioEZ. It does not establish exactly how Claude's titlebar buttons behave at runtime.
 
-The same chunk contains a sidebar-material preference and a sidebar vibrancy option. This is a macOS reference, not a Windows acrylic implementation. ChemEZ's Windows compatibility adapter therefore follows Electron's documented OS support instead of assuming macOS vibrancy maps to Windows.
+The same chunk contains a sidebar-material preference and a sidebar vibrancy option. This is a macOS reference, not a Windows acrylic implementation. BioEZ's Windows compatibility adapter therefore follows Electron's documented OS support instead of assuming macOS vibrancy maps to Windows.
 
-No reliable conclusion about Claude's remote chat-history ownership or composer proximity behavior has been established from these window modules. ChemEZ's implementation is independently covered by its own interaction regressions, including switching away from and back to a generating chat and preserving scroll position during long answers.
+No reliable conclusion about Claude's remote chat-history ownership or composer proximity behavior has been established from these window modules. BioEZ's implementation is independently covered by its own interaction regressions, including switching away from and back to a generating chat and preserving scroll position during long answers.
 
-## ChemEZ verification
+## BioEZ verification
 
 - Local Electron smoke checked maximize against desktop work area, fullscreen entry, and fullscreen exit.
 - UI regression checked saved fullscreen preference and expand-action dispatch.

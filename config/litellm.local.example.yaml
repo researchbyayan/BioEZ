@@ -12,4 +12,4 @@ litellm_settings:
   request_timeout: 120
 
 general_settings:
-  master_key: os.environ/CHEMEZ_GATEWAY_KEY
+  master_key: os.environ/BIOEZ_GATEWAY_KEY

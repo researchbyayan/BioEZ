@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "entries": [
     {
-      "id": "chemez",
-      "name": "ChemEZ",
-      "url": "https://github.com/researchbyayan/ChemEZ",
+      "id": "bioez",
+      "name": "BioEZ",
+      "url": "https://github.com/researchbyayan/BioEZ",
       "group": "software",
       "license": "MIT",
       "note": "Original application code.",

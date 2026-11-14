@@ -6,7 +6,7 @@ Vendored `seq_encode/smiles.py` and package marker from hcji/seq_encode,
 commit 9515620390910dba252c67feb17223717448e119.
 Source: https://github.com/hcji/seq_encode
 Copyright and MIT terms are preserved in backend/vendor/seq_encode/LICENSE.
-The vendored source is unmodified. ChemEZ wraps it for optional diagnostics;
+The vendored source is unmodified. BioEZ wraps it for optional diagnostics;
 the alphabet is returned with each encoding because upstream uses set ordering.
 
 ## chatbot-template
@@ -14,7 +14,7 @@ the alphabet is returned with each encoding because upstream uses set ordering.
 Architecture reference: https://github.com/IndrajeetPatil/chatbot-template
 Reviewed commit: 8b5aa31392f98987814097ad2b1bd4e513b67c8e.
 No license file was present in the reviewed repository. No source code or assets
-from that repository are redistributed here. ChemEZ independently implements
+from that repository are redistributed here. BioEZ independently implements
 its documented React/FastAPI and Markdown/math architecture.
 
 ## Installed dependencies
@@ -42,7 +42,7 @@ The prebuilt `dist/plain/index.js` is vendored unmodified (except the license-co
 filename) as `frontend/src/vendor/xsmiles/xsmiles.js`, with its LICENSE and bundled
 dependency notices alongside. Please cite: Heberle, H. et al. XSMILES: interactive
 visualization for molecules, SMILES and XAI attribution scores. J Cheminform 15, 2 (2023).
-ChemEZ colours atoms by RDKit Gasteiger partial charges; these are not XAI attributions.
+BioEZ colours atoms by RDKit Gasteiger partial charges; these are not XAI attributions.
 
 ## RDKit MinimalLib
 
@@ -56,14 +56,14 @@ RDKit MinimalLib needs `eval`; the app window CSP is unchanged.
 Common-molecule data (PubChem isomeric SMILES and aliases) from ghutchis/chem-skill,
 MIT License, Copyright (c) 2025 Geoff Hutchison. Source: https://github.com/ghutchis/chem-skill
 Commit: bdb58112cd010cbf6a68a244ed904f4dfb90496f. The MOLECULES and ALIASES tables are
-vendored in `backend/chemez/chem_skill_molecules.py`; two generic aliases ("acid", "alcohol")
+vendored in `backend/bioez/chem_skill_molecules.py`; two generic aliases ("acid", "alcohol")
 are not used for structure substitution. Its ETKDG + MMFF conformer approach informed the 3D view.
 
 ## ChemClaw
 
 Feature reference only: https://github.com/InternScience/ChemClaw (MIT), reviewed commit
 58c9efc72886af6ef9356c14387fb36e9432d597. Its 3D viewer and molecular-property skills informed
-ChemEZ's 3D model and RDKit property panel. No ChemClaw code or data is redistributed.
+BioEZ's 3D model and RDKit property panel. No ChemClaw code or data is redistributed.
 
 ## 3Dmol.js
 
@@ -76,12 +76,12 @@ Reviewed for features only; no code or data redistributed:
 jurimaxam-dotcom/chemdraw-mcp (Apache-2.0, commit 7bc67d0) informed functional-group
 highlighting and "highlight changes" comparison; scottmreed/openmolclaw (Apache-2.0,
 commit c32ab53) informed CIP stereo labels and InChI/InChIKey; scottmreed/ChemCP
-(commit fb1c28e) matched the existing RDKit property panel. ChemEZ implements these
+(commit fb1c28e) matched the existing RDKit property panel. BioEZ implements these
 independently with RDKit.
 
 ## Drawing conventions
 
-ChemEZ's own code follows published conventions from these projects; no source code from
+BioEZ's own code follows published conventions from these projects; no source code from
 them is included:
 
 - ReShiki (MIT OR Apache-2.0, Ameyanagi): notched arrowhead and one-sided fishhook geometry.
@@ -91,7 +91,7 @@ them is included:
 
 ## NMRShiftDB2 (¹³C shift data)
 
-`backend/chemez/data/c13_shifts.json.gz` is derived from NMRShiftDB2 (`nmrshiftdb2withsignals.sd`,
+`backend/bioez/data/c13_shifts.json.gz` is derived from NMRShiftDB2 (`nmrshiftdb2withsignals.sd`,
 https://sourceforge.net/projects/nmrshiftdb2/files/data/, version of 2024-06-06), built by
 `scripts/build-c13-table.py`. It holds median measured ¹³C shifts for carbon environments
 (structure within 1–4 bonds) and the number of observations.
@@ -99,4 +99,4 @@ https://sourceforge.net/projects/nmrshiftdb2/files/data/, version of 2024-06-06)
 NMRShiftDB2 data is made available under an extended ODC Open Database License (ODbL); see
 https://nmrshiftdb.nmr.uni-koeln.de for the licence text. This derived table is a derivative
 database and is shared under the same licence; software built with the data must be open
-source (ChemEZ is MIT-licensed). NMRShiftDB2 is by Stefan Kuhn and the NMRShiftDB contributors.
+source (BioEZ is MIT-licensed). NMRShiftDB2 is by Stefan Kuhn and the NMRShiftDB contributors.

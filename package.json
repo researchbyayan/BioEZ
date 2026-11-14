@@ -1,5 +1,5 @@
 {
-  "name": "chemez",
+  "name": "bioez",
   "version": "0.1.4",
   "private": true,
   "description": "Chemistry chat with validated molecular diagrams",
@@ -52,8 +52,8 @@
     "vitest": "^5.0.5"
   },
   "build": {
-    "appId": "org.chemez.desktop",
-    "productName": "ChemEZ",
+    "appId": "org.bioez.desktop",
+    "productName": "BioEZ",
     "directories": {
       "output": "release",
       "app": "build/desktop-app"
@@ -66,7 +66,7 @@
     ],
     "extraResources": [
       {
-        "from": "backend-dist/chemez-backend",
+        "from": "backend-dist/bioez-backend",
         "to": "backend"
       },
       {
@@ -133,11 +133,11 @@
       {
         "provider": "github",
         "owner": "researchbyayan",
-        "repo": "ChemEZ",
+        "repo": "BioEZ",
         "releaseType": "draft"
       }
     ],
-    "artifactName": "ChemEZ-${version}-${os}-${arch}.${ext}",
+    "artifactName": "BioEZ-${version}-${os}-${arch}.${ext}",
     "compression": "maximum"
   },
   "overrides": {

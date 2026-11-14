@@ -51,7 +51,7 @@ async def resolve(citation):
     if cached and time.monotonic()-cached[0]<cached[1]:return cached[2]
     async with _SLOTS:
         try:
-            async with httpx.AsyncClient(timeout=7,follow_redirects=False,headers={'User-Agent':'ChemEZ/0.1 (https://github.com/researchbyayan/ChemEZ)'}) as client:
+            async with httpx.AsyncClient(timeout=7,follow_redirects=False,headers={'User-Agent':'BioEZ/0.1 (https://github.com/researchbyayan/BioEZ)'}) as client:
                 response=await client.get('https://api.crossref.org/works',params={'query.bibliographic':query_title(key),'rows':5,'select':'DOI,title,author,published,container-title,volume,issue,page'})
                 response.raise_for_status()
                 result=match_record(key,response.json().get('message',{}).get('items',[])) or {'status':'unmatched'}

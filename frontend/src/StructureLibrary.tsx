@@ -9,7 +9,7 @@ export default function StructureLibrary({onClose,onOpen,onUse,busy,revision}:{o
   const [query,setQuery]=useState('');
   const [error,setError]=useState('');
   const [loading,setLoading]=useState(true);
-  useEffect(()=>{let current=true;void window.chemez.request('listDiagrams').then(data=>{if(current){setItems(data);setSelected(previous=>previous?data.find(item=>item.id===previous.id)||null:null);setError('');}}).catch(e=>{if(current)setError(errorMessage(e));}).finally(()=>{if(current)setLoading(false);});return()=>{current=false;};},[revision]);
+  useEffect(()=>{let current=true;void window.bioez.request('listDiagrams').then(data=>{if(current){setItems(data);setSelected(previous=>previous?data.find(item=>item.id===previous.id)||null:null);setError('');}}).catch(e=>{if(current)setError(errorMessage(e));}).finally(()=>{if(current)setLoading(false);});return()=>{current=false;};},[revision]);
   const label=(item:SavedDiagram)=>item.block.type==='molecule'?item.block.label:item.block.type==='reaction'?(item.block.caption||'Reaction scheme'):item.block.type==='resonance'?(item.block.caption||'Resonance structures'):'Mechanism';
   const visible=items.filter(item=>(label(item)+' '+item.title+' '+('smiles' in item.block?item.block.smiles:'')).toLowerCase().includes(query.toLowerCase()));
   return <aside className="structure-panel" aria-label="Structure library">

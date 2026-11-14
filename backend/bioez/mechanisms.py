@@ -1,4 +1,4 @@
-"""Textbook mechanisms ChemEZ builds itself from the reactants, so a model only has to name
+"""Textbook mechanisms BioEZ builds itself from the reactants, so a model only has to name
 the mechanism and give the reactant SMILES ({"type":"mechanism","name":"SN2","reactants":[…]}).
 
 Each builder edits one RDKit molecule step by step (atoms are never deleted, so indices stay
@@ -649,7 +649,7 @@ def build(name, reactants):
 def _build(name, reactants):
     builder = BUILDERS.get(key(name))
     if builder is None:
-        raise ValueError(f'ChemEZ has no built-in mechanism called "{name}". Built-in: ' + ', '.join(NAMES) + '.')
+        raise ValueError(f'BioEZ has no built-in mechanism called "{name}". Built-in: ' + ', '.join(NAMES) + '.')
     return builder(*reactants)
 
 

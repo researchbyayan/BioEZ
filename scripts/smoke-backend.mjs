@@ -4,10 +4,10 @@ import {mkdtemp,rm} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import {root} from './python-path.mjs';
-const directory=await mkdtemp(path.join(os.tmpdir(),'ChemEZ smoke with spaces '));
+const directory=await mkdtemp(path.join(os.tmpdir(),'BioEZ smoke with spaces '));
 const token=randomBytes(32).toString('hex');
-const exe=process.env.CHEMEZ_BACKEND_EXE||path.join(root,'backend-dist','chemez-backend',process.platform==='win32'?'chemez-backend.exe':'chemez-backend');
-const child=spawn(exe,[],{env:{...process.env,CHEMEZ_TOKEN:token,CHEMEZ_DATA_DIR:directory},stdio:['ignore','pipe','pipe']});
+const exe=process.env.BIOEZ_BACKEND_EXE||path.join(root,'backend-dist','bioez-backend',process.platform==='win32'?'bioez-backend.exe':'bioez-backend');
+const child=spawn(exe,[],{env:{...process.env,BIOEZ_TOKEN:token,BIOEZ_DATA_DIR:directory},stdio:['ignore','pipe','pipe']});
 const timer=setTimeout(()=>{child.kill();console.error('Backend smoke timed out');process.exitCode=1;},60000);
 try{
   const port=await new Promise((resolve,reject)=>{

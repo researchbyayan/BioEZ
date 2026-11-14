@@ -16,7 +16,7 @@ def copy_database(source: Path, destination: Path):
     with sqlite3.connect(source.as_uri()+'?mode=ro',uri=True) as origin:
         tables={row[0] for row in origin.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if not {'settings','conversations','messages'}<=tables:
-            raise ValueError('The source is not a ChemEZ conversation database.')
+            raise ValueError('The source is not a BioEZ conversation database.')
         if origin.execute('PRAGMA quick_check').fetchone()[0]!='ok':
             raise ValueError('The source database failed its integrity check.')
         descriptor=os.open(destination,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
@@ -37,8 +37,8 @@ def copy_database(source: Path, destination: Path):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source',required=True,type=Path,help='Existing ChemEZ SQLite database or backup')
-    parser.add_argument('--output',required=True,type=Path,help='NEW backup file, or chemez.sqlite3 in a NEW recovery directory')
+    parser.add_argument('--source',required=True,type=Path,help='Existing BioEZ SQLite database or backup')
+    parser.add_argument('--output',required=True,type=Path,help='NEW backup file, or bioez.sqlite3 in a NEW recovery directory')
     args=parser.parse_args()
     try:
         print('Saved and integrity-checked:',copy_database(args.source,args.output))

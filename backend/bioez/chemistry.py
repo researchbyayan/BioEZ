@@ -768,7 +768,7 @@ def resonance_series(smiles, most=4):
 
 
 def expand_resonance(item, generate=False):
-    """Resonance blocks ChemEZ can draw from what the model gave: one block per compound
+    """Resonance blocks BioEZ can draw from what the model gave: one block per compound
     (a "benzene vs toluene" block becomes two), and contributors generated from the compound
     when the model gave one form, or when `generate` replaces forms that failed checks."""
     if not isinstance(item, dict) or item.get('type') != 'resonance' or not isinstance(item.get('contributors'), list):
@@ -940,7 +940,7 @@ def render_block(block):
             if panels[number]!=step.smiles:
                 step = step.model_copy(update={'smiles':panels[number]})
                 item['smiles'] = panels[number]
-                item['completed'] = f'ChemEZ added the {added[number]} released in this step.'
+                item['completed'] = f'BioEZ added the {added[number]} released in this step.'
             try:
                 mol,formula = molecule(step.smiles,preserve_hydrogens=True)
                 known=common_smiles(step.iupac_name,step.label)
@@ -1034,7 +1034,7 @@ def structure_3d(smiles: str):
     return {'molblock': Chem.MolToMolBlock(hydrogens), 'force_field': force_field, 'properties': properties}
 
 
-# Functional groups for the teaching view (SMARTS written for ChemEZ; idea from chemdraw-mcp/openmolclaw).
+# Functional groups for the teaching view (SMARTS written for BioEZ; idea from chemdraw-mcp/openmolclaw).
 _GROUPS = [
     ('Carboxylic acid', '[CX3](=O)[OX2H1]'), ('Carboxylate', '[CX3](=O)[OX1-]'), ('Acyl chloride', '[CX3](=O)[Cl]'),
     ('Acid anhydride', '[CX3](=O)[OX2][CX3](=O)'), ('Ester', '[CX3;$(C[#6])](=O)[OX2H0;$(O[#6])]'), ('Amide', '[NX3][CX3](=[OX1])'),

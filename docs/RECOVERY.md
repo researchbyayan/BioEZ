@@ -1,8 +1,8 @@
-# ChemEZ recovery and release runbook
+# BioEZ recovery and release runbook
 
 ## Scope
 
-ChemEZ is a local desktop app, not a hosted multi-user service. The authenticated
+BioEZ is a local desktop app, not a hosted multi-user service. The authenticated
 loopback backend and operating-system user account define its local trust boundary.
 Do not publish its local port as a public API. AI providers remain remote services.
 
@@ -16,18 +16,18 @@ That checkpoint is local and ignored by git, not an off-device disaster backup.
 
 ## Conversation backups
 
-The database is `chemez.sqlite3` under Electron's userData directory. Normally:
+The database is `bioez.sqlite3` under Electron's userData directory. Normally:
 
-- macOS: `~/Library/Application Support/ChemEZ/`
-- Windows: `%APPDATA%\ChemEZ\`
-- Linux: `$XDG_CONFIG_HOME/ChemEZ/`, falling back to `~/.config/ChemEZ/`
-- A test or recovery instance can use `CHEMEZ_PROFILE` to select another folder.
+- macOS: `~/Library/Application Support/BioEZ/`
+- Windows: `%APPDATA%\BioEZ\`
+- Linux: `$XDG_CONFIG_HOME/BioEZ/`, falling back to `~/.config/BioEZ/`
+- A test or recovery instance can use `BIOEZ_PROFILE` to select another folder.
 
 Use the SQLite backup API rather than copying only the main database while WAL
 writes may be active:
 
 ```sh
-python scripts/backup-data.py --source "/absolute/app data/chemez.sqlite3" --output "/absolute/backups/chemez-2026-10-26.sqlite3"
+python scripts/backup-data.py --source "/absolute/app data/bioez.sqlite3" --output "/absolute/backups/bioez-2026-10-26.sqlite3"
 ```
 
 The destination folder must already exist. The tool refuses to overwrite any
@@ -41,12 +41,12 @@ scheduled backup or automatic cloud copy is enabled by this tool.
 
 1. Create a NEW empty recovery directory. Keep the original profile intact.
 2. Run the same tool with the backup as `--source` and the NEW directory's
-   `chemez.sqlite3` as `--output`.
-3. Close other ChemEZ windows, then launch the app with `CHEMEZ_PROFILE` pointing
+   `bioez.sqlite3` as `--output`.
+3. Close other BioEZ windows, then launch the app with `BIOEZ_PROFILE` pointing
    to that recovery directory. Use a session-only key for this rehearsal if needed.
 4. Verify titles, messages, images, diagrams and answer modes, then reconnect APIs.
 5. Only after verification, keep using the restored profile or carefully move it
-   into place while all ChemEZ processes are stopped. Retain the original first.
+   into place while all BioEZ processes are stopped. Retain the original first.
 
 Automated restore tests use synthetic conversations, not the user's real data.
 A synthetic restore proves the tool, not the availability of an off-device backup.

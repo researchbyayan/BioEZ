@@ -1,7 +1,7 @@
 import json
 import httpx
 import pytest
-from chemez.providers import Provider,ProviderError
+from bioez.providers import Provider,ProviderError
 
 @pytest.mark.parametrize('provider,event,expected_url,key_header',[('openai',{'choices':[{'delta':{'content':'Hello'}}]},'https://api.openai.com/v1/chat/completions','authorization'),('compatible',{'choices':[{'delta':{'content':'Hello'}}]},'https://custom.example/v1/chat/completions','authorization'),('anthropic',{'type':'content_block_delta','delta':{'text':'Hello'}},'https://api.anthropic.com/v1/messages','x-api-key'),('gemini',{'candidates':[{'content':{'parts':[{'text':'Hello'}]}}]},'https://generativelanguage.googleapis.com/v1beta/models/test:streamGenerateContent?alt=sse','x-goog-api-key')])
 async def test_native_requests_and_stream(provider,event,expected_url,key_header):
@@ -40,7 +40,7 @@ async def test_stream_error_event_is_not_silently_ignored():
         _=[x async for x in adapter.stream([{'role':'user','content':'question'}])]
 
 def test_gemini_chemistry_request_enforces_json_schema():
-    from chemez.providers import SYSTEM
+    from bioez.providers import SYSTEM
     adapter=Provider({'provider':'gemini','model':'gemini-3.1-flash-lite'},'SECRET')
     _,_,body=adapter.request([{'role':'user','content':'Benzene, and resonating structures.'}])
     config=body['generationConfig']
@@ -62,7 +62,7 @@ async def test_gemini_thoughts_do_not_corrupt_json_answer():
     adapter=Provider({'provider':'gemini','model':'test'},'SECRET',httpx.MockTransport(lambda _:httpx.Response(200,text=''.join('data: '+json.dumps(e)+'\n\n' for e in events))))
     raw=''.join([chunk async for chunk in adapter.stream([{'role':'user','content':'Benzene'}])])
     assert raw==answer
-    from chemez.app import prepare_answer
+    from bioez.app import prepare_answer
     blocks,failed=prepare_answer(raw)
     assert not failed and blocks[0]['formula']=='C6H6' and blocks[0]['svg']
 
@@ -147,7 +147,7 @@ async def test_timeout_policy_and_no_automatic_retry(endpoint,read_timeout):
 
 async def test_total_deadline_closes_stream_even_with_reasoning(monkeypatch):
     import asyncio
-    import chemez.providers as providers
+    import bioez.providers as providers
     monkeypatch.setattr(providers,'NVIDIA_REQUEST_DEADLINE',0.02)
     closed=[]
     class SlowReasoning(httpx.AsyncByteStream):
@@ -239,7 +239,7 @@ async def test_gateway_keyless_discovery_and_request_omit_authorization():
     assert body['model']=='local'
 
 async def test_transient_503_recovers_without_changing_model_or_key(monkeypatch):
-    import chemez.providers as providers
+    import bioez.providers as providers
     async def no_delay(_):pass
     monkeypatch.setattr(providers.asyncio,'sleep',no_delay)
     requests=[]
@@ -254,7 +254,7 @@ async def test_transient_503_recovers_without_changing_model_or_key(monkeypatch)
     assert all(r.headers['authorization']=='Bearer GATEWAY-SECRET' for r in requests)
 
 async def test_transient_retry_stops_at_three_requests(monkeypatch):
-    import chemez.providers as providers
+    import bioez.providers as providers
     async def no_delay(_):pass
     monkeypatch.setattr(providers.asyncio,'sleep',no_delay)
     calls=[]
@@ -273,7 +273,7 @@ async def test_long_retry_after_is_not_ignored():
 
 async def test_cancel_during_retry_does_not_send_another_request(monkeypatch):
     import asyncio
-    import chemez.providers as providers
+    import bioez.providers as providers
     waiting=asyncio.Event();calls=[]
     async def wait(_):waiting.set();await asyncio.Event().wait()
     monkeypatch.setattr(providers.asyncio,'sleep',wait)

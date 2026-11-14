@@ -1,10 +1,10 @@
 import asyncio
 import json
 import pytest
-from chemez.processing import process_chemistry, ProcessingError
-from chemez.styles import answer_system, style_issue
-from chemez.app import prepare_answer
-from chemez.providers import Provider, ProviderError, SYSTEM
+from bioez.processing import process_chemistry, ProcessingError
+from bioez.styles import answer_system, style_issue
+from bioez.app import prepare_answer
+from bioez.providers import Provider, ProviderError, SYSTEM
 
 
 async def test_native_worker_failure_does_not_kill_the_next_answer():
@@ -50,14 +50,14 @@ def test_nvidia_qwen_preserves_image_content_and_uses_documented_controls():
 
 def test_answer_modes_are_distinct_and_out_of_mode_responses_are_flagged():
     assert '50–100' in answer_system(SYSTEM,'concise')
-    from chemez.styles import STYLES
+    from bioez.styles import STYLES
     assert set(STYLES)=={'balanced','concise','mechanism'}
     verbose=[{'type':'markdown','text':'word '*170}]
     assert style_issue(verbose,'concise','Explain phenol')
 
 
 def test_live_nvidia_latex_escapes_are_recovered_without_changing_chemistry():
-    from chemez.answer_format import decode_answer
+    from bioez.answer_format import decode_answer
     raw=r'{"blocks":[{"type":"markdown","text":"Formula $\ce{C6H6}$ and $\underbrace{x}$."},{"type":"molecule","smiles":"F/C=C\F"}]}'
     result=decode_answer(raw)
     assert result['blocks'][0]['text']==r'Formula $\ce{C6H6}$ and $\underbrace{x}$.'
@@ -67,8 +67,8 @@ def test_live_nvidia_latex_escapes_are_recovered_without_changing_chemistry():
 
 
 def test_common_reference_corrects_formula_but_preserves_enantiomers():
-    from chemez.chemistry import molecule_result
-    from chemez.models import Molecule
+    from bioez.chemistry import molecule_result
+    from bioez.models import Molecule
     result=molecule_result(Molecule(smiles='Brc1ccccc1',label='Bromobenzene',formula='C6H6Br'))
     assert result['formula']=='C6H5Br' and result['validation_notes']
     first=molecule_result(Molecule(smiles='C[C@H](O)C(=O)O',label='Lactic acid'))
@@ -81,8 +81,8 @@ def test_common_reference_corrects_formula_but_preserves_enantiomers():
 
 
 async def test_corrupt_saved_text_is_isolated_and_health_still_responds(tmp_path):
-    from chemez.app import create_app
-    from chemez.storage import Store
+    from bioez.app import create_app
+    from bioez.storage import Store
     from httpx import AsyncClient,ASGITransport
     app=create_app(tmp_path,'test-token')
     store=app.state.store
@@ -97,8 +97,8 @@ async def test_corrupt_saved_text_is_isolated_and_health_still_responds(tmp_path
 
 
 def test_unassigned_enantiomer_names_and_atom_creating_mechanisms_are_rejected():
-    from chemez.chemistry import molecule_result,render_block
-    from chemez.models import Molecule,MechanismBlock
+    from bioez.chemistry import molecule_result,render_block
+    from bioez.models import Molecule,MechanismBlock
     with pytest.raises(ValueError,match='stereochemistry'):
         molecule_result(Molecule(smiles='CC(O)C(=O)O',label='(R)-2-hydroxypropanoic acid'))
     mechanism=MechanismBlock.model_validate({'type':'mechanism','steps':[{'smiles':'[OH-].CBr','label':'Reactants'},{'smiles':'CCO.[Br-]','label':'Products: methanol and bromide'}]})
@@ -109,9 +109,9 @@ def test_unassigned_enantiomer_names_and_atom_creating_mechanisms_are_rejected()
 
 
 def test_missing_carbon_source_and_missing_synthesis_diagram_are_flagged():
-    from chemez.models import ReactionBlock
-    from chemez.chemistry import render_block
-    from chemez.styles import diagram_issue
+    from bioez.models import ReactionBlock
+    from bioez.chemistry import render_block
+    from bioez.styles import diagram_issue
     reaction=ReactionBlock.model_validate({'type':'reaction','reactants':[{'smiles':'CCO'}],'products':[{'smiles':'CCOC(C)=O'}],'reagents':'H2SO4'})
     with pytest.raises(ValueError,match='creates carbon'):
         render_block(reaction)
@@ -119,14 +119,14 @@ def test_missing_carbon_source_and_missing_synthesis_diagram_are_flagged():
 
 
 def test_standalone_chemistry_macros_render_without_changing_code_or_existing_math():
-    from chemez.answer_format import chemistry_markdown
+    from bioez.answer_format import chemistry_markdown
     text=r'Use \ce{NaOH}, $\ce{H2O}$, and literal `\ce{CO2}`.'
     assert chemistry_markdown(text)==r'Use $\ce{NaOH}$, $\ce{H2O}$, and literal `\ce{CO2}`.'
 
 
 def test_reference_lookup_normalizes_e_z_aliases_before_stereo_validation():
-    from chemez.chemistry import molecule_result
-    from chemez.models import Molecule
+    from bioez.chemistry import molecule_result
+    from bioez.models import Molecule
     cis=molecule_result(Molecule(smiles='C1=C(C)C(C)1',label='cis-but-2-ene',iupac_name='(Z)-but-2-ene',formula='C4H8'))
     trans=molecule_result(Molecule(smiles='C1=C(C)C(C)1',label='trans-but-2-ene',iupac_name='(E)-but-2-ene',formula='C4H8'))
     assert cis['formula']==trans['formula']=='C4H8'

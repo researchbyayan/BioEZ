@@ -1,7 +1,7 @@
-# ChemEZ production evaluation
+# BioEZ production evaluation
 
 50 distinct prompts: 25 reference-answer questions and 25 authored stress scenarios.
-Live runs use the explicitly selected NVIDIA connection through ChemEZ's native
+Live runs use the explicitly selected NVIDIA connection through BioEZ's native
 provider adapter. The runner never reads, prints, or copies API keys. Temporary
 profiles keep evaluation conversations separate from the user's chats.
 

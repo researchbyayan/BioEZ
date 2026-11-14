@@ -37,7 +37,7 @@ Requested scope: composer collapses with a sliding animation into a search-bar-h
 
 ### User correction
 
-- Lexend is restricted to the top-left ChemEZ wordmark. General interface typography is restored to its original stack; the connected EZ artwork and italic hero styling remain.
+- Lexend is restricted to the top-left BioEZ wordmark. General interface typography is restored to its original stack; the connected EZ artwork and italic hero styling remain.
 - Replaced the floating boxed collapse chevron with a faint composer-edge grab handle.
 
 ### CI runner migration

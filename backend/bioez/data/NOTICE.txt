@@ -5,6 +5,6 @@ The full license accompanies this table as nmrshiftdb2-database-license.txt.
 
 c13_shifts.json.gz is a machine-readable derived database of aggregated carbon
 environments and observed shifts, based on the 2024-06-06 source data. It retains
-the nmrshiftdb2 Database License; it is not relicensed under ChemEZ's MIT license.
-The transformation algorithm is scripts/build-c13-table.py in the ChemEZ source
+the nmrshiftdb2 Database License; it is not relicensed under BioEZ's MIT license.
+The transformation algorithm is scripts/build-c13-table.py in the BioEZ source
 release. Predictions using aggregate records are not measurements of a sample.

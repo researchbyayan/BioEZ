@@ -1,8 +1,8 @@
 """Decide the drawing from the answer, not the question.
 
-After the model has answered, a short second call reads that answer and picks what ChemEZ
+After the model has answered, a short second call reads that answer and picks what BioEZ
 should draw: keep the diagrams it made, drop them, show only specific species, or show a
-resonance series. ChemEZ then draws the choice with its own verified tools.
+resonance series. BioEZ then draws the choice with its own verified tools.
 """
 import json, re
 
@@ -39,7 +39,7 @@ def parse(text):
 
 
 def wanted(decision):
-    """Blocks for ChemEZ to draw for a decision, or None when the current diagrams stay."""
+    """Blocks for BioEZ to draw for a decision, or None when the current diagrams stay."""
     if not decision or decision['draw'] == 'keep':
         return None
     if decision['draw'] == 'none':

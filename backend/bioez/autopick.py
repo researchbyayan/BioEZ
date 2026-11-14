@@ -1,7 +1,7 @@
 """Choose a working model for a key, and fall back when the chosen one stalls.
 
 A key can list many models it cannot actually call (retired, not on the free tier, or
-overloaded), so ChemEZ asks the strongest-looking candidates for a one-word reply and keeps
+overloaded), so BioEZ asks the strongest-looking candidates for a one-word reply and keeps
 the best that answers, plus a few working backups.
 """
 import asyncio, re

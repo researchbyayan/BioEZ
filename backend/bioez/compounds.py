@@ -211,7 +211,7 @@ class Lookup:
         return {'record': record, 'interpreted': interpreted}
 
     def known(self, name):
-        """True for names ChemEZ has verified locally or looked up before (no network)."""
+        """True for names BioEZ has verified locally or looked up before (no network)."""
         key = normalize(name)
         return key in COMMON or bool(self.cache.get(key))
 

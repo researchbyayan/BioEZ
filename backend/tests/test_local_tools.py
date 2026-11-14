@@ -1,5 +1,5 @@
 import pytest
-from chemez.local_tools import answer,balance,convert,formula_info
+from bioez.local_tools import answer,balance,convert,formula_info
 
 
 def test_balancing_conserves_atoms():
@@ -40,7 +40,7 @@ def test_offline_element_reference():
 
 
 def test_calculated_chlorine_isotope_envelope():
-    from chemez.local_tools import isotope_table
+    from bioez.local_tools import isotope_table
     table=isotope_table('Cl2')
     assert '100.00' in table and '63.99' in table and '10.24' in table
     assert 'fragmentation' in table and 'z = +1' in table

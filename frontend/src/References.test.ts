@@ -7,7 +7,7 @@ describe('answer references',()=>{
     expect(sources[0].provenance).toBe('Compound lookup source');
     expect(sources[1].provenance).toContain('not retrieved');
   });
-  it('lists a named book without a link',()=>expect(collectReferences([{references:[{title:'Guyton & Hall, Chapter 64',provenance:'model'}]}])).toEqual([{title:'Guyton & Hall, Chapter 64',provenance:'Suggested by model, not retrieved by ChemEZ'}]));
+  it('lists a named book without a link',()=>expect(collectReferences([{references:[{title:'Guyton & Hall, Chapter 64',provenance:'model'}]}])).toEqual([{title:'Guyton & Hall, Chapter 64',provenance:'Suggested by model, not retrieved by BioEZ'}]));
   it('does not invent sources for an answer without references',()=>expect(collectReferences([{type:'markdown',text:'Hello'}])).toEqual([]));
 });
 
