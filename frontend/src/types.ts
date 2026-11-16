@@ -10,6 +10,11 @@ export type Block = {id:string;references?:{title:string;url?:string;provenance:
   | {type:'resonance';flow_summary?:string;caption:string;contributors:{bond_changes?:{action:string;label:string;before:number;after:number}[];smiles:string;label:string;svg:string;formula?:string;limitation:string;arrows_derived?:boolean}[];hybrid:{svg:string;label:string}|null}
   | {type:'clarification';question:string;options:string[]}
   | {type:'error';text:string}
+  | {type:'sequence';kind:'dna'|'rna'|'protein';label:string;sequence:string;length:number;facts:[string,string][];reverse_complement?:string;transcript?:string;translation?:string;source:string}
+  | {type:'rna_fold';label:string;sequence:string;structure:string;mfe:number;pairs:number;svg:string;source:string}
+  | {type:'gene_map';title:string;accession:string;length:number;features:{name:string;start:number;end:number;strand:number;kind:string}[];svg:string;source:string}
+  | {type:'primers';primers:{name:string;sequence:string;length:number;tm:number;gc:number;hairpin_dg:number|null;self_dimer_dg:number|null}[];pair:{tm_difference:number;cross_dimer_dg:number|null}|null;source:string}
+  | {type:'protein';label:string;uniprot?:string;name?:string;gene?:string;organism?:string;length?:number;function?:string;location?:string;pdb?:string;pdb_title?:string;method?:string;resolution?:number|null;source:string}
 );
 export interface Structure3D {molblock:string|null;force_field:string|null;properties:{formula:string;molar_mass:number;exact_mass:number;logp:number;tpsa:number;h_bond_donors:number;h_bond_acceptors:number;rotatable_bonds:number;rings:number;aromatic_rings:number;stereocentres:number;formal_charge:number;heavy_atoms:number}}
 export interface StructureAnalysis {lewis_svg?:string|null;hydrogens_svg?:string|null;lewis_hydrogens_svg?:string|null;groups:{name:string;count:number;atoms:number[];svg:string}[];stereo_svg:string;stereo:string[];inchi:string;inchikey:string}
@@ -40,6 +45,7 @@ export interface Bridge {
   request(command:'listDiagrams'):Promise<SavedDiagram[]>;
   request(command:'resolveCitation',payload:{citation:string}):Promise<{status:'matched'|'unmatched'|'unavailable';title?:string;url?:string;citation?:string;provenance?:string}>;
   request(command:'structure3d',payload:{smiles:string}):Promise<Structure3D>;
+  request(command:'proteinStructure',payload:{pdb:string}):Promise<{pdb:string;data:string}>;
   request(command:'analyseStructure',payload:{smiles:string}):Promise<StructureAnalysis>;
   request(command:'suggestQuestion',payload:{id:string;mode:'concise'|'balanced'|'mechanism';command?:string}):Promise<{question:string}>;
   request(command:'rewindConversation',payload:{id:string;before_message_id:string}):Promise<{id:string;messages:Message[]}>;

@@ -128,7 +128,7 @@ async def process_biology(operation, payload, timeout=25):
                 blocks=[]
         else:
             blocks=[block for text in payload for block in complete_blocks(text)]
-        if not any(isinstance(block,dict) and block.get('type') in ('molecule','reaction','mechanism','resonance') for block in blocks):
+        if not any(isinstance(block,dict) and block.get('type') in ('molecule','reaction','mechanism','resonance','sequence','rna_fold','gene_map','primers','protein') for block in blocks):
             if operation=='partial':
                 return _partial_result(payload)
             from .app import prepare_answer

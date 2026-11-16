@@ -913,9 +913,31 @@ def verify_or_complete(mol, following, arrows):
             return [given.get(key(a), a) for a in chosen], changes, True
     raise ValueError(_friendly(first_problem))
 
+def _bio_result(block, bio_tools):
+    if block.type == 'sequence':
+        return bio_tools.sequence_result(block.kind, block.sequence)
+    if block.type == 'rna_fold':
+        return bio_tools.rna_fold_result(block.sequence)
+    if block.type == 'gene_map':
+        return bio_tools.gene_map_result(block.model_dump())
+    if block.type == 'primers':
+        return bio_tools.primers_result([p.model_dump() for p in block.primers])
+    return bio_tools.protein_result(block.model_dump())
+
+
 def render_block(block):
     result = block.model_dump()
     result['id'] = str(uuid4())
+    if block.type in ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein'):
+        from . import bio_tools
+        try:
+            result.update(_bio_result(block, bio_tools))
+        except ValueError:
+            raise
+        except Exception as exc:  # network failures and library errors become a readable block error
+            name = type(exc).__name__
+            raise ValueError('The online database could not be reached; check your connection and retry.' if 'HTTP' in name or 'Connect' in name or 'Timeout' in name else f'The {block.type.replace("_", " ")} tool could not process this input.') from exc
+        return result
     if block.type == 'molecule':
         result.update(molecule_result(block))
     elif block.type == 'reaction':

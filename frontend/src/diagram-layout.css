@@ -306,3 +306,30 @@ svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:
 .spectrum-figure .ir-label{font-size:9px;opacity:.7;font-variant-numeric:tabular-nums}
 .spectrum-figure .ir-leader{stroke:currentColor;stroke-width:.5;opacity:.35}
 .spectrum-figure .ir-peak-label{font-size:8.5px;opacity:.85;font-variant-numeric:tabular-nums;fill:currentColor}
+
+/* Biology tool cards: sequence, RNA fold, gene map, primers and protein. */
+.bio-card figcaption { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
+.bio-card figcaption strong { font-size:13px; }
+.bio-body { padding:14px 16px 4px; display:flex; flex-direction:column; gap:14px; }
+.bio-source { margin:0; padding:8px 16px 14px; font-size:10.5px; line-height:1.6; color:var(--muted); }
+.bio-facts { width:100%; border-collapse:collapse; font-size:12px; }
+.bio-facts th,.bio-facts td { text-align:left; padding:7px 10px; border-top:1px solid #ffffff10; vertical-align:top; font-weight:400; }
+.bio-facts tbody th { width:38%; color:var(--muted); }
+.bio-facts thead th { color:var(--muted); font-size:11px; border-top:0; }
+.bio-facts code { font-size:11px; color:var(--green); }
+.bio-scroll { overflow-x:auto; }
+.bio-primers td,.bio-primers th { white-space:nowrap; }
+.bio-sequence { border:1px solid #ffffff12; border-radius:10px; background:#ffffff05; }
+.bio-sequence-head { display:flex; align-items:center; justify-content:space-between; padding:7px 10px; font-size:11px; color:var(--muted); border-bottom:1px solid #ffffff0d; }
+.bio-sequence code { display:block; padding:10px 12px; font-size:11px; line-height:1.8; word-break:break-all; white-space:pre-wrap; max-height:160px; overflow:auto; color:#e9e3ee; }
+.bio-dotbracket { letter-spacing:.5px; }
+.bio-copy { color:var(--muted); font-size:11px; padding:2px 4px; }
+.bio-copy:hover { color:var(--green); }
+.bio-figure { background:#fff; border-radius:10px; padding:10px; text-align:center; position:relative; }
+.bio-figure img { display:block; max-width:100%; max-height:420px; margin:auto; }
+:root .app-shell .bio-save,.bio-save { position:absolute; right:8px; bottom:8px; font-size:10.5px; color:#4c1d95!important; background:#ede4fb!important; opacity:1!important; border:1px solid #c9b3ef!important; border-radius:6px; padding:4px 9px; }
+.bio-details summary { cursor:pointer; font-size:11.5px; color:var(--muted); padding:4px 0; }
+.bio-function,.bio-pdb-title { margin:0; font-size:12.5px; line-height:1.7; }
+.bio-pdb-title { color:var(--muted); font-size:11.5px; }
+.bio-action { align-self:flex-start; display:inline-flex; align-items:center; gap:8px; font-size:12px; padding:8px 13px; border-radius:9px; background:var(--green); color:#1d0f2b; font-weight:500; }
+.protein-3d { position:relative; width:100%; height:420px; border-radius:12px; overflow:hidden; }

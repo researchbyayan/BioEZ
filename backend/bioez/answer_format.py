@@ -124,7 +124,7 @@ def complete_blocks(text):
             value,end=decoder.raw_decode(text,match.start())
         except ValueError:
             continue
-        if isinstance(value,dict) and value.get('type') in ('markdown','molecule','reaction','mechanism','clarification'):
+        if isinstance(value,dict) and value.get('type') in ('markdown','molecule','reaction','mechanism','clarification','sequence','rna_fold','gene_map','primers','protein'):
             blocks.append(value)
             consumed=end
     return blocks

@@ -15,6 +15,8 @@ test('3D structure requests carry only a bounded SMILES string',()=>{
   assert.deepEqual(resolveRoute('structure3d',{smiles:'CCO'}),['POST','/structure/3d']);
   assert.throws(()=>resolveRoute('structure3d',{smiles:'C'.repeat(2001)}));
   assert.throws(()=>resolveRoute('structure3d','CCO'));
+  assert.deepEqual(resolveRoute('proteinStructure',{pdb:'4HHB'}),['POST','/protein/structure']);
+  assert.throws(()=>resolveRoute('proteinStructure',{pdb:'../x'}));
 });
 
 test('publication resolution accepts bounded citation text only',()=>{

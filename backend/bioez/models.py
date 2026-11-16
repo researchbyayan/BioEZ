@@ -85,7 +85,48 @@ class ClarificationBlock(StrictModel):
     question: str = Field(max_length=2000)
     options: list[str] = Field(default_factory=list, max_length=12)
 
-Block = Annotated[MarkdownBlock | MoleculeBlock | ReactionBlock | MechanismBlock | ResonanceBlock | ClarificationBlock, Field(discriminator='type')]
+class SequenceBlock(StrictModel):
+    type: Literal['sequence']
+    kind: Literal['dna', 'rna', 'protein']
+    sequence: str = Field(min_length=1, max_length=60000)
+    label: str = Field(default='', max_length=200)
+
+class RnaFoldBlock(StrictModel):
+    type: Literal['rna_fold']
+    sequence: str = Field(min_length=1, max_length=1200)
+    label: str = Field(default='', max_length=200)
+
+class GeneFeature(StrictModel):
+    name: str = Field(min_length=1, max_length=80)
+    start: int = Field(ge=1, le=2_000_000)
+    end: int = Field(ge=1, le=2_000_000)
+    strand: Literal[-1, 0, 1] = 1
+    kind: str = Field(default='feature', max_length=30)
+
+class GeneMapBlock(StrictModel):
+    type: Literal['gene_map']
+    accession: str = Field(default='', max_length=30)
+    title: str = Field(default='', max_length=200)
+    length: int = Field(default=0, ge=0, le=2_000_000)
+    features: list[GeneFeature] = Field(default_factory=list, max_length=40)
+
+class Primer(StrictModel):
+    name: str = Field(default='', max_length=60)
+    sequence: str = Field(min_length=1, max_length=80)
+
+class PrimersBlock(StrictModel):
+    type: Literal['primers']
+    primers: list[Primer] = Field(min_length=1, max_length=4)
+
+class ProteinBlock(StrictModel):
+    type: Literal['protein']
+    uniprot: str = Field(default='', max_length=20)
+    pdb: str = Field(default='', max_length=8)
+    label: str = Field(default='', max_length=200)
+
+BIO_TYPES = ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein')
+
+Block = Annotated[MarkdownBlock | MoleculeBlock | ReactionBlock | MechanismBlock | ResonanceBlock | ClarificationBlock | SequenceBlock | RnaFoldBlock | GeneMapBlock | PrimersBlock | ProteinBlock, Field(discriminator='type')]
 
 class Answer(StrictModel):
     references: list[Reference] = Field(default_factory=list, max_length=12)

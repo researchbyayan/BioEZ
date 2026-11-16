@@ -6,7 +6,7 @@ const routes = Object.freeze({
   loadModels: ['POST','/config/models'], getConfig: ['GET','/config'], saveConfig: ['PUT','/config'],
   deleteKey: ['DELETE','/credentials'], testConnection: ['POST','/config/test'],
   listConversations: ['GET','/conversations'],
-  listDiagrams: ['GET','/diagrams'], structure3d: ['POST','/structure/3d'], analyseStructure: ['POST','/structure/analysis'],
+  listDiagrams: ['GET','/diagrams'], structure3d: ['POST','/structure/3d'], analyseStructure: ['POST','/structure/analysis'], proteinStructure: ['POST','/protein/structure'],
   getConversation: ['GET','/conversations/'], deleteConversation: ['DELETE','/conversations/']
 });
 function resolveRoute(command, payload) {
@@ -27,6 +27,7 @@ function resolveRoute(command, payload) {
     return ['PATCH','/conversations/' + payload.id];
   }
   if ((command === 'structure3d' || command === 'analyseStructure') && (!payload || typeof payload.smiles !== 'string' || !payload.smiles || payload.smiles.length > 2000)) throw new Error('Invalid structure request.');
+  if (command === 'proteinStructure' && (!payload || typeof payload.pdb !== 'string' || !/^[0-9][A-Za-z0-9]{3}$/.test(payload.pdb))) throw new Error('Invalid PDB ID.');
   if(command==='resolveCitation'&&(!payload||typeof payload.citation!=='string'||payload.citation.length<15||payload.citation.length>600))throw new Error('Invalid citation request.');
   const route = routes[command];
   if (!route) throw new Error('Unsupported desktop command.');

@@ -424,6 +424,19 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
         except ValueError as exc:
             raise HTTPException(400,str(exc)) from exc
 
+    @app.post('/protein/structure')
+    async def protein_structure(payload: dict):
+        from .bio_tools import protein_structure as fetch_structure
+        pdb=payload.get('pdb') if isinstance(payload,dict) else None
+        if not isinstance(pdb,str):
+            raise HTTPException(400,'Use a four-character PDB ID.')
+        try:
+            return await fetch_structure(pdb)
+        except ValueError as exc:
+            raise HTTPException(400,str(exc)) from exc
+        except Exception as exc:
+            raise HTTPException(502,'The RCSB PDB could not be reached; check your connection and retry.') from exc
+
     @app.post('/structure/analysis')
     async def structure_analysis(payload: StructureRequest):
         try:
