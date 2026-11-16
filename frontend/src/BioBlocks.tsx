@@ -4,6 +4,7 @@ import {Dialog} from './Dialog';
 import {savePNG} from './Blocks';
 
 type Of<T extends Block['type']>=Extract<Block,{type:T}>;
+const webgl=()=>{try{const c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'));}catch{return false;}};
 const svgSrc=(svg:string)=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
 
 function CopyText({label,value}:{label:string;value:string}){
@@ -70,6 +71,7 @@ function ProteinStructure({pdb,onClose}:{pdb:string;onClose:()=>void}){
   const [state,setState]=useState<'loading'|'ready'|string>('loading');
   useEffect(()=>{
     let live=true,viewer:{clear:()=>void}|null=null;
+    if(!webgl()){setState('nowebgl');return;}
     (async()=>{
       try{
         const [{data},$3Dmol]=await Promise.all([window.bioez.request('proteinStructure',{pdb}),import('3dmol')]);
@@ -77,14 +79,15 @@ function ProteinStructure({pdb,onClose}:{pdb:string;onClose:()=>void}){
         const v=$3Dmol.createViewer(host.current,{backgroundColor:'#150f1a',antialias:true});viewer=v;
         v.addModel(data,'pdb');v.setStyle({},{cartoon:{color:'spectrum'}});v.setStyle({hetflag:true},{stick:{radius:0.18}});v.zoomTo();v.render();
         setState('ready');
-      }catch(error){if(live)setState(error instanceof Error?error.message:'This structure could not be loaded.');}
+      }catch(error){if(live)setState(error instanceof Error&&error.message?error.message.replace(/^Error invoking remote method '[^']+': (?:Error: )?/,''):'This structure could not be loaded.');}
     })();
     return()=>{live=false;viewer?.clear();};
   },[pdb]);
   return <Dialog title={`PDB ${pdb}`} onClose={onClose} className="smiles-explorer protein-viewer">
     <p className="smiles-explorer-help">Cartoon coloured from the N-terminus (blue) to the C-terminus (red); ligands and hemes as sticks. Drag to rotate, scroll to zoom.</p>
+    {state==='nowebgl'?<p className="notice">The 3D viewer needs graphics acceleration (WebGL), which is turned off or unavailable on this computer. <button type="button" className="reference-link" onClick={()=>void window.bioez.openReference?.(`https://www.rcsb.org/3d-view/${pdb}`)}>Open {pdb} in the RCSB 3D viewer</button> instead.</p>:<>
     {state!=='ready'&&<p className={state==='loading'?'smiles-explorer-status':'notice error'} role={state==='loading'?'status':'alert'}>{state==='loading'?'Downloading the structure from RCSB PDB…':state}</p>}
-    <div ref={host} className="protein-3d" aria-label={`3D structure of PDB entry ${pdb}`}/>
+    <div ref={host} className="protein-3d" aria-label={`3D structure of PDB entry ${pdb}`}/></>}
   </Dialog>;
 }
 

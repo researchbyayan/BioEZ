@@ -70,7 +70,8 @@ def sequence_result(kind, text):
             protein = str(coding.translate(to_stop=True))
             if protein:
                 result['translation'] = _limited(protein, 3000)
-                facts.append(['Open reading frame', f'From position {start + 1}: {len(protein)} amino acids'])
+                stopped = len(protein) < len(coding) // 3
+                facts.append(['Open reading frame', f'From position {start + 1}: {len(protein)} amino acids' + ('' if stopped else ' (no stop codon in this stretch)')])
     else:
         from Bio.SeqUtils.ProtParam import ProteinAnalysis
         standard = sequence.replace('*', '')
