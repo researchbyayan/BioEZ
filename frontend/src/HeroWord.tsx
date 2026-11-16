@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 
-// "Chemistry, ___." types each synonym out, holds it, erases it and types the next.
+// "Biology, ___." types each synonym out, holds it, erases it and types the next.
 // With Reduce Motion on, whole words swap in place instead.
 const WORDS=['clearer','simpler','visual','intuitive','explained'];
 const TYPE=75,ERASE=40,HOLD=1600,PAUSE=250;

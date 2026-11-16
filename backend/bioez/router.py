@@ -2,7 +2,7 @@
 import json, re
 from pathlib import Path
 from uuid import uuid4
-from .chemistry import render_block
+from .biology import render_block
 from .common_names import COMMON, normalize
 from .compounds import computed
 from .models import MoleculeBlock

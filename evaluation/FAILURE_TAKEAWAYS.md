@@ -10,13 +10,13 @@ its evaluation connection was never completed.
 | Evidence | General lesson | Implemented response |
 | --- | --- | --- |
 | Many baseline answers contained malformed JSON/LaTeX | Prompting alone does not guarantee machine-readable answers | Native structured output where documented; conservative string escape recovery; one repair; visible partial-answer errors |
-| Images and difficult structures could destabilize processing | Expensive native decoding and chemistry need limits and isolation | Header/pixel checks before decode; bounded native workers; cancellation; backend/renderer recovery |
+| Images and difficult structures could destabilize processing | Expensive native decoding and biology need limits and isolation | Header/pixel checks before decode; bounded native workers; cancellation; backend/renderer recovery |
 | K05, K16, S10, S18 supplied invalid or underspecified stereochemistry/intermediates | A readable name is not structural proof | Stereochemistry/name checks; atom/charge conservation checks; invalid panels suppressed |
 | K14, S04, S16 omitted carbon-bearing reactants | A valid product SMILES does not validate the scheme | Conservative missing-carbon-source guard; explicit reactant requirements in the model prompt |
 | K18 listed FeBr3 without Br2 | A catalyst is not the consumed halogenating reagent | New narrow catalyst-only halogenation guard; legitimate explicit or labeled halogen sources remain accepted |
-| K23 contradicted its own pH calculation; S25 chose the wrong product | Structural validation does not certify explanatory chemistry | Explicit model self-check instructions; these remain accuracy-test blockers, rather than falsely claimed validator successes |
+| K23 contradicted its own pH calculation; S25 chose the wrong product | Structural validation does not certify explanatory biology | Explicit model self-check instructions; these remain accuracy-test blockers, rather than falsely claimed validator successes |
 | Tutor answers were terse or missed the final teaching question | Explanation styles need a contract and persistence | Distinct mode instructions, post-response checks, bounded repair, stored mode labels |
-| Bolt cannot interpret images | Reading an image and explaining chemistry may need different models | Optional independently configured Image reader; original images sent only to it; observations handed to the chat model |
+| Bolt cannot interpret images | Reading an image and explaining biology may need different models | Optional independently configured Image reader; original images sent only to it; observations handed to the chat model |
 | Re-reading images during follow-up questions wastes calls | Cache the interpretation with its source image | Local stored observations reused on follow-up turns, including after disabling the reader |
 | Provider 503/429 errors were confused with bad keys | Availability and authentication are different failures | Bounded pre-output transient retries; NVIDIA 429 retries only when it supplies a short Retry-After; no model/key rotation or paid fallback |
 
@@ -27,7 +27,7 @@ Use an account-issued key and an API-enabled model from the catalog. A downloada
 model or an image-generation endpoint is not automatically an image-reading chat
 endpoint. Model listing is discovery, not proof that a model is usable by this
 account. Save & connect exercises the selected connection; the Image reader check
-sends a blank image to test transport, not chemistry recognition accuracy.
+sends a blank image to test transport, not biology recognition accuracy.
 
 - [Official hosted API quickstart](https://docs.api.nvidia.com/nim/docs/api-quickstart)
 - [Official access, scope and rate-limit FAQ](https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317)

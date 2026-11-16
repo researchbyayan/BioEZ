@@ -55,5 +55,5 @@ artifact only after all native candidate jobs pass; protected environments requi
 approval. Public publication remains a separate owner action.
 
 Remaining gates: certificates and notarization;
-minimum-OS clean-machine installation/upgrade/uninstall checks; live chemistry/image
+minimum-OS clean-machine installation/upgrade/uninstall checks; live biology/image
 accuracy suite; dataset/source redistribution review; final size/security/packaged tests.

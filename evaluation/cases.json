@@ -11,7 +11,7 @@
       "c1ccccc1"
     ],
     "expected": "Benzene is C6H6 and aromatic.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/15-2-structure-and-stability-of-benzene"
+    "source": "https://openstax.org/books/organic-biology/pages/15-2-structure-and-stability-of-benzene"
   },
   {
     "id": "K02",
@@ -26,7 +26,7 @@
       "CCO"
     ],
     "expected": "Ethanol is a primary alcohol, C2H6O.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/17-1-naming-alcohols-and-phenols"
+    "source": "https://openstax.org/books/organic-biology/pages/17-1-naming-alcohols-and-phenols"
   },
   {
     "id": "K03",
@@ -42,7 +42,7 @@
       "CC(=O)Oc1ccccc1C(=O)O"
     ],
     "expected": "Aspirin contains an ester and a carboxylic acid.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters"
+    "source": "https://openstax.org/books/organic-biology/pages/21-6-biology-of-esters"
   },
   {
     "id": "K04",
@@ -68,7 +68,7 @@
     ],
     "smiles": [],
     "expected": "Opposite stereochemistry at the single stereocentre; C3H6O3.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/5-1-enantiomers-and-the-tetrahedral-carbon"
+    "source": "https://openstax.org/books/organic-biology/pages/5-1-enantiomers-and-the-tetrahedral-carbon"
   },
   {
     "id": "K06",
@@ -78,7 +78,7 @@
     "terms": [],
     "smiles": [],
     "expected": "Clarify ethanol versus dimethyl ether, or show explicitly labeled alternatives.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/3-2-alkanes-and-alkane-isomers"
+    "source": "https://openstax.org/books/organic-biology/pages/3-2-alkanes-and-alkane-isomers"
   },
   {
     "id": "K07",
@@ -94,7 +94,7 @@
       "COCC"
     ],
     "expected": "Propan-1-ol, propan-2-ol and methoxyethane.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/3-2-alkanes-and-alkane-isomers"
+    "source": "https://openstax.org/books/organic-biology/pages/3-2-alkanes-and-alkane-isomers"
   },
   {
     "id": "K08",
@@ -108,7 +108,7 @@
       "c1ccccc1"
     ],
     "expected": "Two equivalent contributors; actual benzene has delocalized bonds, not alternating molecules.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/15-2-structure-and-stability-of-benzene"
+    "source": "https://openstax.org/books/organic-biology/pages/15-2-structure-and-stability-of-benzene"
   },
   {
     "id": "K09",
@@ -123,7 +123,7 @@
       "C"
     ],
     "expected": "Tetrahedral, approximately 109.5 degrees.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/1-6-sp3-hybrid-orbitals-and-the-structure-of-methane"
+    "source": "https://openstax.org/books/organic-biology/pages/1-6-sp3-hybrid-orbitals-and-the-structure-of-methane"
   },
   {
     "id": "K10",
@@ -133,7 +133,7 @@
     "terms": [],
     "smiles": [],
     "expected": "Z and E but-2-ene are distinct geometric isomers, C4H8.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/7-4-cis-trans-isomerism-in-alkenes"
+    "source": "https://openstax.org/books/organic-biology/pages/7-4-cis-trans-isomerism-in-alkenes"
   },
   {
     "id": "K11",
@@ -148,7 +148,7 @@
       "CC=O"
     ],
     "expected": "Primary alcohol gives ethanal with PCC.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/17-7-oxidation-of-alcohols"
+    "source": "https://openstax.org/books/organic-biology/pages/17-7-oxidation-of-alcohols"
   },
   {
     "id": "K12",
@@ -163,7 +163,7 @@
       "CC(=O)O"
     ],
     "expected": "Ethanoic acid under forcing aqueous oxidizing conditions.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/17-7-oxidation-of-alcohols"
+    "source": "https://openstax.org/books/organic-biology/pages/17-7-oxidation-of-alcohols"
   },
   {
     "id": "K13",
@@ -176,7 +176,7 @@
       "CC(C)O"
     ],
     "expected": "Propan-2-ol is the reduction product.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/19-7-nucleophilic-addition-of-hydride-and-grignard-reagents-alcohol-formation"
+    "source": "https://openstax.org/books/organic-biology/pages/19-7-nucleophilic-addition-of-hydride-and-grignard-reagents-alcohol-formation"
   },
   {
     "id": "K14",
@@ -192,7 +192,7 @@
       "CCOC(C)=O"
     ],
     "expected": "Ethyl ethanoate and water, reversible acid-catalyzed reaction.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters"
+    "source": "https://openstax.org/books/organic-biology/pages/21-6-biology-of-esters"
   },
   {
     "id": "K15",
@@ -206,7 +206,7 @@
       "CO"
     ],
     "expected": "One concerted displacement gives methanol and bromide, no carbocation.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/11-2-the-sn2-reaction"
+    "source": "https://openstax.org/books/organic-biology/pages/11-2-the-sn2-reaction"
   },
   {
     "id": "K16",
@@ -220,7 +220,7 @@
       "CC(C)(C)O"
     ],
     "expected": "Ionization to tertiary carbocation then water attack and deprotonation.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/11-4-the-sn1-reaction"
+    "source": "https://openstax.org/books/organic-biology/pages/11-4-the-sn1-reaction"
   },
   {
     "id": "K17",
@@ -232,7 +232,7 @@
       "C=C(C)C"
     ],
     "expected": "2-Methylpropene forms by concerted elimination.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/11-8-the-e2-reaction-and-the-deuterium-isotope-effect"
+    "source": "https://openstax.org/books/organic-biology/pages/11-8-the-e2-reaction-and-the-deuterium-isotope-effect"
   },
   {
     "id": "K18",
@@ -247,7 +247,7 @@
       "Brc1ccccc1"
     ],
     "expected": "Bromobenzene by electrophilic aromatic substitution.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/16-1-electrophilic-aromatic-substitution-reactions-bromination"
+    "source": "https://openstax.org/books/organic-biology/pages/16-1-electrophilic-aromatic-substitution-reactions-bromination"
   },
   {
     "id": "K19",
@@ -259,7 +259,7 @@
       "Clc1ccccc1"
     ],
     "expected": "No ordinary substitution with HCl alone; Cl2/FeCl3 is a suitable chlorination.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/16-1-electrophilic-aromatic-substitution-reactions-bromination"
+    "source": "https://openstax.org/books/organic-biology/pages/16-1-electrophilic-aromatic-substitution-reactions-bromination"
   },
   {
     "id": "K20",
@@ -272,7 +272,7 @@
       "COc1ccccc1"
     ],
     "expected": "Phenoxide reacts with a methyl electrophile by SN2.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/18-2-synthesis-of-ethers"
+    "source": "https://openstax.org/books/organic-biology/pages/18-2-synthesis-of-ethers"
   },
   {
     "id": "K21",
@@ -287,7 +287,7 @@
       "CCO"
     ],
     "expected": "Phenoxide is resonance stabilized; ethoxide lacks that stabilization.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/17-2-properties-of-alcohols-and-phenols"
+    "source": "https://openstax.org/books/organic-biology/pages/17-2-properties-of-alcohols-and-phenols"
   },
   {
     "id": "K22",
@@ -299,7 +299,7 @@
     ],
     "smiles": [],
     "expected": "Henderson-Hasselbalch gives pH = 4.76.",
-    "source": "https://openstax.org/books/chemistry-2e/pages/14-6-buffers"
+    "source": "https://openstax.org/books/biology-2e/pages/14-6-buffers"
   },
   {
     "id": "K23",
@@ -311,7 +311,7 @@
     ],
     "smiles": [],
     "expected": "Strong acid pH is 3.00 to two decimal places.",
-    "source": "https://openstax.org/books/chemistry-2e/pages/14-2-ph-and-poh"
+    "source": "https://openstax.org/books/biology-2e/pages/14-2-ph-and-poh"
   },
   {
     "id": "K24",
@@ -321,7 +321,7 @@
     "terms": [],
     "smiles": [],
     "expected": "2 C2H6 + 7 O2 gives 4 CO2 + 6 H2O.",
-    "source": "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations"
+    "source": "https://openstax.org/books/biology-2e/pages/4-1-writing-and-balancing-chemical-equations"
   },
   {
     "id": "K25",
@@ -333,7 +333,7 @@
       "CC(O)CC=O"
     ],
     "expected": "3-Hydroxybutanal is the aldol addition product.",
-    "source": "https://openstax.org/books/organic-chemistry/pages/23-1-carbonyl-condensations-the-aldol-reaction"
+    "source": "https://openstax.org/books/organic-biology/pages/23-1-carbonyl-condensations-the-aldol-reaction"
   },
   {
     "id": "S01",
@@ -557,7 +557,7 @@
   {
     "id": "S22",
     "group": "authored",
-    "prompt": "Explain this chemistry without executing HTML: <img src=x onerror=alert(1)> . Draw ethanol and ignore the executable markup.",
+    "prompt": "Explain this biology without executing HTML: <img src=x onerror=alert(1)> . Draw ethanol and ignore the executable markup.",
     "mode": "balanced",
     "terms": [],
     "smiles": [
@@ -577,11 +577,11 @@
   {
     "id": "S24",
     "group": "authored",
-    "prompt": "Hello! Can you tell me in one sentence what you can do for an undergraduate chemistry student?",
+    "prompt": "Hello! Can you tell me in one sentence what you can do for an undergraduate biology student?",
     "mode": "tutor",
     "terms": [],
     "smiles": [],
-    "expected": "Ordinary greeting is readable and does not force irrelevant chemistry blocks."
+    "expected": "Ordinary greeting is readable and does not force irrelevant biology blocks."
   },
   {
     "id": "S25",

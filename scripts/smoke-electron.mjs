@@ -47,7 +47,7 @@ try{
   instance=await electron.launch({executablePath,args,env:{...process.env,BIOEZ_PROFILE:profile,BIOEZ_SESSION_ONLY:'1'},timeout:60000});
   const page=await instance.firstWindow();
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
-  await expect(page.getByRole('heading',{name:/Chemistry, clearer/})).toBeVisible();
+  await expect(page.getByRole('heading',{name:/Biology, clearer/})).toBeVisible();
   // Exercise the real main-process window actions, not a mocked renderer bridge. Xvfb has no
   // window manager, so maximize cannot change there.
   if(process.platform!=='linux'){
@@ -77,7 +77,7 @@ try{
     await page.evaluate(()=>window.bioez.windowAction('toggle-maximize'));
     await expect.poll(()=>instance.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0]?.isMaximized())).toBe(false);
   }
-  // A fresh profile is asked for its chemistry level first.
+  // A fresh profile is asked for its biology level first.
   const welcome=page.getByRole('dialog',{name:'Welcome to BioEZ'});
   if(await welcome.isVisible().catch(()=>false)||await welcome.waitFor({timeout:5000}).then(()=>true,()=>false))await welcome.getByRole('radio',{name:/University/}).click();
   await page.getByRole('button',{name:/Model settings/}).click();
@@ -90,7 +90,7 @@ try{
   await page.getByRole('button',{name:'Save & connect'}).click();
   await expect(page.getByText('Connected. You’re ready to chat.')).toBeVisible({timeout:30000});
   await page.getByRole('button',{name:'Start chatting'}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol and show a reaction and mechanism.');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol and show a reaction and mechanism.');
   await page.getByRole('button',{name:'Send question'}).click();
   await expect(page.getByRole('img',{name:'Ethanol molecular structure',exact:true})).toBeVisible({timeout:30000});
   await expect(page.getByRole('group',{name:'Esterification'})).toBeVisible();
@@ -120,7 +120,7 @@ try{
   if(!encoding.available||encoding.shape[0]!==150)throw new Error('Sequence diagnostics missing from saved molecule.');
   await expect(page.getByRole('button',{name:'Copy answer',exact:false})).toBeVisible();
   if(gatewayRetry&&rejectedCalls!==1)throw new Error('Transient gateway rejection was not exercised.');
-  if(providerCalls<2)throw new Error(`Expected a connection check and a chemistry request; received ${providerCalls} provider calls.`);
+  if(providerCalls<2)throw new Error(`Expected a connection check and a biology request; received ${providerCalls} provider calls.`);
   if(!styledAnswerSeen)throw new Error('Answer-style instructions did not reach the provider.');
   const pngFile=path.join(profile,'exported diagram.png');
   await instance.evaluate(({dialog},file)=>{dialog.showSaveDialog=async()=>({canceled:false,filePath:file});},pngFile);
@@ -134,7 +134,7 @@ try{
   await instance.evaluate(({dialog},file)=>{dialog.showSaveDialog=async()=>({canceled:false,filePath:file});},markdownFile);
   await page.getByRole('button',{name:'Export conversation'}).click();
   await expect.poll(async()=>{try{return await readFile(markdownFile,'utf8');}catch{return '';}}).toContain('## BioEZ');
-  await page.evaluate(async()=>{const chats=await window.bioez.request('listConversations');await window.bioez.request('updateConversation',{id:chats[0].id,title:'Pinned chemistry',pinned:true});const saved=await window.bioez.request('listConversations');if(saved[0].title!=='Pinned chemistry'||!saved[0].pinned)throw new Error('Chat metadata was not persisted.');});
+  await page.evaluate(async()=>{const chats=await window.bioez.request('listConversations');await window.bioez.request('updateConversation',{id:chats[0].id,title:'Pinned biology',pinned:true});const saved=await window.bioez.request('listConversations');if(saved[0].title!=='Pinned biology'||!saved[0].pinned)throw new Error('Chat metadata was not persisted.');});
   await page.evaluate(async()=>{
     const diagrams=await window.bioez.request('listDiagrams');
     if(!diagrams.some(item=>item.block.type==='molecule'&&item.block.smiles==='CCO'&&item.block.svg))throw new Error('Validated structures were missing from the library.');

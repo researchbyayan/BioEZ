@@ -425,7 +425,7 @@ async def test_learner_level_shapes_the_instructions(client):
     await client.post('/chat',json={'text':'Explain ethanol','level':'graduate'})
     assert 'graduate / professional' in FakeProvider.last_system
     await client.post('/chat',json={'text':'Explain ethanol'})
-    assert 'university chemistry' in FakeProvider.last_system and 'undergraduate tutor' not in FakeProvider.last_system
+    assert 'university biology' in FakeProvider.last_system and 'undergraduate tutor' not in FakeProvider.last_system
     assert (await client.post('/chat',json={'text':'Explain ethanol','level':'expert'})).status_code==422
 
 def test_followups_prefer_model_suggestions_then_fill_from_drawings():
@@ -506,7 +506,7 @@ def test_mechanism_mode_accepts_resonance_answer():
 
 
 def test_resonance_series_keeps_atom_order():
-    from bioez.chemistry import resonance_series
+    from bioez.biology import resonance_series
     assert resonance_series('Cc1ccccc1') == ['CC1=CC=CC=C1', 'CC1C=CC=CC=1']
     assert resonance_series('CC(=O)[O-]') == ['CC([O-])=O', 'CC(=O)[O-]']
     assert len(resonance_series('[O-]c1ccccc1')) == 4
@@ -688,7 +688,7 @@ async def test_drawing_follows_the_answer(tmp_path,monkeypatch):
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
             text=messages[-1]['content']['text']
-            if text.startswith('A chemistry tutor answered'):
+            if text.startswith('A biology tutor answered'):
                 yield json.dumps({'draw':'molecules','molecules':[{'name':'phenoxide','smiles':'[O-]c1ccccc1'}]})
             else:
                 yield json.dumps({'blocks':[{'type':'markdown','text':'The major contributor has the charge on oxygen.'},
@@ -709,10 +709,10 @@ async def test_small_talk_is_not_a_compound_lookup(tmp_path,monkeypatch):
             text=messages[-1]['content']['text']
             if text.startswith('Is "'):
                 yield 'NO'
-            elif text.startswith('A chemistry tutor answered'):
+            elif text.startswith('A biology tutor answered'):
                 yield '{"draw":"none"}'
             else:
-                yield json.dumps({'blocks':[{'type':'markdown','text':'Not much! Ask me any chemistry question.'}]})
+                yield json.dumps({'blocks':[{'type':'markdown','text':'Not much! Ask me any biology question.'}]})
     app=create_app(tmp_path,'t',MemoryVault(),Provider)
     async with AsyncClient(transport=ASGITransport(app=app),base_url='http://test',headers={'Authorization':'Bearer t'}) as client:
         await configure(client)
@@ -726,9 +726,9 @@ async def test_chat_gets_a_short_title_unless_renamed(tmp_path,monkeypatch):
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
             text=messages[-1]['content']['text']
-            if text.startswith('Name this chemistry chat'):
+            if text.startswith('Name this biology chat'):
                 yield '"water pH, explained."'
-            elif text.startswith('A chemistry tutor answered'):
+            elif text.startswith('A biology tutor answered'):
                 yield '{"draw":"none"}'
             else:
                 yield json.dumps({'blocks':[{'type':'markdown','text':'Pure water at 25 °C has pH 7.'}]})
@@ -750,9 +750,9 @@ async def test_generic_chat_names_are_retried_until_the_chat_has_a_topic(tmp_pat
         def __init__(self,*args):pass
         async def stream(self,messages,system=None):
             text=messages[-1]['content']['text']
-            if text.startswith('Name this chemistry chat'):
-                yield 'Chloroform Oxidation' if 'chloroform' in text.lower() else 'Chemistry Chat'
-            elif text.startswith('A chemistry tutor answered'):
+            if text.startswith('Name this biology chat'):
+                yield 'Chloroform Oxidation' if 'chloroform' in text.lower() else 'Biology Chat'
+            elif text.startswith('A biology tutor answered'):
                 yield '{"draw":"none"}'
             else:
                 yield json.dumps({'blocks':[{'type':'markdown','text':'Hello!'}]})
@@ -761,7 +761,7 @@ async def test_generic_chat_names_are_retried_until_the_chat_has_a_topic(tmp_pat
         await configure(client)
         lines=[json.loads(l) for l in (await client.post('/chat',json={'text':'Hi bro'})).text.splitlines()]
         cid=lines[0]['conversation_id']
-        # "Chemistry Chat" says nothing, so the chat keeps its first question for now.
+        # "Biology Chat" says nothing, so the chat keeps its first question for now.
         assert (await client.get('/conversations')).json()[0]['title']=='Hi bro'
         await client.post('/chat',json={'text':'How does chloroform oxidise in air?','conversation_id':cid})
         assert (await client.get('/conversations')).json()[0]['title']=='Chloroform Oxidation'
@@ -830,7 +830,7 @@ async def test_general_question_reaches_provider_with_inclusive_policy(client):
     await configure(client)
     await client.post('/chat',json={'text':'how many bones in human body'})
     assert FakeProvider.calls>=1
-    assert 'never refuse merely because a question is not chemistry' in FakeProvider.last_system
+    assert 'never refuse merely because a question is not biology' in FakeProvider.last_system
     assert 'Never use an em dash' in FakeProvider.last_system
 
 async def test_retry_keeps_latest_question_after_topic_change(tmp_path):

@@ -104,7 +104,7 @@ h1>span{color:inherit}
 .settings .model-filter{display:flex;align-items:center;gap:8px;font-size:12px;margin-top:14px}.settings .model-filter input{width:auto;margin:0;accent-color:#c49aef}
 .simple-settings{max-width:480px}.settings .model-choice-toggle{font-size:12px;margin-top:14px}.settings .connected{color:#c49aef}.connect-start{margin:4px 0 20px}.simple-settings .model-choices{margin-top:14px}
 
-/* Quiet navigation and a single reading column keep chemistry in focus. */
+/* Quiet navigation and a single reading column keep biology in focus. */
 .sidebar{width:230px;min-width:230px;padding:30px 18px 20px;border-right:1px solid #ffffff08;transition:width .18s,min-width .18s}
 .brand{padding:0 9px;font-size:21px;gap:9px}.brand>.logo-symbol{width:29px;height:32px}
 :root .app-shell .new-chat{margin:30px 0 22px;padding:11px 12px;gap:8px;font-size:12px;white-space:nowrap}
@@ -149,7 +149,7 @@ h1>span{color:inherit}
 :root .app-shell .window-controls button:hover{background:#ffffff0b;border:0;color:#f4f2f5;box-shadow:none}
 :root .app-shell .window-controls .window-close:hover{background:#d9484866;color:#fff}
 
-/* Chemistry should support the explanation instead of swallowing the page. */
+/* Biology should support the explanation instead of swallowing the page. */
 .answer-flow{display:flow-root;min-width:0}
 .molecule-card{width:min(100%,360px)}
 .molecule-card .diagram-image{padding:4px 0}

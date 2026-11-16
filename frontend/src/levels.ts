@@ -1,6 +1,6 @@
 export type Level='school'|'undergraduate'|'graduate';
 export const LEVELS:Record<Level,{label:string;short:string;icon:string;blurb:string}>={
-  school:{label:'High school',short:'High school',icon:'fas fa-school',blurb:'Plain language with every term defined. Still the full chemistry and drawings.'},
+  school:{label:'High school',short:'High school',icon:'fas fa-school',blurb:'Plain language with every term defined. Still the full biology and drawings.'},
   undergraduate:{label:'University',short:'University',icon:'fas fa-flask',blurb:'Standard textbook terms, full mechanisms, selectivity and common pitfalls.'},
   graduate:{label:'Graduate / professional',short:'Graduate',icon:'fas fa-atom',blurb:'Technical and concise: mechanism, kinetics vs thermodynamics, practical detail.'},
 };

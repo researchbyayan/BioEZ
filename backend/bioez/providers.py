@@ -39,7 +39,7 @@ class Provider:
         for message in messages:
             text,images=self._parts(message['content'])
             if images:
-                content=[{'type':'text','text':text or 'Analyze the attached chemistry image.'},*({'type':'image_url','image_url':{'url':f"data:{image['mime']};base64,{image['data']}"}} for image in images)]
+                content=[{'type':'text','text':text or 'Analyze the attached biology image.'},*({'type':'image_url','image_url':{'url':f"data:{image['mime']};base64,{image['data']}"}} for image in images)]
             else: content=text
             result.append({'role':message['role'],'content':content})
         return result
@@ -48,7 +48,7 @@ class Provider:
         for message in messages:
             text,images=self._parts(message['content'])
             if images:
-                content=[*({'type':'image','source':{'type':'base64','media_type':image['mime'],'data':image['data']}} for image in images),{'type':'text','text':text or 'Analyze the attached chemistry image.'}]
+                content=[*({'type':'image','source':{'type':'base64','media_type':image['mime'],'data':image['data']}} for image in images),{'type':'text','text':text or 'Analyze the attached biology image.'}]
             else: content=text
             result.append({'role':message['role'],'content':content})
         return result
@@ -88,7 +88,7 @@ class Provider:
             contents=[]
             for message in messages:
                 text,images=self._parts(message['content'])
-                parts=[{'text':text or 'Analyze the attached chemistry image.'},*({'inlineData':{'mimeType':image['mime'],'data':image['data']}} for image in images)]
+                parts=[{'text':text or 'Analyze the attached biology image.'},*({'inlineData':{'mimeType':image['mime'],'data':image['data']}} for image in images)]
                 contents.append({'role':'model' if message['role']=='assistant' else 'user','parts':parts})
             body = {'systemInstruction':{'parts':[{'text':system}]},'contents':contents}
             if system.startswith(SYSTEM):
@@ -255,7 +255,7 @@ class Provider:
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(180 if self.is_nvidia() else 90,connect=15,write=30,pool=15),transport=self.transport) as client:
                 # A schema rejection may be retried once in JSON mode. Structural and
-                # chemistry validation still run locally before any diagram is shown.
+                # biology validation still run locally before any diagram is shown.
                 from contextlib import AsyncExitStack
                 async with AsyncExitStack() as stack:
                     response = await self.open_stream(stack,client,url,headers,body)

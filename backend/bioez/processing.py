@@ -1,4 +1,4 @@
-"""Keep native chemistry failures and expensive depictions out of the API process."""
+"""Keep native biology failures and expensive depictions out of the API process."""
 import asyncio
 import multiprocessing
 
@@ -34,17 +34,17 @@ def _run(operation, payload):
             from .app import restored_block
             result = [restored_block(block) for block in payload]
         elif operation == '3d':
-            from .chemistry import structure_3d
+            from .biology import structure_3d
             result = structure_3d(payload)
         elif operation == 'analysis':
-            from .chemistry import analyse
+            from .biology import analyse
             result = analyse(payload)
         elif operation == 'probe':
             # Used by the native-failure regression, never exposed by an API route.
             import os
             os._exit(17)
         else:
-            raise ValueError('Unknown chemistry operation.')
+            raise ValueError('Unknown biology operation.')
         return ('ok', result)
     except Exception as exc:
         return ('error', str(exc)[:500] if isinstance(exc, ValueError) else 'The structure could not be processed.')
@@ -115,7 +115,7 @@ def prewarm():
         pass
 
 
-async def process_chemistry(operation, payload, timeout=25):
+async def process_biology(operation, payload, timeout=25):
     # Plain Markdown, clarifications and invalid JSON need no native code. Avoid
     # starting an RDKit process for a greeting or a formatting-only repair.
     if operation in ('answer','partial'):

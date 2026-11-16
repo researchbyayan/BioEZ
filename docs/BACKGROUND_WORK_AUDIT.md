@@ -1,7 +1,7 @@
 # Loading and background-work audit
 
 2026-11-02. Reviewed against the current working tree without removing the warm
-chemistry-worker design, provider repair logic or native Electron helper processes.
+biology-worker design, provider repair logic or native Electron helper processes.
 
 ## Confirmed problems and fixes
 
@@ -26,7 +26,7 @@ chemistry-worker design, provider repair logic or native Electron helper process
 
 ## Runtime inspection
 
-One Electron app instance, one Python backend and its expected warm chemistry worker
+One Electron app instance, one Python backend and its expected warm biology worker
 were present. Electron renderer/GPU/network helpers and Python's multiprocessing
 resource tracker are purposeful, not duplicate application instances. They were not
 blindly terminated. No additional model engine was found. Process inspection does not
@@ -43,7 +43,7 @@ prove the absence of every possible future leak.
   separate reads are not combined.
 - Native backdrop regression verifies overlapping triggers make one wallpaper query,
   window closure clears polling, and no update is sent after closure.
-- These are mock-provider/transport checks, not a live-model chemistry evaluation.
+- These are mock-provider/transport checks, not a live-model biology evaluation.
 
 Follow-up hints: reuse a valid model-provided hint when it matches the selected
 answer mode instead of requesting another model inference. In-flight hint requests

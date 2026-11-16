@@ -12,7 +12,7 @@ try{
   const source=path.join(mounted['mount-point'],'BioEZ.app'),destination=path.join(temporary,'BioEZ.app');
   run('ditto',[source,destination]);
   run(process.execPath,['scripts/smoke-about.mjs','--packaged'],{...process.env,BIOEZ_ELECTRON_EXE:path.join(destination,'Contents/MacOS/BioEZ'),BIOEZ_PYTHON:'/no-python'});
-  report.checks.push('DMG mounts read-only; copied app launches from a Unicode/space path using bundled chemistry.');
+  report.checks.push('DMG mounts read-only; copied app launches from a Unicode/space path using bundled biology.');
  }else if(process.platform==='win32'){
   if(process.env.CI!=='true')throw new Error('Windows install/upgrade/uninstall checks require a disposable CI machine.');
   const installed=path.join(temporary,'Installed app');run(path.resolve('release',file),['/S','/D='+installed]);

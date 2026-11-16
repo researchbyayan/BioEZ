@@ -102,7 +102,7 @@ async def test_cached_observations_remain_usable_after_reader_is_disabled(dual):
     assert 'Ethanol is a primary alcohol' in response.text
     assert [c[0] for c in SplitProvider.calls]==['vision','chat','chat']
 
-async def test_cancel_stops_image_reader_without_calling_chemistry():
+async def test_cancel_stops_image_reader_without_calling_biology():
     started=asyncio.Event();stopped=asyncio.Event()
     class Slow:
         def image_support(self): return 'supported'

@@ -6,7 +6,7 @@ async function mockDesktop(page:import('@playwright/test').Page){
   await page.addInitScript(()=>{
     const svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340"><path d="M 180 200 L 290 140 L 400 200" stroke="#243b3c" stroke-width="3" fill="none"/><text x="405" y="205" font-size="24" fill="#b42c2c">OH</text></svg>';
     let listener:(event:unknown)=>void=()=>{};
-    const blocks=[{id:'b1',type:'markdown',text:'Ethanol is an alcohol. Its formula is $\\ce{C2H6O}$.\n\n$$\n\\ce{CH3CH2OH + 3O2 -> 2CO2 + 3H2O}\n$$\n\n```python\nprint("chemistry")\n```'},{id:'b2',type:'molecule',label:'Ethanol',iupac_name:'ethanol',smiles:'CCO',formula:'C2H6O',svg,encoding:{available:true,shape:[150,3],alphabet:{C:0,O:1,' ':2},one_hot_indices:[0,0,1]}},{id:'b3',type:'markdown',text:'The hydroxyl group makes it polar.'}];
+    const blocks=[{id:'b1',type:'markdown',text:'Ethanol is an alcohol. Its formula is $\\ce{C2H6O}$.\n\n$$\n\\ce{CH3CH2OH + 3O2 -> 2CO2 + 3H2O}\n$$\n\n```python\nprint("biology")\n```'},{id:'b2',type:'molecule',label:'Ethanol',iupac_name:'ethanol',smiles:'CCO',formula:'C2H6O',svg,encoding:{available:true,shape:[150,3],alphabet:{C:0,O:1,' ':2},one_hot_indices:[0,0,1]}},{id:'b3',type:'markdown',text:'The hydroxyl group makes it polar.'}];
     let config={config:{provider:'openai',model:'test-model',endpoint:''},has_key:!sessionStorage.getItem('no-key'),warning:''};
     let messages:unknown[]=[];
     let turn=0;
@@ -41,7 +41,7 @@ async function mockDesktop(page:import('@playwright/test').Page){
         const reply=text==='simulate provider failure'?[{id:'failure',type:'error',text:'Provider returned HTTP 503.'}]:text==='compound cards'?compound:blocks;
         messages=[...messages,{id:userID,role:'user',content:{text,images,command}},{id:assistantID,role:'assistant',content:reply,...(reply===blocks?{follow_ups:['Why is ethanol polar?']}:{})}];
         listener({type:'start',conversation_id:activeID,user_id:userID});
-        listener({type:'status',message:'Checking chemistry…'});
+        listener({type:'status',message:'Checking biology…'});
         if(text==='simulate slow answer')await new Promise(resolve=>setTimeout(resolve,1800));
         for(const block of reply)listener({type:'block',block});
         listener({type:'done',message_id:assistantID,follow_ups:['Why is ethanol polar?']});listener({type:'finished'});
@@ -66,7 +66,7 @@ test('glass canvas, aligned glyphs, drafts and chat management',async({page})=>{
   await page.getByLabel('Background opacity').fill('60');
   await expect.poll(()=>page.locator('.ambient').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgba(0, 0, 0, 0.6)');
   await page.keyboard.press('Escape');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Draft question');await page.reload();await expect(input).toHaveValue('Draft question');
   await input.fill('Draw ethanol');await input.press('Enter');
   await expect(page.getByRole('button',{name:'Copy answer',exact:true})).toBeVisible();
@@ -103,7 +103,7 @@ test('pasted and dropped images are processed locally before sending',async({pag
 });
 test('full-text search and reversible archive manage existing chats',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Draw ethanol');await input.press('Enter');
   await expect(page.getByRole('button',{name:'Copy answer',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Search all chats'}).click();
@@ -124,7 +124,7 @@ test('full-text search and reversible archive manage existing chats',async({page
 });
 test('editing and retrying continue the same chat',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Draw ethanol');await input.press('Enter');
   await expect(page.getByRole('button',{name:'Copy answer',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Edit this question'}).click();
@@ -138,7 +138,7 @@ test('editing and retrying continue the same chat',async({page})=>{
 });
 test('drafts survive navigation and images have accessible zoom previews',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.locator('.composer-area').hover();await page.getByRole('button',{name:'Chat tools',exact:true}).click();await page.getByRole('menuitem',{name:/Add image/}).click();
   await input.fill('Draw ethanol');await input.press('Enter');
@@ -165,7 +165,7 @@ test('drafts survive navigation and images have accessible zoom previews',async(
 test('generation leaves the next draft editable and failed sends keep the question',async({page})=>{
   await mockDesktop(page);await page.goto('/');
   await page.evaluate(()=>{const original=window.bioez.chat;window.bioez.chat=payload=>new Promise(resolve=>{(window as unknown as {finishTestChat:()=>Promise<void>}).finishTestChat=async()=>{await original(payload);resolve();};});});
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Draw ethanol');await input.press('Enter');
   await expect(page.getByRole('button',{name:'Stop generation'})).toBeVisible();
   await expect(input).toBeEnabled();await input.fill('Next question draft');
@@ -186,7 +186,7 @@ test('structure library stays beside the chat and answer styles reach the provid
   await expect(page.getByRole('combobox',{name:'Answer style'}).locator('option[value="tutor"]')).toHaveCount(0);
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.getByRole('combobox',{name:'Answer style'}).selectOption('concise');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Draw ethanol');await input.press('Enter');
   await expect(page.getByRole('button',{name:'Copy answer',exact:true})).toBeVisible();
   expect(await page.evaluate(()=>(window as unknown as {lastResponseStyle:string}).lastResponseStyle)).toBe('concise');
@@ -205,7 +205,7 @@ test('structure library stays beside the chat and answer styles reach the provid
   await page.getByRole('button',{name:'Actions for Draw ethanol'}).click();
   await page.getByRole('menuitem',{name:'Delete Draw ethanol'}).click();
   await page.getByRole('dialog',{name:'Delete chat?'}).getByRole('button',{name:'Delete',exact:true}).click();
-  await expect(library.getByText('Your chemistry, collected.')).toBeVisible();
+  await expect(library.getByText('Your biology, collected.')).toBeVisible();
   await expect(library.getByRole('button',{name:'Copy molecular formula',exact:true})).toHaveCount(0);
   await page.getByRole('button',{name:'Close structure library'}).click();
   await expect(library).toHaveCount(0);
@@ -218,10 +218,10 @@ for(const variant of ['default','reduced-motion','reduced-transparency']){
     await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
     // Vitrio glass rims on the composer and sidebar are on by default in every appearance.
     await expect(page.locator('.lqg-lens')).toHaveCount(1);
-    await expect(page.getByRole('heading',{name:/Chemistry, clearer/})).toBeVisible();
+    await expect(page.getByRole('heading',{name:/Biology, clearer/})).toBeVisible();
     await page.screenshot({path:`test-results/welcome-${variant}.png`,fullPage:true,omitBackground:true});
     if(variant==='default'){await page.setViewportSize({width:1040,height:740});await page.setViewportSize({width:1320,height:900});}
-    await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
+    await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
     await page.getByRole('button',{name:'Send question'}).click();
     await expect(page.getByRole('img',{name:'Ethanol molecular structure'})).toBeVisible();
@@ -250,7 +250,7 @@ test('settings and conversation restoration/deletion',async({page})=>{
   await page.getByRole('button',{name:'Save & connect'}).click();
   await expect(page.getByRole('status')).toContainText('Connected. You’re ready to chat.');
   await page.getByRole('button',{name:'Close settings'}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.getByRole('button',{name:'Send question'}).click();
   await page.locator('.molecule-card .structure-trigger').hover();
@@ -262,7 +262,7 @@ test('settings and conversation restoration/deletion',async({page})=>{
   await page.getByRole('button',{name:'Actions for Draw ethanol'}).click();
   await page.getByRole('menuitem',{name:'Delete Draw ethanol'}).click();
   await page.getByRole('dialog',{name:'Delete chat?'}).getByRole('button',{name:'Delete',exact:true}).click();
-  await expect(page.getByRole('heading',{name:/Chemistry, clearer/})).toBeVisible();
+  await expect(page.getByRole('heading',{name:/Biology, clearer/})).toBeVisible();
 });
 
 test('Gemini models load automatically once a key is pasted',async({page})=>{
@@ -329,8 +329,8 @@ test('setup needs only a service and key, then starts chat',async({page})=>{
   await expect(page.getByRole('status')).toContainText('Connected. You’re ready to chat.');
   await page.getByRole('button',{name:'Start chatting'}).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
-  await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
+  await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
   await expect(page.getByRole('img',{name:'Ethanol molecular structure'})).toBeVisible();
 });
 
@@ -348,7 +348,7 @@ test('setup explains temporary failure without showing connected',async({page})=
 
 test('chat supports Shift Enter for multiline input',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Line one');await input.press('Shift+Enter');await input.pressSequentially('Line two');
   await expect(input).toHaveValue('Line one\nLine two');
   await expect(page.locator('.message')).toHaveCount(0);
@@ -363,7 +363,7 @@ test('image intake previews, removes, sends and restores an attachment',async({p
   await expect(page.getByLabel('Attached images')).toHaveCount(0);
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.locator('.composer-area').hover();await page.getByRole('button',{name:'Chat tools',exact:true}).click();await page.getByRole('menuitem',{name:/Add image/}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Read this structure');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Read this structure');
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.getByRole('button',{name:'Send question'}).click();
   await expect(page.locator('.message.user img')).toHaveCount(1);
@@ -386,8 +386,8 @@ test('NVIDIA setup discovers models without asking for an endpoint',async({page}
 test('history search, compact navigation and recovery keep API settings accessible',async({page})=>{
   await mockDesktop(page);await page.goto('/');
   await page.screenshot({path:'test-results/overall-welcome.png',omitBackground:true});
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
-  await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
+  await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
   await expect(page.getByRole('img',{name:'Ethanol molecular structure'})).toBeVisible();
   await page.getByRole('button',{name:'Search all chats'}).click();
   await page.getByLabel('Search messages and structures').fill('no matching title');
@@ -406,33 +406,33 @@ test('history search, compact navigation and recovery keep API settings accessib
   const sendBounds=await page.getByRole('button',{name:'Send question'}).boundingBox();
   expect(sendBounds!.x+sendBounds!.width).toBeLessThanOrEqual(900);
   await page.screenshot({path:'test-results/overall-chat-compact.png',omitBackground:true});
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('simulate provider failure');
-  await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('simulate provider failure');
+  await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
   await expect(page.getByRole('alert')).toContainText('service is busy');
   await expect(page.locator('.message.assistant').last().getByRole('button',{name:'Copy answer'})).toHaveCount(0);
   await page.getByRole('button',{name:'Edit question',exact:true}).click();
-  await expect(page.getByRole('textbox',{name:'Chemistry question'})).toHaveValue('simulate provider failure');
+  await expect(page.getByRole('textbox',{name:'Biology question'})).toHaveValue('simulate provider failure');
   await page.locator('.error-actions').getByRole('button',{name:'Model settings'}).click();
   await expect(page.getByRole('heading',{name:'Model & API'})).toBeVisible();
 });
 
-test('first launch asks for a chemistry level and sends it with questions',async({page})=>{
+test('first launch asks for a biology level and sends it with questions',async({page})=>{
   await page.addInitScript(()=>{sessionStorage.setItem('fresh-launch','1');localStorage.removeItem('bioez-level');});
   await mockDesktop(page);await page.goto('/');
   await expect(page.getByRole('heading',{name:'Welcome to BioEZ'})).toBeVisible();
   await page.getByRole('radio',{name:/High school/}).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  await expect(page.locator('.composer-tools').getByLabel('Chemistry level')).toHaveCount(0);
+  await expect(page.locator('.composer-tools').getByLabel('Biology level')).toHaveCount(0);
   await page.evaluate(()=>{const original=window.bioez.chat;(window as unknown as {sent:unknown[]}).sent=[];window.bioez.chat=(payload=>{(window as unknown as {sent:unknown[]}).sent.push(payload);return original(payload);}) as typeof original;});
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
-  await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
+  await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
   await expect.poll(()=>page.evaluate(()=>((window as unknown as {sent:{level:string}[]}).sent[0]||{}).level)).toBe('school');
   await page.getByRole('button',{name:'Settings',exact:true}).click();
   await page.locator('.settings-pane .setting-value').first().click();
   await page.getByRole('radio',{name:/Graduate/}).click();
   await page.locator('.settings-window').press('Escape');
   await page.getByRole('button',{name:'Model settings',exact:true}).click();
-  await expect(page.getByLabel('Chemistry level')).toHaveValue('graduate');
+  await expect(page.getByLabel('Biology level')).toHaveValue('graduate');
   await page.screenshot({path:'test-results/level-preference.png'});
 });
 
@@ -461,7 +461,7 @@ test('glass effects switch on and off from Settings',async({page})=>{
 
 test('the likeliest follow-up is suggested in the composer and Tab accepts it',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('Draw ethanol');
   await input.press('Enter');
   // The answer's own follow-up is suggested when it was written for the current answer style.
@@ -482,8 +482,8 @@ test('the likeliest follow-up is suggested in the composer and Tab accepts it',a
 
 test('follow-up suggestions stay out of replies by default',async({page})=>{
  await mockDesktop(page);await page.goto('/');
- await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
- await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+ await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
+ await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
  await expect(page.getByRole('button',{name:'Copy answer'})).toBeVisible();
  await expect(page.getByRole('group',{name:'Suggested follow-up questions'})).toHaveCount(0);
 });
@@ -491,8 +491,8 @@ test('follow-up suggestions stay out of replies by default',async({page})=>{
 
 test('generation keeps answer status free of decorative icons',async({page})=>{
  await mockDesktop(page);await page.goto('/');
- await page.getByRole('textbox',{name:'Chemistry question'}).fill('simulate slow answer');
- await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+ await page.getByRole('textbox',{name:'Biology question'}).fill('simulate slow answer');
+ await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
  const status=page.locator('.answer-status');await expect(status).toBeVisible();
  await expect(page.locator('.atom-loader,.answer-skeleton,.generating-text')).toHaveCount(0);
  await expect(page.locator('.message-avatar')).toHaveCount(0);
@@ -513,8 +513,8 @@ test('structure explorer opens on 2D and switches to 3D on the same tab',async({
    return original(...args);
   };
  });
- await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
- await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+ await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
+ await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
  await page.getByRole('button',{name:'Details for Ethanol molecular structure'}).hover();
  await page.getByRole('button',{name:'Structure',exact:true}).click();
  await expect(page.getByRole('tab',{name:'Structure'})).toHaveAttribute('aria-selected','true');
@@ -544,22 +544,22 @@ test('structure explorer opens on 2D and switches to 3D on the same tab',async({
 
 test('mechanism mode is sent and answer level lives in settings',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  await expect(page.locator('.composer-tools').getByLabel('Chemistry level')).toHaveCount(0);
+  await expect(page.locator('.composer-tools').getByLabel('Biology level')).toHaveCount(0);
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.getByLabel('Answer style').selectOption('mechanism');
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Show the SN2 mechanism');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Show the SN2 mechanism');
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await page.getByRole('button',{name:'Send question',exact:true}).click();
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {lastResponseStyle:string}).lastResponseStyle)).toBe('mechanism');
   await page.getByRole('button',{name:'Model settings',exact:true}).click();
-  await page.getByLabel('Chemistry level').selectOption('graduate');
-  await expect(page.getByLabel('Chemistry level')).toHaveValue('graduate');
+  await page.getByLabel('Biology level').selectOption('graduate');
+  await expect(page.getByLabel('Biology level')).toHaveValue('graduate');
   await page.getByRole('button',{name:'Close settings',exact:true}).click();
   await page.reload();
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
   await expect(page.getByLabel('Answer style')).toHaveValue('mechanism');
   await page.getByRole('button',{name:'Model settings',exact:true}).click();
-  await expect(page.getByLabel('Chemistry level')).toHaveValue('graduate');
+  await expect(page.getByLabel('Biology level')).toHaveValue('graduate');
   await page.screenshot({path:'test-results/mechanism-level-settings.png'});
 });
 
@@ -643,7 +643,7 @@ test('About credits are offline and update checks distinguish success and failur
 test('malformed live follow-ups never show answer JSON in the composer',async({page})=>{
  await mockDesktop(page);await page.goto('/');
  await page.evaluate(()=>{const request=window.bioez.request;window.bioez.request=((command:string,payload:unknown)=>command==='suggestQuestion'?Promise.resolve({question:'{"blocks":[{"type":"reaction","caption":"Grignard"}]}'}):request(command as any,payload as any)) as typeof request;});
- const input=page.getByRole('textbox',{name:'Chemistry question'});await input.fill('Draw ethanol');await input.press('Enter');
+ const input=page.getByRole('textbox',{name:'Biology question'});await input.fill('Draw ethanol');await input.press('Enter');
   await page.locator('.composer-area').hover(); // Reveal proximity-driven controls before interacting with them.
  await expect(page.getByRole('button',{name:'Send question',exact:true})).toBeVisible();
  await expect.poll(()=>input.getAttribute('placeholder')).not.toContain('"blocks"');
@@ -657,7 +657,7 @@ test('malformed live follow-ups never show answer JSON in the composer',async({p
 test('slash commands apply when typed first or clicked, and preserve mid-sentence text',async({page})=>{
  await mockDesktop(page);await page.goto('/');
  await page.evaluate(()=>{const chat=window.bioez.chat;window.bioez.chat=async payload=>{(window as unknown as {sentCommand:unknown}).sentCommand=payload;return chat(payload);};});
- const input=page.getByRole('textbox',{name:'Chemistry question'});
+ const input=page.getByRole('textbox',{name:'Biology question'});
  await input.fill('/versus benzene vs phenol');await expect(page.locator('.composer .slash-chip')).toHaveCount(0);
  await input.press('Enter');await expect.poll(()=>page.evaluate(()=>(window as unknown as {sentCommand:{command:unknown}}).sentCommand?.command)).toBe('versus');
  // A command typed in full at the start counts the same as one picked from the menu.
@@ -675,7 +675,7 @@ test('slash commands apply when typed first or clicked, and preserve mid-sentenc
 
 test('answer references popup lists lookup sources and handles no sources',async({page})=>{
   await mockDesktop(page);await page.goto('/');
-  const input=page.getByRole('textbox',{name:'Chemistry question'});
+  const input=page.getByRole('textbox',{name:'Biology question'});
   await input.fill('compound cards');await input.press('Enter');
   await page.getByRole('button',{name:'References (1)',exact:true}).click();
   const popup=page.getByRole('dialog',{name:'References',exact:true});

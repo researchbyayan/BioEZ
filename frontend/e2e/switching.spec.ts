@@ -28,7 +28,7 @@ async function mockChats(page:Page){
         const chat=chats.get(id)!;chat.updated='2026-10-30T10:00:00Z';
         const user={id:id+'-u'+chat.messages.length,role:'user',content:{text,images:[]}};chat.messages.push(user);
         listener({type:'start',conversation_id:id,user_id:user.id});
-        listener({type:'status',message:'Checking chemistry…'});
+        listener({type:'status',message:'Checking biology…'});
         listener({type:'block',block:{id:'p1',type:'markdown',text:'First part of the answer.'}});
         await new Promise<void>(resolve=>{w.release=resolve;});
         listener({type:'block',block:{id:'p2',type:'markdown',text:'Second part of the answer.'}});
@@ -51,7 +51,7 @@ test('switching chats while a new chat answers keeps each chat its own',async({p
   await history(page).getByTitle('Ethanol polarity',{exact:true}).click();
   await expect(page.getByText('Ethanol has an O–H bond.')).toBeVisible();
   await expect(page.getByText('First part of the answer.')).toHaveCount(0);
-  await expect(page.getByText('Checking chemistry…')).toHaveCount(0);
+  await expect(page.getByText('Checking biology…')).toHaveCount(0);
   // Back to the running chat: the question and the answer so far are there.
   await history(page).getByTitle('What is an ester?',{exact:true}).click();
   await expect(page.locator('.message').getByText('What is an ester?')).toBeVisible();
@@ -75,7 +75,7 @@ test('a new conversation opened mid-answer stays empty and the answer lands in i
   await expect(page.getByText('First part of the answer.')).toBeVisible();
   await page.getByRole('button',{name:'New conversation',exact:true}).click();
   await expect(page.locator('.message')).toHaveCount(0);
-  await expect(page.getByText('Checking chemistry…')).toHaveCount(0);
+  await expect(page.getByText('Checking biology…')).toHaveCount(0);
   await expect(page.getByRole('button',{name:'Stop',exact:false})).toHaveCount(0);
   await finish(page);
   await expect(page.locator('.message')).toHaveCount(0);
@@ -100,19 +100,19 @@ test('a new chat started mid-answer then left shows nothing of the running answe
 test('composer collapses to a slim bar, preserves a draft and still sends with Enter',async({page})=>{
   await mockChats(page);await page.goto('/');
   await expect(page.locator('.hero-word')).toHaveCSS('font-style','italic');
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw ethanol');
-  await page.getByRole('heading',{name:'Chemistry, clearer.'}).click();
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw ethanol');
+  await page.getByRole('heading',{name:'Biology, clearer.'}).click();
   await page.mouse.move(5,5);
   const form=page.locator('form.composer');
   await expect.poll(async()=>await form.evaluate(el=>el.getBoundingClientRect().height)).toBeLessThanOrEqual(58);
-  await expect(page.getByRole('textbox',{name:'Chemistry question'})).toHaveValue('Draw ethanol');
+  await expect(page.getByRole('textbox',{name:'Biology question'})).toHaveValue('Draw ethanol');
   await expect(page.getByRole('button',{name:'Chat tools'})).toBeHidden();
   await page.screenshot({path:test.info().outputPath('composer-compact.png')});
   await page.locator('.composer-area').hover();
   await expect(page.getByRole('button',{name:'Chat tools'})).toBeVisible();
   await expect.poll(()=>form.evaluate(el=>el.getBoundingClientRect().height)).toBeGreaterThan(80);
   await page.screenshot({path:test.info().outputPath('composer-expanded.png')});
-  await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+  await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
   await expect(page.getByText('First part of the answer.')).toBeVisible();
   await page.locator('.composer-area').hover();
   await expect(page.getByRole('button',{name:'Stop generation'})).toBeVisible();
@@ -206,11 +206,11 @@ test('floating chatbox stays put, follows up on an answer and clears on chat nav
   await page.keyboard.press('Escape');await expect(tools).toHaveCount(0);
   await page.getByRole('button',{name:'Reply to this answer'}).click();
 
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Why is that?');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Why is that?');
   await expect(page.locator('.composer-context-header')).toContainText('Ethanol has an O–H bond.');
   await expect(page.locator('.composer-area')).toHaveClass(/composer-reply/);
   await page.screenshot({path:test.info().outputPath('floating-contextual-reply.png')});
-  await page.getByRole('textbox',{name:'Chemistry question'}).press('Enter');
+  await page.getByRole('textbox',{name:'Biology question'}).press('Enter');
   await expect(page.locator('.message.user').last().locator('.user-reply-quote')).toContainText('Ethanol has an O–H bond.');
   await expect(page.getByText('First part of the answer.')).toBeVisible();await finish(page);
   await history(page).getByTitle('Benzene resonance',{exact:true}).click();
@@ -222,7 +222,7 @@ test('disabled send keeps the original arrow while only its circle dims',async({
   const send=page.getByRole('button',{name:'Send question',exact:true});
   await expect(send).toBeDisabled();await expect(send.locator('i')).toHaveClass(/fa-arrow-up/);
   const idle=await send.evaluate(el=>({arrow:getComputedStyle(el.querySelector('i')!).color,opacity:getComputedStyle(el).opacity,circle:getComputedStyle(el,'::before').opacity}));
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Draw benzene');await expect(send).toBeEnabled();
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Draw benzene');await expect(send).toBeEnabled();
   await expect.poll(()=>send.evaluate(el=>getComputedStyle(el,'::before').opacity)).toBe('1');
   const ready=await send.evaluate(el=>({arrow:getComputedStyle(el.querySelector('i')!).color,opacity:getComputedStyle(el).opacity,circle:getComputedStyle(el,'::before').opacity}));
   expect(idle.arrow).toBe(ready.arrow);expect(idle.opacity).toBe('1');expect(ready.opacity).toBe('1');expect(Number(idle.circle)).toBeLessThan(Number(ready.circle));
@@ -236,7 +236,7 @@ test('explicit replies keep their anchor and new floating chats return to the we
   await page.getByRole('switch',{name:'Dock chatbox at bottom'}).click();await page.getByRole('button',{name:'Close Settings',exact:true}).click();
   await page.getByRole('button',{name:'Reply to this answer'}).click();
   await expect(page.locator('.composer-context-header')).toContainText('Ethanol has an O–H bond.');
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Tell me more');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Tell me more');
   await expect(page.locator('.composer-context-header')).toContainText('Ethanol has an O–H bond.');
   const close=page.getByRole('button',{name:'Clear reply context'});
   await expect(page.getByRole('button',{name:'Reply to this question'})).toHaveCount(0);
@@ -250,13 +250,13 @@ test('explicit replies keep their anchor and new floating chats return to the we
   await expect(page.locator('.composer-side-controls')).toHaveCount(0);
   expect(form).not.toBeNull();
 
-  await page.getByRole('textbox',{name:'Chemistry question'}).blur();await page.mouse.move(5,5);
+  await page.getByRole('textbox',{name:'Biology question'}).blur();await page.mouse.move(5,5);
   await page.screenshot({path:test.info().outputPath('follow-up-side-controls.png')});
   // Resting floating chatbox opens after a one-second hover.
   await page.getByRole('button',{name:'Open message box'}).click();await close.click();await expect(page.locator('.composer-context-header')).toHaveCount(0);
   await page.getByRole('button',{name:'New conversation',exact:true}).click();
   await expect(page.locator('.composer-floating')).toHaveCSS('position','relative');
-  await expect(page.getByRole('heading',{name:'Chemistry, clearer.'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Biology, clearer.'})).toBeVisible();
 });
 
 test('clicking the compact typing area still focuses it during expansion',async({page})=>{
@@ -267,7 +267,7 @@ test('clicking the compact typing area still focuses it during expansion',async(
   await page.mouse.move(5,5);
   await expect(page.locator('.composer-area')).toHaveClass(/composer-compact/);
   // Resting, the chatbox is a pill; clicking the pill opens it and focuses typing straight away.
-  const field=page.getByRole('textbox',{name:'Chemistry question'});
+  const field=page.getByRole('textbox',{name:'Biology question'});
   await page.getByRole('button',{name:'Open message box'}).click();
   await page.keyboard.type('Explain this');
   await expect(field).toBeFocused();await expect(field).toHaveValue('Explain this');
@@ -278,7 +278,7 @@ test('a question typed at the bottom of a chat is not treated as a follow-up',as
   await history(page).getByTitle('Ethanol polarity',{exact:true}).click();
   await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'Appearance',exact:true}).click();
   await page.getByRole('switch',{name:'Dock chatbox at bottom'}).click();await page.getByRole('button',{name:'Close Settings',exact:true}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('What is an ester?');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('What is an ester?');
   await expect(page.locator('.composer-context-header')).toHaveCount(0);
   await expect(page.locator('.composer-area')).not.toHaveClass(/composer-reply/);
 });
@@ -287,14 +287,14 @@ test('a sent follow-up shows a one-line quote and edits back to the plain questi
   await mockChats(page);await page.goto('/');
   await history(page).getByTitle('Ethanol polarity',{exact:true}).click();
   await page.getByRole('button',{name:'Reply to this answer'}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Is this correct');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Is this correct');
   await page.keyboard.press('Enter');
   const bubble=page.locator('.message.user').last();
   await expect(bubble.locator('.user-reply-quote')).toContainText('Ethanol has an O–H bond.');
   await expect(bubble.locator('.user-text')).toHaveText('Is this correct');
   await page.evaluate(()=>(window as unknown as {release:()=>void}).release());
   await bubble.hover();await bubble.getByRole('button',{name:'Edit this question'}).click();
-  await expect(page.getByRole('textbox',{name:'Chemistry question'})).toHaveValue('Is this correct');
+  await expect(page.getByRole('textbox',{name:'Biology question'})).toHaveValue('Is this correct');
   // While editing, the single context header describes the edit; the follow-up link is kept for sending.
   await expect(page.locator('.composer-context-header')).toContainText('Editing an earlier question');
 });
@@ -411,7 +411,7 @@ test('one loading status, one submission and one active stream listener under de
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {audit:{reads:Record<string,number>}}).audit.reads.getConfig)).toBe(1);
   expect(await page.evaluate(()=>(window as unknown as {audit:{listeners:number}}).audit.listeners)).toBe(1);
   expect(await page.evaluate(()=>(window as unknown as {audit:{reads:Record<string,number>}}).audit.reads.listConversations)).toBe(1);
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('Explain ethanol');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('Explain ethanol');
   await page.evaluate(()=>{const form=document.querySelector('form.composer') as HTMLFormElement;form.requestSubmit();form.requestSubmit();});
   await expect(page.getByText('Preparing your answer…',{exact:true})).toHaveCount(1);
   await expect(page.locator('[data-pending-answer=true] [role=status]')).toHaveCount(1);
@@ -434,7 +434,7 @@ test('existing follow-up hints do not trigger another model request',async({page
     };
   });await page.goto('/');
   await history(page).getByTitle('Ethanol polarity',{exact:true}).click();
-  await expect(page.getByRole('textbox',{name:'Chemistry question'})).toHaveAttribute('placeholder',/Why does ethanol dissolve in water/);
+  await expect(page.getByRole('textbox',{name:'Biology question'})).toHaveAttribute('placeholder',/Why does ethanol dissolve in water/);
   expect(await page.evaluate(()=>(window as unknown as {hintCalls:number}).hintCalls)).toBe(0);
 });
 
@@ -456,7 +456,7 @@ test('retry preserves the selected question and original command and mode',async
   await mockChats(page);
   await page.addInitScript(()=>{
     const bridge=window.bioez,original=bridge.request.bind(bridge);
-    const messages=[{id:'q1',role:'user',content:{text:'Why is iodine unreactive?',images:[]}},{id:'a1',role:'assistant',content:[{id:'b1',type:'markdown',text:'An earlier chemistry answer.'}]},{id:'q2',role:'user',content:{text:'Does fruit juice help?',command:null,images:[]}},{id:'a2',role:'assistant',response_style:'concise',content:[{id:'b2',type:'markdown',text:'The nutrition answer.'}]}];
+    const messages=[{id:'q1',role:'user',content:{text:'Why is iodine unreactive?',images:[]}},{id:'a1',role:'assistant',content:[{id:'b1',type:'markdown',text:'An earlier biology answer.'}]},{id:'q2',role:'user',content:{text:'Does fruit juice help?',command:null,images:[]}},{id:'a2',role:'assistant',response_style:'concise',content:[{id:'b2',type:'markdown',text:'The nutrition answer.'}]}];
     bridge.request=(async(command:string,payload:unknown)=>{
       if(command==='getConversation')return {messages};
       if(command==='rewindConversation'){(window as unknown as {rewind:unknown}).rewind=payload;return {messages:messages.slice(0,2)};}

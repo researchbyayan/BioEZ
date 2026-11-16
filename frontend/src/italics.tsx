@@ -1,6 +1,6 @@
 import {Fragment,type ReactNode} from 'react';
 
-// Chemistry's typographic conventions: stereo- and position descriptors and Latin terms are set in
+// Biology's typographic conventions: stereo- and position descriptors and Latin terms are set in
 // italics (cis, trans, tert, o-/m-/p-, (R)/(S), (E)/(Z), syn/anti, endo/exo, ipso, in situ, via).
 const ITALIC=/(\b(?:cis|trans|tert|sec|ortho|meta|para|syn|anti|endo|exo|ipso|in situ|via|vic|gem)\b(?=[-\s,.;:)]|$)|\b[ompn](?=-[A-Za-z0-9])|(?<=\()[RSEZ](?=\)))/g;
 

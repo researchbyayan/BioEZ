@@ -1,7 +1,7 @@
-"""Optional image interpretation before the chemistry answer. Never invent SMILES."""
+"""Optional image interpretation before the biology answer. Never invent SMILES."""
 from .providers import ProviderError
 
-VISION_SYSTEM = '''Read the attached chemistry images as evidence for another chemistry tutor.
+VISION_SYSTEM = '''Read the attached biology images as evidence for another biology tutor.
 Return plain text observations, not an answer or JSON. Transcribe legible question text,
 atom labels, bonds, charges, wedge/dash stereochemistry and conditions. Clearly distinguish
 visible facts from uncertain interpretations. Say when an image is blank or unreadable.

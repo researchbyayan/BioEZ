@@ -64,7 +64,7 @@ async function screenshotAnswer(id){
   return files;
 }
 try{
-  await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible({timeout:60000});
+  await expect(page.getByRole('textbox',{name:'Biology question'})).toBeVisible({timeout:60000});
   // A fresh profile asks for the learner level first.
   const welcome=page.getByRole('dialog',{name:'Welcome to BioEZ'});
   if(await welcome.waitFor({timeout:5000}).then(()=>true,()=>false))await welcome.getByRole('radio',{name:/University/}).click();
@@ -85,7 +85,7 @@ try{
   if(!state.ready)throw new Error('The NVIDIA key is session-only or unavailable to this isolated test app. Rerun with --connect to enter it in the test window.');
   if(state.config.model!==config.model)await page.evaluate(settings=>window.bioez.request('saveConfig',settings),config);
   await page.reload();
-  await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible();
+  await expect(page.getByRole('textbox',{name:'Biology question'})).toBeVisible();
   console.log(`LIVE NVIDIA: ${config.model}; ${cases.length} prompts; ${directory}`);
   for(const test of cases){
     const started=Date.now(),errorStart=pageErrors.length;
@@ -93,7 +93,7 @@ try{
     try{
       await page.getByRole('button',{name:'New conversation',exact:true}).click();
       await page.getByRole('combobox',{name:'Answer style'}).selectOption(test.mode);
-      await page.getByRole('textbox',{name:'Chemistry question'}).fill(test.prompt);
+      await page.getByRole('textbox',{name:'Biology question'}).fill(test.prompt);
       if(test.image_files){
         const files=await Promise.all(test.image_files.map(async name=>({name,data:(await readFile(path.join(root,'evaluation','fixtures',name))).toString('base64')})));
         await page.evaluate(files=>{const transfer=new DataTransfer();for(const f of files)transfer.items.add(new File([Uint8Array.from(atob(f.data),c=>c.charCodeAt(0))],f.name,{type:'image/png'}));document.querySelector('.composer').dispatchEvent(new DragEvent('drop',{dataTransfer:transfer,bubbles:true,cancelable:true}));},files);

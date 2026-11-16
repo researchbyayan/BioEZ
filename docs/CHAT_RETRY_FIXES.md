@@ -2,7 +2,7 @@
 
 - Opening or restoring a saved conversation scrolls to its latest content. A short-lived resize observer handles lazy diagram rendering and viewport resizing; scrolling or pointer input stops restoration. New answers still anchor once at their beginning rather than following the stream.
 - Retry resubmits the preceding user question with its stored command and original answer mode, without applying an unrelated composer follow-up target or selected command.
-- Model repair instructions quote the exact current question instead of asking ambiguously for the original chemistry question. Earlier conversation topics are context only.
+- Model repair instructions quote the exact current question instead of asking ambiguously for the original biology question. Earlier conversation topics are context only.
 - Mechanism mode no longer treats “reduced doctor visits” as a request for chemical reduction.
 - Inline HTTPS Markdown links open through Electron's existing external-link validation. Unsafe protocols and embedded credentials are not clickable. Optional source links are permitted in the model prompt without requiring them in every answer.
 

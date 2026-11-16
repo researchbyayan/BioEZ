@@ -27,7 +27,7 @@ Neither package is installed in the app runtime. Full RMG inference would need i
 
 ## UI
 
-Mechanism is an explicit composer answer mode. Chemistry level is in Model & API settings (and Preferences), not the composer. The existing first-launch level chooser is retained. 3D remains the default explorer view; additional 2D analysis stays on demand.
+Mechanism is an explicit composer answer mode. Biology level is in Model & API settings (and Preferences), not the composer. The existing first-launch level chooser is retained. 3D remains the default explorer view; additional 2D analysis stays on demand.
 
 ## Reproducible checks
 

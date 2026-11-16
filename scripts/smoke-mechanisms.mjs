@@ -22,9 +22,9 @@ try{
  for(const item of cases){
   current=item;await page.getByRole('button',{name:'New conversation',exact:true}).click();
   await page.getByLabel('Answer style').selectOption(item.name==='sn2'?'mechanism':'balanced');
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill(item.question);await page.getByRole('button',{name:'Send question',exact:true}).click();
+  await page.getByRole('textbox',{name:'Biology question'}).fill(item.question);await page.getByRole('button',{name:'Send question',exact:true}).click();
   await expect(page.locator('.answer-flow img').first()).toBeVisible({timeout:60000});
-  await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:60000});await expect(page.getByRole('textbox',{name:'Chemistry question'}).or(page.getByRole('button',{name:'Open message box'})).first()).toBeVisible({timeout:60000});
+  await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:60000});await expect(page.getByRole('textbox',{name:'Biology question'}).or(page.getByRole('button',{name:'Open message box'})).first()).toBeVisible({timeout:60000});
   await expect(page.locator('.notice.error,.message-avatar,.atom-loader')).toHaveCount(0);
   if(item.name==='butane'){
    await expect(page.locator('.reaction-card')).toHaveCount(0);await expect(page.locator('.molecule-row .structure')).toHaveCount(1);

@@ -14,7 +14,7 @@ def prompt(question, blocks):
     """The decision request: the question, the answer text and the diagrams it currently has."""
     prose = '\n'.join(b.get('text', '') for b in blocks if b.get('type') == 'markdown').strip()[:4000]
     shown = [f'{b["type"]}: ' + (b.get('label') or b.get('caption') or b.get('smiles') or '') for b in blocks if b.get('type') in DIAGRAMS]
-    return ('A chemistry tutor answered a learner. Choose the diagram that best supports THIS answer.\n'
+    return ('A biology tutor answered a learner. Choose the diagram that best supports THIS answer.\n'
             f'Question: {question}\nAnswer:\n{prose}\nDiagrams in the answer: {"; ".join(shown) or "none"}\n\n'
             'Reply with JSON only: {"draw": "keep" | "none" | "molecules" | "resonance", "molecules": [{"name": "...", "smiles": "..."}]}\n'
             '- keep: the listed diagrams fit what the answer says.\n'

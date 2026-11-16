@@ -14,9 +14,9 @@ from pydantic import BaseModel, Field, TypeAdapter, ValidationError
 from .models import Block, ChatRequest, ProviderConfig, GeminiModelsRequest
 from .storage import Store, Credentials
 from .providers import Provider, ProviderError, SYSTEM
-from .answer_format import decode_answer, readable_fallback,chemistry_markdown
-from .chemistry import render_block, expand_resonance, formula_only_question, enrich_names, structure_3d, analyse
-from .processing import process_chemistry, ProcessingError, prewarm
+from .answer_format import decode_answer, readable_fallback,biology_markdown
+from .biology import render_block, expand_resonance, formula_only_question, enrich_names, structure_3d, analyse
+from .processing import process_biology, ProcessingError, prewarm
 from . import mechanisms, routes, nmr, autopick, drawing
 from .vision import interpret_images, VISION_SYSTEM
 from .styles import answer_system, style_issue, diagram_issue, split_command, COMMANDS, command_issue
@@ -49,7 +49,7 @@ class ConversationRewind(BaseModel):
 def account(config):
     return config['provider'] + ':' + config.get('endpoint','')
 
-# Repair rounds for answers whose drawings or chemistry fail validation.
+# Repair rounds for answers whose drawings or biology fail validation.
 MAX_REPAIRS = 3
 
 def keyless(config):
@@ -101,7 +101,7 @@ def prepare_answer(text):
                 # Built-in shortcut: BioEZ draws the named mechanism from the reactants.
                 item=mechanisms.build(item['name'],[r for r in item['reactants'] if isinstance(r,str)])
             # Preserve prose accidentally attached to an otherwise typed diagram.
-            # This is a presentation normalization, not a chemistry correction.
+            # This is a presentation normalization, not a biology correction.
             if isinstance(item,dict) and item.get('type') in ('molecule','reaction','mechanism') and isinstance(item.get('text'),str):
                 prose=item['text']
                 item={k:v for k,v in item.items() if k!='text'}
@@ -114,7 +114,7 @@ def prepare_answer(text):
                     result.append(render_block(block_adapter.validate_python({'type':'markdown','text':restore_latex(caption)})))
             block = block_adapter.validate_python(restore_latex(item))
             if block.type=='markdown':
-                block=block.model_copy(update={'text':chemistry_markdown(block.text)})
+                block=block.model_copy(update={'text':biology_markdown(block.text)})
             try:
                 rendered=render_block(block)
             except ValueError:
@@ -152,7 +152,7 @@ def prepare_answer(text):
         except (ValidationError,ValueError,RuntimeError) as exc:
             failed = True
             # Validation errors may contain user/model data but never credentials.
-            message = str(exc)[:500] if isinstance(exc,ValueError) and not isinstance(exc,ValidationError) else 'A model answer block did not match the required chemistry format.'
+            message = str(exc)[:500] if isinstance(exc,ValueError) and not isinstance(exc,ValidationError) else 'A model answer block did not match the required biology format.'
             if isinstance(exc,ValidationError):
                 # Field paths and messages only (no input values) so the repair request is actionable.
                 details = '; '.join(f"{'.'.join(map(str,e['loc'])) or 'block'}: {e['msg']}" for e in exc.errors(include_input=False,include_url=False)[:6])
@@ -213,18 +213,18 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
     lookup = Lookup(Cache(str(Path(directory)/'compounds.sqlite3')))
     app.state.store, app.state.vault, app.state.busy = store, vault, False
     key_reads={}
-    chemistry_slots=asyncio.Semaphore(2)
+    biology_slots=asyncio.Semaphore(2)
     prewarm()
 
     async def native_work(operation,payload,timeout=25,wait=5):
         try:
-            await asyncio.wait_for(chemistry_slots.acquire(),wait)
+            await asyncio.wait_for(biology_slots.acquire(),wait)
         except asyncio.TimeoutError as exc:
             raise ProcessingError('Other structures are still being processed. Wait a moment, then try this view again.') from exc
         try:
-            return await process_chemistry(operation,payload,timeout=timeout)
+            return await process_biology(operation,payload,timeout=timeout)
         finally:
-            chemistry_slots.release()
+            biology_slots.release()
 
     # Names of accounts that have a stored key (never the keys themselves), so the settings
     # dialog can mark services as "Key saved" without reading each saved key.
@@ -528,8 +528,8 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
         words=re.sub(r'[^\w\s()+-]','',line).split()[:3]
         return ' '.join(w if any(c.isupper() or c.isdigit() for c in w) else w[:1].upper()+w[1:] for w in words) if len(words)>=2 else ''
 
-    GENERIC=re.compile(r'^(none|n/?a|(general |basic |intro(ductory)? )?(chemistry|chem)( (chat|help|question|questions|tutor|tutoring|session|conversation|basics|discussion))?|(chemistry )?(chat|greeting|greetings|hello|hi|conversation|new chat|untitled)( chat)?)$',re.I)
-    casual_titles=set()  # chats named from small talk, renamed at their first chemistry question
+    GENERIC=re.compile(r'^(none|n/?a|(general |basic |intro(ductory)? )?(biology|chem)( (chat|help|question|questions|tutor|tutoring|session|conversation|basics|discussion))?|(biology )?(chat|greeting|greetings|hello|hi|conversation|new chat|untitled)( chat)?)$',re.I)
+    casual_titles=set()  # chats named from small talk, renamed at their first biology question
     def generic_title(title):
         """Names that say nothing about the chat's topic."""
         return not title or bool(GENERIC.match(title.strip()))
@@ -753,7 +753,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                             destination.mkdir(parents=True,exist_ok=True)
                             (destination/(str(uuid4())+'.json')).write_text(json.dumps({'question':payload.text,'mode':payload.response_style,'answer':raw}),encoding='utf8')
                         return raw
-                    # Careful mode: drawing and chemistry failures get up to MAX_REPAIRS focused
+                    # Careful mode: drawing and biology failures get up to MAX_REPAIRS focused
                     # repair rounds (users would rather wait than see a wrong drawing). Style-only
                     # problems get one. The best attempt wins: valid beats broken; between broken
                     # attempts, more valid parts wins (ties go to the newer attempt).
@@ -825,7 +825,7 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                         if (not failed and not issue) or (not best[1] and attempt) or attempt==MAX_REPAIRS:
                             break
                         # Repair with this round's specific problems.
-                        messages = [*messages,{'role':'assistant','content':raw},{'role':'user','content':'Repair the answer JSON, chemistry, and selected answer mode. Return the complete answer with valid blocks. Answer only this current learner question (earlier turns are context, not the task): '+json.dumps(question)+'. Do not switch back to an earlier topic. Do not mention validation, previous answers, internal retries, or the repair request. Validation issues: '+json.dumps([b['text'] for b in blocks if b['type']=='error']+([issue] if issue else []))}]
+                        messages = [*messages,{'role':'assistant','content':raw},{'role':'user','content':'Repair the answer JSON, biology, and selected answer mode. Return the complete answer with valid blocks. Answer only this current learner question (earlier turns are context, not the task): '+json.dumps(question)+'. Do not switch back to an earlier topic. Do not mention validation, previous answers, internal retries, or the repair request. Validation issues: '+json.dumps([b['text'] for b in blocks if b['type']=='error']+([issue] if issue else []))}]
                     blocks,failed,raw=best
                     if command in ('spectra','nomenclature') and not any(block['type']=='molecule' for block in blocks):
                         # BioEZ draws the compound the question names or types when the model did not.
@@ -920,16 +920,16 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                 old_title=chat.get('title','')
                 asked_texts=[(m['content'].get('text','') if isinstance(m['content'],dict) else str(m['content']))[:160] for m in store.messages(cid) if m['role']=='user']
                 # Until the chat has a real topic name (it still shows the first question, or a generic
-                # name such as "Chemistry Chat"), try again after every question; then every 5 questions.
+                # name such as "Biology Chat"), try again after every question; then every 5 questions.
                 unnamed=not store.renamed(cid) and (cid in casual_titles or old_title.strip()==(asked_texts[0].strip()[:80] if asked_texts else '') or generic_title(old_title))
                 if decisions() and (asked==1 or unnamed or asked%5==0) and any(block['type']!='error' for block in blocks):
                     try:
-                        prompt=('Name this chemistry chat in 2 or 3 words, Title Case, no quotes or punctuation, naming its chemistry topic (a compound, reaction or concept). If there is no chemistry topic yet (a greeting or small talk), reply CASUAL: followed by a 2 or 3 word Title Case name for what was said, such as CASUAL: Friendly Greeting. Cover the whole chat but lean toward the latest questions'
+                        prompt=('Name this biology chat in 2 or 3 words, Title Case, no quotes or punctuation, naming its biology topic (a compound, reaction or concept). If there is no biology topic yet (a greeting or small talk), reply CASUAL: followed by a 2 or 3 word Title Case name for what was said, such as CASUAL: Friendly Greeting. Cover the whole chat but lean toward the latest questions'
                                 +(f'; the current name is "{old_title}", so give a clearly different name that shows where the chat has moved' if asked>1 else '')+'.\n'
                                 +(f'Earlier questions:\n'+'\n'.join(asked_texts[:-5])[-1200:]+'\n' if len(asked_texts)>5 else '')
                                 +'Latest questions:\n'+'\n'.join(asked_texts[-5:]))
                         reply=(await ask_plain(config,key,prompt) or '').strip()
-                        # A casual name is polished now but replaced once the chat has a chemistry topic.
+                        # A casual name is polished now but replaced once the chat has a biology topic.
                         casual=bool(re.match(r'casual\s*:',reply,re.I))
                         title=chat_title(re.sub(r'^casual\s*:\s*','',reply,flags=re.I))
                         if title and (casual or not generic_title(title)):

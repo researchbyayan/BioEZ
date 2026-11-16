@@ -3,7 +3,7 @@
   "approvals": {
     "sourceCheckpoint": false,
     "datasetRedistribution": false,
-    "liveChemistryEvaluation": false,
+    "liveBiologyEvaluation": false,
     "cleanMacIntel": false,
     "cleanMacSilicon": false,
     "cleanWindows11": false,

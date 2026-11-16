@@ -3,7 +3,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {createElement,Fragment} from 'react';
 import {academic} from './italics';
 const html=(t:string)=>renderToStaticMarkup(createElement(Fragment,null,academic(t)));
-describe('chemistry italics',()=>{
+describe('biology italics',()=>{
   it('italicises descriptors and Latin terms',()=>{
     expect(html('tert-butyl bromide')).toContain('<i class="chem-italic">tert</i>-butyl');
     expect(html('p-nitrophenol and (R)-limonene')).toContain('<i class="chem-italic">p</i>-nitrophenol');

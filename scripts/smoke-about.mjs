@@ -21,10 +21,10 @@ try{
  await page.evaluate(config=>window.bioez.request('saveConfig',config),{provider:'compatible',endpoint:`http://127.0.0.1:${server.address().port}/v1`,model:captureReadme?'BioEZ demo':'release-fixture',auth_mode:'none'});await page.reload();
  if(process.argv.includes('--preview-only')||process.argv.includes('--capture-readme')){
   if(captureReadme)await instance.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setContentSize(1120,1060));
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill(captureReadme?'Acetone + methylmagnesium bromide, then acidic workup: what forms?':'Show Grignard addition of methylmagnesium bromide to acetone');await page.getByRole('button',{name:'Send question',exact:true}).click();await expect(page.locator('.reaction-card')).toBeVisible({timeout:60000});
+  await page.getByRole('textbox',{name:'Biology question'}).fill(captureReadme?'Acetone + methylmagnesium bromide, then acidic workup: what forms?':'Show Grignard addition of methylmagnesium bromide to acetone');await page.getByRole('button',{name:'Send question',exact:true}).click();await expect(page.locator('.reaction-card')).toBeVisible({timeout:60000});
   if(captureReadme){
    await mkdir(path.join(root,'docs/images'),{recursive:true});
-   await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:60000});await expect(page.getByRole('textbox',{name:'Chemistry question'}).or(page.getByRole('button',{name:'Open message box'})).first()).toBeVisible({timeout:60000});
+   await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:60000});await expect(page.getByRole('textbox',{name:'Biology question'}).or(page.getByRole('button',{name:'Open message box'})).first()).toBeVisible({timeout:60000});
    await expect(page.locator('.message.user')).toContainText('methylmagnesium bromide');
    await expect(page.locator('.message.assistant')).toContainText('protonates the resulting alkoxide');
    await page.evaluate(()=>document.fonts.ready);
@@ -42,7 +42,7 @@ try{
     if(answer.bottom>composer.top)throw new Error('Demo answer must fit above the composer.');
     return {x:messages.x,y:prompt.y,width:messages.width,height:answer.bottom-prompt.y+12};
    });
-   await page.screenshot({path:path.join(root,'docs/images/chemistry-chat-demo.png'),clip,scale:'device'});
+   await page.screenshot({path:path.join(root,'docs/images/biology-chat-demo.png'),clip,scale:'device'});
    console.log(`README prompt and complete answer captured from BioEZ at ${scale}x density. Fixed demo response through the real backend and RDKit, with no live provider calls.`);
   }else{
   await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('button',{name:'About',exact:true}).click();
@@ -59,8 +59,8 @@ try{
  await page.getByText('App details',{exact:true}).click();await page.getByRole('button',{name:'Copy app information'}).click();await expect(page.getByRole('status')).toContainText('App information copied.');
  await mkdir(path.join(root,'test-results/release'),{recursive:true});await page.screenshot({path:path.join(root,'test-results/release/about.png')});
  await page.keyboard.press('Escape');
- await page.getByRole('textbox',{name:'Chemistry question'}).fill('Show Grignard addition of methylmagnesium bromide to acetone');await page.getByRole('button',{name:'Send question',exact:true}).click();
- await expect(page.locator('.reaction-card')).toBeVisible({timeout:60000});await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:60000});await expect(page.getByRole('textbox',{name:'Chemistry question'}).or(page.getByRole('button',{name:'Open message box'})).first()).toBeVisible({timeout:60000});
+ await page.getByRole('textbox',{name:'Biology question'}).fill('Show Grignard addition of methylmagnesium bromide to acetone');await page.getByRole('button',{name:'Send question',exact:true}).click();
+ await expect(page.locator('.reaction-card')).toBeVisible({timeout:60000});await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:60000});await expect(page.getByRole('textbox',{name:'Biology question'}).or(page.getByRole('button',{name:'Open message box'})).first()).toBeVisible({timeout:60000});
  for(const width of [360,480,760]){
   await instance.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setSize(width,900),width);
   // Measure the narrow-card case even when the desktop window has a larger minimum width.

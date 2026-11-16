@@ -7,7 +7,7 @@ the best that answers, plus a few working backups.
 import asyncio, re
 from .providers import ProviderError
 
-# Families known to answer chemistry well, strongest first; matched against model IDs.
+# Families known to answer biology well, strongest first; matched against model IDs.
 PREFERRED = ['nemotron-3-ultra', 'claude-opus', 'gpt-5', 'gemini-3.5-pro', 'claude-sonnet', 'glm-5', 'nemotron-3.5-super', 'nemotron-3-super',
              'qwen3.5-122b', 'kimi-k2', 'deepseek-v4', 'minimax-m3', 'gemini-3.5-flash', 'gpt-oss-120b', 'llama-4', 'mistral-large', 'gpt-oss-20b',
              'nemotron-3.5-lightning', 'nemotron-3.5-bolt']

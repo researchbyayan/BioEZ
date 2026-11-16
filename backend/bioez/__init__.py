@@ -1,1 +1,1 @@
-"""BioEZ local chemistry service."""
+"""BioEZ local biology service."""

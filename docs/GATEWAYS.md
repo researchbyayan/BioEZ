@@ -10,9 +10,9 @@ All previously deleted credentials remain deleted.
 
 1. Install LiteLLM Proxy separately in its own environment, following its official
    documentation: https://docs.litellm.ai/docs/simple_proxy . It is not bundled in
-   BioEZ's chemistry Python environment.
+   BioEZ's biology Python environment.
 2. Start Ollama separately and download `llama3.2:3b` if you want to use the local
-   example. Model size, speed and chemistry quality depend on the hardware/model.
+   example. Model size, speed and biology quality depend on the hardware/model.
 3. Set `BIOEZ_GATEWAY_KEY` in the gateway process environment to a key you choose.
    Do not put it in this repository. Start LiteLLM bound to loopback:
 
@@ -52,7 +52,7 @@ project's current documentation and license when deploying it.
   aliases; it does not prove quota or upstream inference availability. Gateways
   without that route can still be used with a manually entered alias.
 - **Save & test** validates a complete BioEZ-format answer through the chosen
-  route. Chemistry blocks remain locally validated before rendering.
+  route. Biology blocks remain locally validated before rendering.
 - Explicit HTTP 502/503 rejections may retry twice with backoff/jitter, using the
   same endpoint, alias and key. A numeric Retry-After up to 10 seconds is honored;
   a longer value stops retries. Total time remains bounded. Timeouts, partial

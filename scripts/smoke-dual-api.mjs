@@ -27,7 +27,7 @@ try{
  if(process.argv.includes('--no-sandbox'))args.push('--no-sandbox');
  app=await electron.launch({...(packaged?{executablePath:executable}:{}),args,env:{...process.env,BIOEZ_PROFILE:profile,BIOEZ_SESSION_ONLY:'1'},timeout:60000});
  const page=await app.firstWindow();const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible({timeout:60000});
+ await expect(page.getByRole('textbox',{name:'Biology question'})).toBeVisible({timeout:60000});
  const welcome=page.getByRole('dialog',{name:'Welcome to BioEZ'});
  if(await welcome.isVisible().catch(()=>false)||await welcome.waitFor({timeout:5000}).then(()=>true,()=>false))await welcome.getByRole('radio',{name:/University/}).click();
  const endpoint=`http://127.0.0.1:${server.address().port}/v1`;
@@ -49,7 +49,7 @@ try{
  await page.getByRole('button',{name:'Start chatting'}).click();
  const data=(await readFile(path.join(root,'evaluation/fixtures/ethanol.png'))).toString('base64');
  await page.evaluate(data=>{const transfer=new DataTransfer();transfer.items.add(new File([Uint8Array.from(atob(data),c=>c.charCodeAt(0))],'ethanol.png',{type:'image/png'}));document.querySelector('.composer').dispatchEvent(new DragEvent('drop',{dataTransfer:transfer,bubbles:true,cancelable:true}));},data);
- await page.getByRole('textbox',{name:'Chemistry question'}).fill('Identify the molecule in this image.');
+ await page.getByRole('textbox',{name:'Biology question'}).fill('Identify the molecule in this image.');
  await expect(page.locator('.attachment')).toHaveCount(1);
  await page.getByRole('button',{name:'Send question',exact:true}).click();
  await expect(page.getByRole('img',{name:'Ethanol molecular structure',exact:true})).toBeVisible({timeout:30000});
@@ -57,7 +57,7 @@ try{
  const state=await page.evaluate(()=>window.bioez.request('getConfig'));
  if(state.config.model!=='chat-model'||state.vision_config.model!=='vision-model')throw new Error('Model roles overwrote one another');
  if(calls.filter(c=>c.model==='vision-model').length<2||calls.filter(c=>c.model==='chat-model').length<1)throw new Error('Expected both model roles to receive their requests.');
- if(!calls.some(call=>call.model==='chat-model'&&JSON.stringify(call.messages).includes('Visible structure: ethanol')))throw new Error('Observations never reached chemistry model');
+ if(!calls.some(call=>call.model==='chat-model'&&JSON.stringify(call.messages).includes('Visible structure: ethanol')))throw new Error('Observations never reached biology model');
  await page.getByRole('button',{name:'Model settings'}).click();
  await page.getByRole('tab',{name:/Image reader/}).click();
  await page.getByRole('button',{name:'Disable image reader and remove its key'}).click();

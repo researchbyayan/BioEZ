@@ -4,12 +4,12 @@ Development candidate, 2026-11-02. No installers rebuilt or published.
 
 ## Preserve the current source checkpoint
 
-Reviewed recent commits d593b80 (chat polish), ac1c958 (warm chemistry workers,
+Reviewed recent commits d593b80 (chat polish), ac1c958 (warm biology workers,
 mechanism families and provider performance), 9cf3c73 (academic cards, electron
 arrows, acid-base family and formula typesetting), and e927803 (unused asset cleanup).
 
 The following remain byte-for-byte unchanged against this checkpoint:
-chemistry.py, mechanisms.py, processing.py, providers.py, storage.py; App.tsx,
+biology.py, mechanisms.py, processing.py, providers.py, storage.py; App.tsx,
 ChatScrollbar.tsx, UserMessage.tsx, scripts.ts, italics.tsx, titleCase.ts,
 diagram-layout.css; Electron main and preload.
 
@@ -79,7 +79,7 @@ explicitly not delivered by this candidate.
 
 ## Verification completed
 
-- Mechanism families, chemistry, answer policy and initial local tools: 121 passing
+- Mechanism families, biology, answer policy and initial local tools: 121 passing
   test executions. App and updated local-tool suite: 84 passing test executions
   (these groups overlap on local-tool tests; they are not 205 unique tests).
 - Existing card rendering, formula scripts, academic italics/title casing,
@@ -131,7 +131,7 @@ evaluation/local-tools/interactive-spectra.png.
 - Graph generation notes collapse into a details disclosure; estimated-position
   provenance stays visible in the header. Cosmetic changes do not establish that
   predicted shifts/intensities are experimentally accurate.
-- Chemistry regression: 76 passing tests. Selected frontend tests: 12 passing.
+- Biology regression: 76 passing tests. Selected frontend tests: 12 passing.
   Interactive chart/PNG/export/table/UI test: passing; TypeScript checked.
 
 Final UI cleanup: removed the original-citation disclosure and duplicate DOI line

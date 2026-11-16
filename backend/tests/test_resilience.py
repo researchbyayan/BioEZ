@@ -1,7 +1,7 @@
 import asyncio
 import json
 import pytest
-from bioez.processing import process_chemistry, ProcessingError
+from bioez.processing import process_biology, ProcessingError
 from bioez.styles import answer_system, style_issue
 from bioez.app import prepare_answer
 from bioez.providers import Provider, ProviderError, SYSTEM
@@ -9,16 +9,16 @@ from bioez.providers import Provider, ProviderError, SYSTEM
 
 async def test_native_worker_failure_does_not_kill_the_next_answer():
     with pytest.raises(ProcessingError,match='stopped unexpectedly'):
-        await process_chemistry('probe',None,timeout=60)
-    blocks, failed=await process_chemistry('answer',json.dumps({'blocks':[{'type':'molecule','smiles':'CCO','label':'Ethanol'}]}))
+        await process_biology('probe',None,timeout=60)
+    blocks, failed=await process_biology('answer',json.dumps({'blocks':[{'type':'molecule','smiles':'CCO','label':'Ethanol'}]}))
     assert not failed and blocks[0]['formula']=='C2H6O'
 
 
 async def test_processing_timeout_stops_worker_and_next_request_works():
     # A structure no other test draws, so no cached result can beat the timeout.
     with pytest.raises(ProcessingError,match='too long'):
-        await process_chemistry('answer','{"blocks":[{"type":"molecule","smiles":"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCO"}]}',timeout=0.001)
-    blocks,failed=await process_chemistry('answer','{"blocks":[{"type":"markdown","text":"Still running."}]}')
+        await process_biology('answer','{"blocks":[{"type":"molecule","smiles":"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCO"}]}',timeout=0.001)
+    blocks,failed=await process_biology('answer','{"blocks":[{"type":"markdown","text":"Still running."}]}')
     assert not failed and blocks[0]['text']=='Still running.'
 
 
@@ -56,7 +56,7 @@ def test_answer_modes_are_distinct_and_out_of_mode_responses_are_flagged():
     assert style_issue(verbose,'concise','Explain phenol')
 
 
-def test_live_nvidia_latex_escapes_are_recovered_without_changing_chemistry():
+def test_live_nvidia_latex_escapes_are_recovered_without_changing_biology():
     from bioez.answer_format import decode_answer
     raw=r'{"blocks":[{"type":"markdown","text":"Formula $\ce{C6H6}$ and $\underbrace{x}$."},{"type":"molecule","smiles":"F/C=C\F"}]}'
     result=decode_answer(raw)
@@ -67,7 +67,7 @@ def test_live_nvidia_latex_escapes_are_recovered_without_changing_chemistry():
 
 
 def test_common_reference_corrects_formula_but_preserves_enantiomers():
-    from bioez.chemistry import molecule_result
+    from bioez.biology import molecule_result
     from bioez.models import Molecule
     result=molecule_result(Molecule(smiles='Brc1ccccc1',label='Bromobenzene',formula='C6H6Br'))
     assert result['formula']=='C6H5Br' and result['validation_notes']
@@ -97,7 +97,7 @@ async def test_corrupt_saved_text_is_isolated_and_health_still_responds(tmp_path
 
 
 def test_unassigned_enantiomer_names_and_atom_creating_mechanisms_are_rejected():
-    from bioez.chemistry import molecule_result,render_block
+    from bioez.biology import molecule_result,render_block
     from bioez.models import Molecule,MechanismBlock
     with pytest.raises(ValueError,match='stereochemistry'):
         molecule_result(Molecule(smiles='CC(O)C(=O)O',label='(R)-2-hydroxypropanoic acid'))
@@ -110,7 +110,7 @@ def test_unassigned_enantiomer_names_and_atom_creating_mechanisms_are_rejected()
 
 def test_missing_carbon_source_and_missing_synthesis_diagram_are_flagged():
     from bioez.models import ReactionBlock
-    from bioez.chemistry import render_block
+    from bioez.biology import render_block
     from bioez.styles import diagram_issue
     reaction=ReactionBlock.model_validate({'type':'reaction','reactants':[{'smiles':'CCO'}],'products':[{'smiles':'CCOC(C)=O'}],'reagents':'H2SO4'})
     with pytest.raises(ValueError,match='creates carbon'):
@@ -118,14 +118,14 @@ def test_missing_carbon_source_and_missing_synthesis_diagram_are_flagged():
     assert diagram_issue([{'type':'markdown','text':'Sulfonation followed by alkali fusion gives phenol.'}],'Show a multistep benzene-to-phenol synthesis.')
 
 
-def test_standalone_chemistry_macros_render_without_changing_code_or_existing_math():
-    from bioez.answer_format import chemistry_markdown
+def test_standalone_biology_macros_render_without_changing_code_or_existing_math():
+    from bioez.answer_format import biology_markdown
     text=r'Use \ce{NaOH}, $\ce{H2O}$, and literal `\ce{CO2}`.'
-    assert chemistry_markdown(text)==r'Use $\ce{NaOH}$, $\ce{H2O}$, and literal `\ce{CO2}`.'
+    assert biology_markdown(text)==r'Use $\ce{NaOH}$, $\ce{H2O}$, and literal `\ce{CO2}`.'
 
 
 def test_reference_lookup_normalizes_e_z_aliases_before_stereo_validation():
-    from bioez.chemistry import molecule_result
+    from bioez.biology import molecule_result
     from bioez.models import Molecule
     cis=molecule_result(Molecule(smiles='C1=C(C)C(C)1',label='cis-but-2-ene',iupac_name='(Z)-but-2-ene',formula='C4H8'))
     trans=molecule_result(Molecule(smiles='C1=C(C)C(C)1',label='trans-but-2-ene',iupac_name='(E)-but-2-ene',formula='C4H8'))
@@ -135,7 +135,7 @@ def test_reference_lookup_normalizes_e_z_aliases_before_stereo_validation():
 
 async def test_partial_recovery_keeps_complete_blocks_and_discloses_missing_parts():
     raw='{"blocks":[{"type":"markdown","text":"A complete explanation."}},{"type":"molecule","smiles":"CCO","label":"Ethanol"}]} '
-    blocks=await process_chemistry('partial',[raw])
+    blocks=await process_biology('partial',[raw])
     assert [b['type'] for b in blocks]==['markdown','molecule','error']
     assert blocks[1]['formula']=='C2H6O' and 'Only complete' in blocks[-1]['text']
 

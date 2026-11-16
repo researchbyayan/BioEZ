@@ -29,11 +29,11 @@ async function snapshot(id){
   await writeFile(path.join(output,id+'.png'),Buffer.from(data,'base64'));
  }else await page.screenshot({path:path.join(output,id+'.png')});
 }
-async function send(text){await page.getByRole('button',{name:'New conversation',exact:true}).click();await page.getByRole('textbox',{name:'Chemistry question'}).fill(text);await page.getByRole('button',{name:'Send question',exact:true}).click();}
-async function test(id,title,fn){try{await fn();if(id!=='R07')await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeEditable();results.push({id,title,status:'passed'});}catch(e){results.push({id,title,status:'failed',error:String(e)});}await snapshot(id);await writeFile(path.join(output,'results.json'),JSON.stringify({kind:'native-controlled-failure-tests',results,requests},null,2));console.log(id,results.at(-1).status,title);}
+async function send(text){await page.getByRole('button',{name:'New conversation',exact:true}).click();await page.getByRole('textbox',{name:'Biology question'}).fill(text);await page.getByRole('button',{name:'Send question',exact:true}).click();}
+async function test(id,title,fn){try{await fn();if(id!=='R07')await expect(page.getByRole('textbox',{name:'Biology question'})).toBeEditable();results.push({id,title,status:'passed'});}catch(e){results.push({id,title,status:'failed',error:String(e)});}await snapshot(id);await writeFile(path.join(output,'results.json'),JSON.stringify({kind:'native-controlled-failure-tests',results,requests},null,2));console.log(id,results.at(-1).status,title);}
 try{
  await page.evaluate(async endpoint=>{await window.bioez.request('saveConfig',{provider:'compatible',model:'recovery',endpoint,auth_mode:'none'});},`http://127.0.0.1:${server.address().port}/v1`);
- await page.reload();await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible();
+ await page.reload();await expect(page.getByRole('textbox',{name:'Biology question'})).toBeVisible();
  await test('R01','Malformed/truncated output is repaired once then remains a readable error',async()=>{
   const before=requests;await send('truncated-answer');await expect(page.getByRole('button',{name:'Stop generation'})).toHaveCount(0,{timeout:30000});await expect(page.getByRole('alert')).toContainText('valid structured answer');if(requests-before!==2)throw new Error('Malformed answer was not limited to one repair.');
  });
@@ -67,7 +67,7 @@ c.commit()` ,profile,cid],{encoding:'utf8'});
   if(saved.messages.at(-1).response_style!=='concise')throw new Error('Selected mode was not saved.');
   await page.reload();await page.getByRole('button',{name:'healthy mode persistence',exact:true}).click();await expect(page.locator('.answer-mode')).toHaveText('Quick answer');
  });
- await test('R08','Repeated structure explorer open/close releases its viewer and keeps local chemistry usable',async()=>{
+ await test('R08','Repeated structure explorer open/close releases its viewer and keeps local biology usable',async()=>{
   for(let i=0;i<4;i++){
    await page.locator('.structure-trigger').first().hover();
    await page.getByRole('button',{name:'Explore structure',exact:true}).click();

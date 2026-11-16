@@ -2,7 +2,7 @@ import json
 from bioez.answer_policy import condensed,prose,references
 from bioez.app import prepare_answer,restored_block
 from bioez.models import Molecule
-from bioez.chemistry import render_block
+from bioez.biology import render_block
 from bioez.models import MoleculeBlock
 
 def test_condensed_acid_and_model_validation():

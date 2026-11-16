@@ -803,7 +803,7 @@ def expand_resonance(item, generate=False):
     if len(groups) == 1 and distinct >= 2 and not generate:
         return [item]
     # Different compounds are split only when each is named (a comparison); an unnamed
-    # non-contributor is a chemistry error the model is asked to fix.
+    # non-contributor is a biology error the model is asked to fix.
     named = lambda contributor: bool(contributor.get('label')) and not re.search(r'contributor|form|structure|resonance|^[A-Z0-9]$', contributor['label'], re.I)
     if generate:
         groups = groups[:1]

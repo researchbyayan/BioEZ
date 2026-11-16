@@ -192,7 +192,7 @@ button{ transition:color 120ms ease,background-color 120ms ease,border-color 120
 body{ -webkit-user-select:none; user-select:none; }
 img,svg,.structure-trigger{ -webkit-user-drag:none; }
 input,textarea,[contenteditable],.markdown,.user-text,.notice,.clarification p,.katex,pre,code,.smiles-explorer-string,.identifier-list code,.stereo-list,.property-grid dd,.structure-popover strong,.reaction-reagents,.reaction-conditions,.mechanism-step-header strong{ -webkit-user-select:text; user-select:text; }
-/* Chemistry level: first-launch welcome and preference */
+/* Biology level: first-launch welcome and preference */
 .level-dialog{ width:min(560px,94vw)!important; }
 .level-intro{ margin:0 0 16px; font-size:13px; line-height:1.65; color:#cdc4d5; }
 .level-options{ display:grid; gap:8px; }

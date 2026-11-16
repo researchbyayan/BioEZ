@@ -5,7 +5,7 @@ import {createServer} from 'node:http';
 import os from 'node:os';import path from 'node:path';
 import {root,python} from './python-path.mjs';
 const profile=await mkdtemp(path.join(os.tmpdir(),'BioEZ structure preview '));
-const examples=JSON.parse(await readFile(path.join(root,'tmp/chemistry-fixes/examples.json'),'utf8'));
+const examples=JSON.parse(await readFile(path.join(root,'tmp/biology-fixes/examples.json'),'utf8'));
 const server=createServer((request,response)=>{let body='';request.on('data',c=>body+=c);request.on('end',()=>{const item=body.toLowerCase().includes('benzene resonance')?examples[1]:examples[0];response.writeHead(200,{'Content-Type':'text/event-stream'});response.end('data: '+JSON.stringify({choices:[{delta:{content:JSON.stringify(item.raw)}}]})+'\n\ndata: [DONE]\n\n');});});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const endpoint=`http://127.0.0.1:${server.address().port}/v1`;
@@ -15,11 +15,11 @@ try{
  const page=await app.firstWindow();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.evaluate(()=>localStorage.setItem('bioez-level','undergraduate'));
  await page.evaluate(config=>window.bioez.request('saveConfig',config),{provider:'compatible',model:'presentation-test',endpoint,auth_mode:'none'});await page.reload();
- await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible({timeout:60000});
- await mkdir(path.join(root,'tmp/chemistry-fixes/screenshots'),{recursive:true});
+ await expect(page.getByRole('textbox',{name:'Biology question'})).toBeVisible({timeout:60000});
+ await mkdir(path.join(root,'tmp/biology-fixes/screenshots'),{recursive:true});
  for(const title of ['Butan-1-ol structure','Benzene resonance']){
   await page.getByRole('button',{name:'New conversation',exact:true}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill(title);
+  await page.getByRole('textbox',{name:'Biology question'}).fill(title);
   await page.getByRole('button',{name:'Send question',exact:true}).click();
   await expect(page.locator('.message.assistant .answer-flow img').first()).toBeVisible({timeout:45000});
   await expect(page.locator('.answer-flow')).toBeVisible();
@@ -27,7 +27,7 @@ try{
   if(title.startsWith('Butan'))await expect(page.locator('.reaction-card')).toHaveCount(0);
   else {await expect(page.locator('.resonance-layout .structure')).toHaveCount(2);await expect(page.locator('.resonance-hybrid')).toHaveCount(1);}
   await expect(page.locator('.atom-loader,.answer-skeleton')).toHaveCount(0);
-  await page.screenshot({path:path.join(root,'tmp/chemistry-fixes/screenshots',title.startsWith('Butan')?'butanol.png':'benzene.png')});
+  await page.screenshot({path:path.join(root,'tmp/biology-fixes/screenshots',title.startsWith('Butan')?'butanol.png':'benzene.png')});
   if(title.startsWith('Butan')){
    await page.getByRole('button',{name:'Details for Butan-1-ol molecular structure'}).hover();
    await page.getByRole('button',{name:'Explore structure'}).click();

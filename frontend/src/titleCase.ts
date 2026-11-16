@@ -1,4 +1,4 @@
-// Header-style capitalisation for scheme titles and conditions, without breaking chemistry:
+// Header-style capitalisation for scheme titles and conditions, without breaking biology:
 // formulas (HCl, NaOH, H2SO4), units and abbreviations (°C, min, h, conc., cat.), and italic
 // descriptors (tert-, cis-, o-, n-) keep their case; short joining words stay lowercase.
 const MINOR=new Set(['a','an','the','and','or','nor','but','of','to','in','on','at','by','for','from','with','via','as','vs','per','into','onto','over','under']);

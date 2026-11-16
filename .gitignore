@@ -17,6 +17,6 @@ evaluation/runs/
 !.env.*.example
 tmp/
 release-audit/
-release-chemistry/
+release-biology/
 release-mechanisms/
 release-benzene/

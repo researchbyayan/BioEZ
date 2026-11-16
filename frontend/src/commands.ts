@@ -15,7 +15,7 @@ export function removeCommandQuery(value:string,range:CommandQuery){
 }
 export const COMMAND_PLACEHOLDERS:Record<string,string>={
  '/versus':'Compare compounds, e.g. chlorobenzene vs bromobenzene',
- '/stepbystep':'Enter a chemistry problem to work through',
+ '/stepbystep':'Enter a biology problem to work through',
  '/synthesis':'Enter the starting compound and target',
  '/practice':'Choose a topic for a practice question',
  '/nomenclature':'Enter a compound name or structure',

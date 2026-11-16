@@ -17,7 +17,7 @@ const fixture=name=>path.join(root,'evaluation','fixtures',name);
 async function reset(){
   while(await page.locator('.attachment button').count())await page.locator('.attachment button').first().click();
   await page.getByRole('button',{name:'New conversation',exact:true}).click();
-  await page.getByRole('textbox',{name:'Chemistry question'}).fill('');
+  await page.getByRole('textbox',{name:'Biology question'}).fill('');
 }
 async function drop(files,method='drop'){
   const payload=await Promise.all(files.map(async name=>({name,type:name.endsWith('.webp')?'image/webp':name.endsWith('.jpg')?'image/jpeg':'image/png',data:(await readFile(fixture(name))).toString('base64')})));
@@ -29,7 +29,7 @@ async function drop(files,method='drop'){
 }
 async function test(id,title,run){
   const before=failures.length;
-  try{await reset();await run();await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeEditable();results.push({id,title,status:'passed',pageErrors:failures.slice(before)});}
+  try{await reset();await run();await expect(page.getByRole('textbox',{name:'Biology question'})).toBeEditable();results.push({id,title,status:'passed',pageErrors:failures.slice(before)});}
   catch(error){results.push({id,title,status:'failed',error:String(error),pageErrors:failures.slice(before)});}
   await page.screenshot({path:path.join(directory,id+'.png')});
   await writeFile(path.join(directory,'results.json'),JSON.stringify({kind:'native-image-safety-no-inference',results,failures},null,2));
@@ -37,7 +37,7 @@ async function test(id,title,run){
 }
 try{
   await page.evaluate(async()=>{await window.bioez.request('saveConfig',{provider:'compatible',model:'nvidia/nemotron-3.5-bolt-e4b',endpoint:'https://integrate.api.nvidia.com/v1',api_key:'synthetic-capability-check-not-a-real-key'});});
-  await page.reload();await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeVisible();
+  await page.reload();await expect(page.getByRole('textbox',{name:'Biology question'})).toBeVisible();
   await test('I01','Native PNG picker retains attachment and explains text-only capability',async()=>{
     await instance.evaluate(({dialog},file)=>{dialog.showOpenDialog=async()=>({canceled:false,filePaths:[file]});},fixture('ethanol.png'));
     await page.locator('.composer-area').hover();await page.getByRole('button',{name:'Chat tools',exact:true}).click();await page.getByRole('menuitem',{name:/Add image/}).click();
@@ -66,7 +66,7 @@ try{
     const data=(await readFile(fixture('blank.png'))).toString('base64');
     const events=await page.evaluate(async data=>{const events=[];const unsubscribe=window.bioez.onEvent(e=>events.push(e));await window.bioez.chat({text:'Identify this molecule.',images:[{name:'blank.png',mime:'image/png',data}],conversation_id:null,response_style:'balanced'});unsubscribe();return events;},data);
     if(!events.some(e=>e.type==='block'&&e.block?.text?.includes('accepts text only')))throw new Error('Backend capability guard failed.');
-    await expect(page.getByRole('textbox',{name:'Chemistry question'})).toBeEditable();
+    await expect(page.getByRole('textbox',{name:'Biology question'})).toBeEditable();
   });
   if(results.some(r=>r.status!=='passed'||r.pageErrors.length))process.exitCode=1;
 }finally{await instance.close();}

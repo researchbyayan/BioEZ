@@ -7,7 +7,7 @@ Requested scope: composer collapses with a sliding animation into a search-bar-h
 1. Audit existing work and inspect Claude's shipped Electron application using REA. Preserve current chat switching changes.
 2. Implement composer compact/expanded states, keyboard behavior, transitions and reduced-motion support. Verify desktop and narrow layouts.
 3. Add a settings preference for maximize versus native fullscreen, with validated main-process IPC. Verify restore behavior.
-4. Bundle a licensed Lexend font locally for app text only. Include attribution and preserve chemistry/math fonts.
+4. Bundle a licensed Lexend font locally for app text only. Include attribution and preserve biology/math fonts.
 5. Audit Windows transparency/window creation and native material support. Validate on Windows CI; report machine-dependent limitations accurately.
 6. Verify chat navigation during generation, late events, cancellation, restoration and drafts with real UI regression coverage.
 7. Build native macOS Intel/Apple Silicon and Windows installers; inspect CI results, sizes and packaged smoke checks. Publish release candidates with actual verification status and retain signing prerequisites.

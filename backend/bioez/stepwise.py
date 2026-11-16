@@ -55,7 +55,7 @@ def resonance_chain(block):
     contributors = [c for c in block.get('contributors') or [] if isinstance(c, dict) and isinstance(c.get('smiles'), str)]
     if len(contributors) == 1:
         # The shortcut: BioEZ derives the series from the structure itself.
-        from .chemistry import resonance_series
+        from .biology import resonance_series
         contributors = [{'smiles': s, 'label': contributors[0].get('label', '') if not i else ''} for i, s in enumerate(resonance_series(contributors[0]['smiles'], most=6))]
     return contributors
 

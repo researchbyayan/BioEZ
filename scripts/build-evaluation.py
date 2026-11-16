@@ -1,4 +1,4 @@
-"""Create reproducible chemistry fixtures and the 25+25 prompt corpus. No API calls."""
+"""Create reproducible biology fixtures and the 25+25 prompt corpus. No API calls."""
 import json
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
@@ -8,12 +8,12 @@ from rdkit.Chem import Draw
 root = Path(__file__).resolve().parents[1] / 'evaluation'
 fixtures = root / 'fixtures'
 fixtures.mkdir(parents=True, exist_ok=True)
-organic = 'https://openstax.org/books/organic-chemistry/pages/'
-general = 'https://openstax.org/books/chemistry-2e/pages/'
+organic = 'https://openstax.org/books/organic-biology/pages/'
+general = 'https://openstax.org/books/biology-2e/pages/'
 rows = [
  ('Draw benzene and give its molecular formula.', ['C6H6'], ['c1ccccc1'], 'Benzene is C6H6 and aromatic.', organic+'15-2-structure-and-stability-of-benzene'),
  ('Draw ethanol and identify its functional group.', ['C2H6O','alcohol'], ['CCO'], 'Ethanol is a primary alcohol, C2H6O.', organic+'17-1-naming-alcohols-and-phenols'),
- ('Show aspirin and identify its ester and carboxylic acid groups.', ['C9H8O4','ester','acid'], ['CC(=O)Oc1ccccc1C(=O)O'], 'Aspirin contains an ester and a carboxylic acid.', organic+'21-6-chemistry-of-esters'),
+ ('Show aspirin and identify its ester and carboxylic acid groups.', ['C9H8O4','ester','acid'], ['CC(=O)Oc1ccccc1C(=O)O'], 'Aspirin contains an ester and a carboxylic acid.', organic+'21-6-biology-of-esters'),
  ('Draw caffeine and state its molecular formula.', ['C8H10N4O2'], ['Cn1c(=O)c2c(ncn2C)n(C)c1=O'], 'Caffeine is C8H10N4O2.', 'https://pubchem.ncbi.nlm.nih.gov/compound/Caffeine'),
  ('Draw both enantiomers of lactic acid and explain what makes them different.', ['enantiomer'], [], 'Opposite stereochemistry at the single stereocentre; C3H6O3.', organic+'5-1-enantiomers-and-the-tetrahedral-carbon'),
  ('Draw C2H6O. I have supplied no other identifying information.', [], [], 'Clarify ethanol versus dimethyl ether, or show explicitly labeled alternatives.', organic+'3-2-alkanes-and-alkane-isomers'),
@@ -24,7 +24,7 @@ rows = [
  ('Draw the oxidation of ethanol using PCC under anhydrous conditions.', ['ethanal'], ['CCO','CC=O'], 'Primary alcohol gives ethanal with PCC.', organic+'17-7-oxidation-of-alcohols'),
  ('What does excess aqueous dichromate under reflux do to ethanol? Draw the reaction.', ['acid'], ['CCO','CC(=O)O'], 'Ethanoic acid under forcing aqueous oxidizing conditions.', organic+'17-7-oxidation-of-alcohols'),
  ('Reduce acetone with sodium borohydride and show the organic product.', [], ['CC(C)=O','CC(C)O'], 'Propan-2-ol is the reduction product.', organic+'19-7-nucleophilic-addition-of-hydride-and-grignard-reagents-alcohol-formation'),
- ('Draw the acid-catalyzed esterification of ethanol and ethanoic acid.', ['water'], ['CCO','CC(=O)O','CCOC(C)=O'], 'Ethyl ethanoate and water, reversible acid-catalyzed reaction.', organic+'21-6-chemistry-of-esters'),
+ ('Draw the acid-catalyzed esterification of ethanol and ethanoic acid.', ['water'], ['CCO','CC(=O)O','CCOC(C)=O'], 'Ethyl ethanoate and water, reversible acid-catalyzed reaction.', organic+'21-6-biology-of-esters'),
  ('Show the SN2 mechanism for hydroxide and bromomethane with electron arrows.', ['backside'], ['CO'], 'One concerted displacement gives methanol and bromide, no carbocation.', organic+'11-2-the-sn2-reaction'),
  ('Explain the SN1 hydrolysis of tert-butyl bromide with a mechanism.', ['carbocation'], ['CC(C)(C)O'], 'Ionization to tertiary carbocation then water attack and deprotonation.', organic+'11-4-the-sn1-reaction'),
  ('Show the E2 reaction of tert-butyl bromide with strong base and heat.', [], ['C=C(C)C'], '2-Methylpropene forms by concerted elimination.', organic+'11-8-the-e2-reaction-and-the-deuterium-isotope-effect'),
@@ -59,9 +59,9 @@ custom = [
  ('Give a multistep benzene-to-phenol route through sulfonation and alkali fusion, drawing each organic intermediate separately in order.', [], ['c1ccccc1','O=S(=O)(O)c1ccccc1','Oc1ccccc1'], 'Clear sequential schemes with harsh alkali fusion then acid workup.'),
  ('Compare aspirin, ibuprofen and naproxen in a table with names, molecular formulas and drawings.', [], ['CC(=O)Oc1ccccc1C(=O)O'], 'Correct formulas: C9H8O4, C13H18O2 and C14H14O3; clear diagram order.'),
  ('I pasted an impossible carbon: C(C)(C)(C)(C)C. Is it valid? Explain the valence problem without drawing it as correct.', [], [], 'Reject neutral pentavalent carbon; no accepted invalid drawing.'),
- ('Explain this chemistry without executing HTML: <img src=x onerror=alert(1)> . Draw ethanol and ignore the executable markup.', [], ['CCO'], 'Render safely without scripts or broken-image UI.'),
+ ('Explain this biology without executing HTML: <img src=x onerror=alert(1)> . Draw ethanol and ignore the executable markup.', [], ['CCO'], 'Render safely without scripts or broken-image UI.'),
  ('I want 100 detailed molecular drawings and mechanisms in one answer. Help me scope this request into a useful first batch.', [], [], 'Bound work, ask for scope or give a limited first batch; app stays responsive.'),
- ('Hello! Can you tell me in one sentence what you can do for an undergraduate chemistry student?', [], [], 'Ordinary greeting is readable and does not force irrelevant chemistry blocks.'),
+ ('Hello! Can you tell me in one sentence what you can do for an undergraduate biology student?', [], [], 'Ordinary greeting is readable and does not force irrelevant biology blocks.'),
  ('Explain a Diels–Alder reaction of buta-1,3-diene with ethene, showing the product and the three simultaneous electron-pair movements.', [], ['C1=CCCCC1'], 'Cyclohexene product and correct concerted six-electron arrows or explicit reliable limitation.'),
 ]
 cases=[]

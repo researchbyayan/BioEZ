@@ -1,4 +1,4 @@
-// Plain-text chemistry formatting shared by the drawings, popovers and copied answers.
+// Plain-text biology formatting shared by the drawings, popovers and copied answers.
 const subscripts='₀₁₂₃₄₅₆₇₈₉',superscripts='⁰¹²³⁴⁵⁶⁷⁸⁹';
 const sub=(digits:string)=>digits.replace(/\d/g,d=>subscripts[Number(d)]);
 const sup=(text:string)=>text.replace(/\d/g,d=>superscripts[Number(d)]).replace(/\+/g,'⁺').replace(/-/g,'⁻');

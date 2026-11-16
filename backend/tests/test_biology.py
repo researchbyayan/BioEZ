@@ -1,7 +1,7 @@
 import json
 from xml.etree import ElementTree as ET
 import pytest
-from bioez.chemistry import molecule_result, formula_only_question, render_block
+from bioez.biology import molecule_result, formula_only_question, render_block
 from bioez.models import Molecule, MechanismBlock, ReactionBlock
 from bioez.app import prepare_answer
 
@@ -16,7 +16,7 @@ def test_molecule_preserves_formula_and_valid_svg(smiles,formula):
         assert '@' in result['smiles']
 
 @pytest.mark.parametrize('smiles,formula',[('not smiles',None),('CCO','C3H8'),('CO(C)C',None)])
-def test_invalid_chemistry_is_not_drawn(smiles,formula):
+def test_invalid_biology_is_not_drawn(smiles,formula):
     with pytest.raises(ValueError):molecule_result(Molecule(smiles=smiles,formula=formula))
 
 @pytest.mark.parametrize('question',['C2H6O','Draw C2H6O','Show the structure of C₂H₆O','Convert C2H6O to SMILES'])
@@ -42,7 +42,7 @@ def test_reaction_composes_reagents_and_products():
     ET.fromstring(result['svg'])
 
 def test_names_use_connectivity_and_unknown_names_stay_explicit():
-    from bioez.chemistry import enrich_names
+    from bioez.biology import enrich_names
     result=molecule_result(Molecule(smiles='Oc1ccccc1',label='Product'))
     assert result['iupac_name']=='phenol' and result['name_source']=='local'
     assert result['formula']=='C6H6O'
@@ -133,14 +133,14 @@ def test_common_compound_names_override_wrong_model_smiles():
     assert product['formula']=='C7H6O' and product['smiles']=='O=Cc1ccccc1'
 
 def test_structure_3d_returns_conformer_and_properties():
-    from bioez.chemistry import structure_3d
+    from bioez.biology import structure_3d
     result=structure_3d('CC(=O)Oc1ccccc1C(=O)O')
     assert result['force_field']=='MMFF94' and result['molblock'].count('\n')>20
     assert result['properties']['molar_mass']==180.16 and result['properties']['h_bond_donors']==1
     assert structure_3d('[Na+].[Cl-]')['properties']['formal_charge']==0
 
 def test_export_text_and_teaching_analysis():
-    from bioez.chemistry import plain_chem, analyse
+    from bioez.biology import plain_chem, analyse
     assert plain_chem(r'Dimethyl sulfate, $\text{AlCl}_3$')=='Dimethyl sulfate, AlCl₃'
     groups={g['name']:g['atoms'] for g in analyse('CC(=O)Oc1ccccc1C(=O)O')['groups']}
     assert groups['Ester']==[1,2,3] and 'Carboxylic acid' in groups
@@ -216,7 +216,7 @@ def test_unreachable_resonance_step_still_fails_verification():
 
 @pytest.mark.parametrize('smiles,pairs',[('O',2),('[OH-]',3),('N',1),('[NH4+]',0),('[OH3+]',1),('C',0),('C#N',1),('[CH3-]',1)])
 def test_lewis_pair_count_respects_valence_and_charge(smiles,pairs):
-    from bioez.chemistry import lewis_drawing,molecule
+    from bioez.biology import lewis_drawing,molecule
     mol,_=molecule(smiles)
     for explicit in [False,True]:
         svg=lewis_drawing(mol,explicit)
@@ -227,7 +227,7 @@ def test_lewis_pair_count_respects_valence_and_charge(smiles,pairs):
 
 
 def test_explicit_hydrogens_cannot_exceed_the_structure_limit():
-    from bioez.chemistry import lewis_drawing,molecule
+    from bioez.biology import lewis_drawing,molecule
     mol,_=molecule('C'*90)
     assert lewis_drawing(mol,True) is None
     assert lewis_drawing(mol,False)
@@ -363,7 +363,7 @@ def test_condensed_formula_written_as_smiles_is_drawn():
 
 def test_fishhook_homolysis_and_radical_coupling_are_verified():
     from bioez.models import MechanismBlock
-    from bioez.chemistry import render_block
+    from bioez.biology import render_block
     homolysis={'type':'mechanism','steps':[{'smiles':'ClCl','label':'Homolysis','arrows':[{'tail':[0,1],'head':[0],'electrons':1},{'tail':[0,1],'head':[1],'electrons':1}],'limitation':''},{'smiles':'[Cl].[Cl]','label':'Chlorine radicals','arrows':[],'limitation':''}]}
     step=render_block(MechanismBlock(**homolysis))['steps'][0]
     assert step['svg'] and step['bond_changes'][0]['action']=='BREAK_BOND' and 'single-electron' not in step['limitation'].lower()
@@ -386,7 +386,7 @@ def test_bond_electrons_only_move_to_an_adjacent_bond_or_own_atom():
 
 def test_unbracketed_charges_and_structure_checks():
     from rdkit import Chem
-    from bioez.chemistry import molecule, structure_check
+    from bioez.biology import molecule, structure_check
     assert Chem.MolToSmiles(molecule('c1ccc(C+)cc1')[0])=='[CH2+]c1ccccc1'
     assert Chem.MolToSmiles(molecule('CC(=O)O-')[0])=='CC(=O)[O-]'
     for smiles,name in [('C*','x'),('[13CH4]','methane'),('[CH3]','methane'),('CC(=O)O[Na]','sodium acetate')]:

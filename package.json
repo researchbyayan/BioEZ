@@ -2,7 +2,7 @@
   "name": "bioez",
   "version": "0.1.4",
   "private": true,
-  "description": "Chemistry chat with validated molecular diagrams",
+  "description": "Biology chat with validated molecular diagrams",
   "author": "Mohammed Ayan Mahmood",
   "license": "MIT",
   "main": "electron/main.cjs",

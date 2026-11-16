@@ -39,7 +39,7 @@ class Store:
         if isinstance(content,list):
             return '\n'.join(Store.searchable(item) for item in content)
         if isinstance(content,dict):
-            # Index chemistry and prose, never SVG markup or image base64.
+            # Index biology and prose, never SVG markup or image base64.
             return '\n'.join(Store.searchable(value) for key,value in content.items() if key in {'text','label','smiles','caption','question','reagents','conditions','steps','reactants','products'})
         return ''
     def config(self, slot=1):

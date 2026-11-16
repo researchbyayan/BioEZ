@@ -39,7 +39,7 @@ async def test_stream_error_event_is_not_silently_ignored():
     with pytest.raises(ProviderError,match='during generation'):
         _=[x async for x in adapter.stream([{'role':'user','content':'question'}])]
 
-def test_gemini_chemistry_request_enforces_json_schema():
+def test_gemini_biology_request_enforces_json_schema():
     from bioez.providers import SYSTEM
     adapter=Provider({'provider':'gemini','model':'gemini-3.1-flash-lite'},'SECRET')
     _,_,body=adapter.request([{'role':'user','content':'Benzene, and resonating structures.'}])

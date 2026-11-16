@@ -1,6 +1,6 @@
 # BioEZ
 
-A local Electron workspace for chemistry questions. Bring your own API key for
+A local Electron workspace for biology questions. Bring your own API key for
 OpenAI, Anthropic, Google Gemini, or an OpenAI-compatible endpoint. Answers combine
 Markdown, LaTeX/`mhchem`, locally validated molecular structures, reaction schemes,
 and atom-anchored electron-flow diagrams.
@@ -21,7 +21,7 @@ account and your API key, then **Save & connect**. Compatible endpoints use the
 API base URL, e.g. `https://provider.example/v1` or a local
 `http://127.0.0.1:11434/v1`. A nonempty placeholder key works for local providers
 that ignore authentication. Each model must support text streaming and follow
-structured JSON instructions; native tool-calling support is not required. Gemini chemistry requests additionally use JSON MIME mode and an answer schema.
+structured JSON instructions; native tool-calling support is not required. Gemini biology requests additionally use JSON MIME mode and an answer schema.
 
 `BIOEZ_PYTHON` can select a Python executable for initial setup. Development
 uses `.venv`; packaged applications include their own Python runtime and RDKit.
@@ -29,7 +29,7 @@ No external LaTeX installation or system-wide pip packages are required.
 
 ## What it does
 
-- Explains undergraduate chemistry with formatted equations and highlighted code.
+- Explains undergraduate biology with formatted equations and highlighted code.
 - Validates molecular SMILES, formulas, charges, and stereochemistry with RDKit.
 - Places molecular drawings and reaction schemes next to the relevant explanation.
 - Handles formula-only structure requests by asking for a compound or isomers.
@@ -40,7 +40,7 @@ No external LaTeX installation or system-wide pip packages are required.
   indices. Encoding errors do not prevent a valid drawing.
 - Saves conversations and diagrams locally; copies answers, names and formulas, and exports PNG.
 - Uses a minimal black-and-green glass interface, stop generation, and Cmd/Ctrl+Enter to send.
-- Lazy-loads math/code rendering and Vitrio refraction; shows the shell while the chemistry runtime starts.
+- Lazy-loads math/code rendering and Vitrio refraction; shows the shell while the biology runtime starts.
 - Uses a benzene-and-lightning logo throughout the interface and desktop icon.
 
 Chemical validation establishes that a structure is parsable and matches a supplied
@@ -139,7 +139,7 @@ Linux, run the Electron smoke under `xvfb-run -a` and install Electron's system
 libraries. The CI workflow provides the native build/test entrypoints.
 
 Live provider compatibility must be checked with **Save & connect** and a representative
-chemistry question using your account. No provider credentials are bundled.
+biology question using your account. No provider credentials are bundled.
 
 ## Architecture and answer protocol
 
@@ -158,7 +158,7 @@ SVG geometry, and encoding diagnostics. No model-authored HTML/SVG is accepted.
 
 Complete blocks are validated before display. Progress streams while the model
 composes JSON; raw JSON/token fragments are not shown as answer text. Invalid
-formatting/chemistry triggers one repair request. If repair still fails, valid
+formatting/biology triggers one repair request. If repair still fails, valid
 neighboring blocks remain visible and affected blocks show an explicit error. Readable prose is retained when a provider ignores the answer format; malformed JSON is never dumped into chat. Wrapped JSON is normalized before validation, and Gemini thought parts are excluded from answer text. Explicit Kekulé SMILES retain their bond positions in drawings.
 Cancellation closes the upstream stream, preserves the user's question, and does
 not save an incomplete assistant answer.
@@ -183,7 +183,7 @@ its own provider, endpoint, model and key. This is optional: a multimodal chat
 model can still handle images directly. Image generators are not image readers.
 
 With a separate reader, images are sent to that service. Its text observations
-and uncertainty are passed to the chat model, which produces the chemistry
+and uncertainty are passed to the chat model, which produces the biology
 answer and validated drawings. The original image and observations stay in local
 history so follow-up questions do not require another image-reading request.
 Text-only conversations use just the chat API. Each provider's usage limits apply.

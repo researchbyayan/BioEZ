@@ -23,7 +23,7 @@ function launchBackend() {
       stdio:['ignore','pipe','pipe'], windowsHide:true
     });
     let ready = false;
-    const timeout = setTimeout(() => { service.kill(); reject(new Error('The chemistry backend did not start within 60 seconds.')); },60000);
+    const timeout = setTimeout(() => { service.kill(); reject(new Error('The biology backend did not start within 60 seconds.')); },60000);
     let output = '';
     service.stdout.on('data', chunk => {
       output += chunk.toString();
@@ -43,7 +43,7 @@ function launchBackend() {
     service.on('error', error => {clearTimeout(timeout); reject(error);});
     service.on('exit', () => {
       clearTimeout(timeout);
-      if (!ready) reject(new Error('The chemistry backend exited during startup. Run npm run setup.'));
+      if (!ready) reject(new Error('The biology backend exited during startup. Run npm run setup.'));
       else if (!stopping) {
         activeRequest?.abort();
         baseURL = undefined;
@@ -51,11 +51,11 @@ function launchBackend() {
         if (recentRestarts.length < 2) {
           recentRestarts.push(Date.now());
           backendReady = startBackend();
-          backendReady.then(()=>window?.webContents.send('bioez:event',{type:'error',message:'The local chemistry service restarted after a failure. Your saved chats are safe. Retry the question; session-only API keys may need reconnecting.'})).catch(()=>window?.webContents.send('bioez:event',{type:'error',message:'The local chemistry service could not restart. Reopen BioEZ to reconnect; your saved chats are safe.'}));
+          backendReady.then(()=>window?.webContents.send('bioez:event',{type:'error',message:'The local biology service restarted after a failure. Your saved chats are safe. Retry the question; session-only API keys may need reconnecting.'})).catch(()=>window?.webContents.send('bioez:event',{type:'error',message:'The local biology service could not restart. Reopen BioEZ to reconnect; your saved chats are safe.'}));
         } else {
-          backendReady = Promise.reject(new Error('The chemistry service stopped repeatedly. Reopen BioEZ to reconnect.'));
+          backendReady = Promise.reject(new Error('The biology service stopped repeatedly. Reopen BioEZ to reconnect.'));
           backendReady.catch(()=>{});
-          window?.webContents.send('bioez:event',{type:'error',message:'The chemistry service stopped repeatedly. Reopen BioEZ to reconnect; your saved chats are safe.'});
+          window?.webContents.send('bioez:event',{type:'error',message:'The biology service stopped repeatedly. Reopen BioEZ to reconnect; your saved chats are safe.'});
         }
       }
     });
@@ -67,7 +67,7 @@ async function startBackend() {
     try{const response=await fetch(baseURL+'/health',{headers:{Authorization:`Bearer ${token}`},signal:AbortSignal.timeout(2000)});if(response.ok)return;}catch{}
     await new Promise(resolve=>setTimeout(resolve,100));
   }
-  throw new Error('The chemistry service failed its startup health check.');
+  throw new Error('The biology service failed its startup health check.');
 }
 async function callBackend(method, route, body, signal) {
   await backendReady;

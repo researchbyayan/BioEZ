@@ -70,7 +70,7 @@ when you no longer want the retained data.
 ## Release gate
 
 Run the build, backend/JS/browser tests, image safety and recovery checks, and both
-packaged smoke scripts. Save output and screenshots. Test actual chemistry and
+packaged smoke scripts. Save output and screenshots. Test actual biology and
 image recognition with the chosen hosted model. Review errors against reference
 answers; a rendering pass is not an accuracy pass.
 

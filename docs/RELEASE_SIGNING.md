@@ -31,7 +31,7 @@ settings. Do not print their values or include them in logs, screenshots, or com
 ## Release sequence
 
 1. Freeze one source commit and run all four native CI jobs on that exact commit.
-2. Complete license and dataset redistribution review, live chemistry and image
+2. Complete license and dataset redistribution review, live biology and image
    evaluation, and clean-machine installation, upgrade, and uninstall checks on the
    advertised operating systems.
 3. Record the owner-reviewed evidence and exact source commit in a separate

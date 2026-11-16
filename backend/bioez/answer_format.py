@@ -38,13 +38,13 @@ def decode_answer(text):
     except ValueError:
         # Some endpoints ignore JSON constraints and emit LaTeX with a single
         # backslash (\ce, \mathrm, ...). Repair only string escaping, never
-        # missing braces/fields, truncated chemistry, or model-authored code.
+        # missing braces/fields, truncated biology, or model-authored code.
         text = normalize_json_strings(text)
         try:
             data = json.loads(text)
         except ValueError:
             data = None
-        # Decode complete objects only. Never patch chemistry, use eval, or accept truncation.
+        # Decode complete objects only. Never patch biology, use eval, or accept truncation.
         decoder = json.JSONDecoder()
         for match in ([] if data is not None else list(re.finditer(r'[\[{]', text))[:128]):
             try:
@@ -88,7 +88,7 @@ def normalize_json_strings(text):
     return ''.join(output)
 
 
-def chemistry_markdown(text):
+def biology_markdown(text):
     """Render standalone mhchem macros while preserving math and code spans."""
     protected=r'(```[\s\S]*?```|`[^`\n]*`|\$\$[\s\S]*?\$\$|(?<!\\)\$(?:\\.|[^$\\])*(?<!\\)\$)'
     parts=re.split(protected,text)
