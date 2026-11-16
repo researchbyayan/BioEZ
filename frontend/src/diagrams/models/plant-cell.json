@@ -1,0 +1,55 @@
+{
+ "title": "Plant (eukaryotic) cell",
+ "parts": [
+  {
+   "id": "cell-wall",
+   "label": "Cellulose cell wall",
+   "info": "Rigid wall that supports the cell and resists bursting."
+  },
+  {
+   "id": "cell-membrane",
+   "label": "Cell membrane",
+   "info": "Controls entry and exit of substances; pressed against the wall."
+  },
+  {
+   "id": "vacuole",
+   "label": "Large central vacuole",
+   "info": "Stores cell sap and keeps the cell turgid; bounded by the tonoplast."
+  },
+  {
+   "id": "nucleus",
+   "label": "Nucleus",
+   "info": "Holds the DNA; often pushed to the side by the vacuole."
+  },
+  {
+   "id": "nucleolus",
+   "label": "Nucleolus",
+   "info": "Makes ribosomal RNA."
+  },
+  {
+   "id": "chloroplasts",
+   "label": "Chloroplasts",
+   "info": "Site of photosynthesis."
+  },
+  {
+   "id": "grana",
+   "label": "Grana (thylakoid stacks)",
+   "info": "Hold chlorophyll; where the light-dependent reactions happen."
+  },
+  {
+   "id": "mitochondria",
+   "label": "Mitochondria",
+   "info": "Aerobic respiration; plant cells have them as well as chloroplasts."
+  },
+  {
+   "id": "golgi",
+   "label": "Golgi apparatus",
+   "info": "Processes proteins and makes cell-wall polysaccharides."
+  },
+  {
+   "id": "plasmodesmata",
+   "label": "Plasmodesmata",
+   "info": "Channels through the wall linking the cytoplasm of neighbouring cells."
+  }
+ ]
+}

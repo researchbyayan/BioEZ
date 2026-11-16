@@ -14,6 +14,7 @@ export type Block = {id:string;references?:{title:string;url?:string;provenance:
   | {type:'rna_fold';label:string;sequence:string;structure:string;mfe:number;pairs:number;svg:string;source:string}
   | {type:'gene_map';title:string;accession:string;length:number;features:{name:string;start:number;end:number;strand:number;kind:string}[];svg:string;source:string}
   | {type:'primers';primers:{name:string;sequence:string;length:number;tm:number;gc:number;hairpin_dg:number|null;self_dimer_dg:number|null}[];pair:{tm_difference:number;cross_dimer_dg:number|null}|null;source:string}
+  | {type:'diagram';name:string;caption:string;title:string;kind:'model'|'section';section:string;group:string}
   | {type:'protein';label:string;uniprot?:string;name?:string;gene?:string;organism?:string;length?:number;function?:string;location?:string;pdb?:string;pdb_title?:string;method?:string;resolution?:number|null;source:string}
 );
 export interface Structure3D {molblock:string|null;force_field:string|null;properties:{formula:string;molar_mass:number;exact_mass:number;logp:number;tpsa:number;h_bond_donors:number;h_bond_acceptors:number;rotatable_bonds:number;rings:number;aromatic_rings:number;stereocentres:number;formal_charge:number;heavy_atoms:number}}

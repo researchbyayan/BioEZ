@@ -98,18 +98,46 @@ def rna_fold_result(text):
     if len(sequence) > 1000:
         raise ValueError('RNA folding is limited to 1,000 nucleotides.')
     structure, energy = RNA.fold(sequence)
-    import os
-    import tempfile
-    with tempfile.TemporaryDirectory() as folder:
-        path = os.path.join(folder, 'fold.svg')
-        RNA.svg_rna_plot(sequence, structure, path)
-        with open(path, encoding='utf-8') as handle:
-            svg = handle.read()
-    svg = svg[svg.find('<svg'):]
-    svg = svg.replace('stroke: red', 'stroke: #8b5cf6').replace('stroke:red', 'stroke:#8b5cf6')
+    svg = _rna_svg(sequence, structure, RNA)
     pairs = structure.count('(')
     return {'sequence': sequence, 'structure': structure, 'mfe': round(energy, 2), 'pairs': pairs, 'svg': svg,
             'source': 'Minimum free energy structure predicted locally with ViennaRNA (RNAfold, 37 °C). A prediction, not a measured structure.'}
+
+
+INK = '#ece6f2'
+MUTED = '#a79bb5'
+
+
+def _rna_svg(sequence, structure, RNA):
+    """Transparent, dark-theme drawing of the fold from ViennaRNA's own layout coordinates."""
+    from xml.sax.saxutils import escape
+    layout = RNA.get_xy_coordinates(structure)
+    points = [(layout.get(i).X, layout.get(i).Y) for i in range(len(sequence))]
+    xs, ys = [p[0] for p in points], [p[1] for p in points]
+    pad = 18
+    scale = 2.6
+    width, height = (max(xs) - min(xs)) * scale + 2 * pad, (max(ys) - min(ys)) * scale + 2 * pad
+    at = lambda i: ((points[i][0] - min(xs)) * scale + pad, (points[i][1] - min(ys)) * scale + pad)
+    table = RNA.ptable(structure)
+    colour = {frozenset('GC'): '#b765f5', frozenset('AU'): '#7dd3fc', frozenset('GU'): '#fbbf24'}
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width:.1f} {height:.1f}" width="{width:.0f}" height="{height:.0f}">']
+    parts.append('<polyline fill="none" stroke="%s" stroke-width="2" stroke-linejoin="round" points="%s"/>' % (MUTED, ' '.join('%.1f,%.1f' % at(i) for i in range(len(sequence)))))
+    for i in range(len(sequence)):
+        j = table[i + 1] - 1
+        if j > i:
+            (x1, y1), (x2, y2) = at(i), at(j)
+            pair = frozenset(sequence[i] + sequence[j])
+            dash = ' stroke-dasharray="3 3"' if pair == frozenset('GU') else ''
+            parts.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{colour.get(pair, MUTED)}" stroke-width="3.2" stroke-linecap="round"{dash}/>')
+    for i, base in enumerate(sequence):
+        x, y = at(i)
+        parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8.5" fill="#1d1427" stroke="{MUTED}" stroke-width="1"/>')
+        parts.append(f'<text x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="{INK}">{escape(base)}</text>')
+    for label, i in (("5′", 0), ("3′", len(sequence) - 1)):
+        x, y = at(i)
+        parts.append(f'<text x="{x - 22:.1f}" y="{y + 4:.1f}" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" fill="{MUTED}">{label}</text>')
+    parts.append('</svg>')
+    return ''.join(parts)
 
 
 def _features_from_genbank(accession):
@@ -159,12 +187,15 @@ def gene_map_result(block):
     colour = {kind: PURPLE[i % len(PURPLE)] for i, kind in enumerate(kinds)}
     graphics = [GraphicFeature(start=f['start'] - 1, end=f['end'], strand=f.get('strand') or 0, color=colour[f.get('kind') or 'feature'], label=_limited(f['name'], 40)) for f in features]
     figure_record = GraphicRecord(sequence_length=length, features=graphics)
-    axis, _ = figure_record.plot(figure_width=10)
-    output = io.StringIO()
-    axis.figure.savefig(output, format='svg', bbox_inches='tight')
+    with matplotlib.rc_context({'text.color': INK, 'axes.edgecolor': MUTED, 'xtick.color': MUTED, 'ytick.color': MUTED, 'axes.labelcolor': INK, 'font.family': 'sans-serif'}):
+        axis, _ = figure_record.plot(figure_width=10)
+        for text in axis.texts:
+            text.set_color('#1d1427')
+        output = io.StringIO()
+        axis.figure.savefig(output, format='svg', bbox_inches='tight', transparent=True)
     plt.close(axis.figure)
     svg = output.getvalue()
-    svg = svg[svg.find('<svg'):]
+    svg = svg[svg.find('<svg'):].replace('stroke: #000000', f'stroke: {MUTED}')
     return {'title': title, 'accession': accession, 'length': length, 'features': features, 'svg': svg, 'source': source}
 
 
@@ -244,3 +275,21 @@ async def protein_structure(pdb):
         if len(response.content) > 8_000_000:
             raise ValueError('This structure is too large to show in the 3D viewer.')
         return {'pdb': pdb, 'data': response.text}
+
+
+def diagram_catalog():
+    """Built-in explorable diagrams, shared with the frontend (shared/diagrams.json)."""
+    import json
+    from pathlib import Path
+    here = Path(__file__).resolve()
+    for path in (here.with_name('diagrams.json'), here.parents[2] / 'shared' / 'diagrams.json'):
+        if path.exists():
+            return json.loads(path.read_text(encoding='utf-8'))
+    return []
+
+
+def diagram_result(block):
+    entry = next((d for d in diagram_catalog() if d['id'] == block['name'].strip()), None)
+    if entry is None:
+        raise ValueError(f'BioEZ has no built-in diagram "{block["name"]}". Use one of the listed diagram names, or answer without it.')
+    return {'name': entry['id'], 'title': entry['title'], 'kind': entry['kind'], 'section': entry.get('section', ''), 'group': entry['group']}

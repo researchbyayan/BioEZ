@@ -5,6 +5,7 @@ if(process.env.BIOEZ_CLEAN_BUILD==='1')args.push('--clean');
 for(const dependency of ['fastapi','uvicorn','httpx','pydantic','rdkit','numpy','tqdm','pint','molmass','flexcache','flexparser','platformdirs']) args.push('--recursive-copy-metadata',dependency);
 // The question map is read at run time, so it ships beside the bioez package.
 args.push('--add-data',root+'/backend/bioez/question_map.json:bioez');
+args.push('--add-data',root+'/shared/diagrams.json:bioez');
 args.push('backend/run.py');
 for(const module of ['pytest','tkinter','IPython','matplotlib'])args.push('--exclude-module',module);
 const result=spawnSync(runtimePython,args,{cwd:root,stdio:'inherit',env:{...process.env,PYINSTALLER_CONFIG_DIR:root+'/build/pyinstaller-cache'}});

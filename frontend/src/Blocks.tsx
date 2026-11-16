@@ -17,7 +17,7 @@ import {displayName,plainChem,chemArrows,moleculeCaption} from './chemText';
 import {academic} from './italics';
 import {titleCase} from './titleCase';
 import {RenderBoundary} from './RenderBoundary';
-import {SequenceView,RnaFoldView,GeneMapView,PrimersView,ProteinView} from './BioBlocks';
+import {SequenceView,RnaFoldView,GeneMapView,PrimersView,ProteinView,DiagramView} from './BioBlocks';
 const SmilesExplorer=lazy(()=>import('./SmilesExplorer').then(module=>({default:module.SmilesExplorer})));
 
 const SpectralMarkdown=lazy(()=>import('./SpectralMarkdown'));
@@ -189,5 +189,6 @@ export function AnswerBlock({block:b,onChoice}:{block:Block;onChoice:(text:strin
   if(b.type==='gene_map')return <GeneMapView block={b}/>;
   if(b.type==='primers')return <PrimersView block={b}/>;
   if(b.type==='protein')return <ProteinView block={b}/>;
+  if(b.type==='diagram')return <DiagramView block={b}/>;
   return <section className="mechanism"><h3><span className="eyebrow">Mechanism</span><span className="mechanism-title">Step by step{b.family&&<span className="mechanism-family" title="Reaction type">{familyLabel(b.family)}</span>}</span></h3><ol className="mechanism-steps">{b.steps.map((s,i)=><li key={i} className="chem-card mechanism-step"><div className="mechanism-step-header"><span className="step-number" aria-hidden="true">{i+1}</span><StepLabel text={s.label}/>{!!s.bond_changes?.length&&<div className="bond-change-list" aria-label="Bond changes">{s.bond_changes.map((change,index)=><span key={index} className={'bond-change '+change.action.toLowerCase()}>{change.action==='FORM_BOND'?'Forms':change.action==='BREAK_BOND'?'Breaks':'Changes'} {change.label}{change.action==='CHANGE_BOND'?` (${change.before} → ${change.after})`:''}</span>)}</div>}</div>{s.svg&&<StructureMenu svg={s.svg} label={s.label} name={s.iupac_name} formula={s.formula} imageStyle={structureStyle(s.svg)}/>}{s.arrows_derived&&<span className="derived-note" title="The model's arrows were missing or incomplete, so BioEZ completed and verified them.">Arrows completed by BioEZ</span>}{s.completed&&<span className="derived-note">{s.completed}</span>}{s.limitation&&<p className="notice mechanism-note">{s.limitation}</p>}</li>)}</ol></section>;
 }

@@ -3,6 +3,7 @@ import {sharedRead} from './sharedRead';
 import {TypedText} from './TypedText';
 import {composerSuggestion,cleanSuggestion} from './suggest';
 import {Fragment,lazy,Suspense,useCallback,useEffect,useRef,useState,type CSSProperties} from 'react';
+const DiagramLibrary=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.DiagramLibrary})));
 import {createPortal} from 'react-dom';
 import {Logo} from './Logo';
 import {Dialog} from './Dialog';
@@ -168,6 +169,7 @@ export default function App(){
   const [help,setHelp]=useState(false);
   const [preview,setPreview]=useState<ImageAttachment|null>(null);
   const [library,setLibrary]=useState(false);
+  const [diagrams,setDiagrams]=useState(false);
   // A previously chosen "Step-by-step tutor" style (removed) falls back to Explain.
   const [answerStyle,setAnswerStyle]=useState<'balanced'|'concise'|'mechanism'>(()=>{const value=localStorage.getItem('bioez-answer-style');return value==='balanced'||value==='mechanism'?value:'concise';});
   const [zoom,setZoom]=useState(100);
@@ -370,6 +372,7 @@ export default function App(){
         <button className="new-chat" aria-label="New conversation" title="New conversation" onClick={newChat}><i className="fas fa-plus" aria-hidden="true"/><span className="new-chat-label">New conversation</span></button>
         <button className="navigation-action" aria-label="Search all chats" title="Search messages and structures · ⌘/Ctrl K" onClick={()=>setSearchOpen(true)}><i className="fas fa-search" aria-hidden="true"/><span>Search chats</span><kbd>⌘ K</kbd></button>
         <button className="navigation-action" aria-pressed={library} onClick={()=>setLibrary(!library)} title="Browse saved biology diagrams"><i className="fas fa-atom" aria-hidden="true"/><span>Structure library</span></button>
+        <button className="navigation-action" aria-pressed={diagrams} onClick={()=>setDiagrams(true)} title="Explore 3D cells, the human body and labelled sections"><i className="fas fa-cubes" aria-hidden="true"/><span>Diagram library</span></button>
         <nav aria-label="Conversation history" className="history">
           {visibleChats.map((conversation,index)=><Fragment key={conversation.id}>{(index===0||historyGroup(visibleChats[index-1])!==historyGroup(conversation))&&<h2>{historyGroup(conversation)}</h2>}<div className={'history-item '+(cid===conversation.id?'selected':'')}>
             <button onClick={()=>void open(conversation.id)} title={conversation.title}><span>{conversation.pinned&&<i className="fas fa-thumbtack" aria-label="Pinned"/>}{busy&&conversation.id===runCid&&<span className="running-dot" role="status" aria-label="Answer in progress"/>}{conversation.title}</span></button>
@@ -383,7 +386,7 @@ export default function App(){
         <button className="navigation-action" onClick={()=>setHelp(true)} title="Keyboard shortcuts"><i className="far fa-keyboard" aria-hidden="true"/><span>Keyboard shortcuts</span></button>
         <button className="appearance-trigger" aria-label="Settings" title="Settings" onClick={()=>setAppearance(true)}><i className="fas fa-cog" aria-hidden="true"/><span>Settings</span></button>
 
-      </aside>
+      {diagrams&&<Suspense fallback={null}><DiagramLibrary onClose={()=>setDiagrams(false)}/></Suspense>}</aside>
       <main>
         <header ref={topbar} className="topbar">
           <button className="sidebar-toggle" aria-label={collapsed?'Expand sidebar':'Collapse sidebar'} title={collapsed?'Expand sidebar':'Collapse sidebar'} onClick={()=>setCollapsed(!collapsed)}><i className="fas fa-columns" aria-hidden="true"/></button>

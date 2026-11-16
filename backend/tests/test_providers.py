@@ -47,7 +47,7 @@ def test_gemini_biology_request_enforces_json_schema():
     assert config['responseFormat']['text']['mimeType']=='APPLICATION_JSON'
     assert config['responseFormat']['text']['schema']['required']==['blocks']
     variants=config['responseFormat']['text']['schema']['properties']['blocks']['items']['anyOf']
-    assert {v['properties']['type']['enum'][0] for v in variants}=={'markdown','molecule','reaction','mechanism','resonance','clarification','sequence','rna_fold','gene_map','primers','protein'}
+    assert {v['properties']['type']['enum'][0] for v in variants}=={'markdown','molecule','reaction','mechanism','resonance','clarification','sequence','rna_fold','gene_map','primers','protein','diagram'}
     assert '$ref' not in json.dumps(config['responseFormat']['text']['schema'])
     assert 'discriminator' not in json.dumps(config['responseFormat']['text']['schema'])
     provider=Provider({'provider':'gemini','model':'gemini-3.5-flash-lite'},'test')

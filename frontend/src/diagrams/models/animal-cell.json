@@ -1,0 +1,70 @@
+{
+ "title": "Animal (eukaryotic) cell",
+ "parts": [
+  {
+   "id": "cell-membrane",
+   "label": "Cell membrane",
+   "info": "Phospholipid bilayer that controls what enters and leaves the cell."
+  },
+  {
+   "id": "nucleus",
+   "label": "Nucleus (nuclear envelope)",
+   "info": "Double membrane with pores enclosing the DNA."
+  },
+  {
+   "id": "nucleolus",
+   "label": "Nucleolus",
+   "info": "Makes ribosomal RNA and assembles ribosome subunits."
+  },
+  {
+   "id": "chromatin",
+   "label": "Chromatin",
+   "info": "DNA wound around histone proteins."
+  },
+  {
+   "id": "rough-er",
+   "label": "Rough endoplasmic reticulum",
+   "info": "Membrane sheets studded with ribosomes; makes and folds secreted and membrane proteins."
+  },
+  {
+   "id": "smooth-er",
+   "label": "Smooth endoplasmic reticulum",
+   "info": "Tubules that make lipids and detoxify drugs."
+  },
+  {
+   "id": "ribosomes",
+   "label": "Ribosomes",
+   "info": "Translate mRNA into protein, free in the cytoplasm or on the rough ER."
+  },
+  {
+   "id": "mitochondria",
+   "label": "Mitochondria",
+   "info": "Site of aerobic respiration, making most of the cell's ATP."
+  },
+  {
+   "id": "cristae",
+   "label": "Cristae",
+   "info": "Folds of the inner mitochondrial membrane that hold the electron transport chain."
+  },
+  {
+   "id": "golgi",
+   "label": "Golgi apparatus",
+   "info": "Stacked cisternae that modify, sort and package proteins."
+  },
+  {
+   "id": "vesicles",
+   "label": "Secretory vesicles",
+   "info": "Carry packaged proteins to the membrane for exocytosis."
+  },
+  {
+   "id": "lysosomes",
+   "label": "Lysosomes",
+   "info": "Contain hydrolytic enzymes that digest waste and worn-out organelles."
+  },
+  {
+   "id": "centrioles",
+   "label": "Centrioles",
+   "info": "Pair of microtubule cylinders that organise the spindle in animal cells."
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "title": "Human heart",
+ "credit": "BodyParts3D, © The Database Center for Life Science, CC BY-SA 2.1 Japan. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "right-ventricle",
+   "label": "Right ventricle",
+   "info": "Pumps blood to the lungs through the pulmonary artery."
+  },
+  {
+   "id": "coronary",
+   "label": "Coronary vessels",
+   "info": "Supply the heart muscle itself with blood."
+  },
+  {
+   "id": "valves",
+   "label": "Valves",
+   "info": "Stop blood flowing backwards."
+  },
+  {
+   "id": "left-ventricle",
+   "label": "Left ventricle",
+   "info": "Thick-walled chamber that pumps blood to the whole body through the aorta."
+  },
+  {
+   "id": "heart-wall",
+   "label": "Heart wall (myocardium)",
+   "info": "Cardiac muscle that contracts to pump blood."
+  }
+ ]
+}

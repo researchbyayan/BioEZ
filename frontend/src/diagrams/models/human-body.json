@@ -1,0 +1,66 @@
+{
+ "title": "Human body: skin, muscles, skeleton and organs",
+ "credit": "BodyParts3D, © The Database Center for Life Science, CC BY-SA 2.1 Japan. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "skin",
+   "label": "Skin",
+   "info": "The body's largest organ: a waterproof, protective barrier that also senses and helps control temperature."
+  },
+  {
+   "id": "muscles",
+   "label": "Skeletal muscles",
+   "info": "About 600 muscles that move the skeleton by contracting."
+  },
+  {
+   "id": "skeleton",
+   "label": "Skeleton",
+   "info": "Bones and cartilage that support, protect organs and make blood cells."
+  },
+  {
+   "id": "brain",
+   "label": "Brain",
+   "info": "Controls the body and processes information."
+  },
+  {
+   "id": "heart",
+   "label": "Heart",
+   "info": "Muscular pump that drives blood around the body."
+  },
+  {
+   "id": "blood-vessels",
+   "label": "Major blood vessels",
+   "info": "Arteries and veins that carry blood to and from the heart."
+  },
+  {
+   "id": "lungs",
+   "label": "Lungs",
+   "info": "Site of gas exchange between air and blood."
+  },
+  {
+   "id": "liver",
+   "label": "Liver",
+   "info": "Processes nutrients, makes bile and detoxifies the blood."
+  },
+  {
+   "id": "stomach",
+   "label": "Stomach",
+   "info": "Stores food and starts protein digestion with acid and pepsin."
+  },
+  {
+   "id": "small-intestine",
+   "label": "Small intestine",
+   "info": "Where most digestion and absorption of nutrients happen."
+  },
+  {
+   "id": "large-intestine",
+   "label": "Large intestine",
+   "info": "Absorbs water and forms faeces."
+  },
+  {
+   "id": "kidneys",
+   "label": "Kidneys",
+   "info": "Filter the blood to make urine and balance water and salts."
+  }
+ ]
+}

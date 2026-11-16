@@ -1,0 +1,45 @@
+{
+ "title": "Bacterial (prokaryotic) cell",
+ "parts": [
+  {
+   "id": "capsule",
+   "label": "Capsule (slime layer)",
+   "info": "Sticky polysaccharide coat that protects against drying and immune attack."
+  },
+  {
+   "id": "cell-wall",
+   "label": "Cell wall (peptidoglycan)",
+   "info": "Murein wall that keeps the cell's shape; target of penicillin."
+  },
+  {
+   "id": "cell-membrane",
+   "label": "Cell membrane",
+   "info": "Controls transport; also the site of respiration in bacteria."
+  },
+  {
+   "id": "nucleoid",
+   "label": "Nucleoid (circular DNA)",
+   "info": "A single circular chromosome, not enclosed by a nuclear membrane."
+  },
+  {
+   "id": "plasmids",
+   "label": "Plasmids",
+   "info": "Small extra DNA loops, often carrying antibiotic-resistance genes."
+  },
+  {
+   "id": "ribosomes",
+   "label": "70S ribosomes",
+   "info": "Smaller than eukaryotic 80S ribosomes; make proteins."
+  },
+  {
+   "id": "flagellum",
+   "label": "Flagellum",
+   "info": "Rotating helical filament that moves the bacterium."
+  },
+  {
+   "id": "pili",
+   "label": "Pili",
+   "info": "Hair-like projections for attachment and passing DNA in conjugation."
+  }
+ ]
+}

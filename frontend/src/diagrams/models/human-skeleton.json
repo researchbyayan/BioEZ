@@ -1,0 +1,81 @@
+{
+ "title": "Human skeleton",
+ "credit": "BodyParts3D, © The Database Center for Life Science, CC BY-SA 2.1 Japan. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "skull",
+   "label": "Skull (cranium and face)",
+   "info": "Protects the brain and supports the face; the cranial bones are fused at sutures."
+  },
+  {
+   "id": "mandible",
+   "label": "Mandible",
+   "info": "The lower jaw, the only movable bone of the skull."
+  },
+  {
+   "id": "vertebral-column",
+   "label": "Vertebral column",
+   "info": "Stack of vertebrae and discs that supports the body and protects the spinal cord."
+  },
+  {
+   "id": "ribs",
+   "label": "Ribs and costal cartilages",
+   "info": "Twelve pairs that form the thoracic cage and move during breathing."
+  },
+  {
+   "id": "sternum",
+   "label": "Sternum",
+   "info": "The breastbone, joined to the ribs by costal cartilage."
+  },
+  {
+   "id": "shoulder-girdle",
+   "label": "Clavicle and scapula",
+   "info": "The shoulder girdle that attaches the arm to the trunk."
+  },
+  {
+   "id": "humerus",
+   "label": "Humerus",
+   "info": "The upper-arm bone."
+  },
+  {
+   "id": "forearm",
+   "label": "Radius and ulna",
+   "info": "The two forearm bones; the radius rotates around the ulna."
+  },
+  {
+   "id": "hand",
+   "label": "Hand (carpals, metacarpals, phalanges)",
+   "info": "Twenty-seven bones that give the hand its fine movement."
+  },
+  {
+   "id": "pelvis",
+   "label": "Hip bones (pelvis)",
+   "info": "Each hip bone is a fused ilium, ischium and pubis; together they bear the body's weight."
+  },
+  {
+   "id": "femur",
+   "label": "Femur",
+   "info": "The thigh bone, the longest and strongest bone in the body."
+  },
+  {
+   "id": "patella",
+   "label": "Patella",
+   "info": "The kneecap, a sesamoid bone in the quadriceps tendon."
+  },
+  {
+   "id": "leg",
+   "label": "Tibia and fibula",
+   "info": "The shin bone (tibia) carries the weight; the fibula anchors muscles."
+  },
+  {
+   "id": "foot",
+   "label": "Foot (tarsals, metatarsals, phalanges)",
+   "info": "Twenty-six bones forming the arches of the foot."
+  },
+  {
+   "id": "other-bones",
+   "label": "Other bones and ligaments",
+   "info": "Smaller skeletal parts such as the hyoid and ligaments."
+  }
+ ]
+}

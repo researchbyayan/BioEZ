@@ -922,13 +922,15 @@ def _bio_result(block, bio_tools):
         return bio_tools.gene_map_result(block.model_dump())
     if block.type == 'primers':
         return bio_tools.primers_result([p.model_dump() for p in block.primers])
+    if block.type == 'diagram':
+        return bio_tools.diagram_result(block.model_dump())
     return bio_tools.protein_result(block.model_dump())
 
 
 def render_block(block):
     result = block.model_dump()
     result['id'] = str(uuid4())
-    if block.type in ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein'):
+    if block.type in ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein', 'diagram'):
         from . import bio_tools
         try:
             result.update(_bio_result(block, bio_tools))

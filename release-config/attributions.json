@@ -208,6 +208,15 @@
       "licenseFiles": [
         "licenses/lexend-OFL.txt"
       ]
+    },
+    {
+      "id": "bodyparts3d",
+      "name": "BodyParts3D",
+      "url": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html",
+      "group": "data",
+      "license": "CC-BY-SA-2.1-JP",
+      "note": "3D human body, skeleton and heart models, simplified for BioEZ. (c) The Database Center for Life Science.",
+      "licenseFiles": []
     }
   ]
 }

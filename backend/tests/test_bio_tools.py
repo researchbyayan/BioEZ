@@ -76,3 +76,19 @@ def test_offline_lookup_is_a_readable_error(monkeypatch):
     monkeypatch.setattr(bio_tools, '_get', offline)
     blocks, failed = render({'type': 'protein', 'pdb': '4HHB'})
     assert failed and 'could not be reached' in blocks[0]['text']
+
+
+def test_diagram_blocks_use_the_built_in_catalog():
+    blocks, failed = render({'type': 'diagram', 'name': 'ts-dicot-stem', 'caption': 'Look at the ring of bundles.'})
+    assert not failed and blocks[0]['title'] == 'T.S. of a dicot stem' and blocks[0]['kind'] == 'section'
+    assert len(blocks[0]['id']) == 36  # the block keeps its own id; the diagram is named separately
+    blocks, failed = render({'type': 'diagram', 'name': 'made-up-diagram'})
+    assert failed and 'no built-in diagram' in blocks[0]['text']
+
+
+def test_every_catalog_diagram_has_its_asset():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2] / 'frontend' / 'src' / 'diagrams'
+    for entry in bio_tools.diagram_catalog():
+        folder, suffix = ('models', '.glb') if entry['kind'] == 'model' else ('sections', '.svg')
+        assert (root / folder / (entry['id'] + suffix)).exists(), entry['id']

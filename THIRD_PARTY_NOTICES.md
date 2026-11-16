@@ -70,3 +70,18 @@ them is included:
 - markdown-simplechem (MIT, Dmitry Shintyakov): plain-text arrow tokens (`<=>`, `->`, `hnu`).
 - chemdraw-mcp (Apache-2.0): equilibrium arrow layout and tangent-oriented arrowheads.
 - Chemaxon documentation (Marvin MEFlow, Structure Checker): electron-flow source and target rules and structure checks, re-implemented with RDKit.
+
+## BodyParts3D (3D human anatomy models)
+
+`frontend/src/diagrams/models/human-body.glb`, `human-skeleton.glb` and `human-heart.glb` are simplified
+from BodyParts3D release 3.0 (2011-09-15), via the STL conversion at
+https://github.com/Kevin-Mattheus-Moerman/BodyParts3D, by `scripts/build-anatomy-models.py`.
+"BodyParts3D, (c) The Database Center for Life Science licensed under CC Attribution-Share Alike 2.1 Japan"
+(https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html). The derived models keep that licence and are
+not relicensed under BioEZ's MIT licence. Please cite: Mitsuhashi N. et al. BodyParts3D: 3D structure database
+for anatomical concepts. Nucleic Acids Res. 2009;37:D782-5.
+
+## BioEZ diagrams
+
+The 3D cell models (`scripts/build-cell-models.py`) and the section diagrams in `frontend/src/diagrams/sections`
+are original BioEZ work under BioEZ's MIT licence.

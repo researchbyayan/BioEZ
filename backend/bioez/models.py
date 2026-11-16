@@ -124,9 +124,14 @@ class ProteinBlock(StrictModel):
     pdb: str = Field(default='', max_length=8)
     label: str = Field(default='', max_length=200)
 
-BIO_TYPES = ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein')
+class DiagramBlock(StrictModel):
+    type: Literal['diagram']
+    name: str = Field(min_length=1, max_length=60)
+    caption: str = Field(default='', max_length=600)
 
-Block = Annotated[MarkdownBlock | MoleculeBlock | ReactionBlock | MechanismBlock | ResonanceBlock | ClarificationBlock | SequenceBlock | RnaFoldBlock | GeneMapBlock | PrimersBlock | ProteinBlock, Field(discriminator='type')]
+BIO_TYPES = ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein', 'diagram')
+
+Block = Annotated[MarkdownBlock | MoleculeBlock | ReactionBlock | MechanismBlock | ResonanceBlock | ClarificationBlock | SequenceBlock | RnaFoldBlock | GeneMapBlock | PrimersBlock | ProteinBlock | DiagramBlock, Field(discriminator='type')]
 
 class Answer(StrictModel):
     references: list[Reference] = Field(default_factory=list, max_length=12)

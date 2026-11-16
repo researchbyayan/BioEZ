@@ -2,6 +2,10 @@ import {useEffect,useRef,useState} from 'react';
 import type {Block} from './types';
 import {Dialog} from './Dialog';
 import {savePNG} from './Blocks';
+import {lazy,Suspense} from 'react';
+const Explorer=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.DiagramExplorer})));
+const Zoom=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.FigureExplorer})));
+import {loadSection} from './diagramCatalog';
 
 type Of<T extends Block['type']>=Extract<Block,{type:T}>;
 const webgl=()=>{try{const c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'));}catch{return false;}};
@@ -25,8 +29,28 @@ function Facts({rows}:{rows:[string,string][]}){
 }
 
 function Figure({svg,label}:{svg:string;label:string}){
-  const [error,setError]=useState('');
-  return <div className="bio-figure"><img src={svgSrc(svg)} alt={label}/><button type="button" className="bio-save" onClick={()=>void savePNG(svg).catch(e=>setError(String(e)))}><i className="fas fa-download" aria-hidden="true"/> Save PNG</button>{error&&<p role="alert">{error}</p>}</div>;
+  const [error,setError]=useState(''),[zoom,setZoom]=useState(false);
+  return <div className="bio-figure"><button type="button" className="bio-figure-open" aria-label={`Explore ${label}`} onClick={()=>setZoom(true)}><img src={svgSrc(svg)} alt={label}/></button>
+    <div className="bio-figure-actions"><button type="button" className="bio-save" onClick={()=>setZoom(true)}><i className="fas fa-search-plus" aria-hidden="true"/> Explore</button><button type="button" className="bio-save" onClick={()=>void savePNG(svg).catch(e=>setError(String(e)))}><i className="fas fa-download" aria-hidden="true"/> Save PNG</button></div>
+    {error&&<p role="alert">{error}</p>}{zoom&&<Suspense fallback={null}><Zoom svg={svg} title={label} onClose={()=>setZoom(false)}/></Suspense>}</div>;
+}
+
+function SectionPreview({name,title}:{name:string;title:string}){
+  const [svg,setSvg]=useState('');
+  useEffect(()=>{let live=true;loadSection(name).then(text=>{if(live)setSvg(text);}).catch(()=>{});return()=>{live=false;};},[name]);
+  return svg?<img className="diagram-preview" src={svgSrc(svg)} alt={title}/>:<div className="diagram-preview placeholder"/>;
+}
+
+export function DiagramView({block:b}:{block:Of<'diagram'>}){
+  const [open,setOpen]=useState(false);
+  return <figure className="chem-card bio-card diagram-card"><figcaption><span className="eyebrow">{b.kind==='model'?'3D model':b.section||'Diagram'}</span><strong>{b.title}</strong></figcaption>
+    <button type="button" className="diagram-open" onClick={()=>setOpen(true)} aria-label={`Explore ${b.title}`}>
+      {b.kind==='section'?<SectionPreview name={b.name} title={b.title}/>:<div className="diagram-preview model-preview"><i className="fas fa-cube" aria-hidden="true"/><span>Interactive 3D model</span></div>}
+      <span className="bio-action diagram-explore"><i className="fas fa-search-plus" aria-hidden="true"/> {b.kind==='model'?'Explore in 3D':'Explore labelled parts'}</span>
+    </button>
+    {b.caption&&<p className="bio-source diagram-caption">{b.caption}</p>}
+    {open&&<Suspense fallback={null}><Explorer id={b.name} onClose={()=>setOpen(false)}/></Suspense>}
+  </figure>;
 }
 
 export function SequenceView({block:b}:{block:Of<'sequence'>}){
