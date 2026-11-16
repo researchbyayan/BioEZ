@@ -263,7 +263,7 @@ input,textarea,[contenteditable],.markdown,.user-text,.notice,.clarification p,.
 :root .app-shell select,:root .app-shell .settings select,:root .app-shell .utility-dialog select,:root .app-shell .diagram-preferences select,:root .app-shell .composer select.answer-style{
   -webkit-appearance:none; appearance:none; min-height:30px; padding:5px 30px 5px 12px!important; border:1px solid #ffffff1f!important; border-radius:999px!important;
   background-color:#ffffff0a!important; color:#e9e3ee!important; font-size:12px; line-height:1.4; box-shadow:inset 0 1px 0 #ffffff14!important; cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%239aefae' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23c49aef' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
   background-repeat:no-repeat!important; background-position:right 11px center!important; background-size:10px 7px!important; transition:border-color .16s,background-color .16s; }
 :root .app-shell select:hover{ border-color:#b765f566!important; background-color:#b765f50d!important; }
 :root .app-shell select:focus-visible{ outline:2px solid #b765f5; outline-offset:2px; }
