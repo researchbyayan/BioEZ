@@ -127,6 +127,7 @@ class ProteinBlock(StrictModel):
 class DiagramBlock(StrictModel):
     type: Literal['diagram']
     name: str = Field(min_length=1, max_length=60)
+    focus: str = Field(default='', max_length=80)  # a part to zoom to, e.g. "femur"
     caption: str = Field(default='', max_length=600)
 
 BIO_TYPES = ('sequence', 'rna_fold', 'gene_map', 'primers', 'protein', 'diagram')

@@ -4,8 +4,8 @@ import {Dialog} from './Dialog';
 import {savePNG} from './Blocks';
 import {lazy,Suspense} from 'react';
 const Explorer=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.DiagramExplorer})));
+const Viewer=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.DiagramViewer})));
 const Zoom=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.FigureExplorer})));
-import {loadSection} from './diagramCatalog';
 
 type Of<T extends Block['type']>=Extract<Block,{type:T}>;
 const webgl=()=>{try{const c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'));}catch{return false;}};
@@ -35,21 +35,14 @@ function Figure({svg,label}:{svg:string;label:string}){
     {error&&<p role="alert">{error}</p>}{zoom&&<Suspense fallback={null}><Zoom svg={svg} title={label} onClose={()=>setZoom(false)}/></Suspense>}</div>;
 }
 
-function SectionPreview({name,title}:{name:string;title:string}){
-  const [svg,setSvg]=useState('');
-  useEffect(()=>{let live=true;loadSection(name).then(text=>{if(live)setSvg(text);}).catch(()=>{});return()=>{live=false;};},[name]);
-  return svg?<img className="diagram-preview" src={svgSrc(svg)} alt={title}/>:<div className="diagram-preview placeholder"/>;
-}
-
 export function DiagramView({block:b}:{block:Of<'diagram'>}){
   const [open,setOpen]=useState(false);
-  return <figure className="chem-card bio-card diagram-card"><figcaption><span className="eyebrow">{b.kind==='model'?'3D model':b.section||'Diagram'}</span><strong>{b.title}</strong></figcaption>
-    <button type="button" className="diagram-open" onClick={()=>setOpen(true)} aria-label={`Explore ${b.title}`}>
-      {b.kind==='section'?<SectionPreview name={b.name} title={b.title}/>:<div className="diagram-preview model-preview"><i className="fas fa-cube" aria-hidden="true"/><span>Interactive 3D model</span></div>}
-      <span className="bio-action diagram-explore"><i className="fas fa-search-plus" aria-hidden="true"/> {b.kind==='model'?'Explore in 3D':'Explore labelled parts'}</span>
-    </button>
-    {b.caption&&<p className="bio-source diagram-caption">{b.caption}</p>}
-    {open&&<Suspense fallback={null}><Explorer id={b.name} onClose={()=>setOpen(false)}/></Suspense>}
+  // Diagrams sit apart from the prose: a floating glass stage, not a boxed card.
+  return <figure className="diagram-float">
+    <figcaption className="diagram-float-head"><span className="eyebrow">{b.kind==='model'?'3D model':b.section||'Diagram'}</span><strong>{b.title}</strong></figcaption>
+    <Suspense fallback={<div className="diagram-inline loading"/>}><Viewer id={b.name} focus={b.focus||undefined} compact onExpand={()=>setOpen(true)}/></Suspense>
+    {b.caption&&<p className="diagram-float-caption">{b.caption}</p>}
+    {open&&<Suspense fallback={null}><Explorer id={b.name} focus={b.focus||undefined} onClose={()=>setOpen(false)}/></Suspense>}
   </figure>;
 }
 

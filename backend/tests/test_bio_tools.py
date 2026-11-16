@@ -92,3 +92,12 @@ def test_every_catalog_diagram_has_its_asset():
     for entry in bio_tools.diagram_catalog():
         folder, suffix = ('models', '.glb') if entry['kind'] == 'model' else ('sections', '.svg')
         assert (root / folder / (entry['id'] + suffix)).exists(), entry['id']
+
+
+def test_diagram_focus_matches_a_named_part():
+    blocks, failed = render({'type': 'diagram', 'name': 'human-skeleton', 'focus': 'Femur'})
+    assert not failed and (blocks[0]['focus'], blocks[0]['focus_label']) == ('femur', 'Femur')
+    blocks, _ = render({'type': 'diagram', 'name': 'ts-dicot-stem', 'focus': 'xylem'})
+    assert blocks[0]['focus'] == 'part-xylem'
+    blocks, failed = render({'type': 'diagram', 'name': 'ls-heart', 'focus': 'not a part'})
+    assert not failed and blocks[0]['focus'] == ''  # an unknown focus still shows the whole diagram

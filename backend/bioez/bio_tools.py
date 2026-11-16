@@ -292,4 +292,16 @@ def diagram_result(block):
     entry = next((d for d in diagram_catalog() if d['id'] == block['name'].strip()), None)
     if entry is None:
         raise ValueError(f'BioEZ has no built-in diagram "{block["name"]}". Use one of the listed diagram names, or answer without it.')
-    return {'name': entry['id'], 'title': entry['title'], 'kind': entry['kind'], 'section': entry.get('section', ''), 'group': entry['group']}
+    result = {'name': entry['id'], 'title': entry['title'], 'kind': entry['kind'], 'section': entry.get('section', ''), 'group': entry['group'], 'focus': '', 'focus_label': ''}
+    wanted = _slug(block.get('focus') or '')
+    if wanted:
+        part = next((p for p in entry.get('parts', []) if wanted in (_slug(p['id']), _slug(p['id']).removeprefix('part-'), _slug(p['label']))), None)
+        if part is None:  # a partial name such as "ventricle" picks the first matching part
+            part = next((p for p in entry.get('parts', []) if wanted in _slug(p['label']) or wanted in _slug(p['id'])), None)
+        if part:
+            result.update(focus=part['id'], focus_label=part['label'])
+    return result
+
+
+def _slug(text):
+    return re.sub(r'[^a-z0-9]+', '-', str(text).lower()).strip('-')

@@ -383,3 +383,89 @@ svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:
 :root .app-shell .library-card:hover,.library-card:hover { border-color:#c49aef66; background:#c49aef10; }
 .library-kind { font-size:10px; font-weight:600; color:var(--green); letter-spacing:.04em; }
 @media (max-width:820px){ .explorer-layout { grid-template-columns:1fr; height:auto; } .explorer-stage { height:52vh; } }
+
+/* ---- Holographic glass diagrams ---- */
+@keyframes holo-sweep { 0% { transform:translateY(-100%); } 100% { transform:translateY(100%); } }
+@keyframes holo-breathe { 0%,100% { box-shadow:0 0 0 1px #c084fc33, 0 0 28px #8b5cf622, inset 0 0 40px #8b5cf614; } 50% { box-shadow:0 0 0 1px #c084fc55, 0 0 44px #a855f733, inset 0 0 60px #a855f71f; } }
+.diagram-float { margin:26px -8px 30px; padding:0; border:0; background:none; }
+.diagram-float-head { display:flex; align-items:baseline; gap:12px; padding:0 10px 10px; font-size:13px; }
+.diagram-float-head strong { font-weight:500; color:#f1ebf8; }
+.diagram-float-caption { margin:10px 10px 0; font-size:12px; line-height:1.7; color:var(--muted); }
+.diagram-inline { position:relative; border-radius:20px; overflow:hidden; }
+.diagram-inline.loading { height:360px; }
+.diagram-inline .explorer-stage { height:380px; border-radius:20px; }
+.diagram-inline .explorer-stage.compact .explorer-tools { bottom:auto; top:12px; left:12px; }
+.diagram-inline-bar { position:absolute; left:12px; right:12px; bottom:12px; display:flex; align-items:center; gap:8px; pointer-events:none; }
+.diagram-inline-bar > * { pointer-events:auto; }
+.diagram-inline-spacer { flex:1; pointer-events:none!important; }
+.diagram-focus-chip { display:inline-flex; align-items:center; gap:7px; padding:6px 11px; border-radius:999px; font-size:11.5px; color:#f5edff; background:#7c3aed55; border:1px solid #c084fc77; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 0 18px #a855f744; }
+.diagram-focus-chip.muted-chip { background:#ffffff10; border-color:#ffffff22; box-shadow:none; }
+:root .app-shell .holo-toggle,.holo-toggle { display:inline-flex; align-items:center; gap:7px; padding:6px 11px; border-radius:999px; font-size:11px; color:#e9dcfa; background:#160f22aa; border:1px solid #c084fc44; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+:root .app-shell .holo-toggle[aria-pressed=true],.holo-toggle[aria-pressed=true] { background:#7c3aed44; border-color:#c084fc99; color:#fff; }
+.holo-toggle:hover { border-color:#d8b4fe; }
+/* Glass stage */
+.explorer-stage.hologram { background:radial-gradient(120% 90% at 50% 35%,#7c3aed26 0%,#2a164533 45%,#0d081600 75%),linear-gradient(160deg,#ffffff0c,#ffffff03 40%,#a855f70d); backdrop-filter:blur(16px) saturate(1.3); -webkit-backdrop-filter:blur(16px) saturate(1.3); border:1px solid #c084fc40; animation:holo-breathe 5s ease-in-out infinite; }
+.explorer-stage.hologram::before { content:''; position:absolute; inset:0; pointer-events:none; z-index:2; background:repeating-linear-gradient(0deg,#d8b4fe08 0 1px,transparent 1px 4px); mix-blend-mode:screen; }
+.explorer-stage.hologram::after { content:''; position:absolute; left:0; right:0; top:0; height:45%; pointer-events:none; z-index:2; background:linear-gradient(180deg,transparent,#c084fc12 55%,transparent); animation:holo-sweep 6s linear infinite; }
+.explorer-stage.hologram .explorer-svg svg { filter:drop-shadow(0 0 1.5px #e9d5ff88) drop-shadow(0 0 10px #a855f755); }
+.explorer-stage.hologram canvas { filter:drop-shadow(0 0 14px #a855f744); }
+.explorer-stage .explorer-tools,.explorer-stage .explorer-hint,.explorer-stage .explorer-overlay { z-index:3; }
+.explorer-svg.animate { transition:transform .55s cubic-bezier(.2,.8,.2,1); }
+.explorer-svg g.part.is-active { filter:drop-shadow(0 0 4px #f0abfc) drop-shadow(0 0 12px #a855f7) brightness(1.35); }
+/* Full view: the app blurs away; only the diagram stays sharp. */
+dialog.diagram-explorer::backdrop,dialog.diagram-library::backdrop { background:#0a0612a6; backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); }
+:root dialog.utility-dialog.diagram-explorer,dialog.diagram-explorer { background:linear-gradient(150deg,#1d1330cc,#120b1ecc); border:1px solid #c084fc40; box-shadow:0 30px 120px #000a,0 0 0 1px #ffffff08 inset,0 0 60px #7c3aed22; backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); }
+.explorer-side-tools { display:flex; justify-content:flex-end; }
+.model-host { display:contents; }
+dialog.utility-dialog.diagram-explorer::backdrop,dialog.utility-dialog.diagram-library::backdrop { background:#0a0612a6!important; backdrop-filter:blur(22px) saturate(1.2)!important; -webkit-backdrop-filter:blur(22px) saturate(1.2)!important; }
+dialog.utility-dialog.diagram-explorer { background:linear-gradient(150deg,#1d1330b8,#120b1eb8)!important; border-color:#c084fc40!important; }
+
+/* ---- Motion and placement ---- */
+@keyframes diagram-rise { from { opacity:0; transform:translateY(18px) scale(.985); filter:blur(6px); } to { opacity:1; transform:none; filter:none; } }
+@keyframes panel-in { from { opacity:0; transform:translateX(70px); } to { opacity:1; transform:none; } }
+@keyframes backdrop-in { from { opacity:0; } to { opacity:1; } }
+.diagram-float { animation:diagram-rise .7s cubic-bezier(.2,.8,.2,1) both; }
+.model-canvas { opacity:0; transform:scale(.97); transition:opacity .8s ease, transform 1s cubic-bezier(.2,.8,.2,1); }
+.model-canvas.shown { opacity:1; transform:none; }
+/* X-ray tone: original colours, a soft purple rim and wash; lighter than before. */
+.explorer-stage.hologram .explorer-svg svg { filter:drop-shadow(0 0 1px #f5e8ff66) drop-shadow(0 0 7px #a855f733); }
+.explorer-stage.hologram .explorer-svg svg g.part:not(.is-active) { opacity:.9; }
+.explorer-stage.hologram canvas { filter:drop-shadow(0 0 10px #a855f730) saturate(1.05); }
+.explorer-stage.hologram::before { background:repeating-linear-gradient(0deg,#d8b4fe06 0 1px,transparent 1px 4px); }
+/* Full view docks on the right; the chat stays visible but blurred on the left. */
+dialog.utility-dialog.diagram-explorer { margin:16px 16px 16px auto!important; width:min(1080px,66vw)!important; max-width:66vw!important; height:calc(100vh - 32px); max-height:calc(100vh - 32px)!important; display:flex; flex-direction:column; animation:panel-in .55s cubic-bezier(.2,.8,.2,1) both; }
+dialog.utility-dialog.diagram-explorer[open]::backdrop { animation:backdrop-in .45s ease both; }
+dialog.utility-dialog.diagram-explorer::backdrop { background:linear-gradient(90deg,#0a061270,#0a0612b8 60%)!important; }
+dialog.diagram-explorer .explorer-layout { flex:1; height:auto; min-height:0; grid-template-columns:minmax(0,1fr) 250px; }
+dialog.diagram-explorer .explorer-stage.figure { flex:1; height:auto; }
+@media (max-width:900px){ dialog.utility-dialog.diagram-explorer { width:94vw!important; max-width:94vw!important; margin:12px auto!important; } }
+@media (prefers-reduced-motion:reduce){ .diagram-float,dialog.utility-dialog.diagram-explorer,.model-canvas,.explorer-stage.hologram,.explorer-stage.hologram::after { animation:none!important; transition:none!important; } .model-canvas { opacity:1; transform:none; } }
+
+/* ---- Control placement: nothing floats over another control ---- */
+.diagram-inline { display:flex; flex-direction:column; gap:10px; overflow:visible; }
+.diagram-inline .explorer-stage { height:380px; }
+.diagram-inline-bar { position:static; display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:0 4px; pointer-events:auto; }
+.diagram-inline-tools { display:flex; align-items:center; gap:6px; }
+.diagram-inline-tools .explorer-tools { position:static; }
+.diagram-inline-status { flex:1; display:flex; gap:6px; min-width:0; flex-wrap:wrap; }
+.footer-hint { font-size:11px; color:var(--muted); white-space:nowrap; }
+.explorer-stage .explorer-hint { left:12px; right:12px; bottom:10px; }
+/* Glass buttons everywhere a diagram control appears (inline and inside dialogs). */
+:root .app-shell .explorer-tools button,:root .app-shell .utility-dialog .explorer-tools button,.explorer-tools button {
+  min-width:32px; height:30px; padding:0 9px!important; display:inline-flex; align-items:center; justify-content:center; gap:6px; border-radius:9px; font-size:11px; color:#efe6fb;
+  background:#1d1430d9!important; border:1px solid #c084fc45!important; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+:root .app-shell .explorer-tools button:hover,:root .app-shell .utility-dialog .explorer-tools button:hover { background:#2c1d47!important; border-color:#d8b4fe99!important; color:#fff; }
+:root .app-shell .explorer-tools button.text-tool,:root .app-shell .utility-dialog .explorer-tools button.text-tool { padding:0 11px!important; }
+:root .app-shell .holo-toggle,:root .app-shell .utility-dialog .holo-toggle,.holo-toggle {
+  display:inline-flex; align-items:center; gap:7px; padding:6px 12px!important; border-radius:999px; font-size:11px; color:#e9dcfa;
+  background:#160f22cc!important; border:1px solid #c084fc4d!important; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+:root .app-shell .holo-toggle[aria-pressed=true],:root .app-shell .utility-dialog .holo-toggle[aria-pressed=true] { background:#7c3aed4d!important; border-color:#c084fcaa!important; color:#fff; }
+:root .app-shell .holo-toggle:hover,:root .app-shell .utility-dialog .holo-toggle:hover { border-color:#e9d5ff!important; }
+:root .app-shell .utility-dialog .library-card,.library-card { display:flex; flex-direction:column; align-items:flex-start; gap:6px; padding:12px 13px!important; border-radius:12px; text-align:left; font-size:12.5px; line-height:1.4;
+  background:linear-gradient(150deg,#ffffff08,#a855f70a)!important; border:1px solid #ffffff14!important; transition:border-color .15s, background .15s, transform .15s; }
+:root .app-shell .utility-dialog .library-card:hover { background:linear-gradient(150deg,#ffffff0d,#a855f71f)!important; border-color:#c084fc77!important; transform:translateY(-1px); }
+:root .app-shell .utility-dialog .explorer-part { border:0!important; }
+:root .app-shell .utility-dialog .explorer-part:hover,:root .app-shell .utility-dialog .explorer-part[aria-pressed=true] { background:#c49aef18!important; color:var(--green); }
+.explorer-side-tools { min-height:32px; }
+dialog.diagram-explorer .explorer-tools { left:12px; bottom:12px; }
+:root .app-shell .utility-dialog .library-card,.library-card { justify-content:flex-start!important; }
