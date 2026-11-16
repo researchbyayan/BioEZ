@@ -128,7 +128,7 @@ Local packages can be unsigned. The public release requires signed installers, m
 
 ## Credits and license
 
-BioEZ uses Electron, React, FastAPI, RDKit, 3Dmol.js, KaTeX, Vitrio, XSMILES, and other open-source work. Bundled software, incorporated datasets, and research references are identified separately in **Settings → About → Credits & licenses**, the [attribution registry](release-config/attributions.json), and [third-party notices](THIRD_PARTY_NOTICES.md).
+BioEZ uses Electron, React, FastAPI, RDKit, 3Dmol.js, KaTeX, Vitrio, and other open-source work. Bundled software, incorporated datasets, and research references are identified separately in **Settings → About → Credits & licenses**, the [attribution registry](release-config/attributions.json), and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 BioEZ's original code is [MIT-licensed](LICENSE). Third-party components and datasets keep their own licenses.
 

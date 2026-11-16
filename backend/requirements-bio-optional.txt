@@ -1,0 +1,5 @@
+# Biology tools kept out of the packaged app until their licences are cleared:
+# primer3-py is GPL-2.0-or-later and ViennaRNA has its own licence terms,
+# while BioEZ itself is MIT. Installed for development only.
+ViennaRNA==2.8.0
+primer3-py==2.4.0

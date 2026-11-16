@@ -93,8 +93,6 @@
 .structure-action i,.structure-save i { width:14px; text-align:center; }
 .smiles-explorer { width:min(620px,94vw)!important; }
 .smiles-explorer-help { margin:0 0 12px; font-size:12.5px; line-height:1.6; color:#cdc4d5; }
-.charge-negative { color:#f1a340; }.charge-positive { color:#a08ae0; }
-.smiles-explorer-view { display:block; width:100%; border:0; border-radius:12px; background:#fff; }
 .smiles-explorer-status { font-size:12px; color:#b09fbf; }
 .smiles-explorer-string { display:block; margin:12px 0 4px; padding:8px 10px; border-radius:8px; background:#ffffff0a; font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; user-select:text; }
 .smiles-explorer-credit { margin:6px 0 0; font-size:11px; color:#958a9e; }

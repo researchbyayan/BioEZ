@@ -839,14 +839,6 @@ def create_app(directory: Path, token: str, credentials=None, provider_factory=P
                         blocks=[block for block in blocks if block['type'] not in ('reaction','mechanism','resonance')]
                     if command=='spectra':
                         drawn=next((block for block in blocks if block['type']=='molecule'),None)
-                        section=drawn and nmr.carbon_section(drawn['smiles'])
-                        if section:
-                            # ¹³C shifts come from measured spectra, not the model's estimate.
-                            tables=[block for block in blocks if block['type']=='markdown' and '|' in block['text']]
-                            if tables:
-                                tables[0]['text']=nmr.replace_carbon_section(tables[0]['text'],section)
-                            else:
-                                blocks.append({'id':str(uuid4()),'type':'markdown','text':section})
                     if command=='spectra' and drawn:
                         from .local_tools import isotope_table
                         try:

@@ -6,52 +6,8 @@ import {SoftwareModel} from './SoftwareModel';
 
 const webglAvailable=(()=>{try{const canvas=document.createElement('canvas');const gl=canvas.getContext('webgl2')||canvas.getContext('webgl');gl?.getExtension('WEBGL_lose_context')?.loseContext();return !!gl;}catch{return false;}})();
 
-// Same atom pattern XSMILES uses, so per-atom scores line up with its SMILES tokens.
-export const smilesAtomCount=(smiles:string)=>Array.from(smiles.matchAll(/(Cl?|Br?|[NOSPFIbcnosp*]|[[^]]+])/g)).length;
-
-// XSMILES and RDKit run in a sandboxed iframe (opaque origin, no app bridge) because RDKit
-// MinimalLib needs eval, which the app's own CSP rightly forbids.
-function SmilesView({molecule:m}:{molecule:Molecule}){
-  const frame=useRef<HTMLIFrameElement>(null);
-  const [state,setState]=useState<'loading'|'ready'|'error'>('loading');
-  const [height,setHeight]=useState(360);
-  const charges=m.atom_charges??[];
-  const usable=charges.length>0&&charges.length===smilesAtomCount(m.smiles);
-  useEffect(()=>{
-    let live=true;
-    const receive=async(event:MessageEvent)=>{
-      if(!live||event.source!==frame.current?.contentWindow)return;
-      const data=event.data as {type?:string;height?:number};
-      if(data.type==='loaded'){
-        try{
-          const assets=await import('./xsmilesAssets');
-          const scores=usable?charges:new Array(smilesAtomCount(m.smiles)).fill(0);
-          const limit=Math.max(0.25,...scores.map(Math.abs));
-          const setup={molecule:{string:m.smiles,method:{name:usable?'Gasteiger partial charge':'Structure',scores,attributes:{}},attributes:{}},gradientConfig:{palette:'PuOr_5',colorDomain:[-limit,0,limit],highlight:false,thresholds:[]},drawerType:'RDKitDrawer',width:540,height:300,hideBarChart:!usable,hideAttributesTable:true,showScoresOnStructure:false};
-          if(live)frame.current?.contentWindow?.postMessage({type:'render',rdkit:assets.rdkit,xsmiles:assets.xsmiles,wasm:assets.wasm,setup},'*');
-        }catch{if(live)setState('error');}
-      }
-      else if(data.type==='ready')setState('ready');
-      else if(data.type==='error')setState('error');
-      else if(data.type==='size'&&typeof data.height==='number')setHeight(Math.min(900,Math.max(120,data.height)));
-    };
-    window.addEventListener('message',receive);
-    return()=>{live=false;window.removeEventListener('message',receive);};
-  },[m.smiles]);
-  const title=m.iupac_name||m.label||m.formula||'Structure';
-  return <>
-    <p className="smiles-explorer-help">Hover an atom in the structure or a character in the SMILES string to see how they correspond.{usable&&<> Colours show Gasteiger partial charge: <span className="charge-negative">orange is more negative</span>, <span className="charge-positive">purple is more positive</span>.</>}</p>
-    <iframe ref={frame} className="smiles-explorer-view" title={`Interactive SMILES view of ${title}`} src={new URL('xsmiles-viewer.html',document.baseURI).href} sandbox="allow-scripts" style={{height,visibility:state==='ready'?'visible':'hidden',position:state==='ready'?'static':'absolute'}}/>
-    {state==='loading'&&<p className="smiles-explorer-status" role="status">Loading the SMILES viewer…</p>}
-    {state==='error'&&<p className="notice error" role="alert">The interactive SMILES viewer could not load. The structure drawing is still accurate.</p>}
-    <code className="smiles-explorer-string">{m.smiles}</code>
-    <p className="smiles-explorer-credit">Interactive view by XSMILES (Bayer, BSD-3) with RDKit. Partial charges are an empirical estimate, not a measurement.</p>
-  </>;
-}
-
 type Style='stick'|'ballstick'|'sphere';
 const styles:Record<Style,object>={stick:{stick:{radius:0.15}},ballstick:{stick:{radius:0.1},sphere:{scale:0.25}},sphere:{sphere:{scale:1}}};
-// 3Dmol.js (BSD-3) renders an RDKit ETKDG + MMFF conformer; idea from chem-skill and ChemClaw.
 function ModelView({data}:{data:Structure3D}){
   const host=useRef<HTMLDivElement>(null);
   const viewer=useRef<{setStyle(a:object,b:object):void;render():void;spin(axis:string|boolean):void;zoomTo():void;clear():void}|null>(null);
@@ -137,7 +93,7 @@ function Structure2D({molecule:m}:{molecule:Molecule}){
 }
 
 export function SmilesExplorer({molecule:m,onClose}:{molecule:Molecule;onClose:()=>void}){
-  const [tab,setTab]=useState<'structure'|'groups'|'smiles'|'properties'>('structure');
+  const [tab,setTab]=useState<'structure'|'groups'|'properties'>('structure');
   // One Structure tab with a 2D/3D switch; 2D first, the 3D geometry is fetched in the background.
   const [view,setView]=useState<'2d'|'3d'>('2d');
   const [data,setData]=useState<Structure3D|null>(null);
@@ -150,7 +106,7 @@ export function SmilesExplorer({molecule:m,onClose}:{molecule:Molecule;onClose:(
     return()=>{live=false;};
   },[m.smiles]);
   const title=displayName(m.iupac_name||m.label||m.formula||'Structure');
-  const tabs:[typeof tab,string][]=[['structure','Structure'],['groups','Functional groups'],['smiles','Partial charges'],['properties','Properties']];
+  const tabs:[typeof tab,string][]=[['structure','Structure'],['groups','Functional groups'],['properties','Properties']];
   const model=failed?<p className="notice error" role="alert">This structure could not be analysed.</p>:!data?<p className="smiles-explorer-status" role="status">Building the model…</p>:null;
   return <Dialog title={title} onClose={onClose} className="smiles-explorer">
     <div className="explorer-tabs" role="tablist" aria-label="Structure views">{tabs.map(([key,label])=><button key={key} role="tab" aria-selected={tab===key} onClick={()=>setTab(key)}>{label}</button>)}</div>
@@ -158,7 +114,7 @@ export function SmilesExplorer({molecule:m,onClose}:{molecule:Molecule;onClose:(
       {tab==='structure'?<>
         <div className="view-switch" role="radiogroup" aria-label="Structure view">{(['2d','3d'] as const).map(value=><button key={value} type="button" role="radio" aria-checked={view===value} onClick={()=>setView(value)}>{value==='2d'?'2D':'3D'}</button>)}</div>
         {view==='2d'?<Structure2D molecule={m}/>:model||<ModelView data={data!}/>}
-      </>:tab==='smiles'?<SmilesView molecule={m}/>:tab==='groups'?<GroupsView smiles={m.smiles}/>:model||<PropertiesView data={data!}/>}
+      </>:tab==='groups'?<GroupsView smiles={m.smiles}/>:model||<PropertiesView data={data!}/>}
     </div>
   </Dialog>;
 }

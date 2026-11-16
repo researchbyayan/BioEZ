@@ -93,34 +93,6 @@ def issue(smiles, prose):
 
 
 def carbon_rows(smiles, carbons=None):
-    """¹³C rows: database predictions from measured spectra when available, else blanks to fill."""
-    from . import c13
-    predicted = c13.predict(smiles)
-    if predicted:
-        return '\n'.join(f'| {shift:.1f} | C{number}: {_describe_index(smiles, atoms[0])} |' if shift is not None else f'| ? | C{number}: {_describe_index(smiles, atoms[0])} |'
-                         for number, atoms, shift, count, radius in sorted(predicted, key=lambda p: -(p[2] or 0)))
+    """¹³C rows left blank for the model to fill; BioEZ bundles no measured ¹³C data."""
     mol = Chem.MolFromSmiles(smiles)
     return '\n'.join(f'| ? | C{n}: {_describe(group[0])} |' for n, group in enumerate(carbons or _unique(mol, 'C'), 1))
-
-
-def _describe_index(smiles, index):
-    return _describe(Chem.MolFromSmiles(smiles).GetAtomWithIdx(index))
-
-
-def carbon_section(smiles):
-    """The ¹³C table BioEZ states itself from measured data, or None without the database."""
-    from . import c13
-    if not c13.available():
-        return None
-    rows = carbon_rows(smiles)
-    if '| ? |' in rows:
-        return None
-    return ('**¹³C NMR** (predicted from measured spectra in NMRShiftDB2)\n\n| δ (ppm) | Carbon |\n|---|---|\n' + rows)
-
-
-def replace_carbon_section(text, section):
-    """Swap the ¹³C table in a Markdown answer for BioEZ's own; append it if missing."""
-    pattern = re.compile(r'\*\*\s*(?:¹³|13)\s*C[^\n]*\n.*?(?=\n\s*\*\*|\Z)', re.S)
-    if pattern.search(text):
-        return pattern.sub(lambda _: section, text, count=1)
-    return text.rstrip() + '\n\n' + section

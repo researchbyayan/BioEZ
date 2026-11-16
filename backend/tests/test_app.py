@@ -655,19 +655,6 @@ def test_spectra_checked_against_structure_counts():
     assert '¹³C NMR table is missing' in issue('CC(=O)O','**IR** x **¹H NMR** x **MS** x')
 
 
-def test_c13_predictions_from_measured_data():
-    import pytest
-    from bioez import c13, nmr
-    if not c13.available():
-        pytest.skip('¹³C table not built')
-    shifts=lambda smiles:sorted(d for _,_,d,_,_ in c13.predict(smiles))
-    for smiles,expected in [('CCC(=O)O',[8.9,27.6,181.5]),('CCOC(C)=O',[14.2,21.0,60.5,171.1]),('CC(C)=O',[30.8,206.7])]:
-        assert all(abs(a-b)<=3 for a,b in zip(shifts(smiles),expected)),(smiles,shifts(smiles))
-    section=nmr.carbon_section('CCC(=O)O')
-    replaced=nmr.replace_carbon_section('**IR**\n\n| 1715 | C=O |\n\n**¹³C NMR**\n\n| 120 | C=O |\n\n**MS**\n\n| 74 | M⁺ |',section)
-    assert '| 120 |' not in replaced and 'NMRShiftDB2' in replaced and '**MS**' in replaced
-
-
 def test_rank_prefers_strong_chat_models():
     from bioez.autopick import rank
     ids=['nvidia/nemotron-3.5-bolt-e4b','nvidia/nv-embedqa-e5-v5','z-ai/glm-5.3','nvidia/nemotron-3-ultra-550b-a55b','meta/llama-3.2-11b-vision-instruct','google/diffusiongemma-26b-a4b-it']

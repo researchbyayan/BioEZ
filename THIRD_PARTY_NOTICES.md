@@ -33,24 +33,6 @@ is vendored unmodified in `frontend/src/vendor/vitrio` with its LICENSE; the typ
 file is renamed to sit beside it. Only a static decorative light layer is cloned and refracted;
 chat content and credentials are never sampled.
 
-## XSMILES
-
-Interactive SMILES/structure view from Bayer-Group/xsmiles, BSD-3-Clause.
-Source: https://github.com/Bayer-Group/xsmiles
-Commit: f8395c5f099b197366b51172281989206638c574 (version 0.7.0).
-The prebuilt `dist/plain/index.js` is vendored unmodified (except the license-comment
-filename) as `frontend/src/vendor/xsmiles/xsmiles.js`, with its LICENSE and bundled
-dependency notices alongside. Please cite: Heberle, H. et al. XSMILES: interactive
-visualization for molecules, SMILES and XAI attribution scores. J Cheminform 15, 2 (2023).
-BioEZ colours atoms by RDKit Gasteiger partial charges; these are not XAI attributions.
-
-## RDKit MinimalLib
-
-`RDKit_minimal.js`/`.wasm` (BSD-3-Clause), as shipped with the XSMILES commit above,
-are vendored in `frontend/src/vendor/rdkit` with their license. XSMILES requires them.
-Both run only inside a sandboxed iframe (`frontend/public/xsmiles-viewer.html`), because
-RDKit MinimalLib needs `eval`; the app window CSP is unchanged.
-
 ## chem-skill
 
 Common-molecule data (PubChem isomeric SMILES and aliases) from ghutchis/chem-skill,
@@ -88,15 +70,3 @@ them is included:
 - markdown-simplechem (MIT, Dmitry Shintyakov): plain-text arrow tokens (`<=>`, `->`, `hnu`).
 - chemdraw-mcp (Apache-2.0): equilibrium arrow layout and tangent-oriented arrowheads.
 - Chemaxon documentation (Marvin MEFlow, Structure Checker): electron-flow source and target rules and structure checks, re-implemented with RDKit.
-
-## NMRShiftDB2 (¹³C shift data)
-
-`backend/bioez/data/c13_shifts.json.gz` is derived from NMRShiftDB2 (`nmrshiftdb2withsignals.sd`,
-https://sourceforge.net/projects/nmrshiftdb2/files/data/, version of 2024-06-06), built by
-`scripts/build-c13-table.py`. It holds median measured ¹³C shifts for carbon environments
-(structure within 1–4 bonds) and the number of observations.
-
-NMRShiftDB2 data is made available under an extended ODC Open Database License (ODbL); see
-https://nmrshiftdb.nmr.uni-koeln.de for the licence text. This derived table is a derivative
-database and is shared under the same licence; software built with the data must be open
-source (BioEZ is MIT-licensed). NMRShiftDB2 is by Stefan Kuhn and the NMRShiftDB contributors.

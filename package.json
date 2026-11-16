@@ -31,6 +31,7 @@
     "electron-updater": "6.8.11",
     "highlight.js": "^11.11.1",
     "katex": "^0.19.1",
+    "molstar": "^5.13.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-markdown": "^10.1.0",
@@ -76,18 +77,6 @@
       {
         "from": "backend/vendor/seq_encode/LICENSE",
         "to": "seq_encode-LICENSE"
-      },
-      {
-        "from": "frontend/src/vendor/xsmiles/LICENSE",
-        "to": "xsmiles-LICENSE"
-      },
-      {
-        "from": "frontend/src/vendor/xsmiles/xsmiles.js.LICENSE.txt",
-        "to": "xsmiles-bundled-LICENSES.txt"
-      },
-      {
-        "from": "frontend/src/vendor/rdkit/LICENSE",
-        "to": "rdkit-minimallib-LICENSE"
       },
       {
         "from": "frontend/src/vendor/vitrio/LICENSE",

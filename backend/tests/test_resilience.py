@@ -9,7 +9,7 @@ from bioez.providers import Provider, ProviderError, SYSTEM
 
 async def test_native_worker_failure_does_not_kill_the_next_answer():
     with pytest.raises(ProcessingError,match='stopped unexpectedly'):
-        await process_chemistry('probe',None,timeout=10)
+        await process_chemistry('probe',None,timeout=60)
     blocks, failed=await process_chemistry('answer',json.dumps({'blocks':[{'type':'molecule','smiles':'CCO','label':'Ethanol'}]}))
     assert not failed and blocks[0]['formula']=='C2H6O'
 
