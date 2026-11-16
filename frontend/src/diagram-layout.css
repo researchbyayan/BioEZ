@@ -6,11 +6,11 @@
 .molecule-card figcaption strong { font-size:13px; font-weight:500; overflow-wrap:anywhere; line-height:1.5; }
 .app-shell .molecule-card .diagram-image { display:flex; justify-content:center; align-items:center; padding:0; min-height:0; }
 .app-shell .molecule-card .diagram-image img { display:block; width:100%; max-width:100%; min-width:0; max-height:none; height:auto; }
-:root .app-shell .molecule-card button.formula { display:inline-flex; align-items:center; gap:7px; padding:0!important; min-height:22px; margin:0; border:0!important; background:transparent!important; box-shadow:none!important; color:#a9c8b4; font:13px/1.4 inherit; }
+:root .app-shell .molecule-card button.formula { display:inline-flex; align-items:center; gap:7px; padding:0!important; min-height:22px; margin:0; border:0!important; background:transparent!important; box-shadow:none!important; color:#baa9c8; font:13px/1.4 inherit; }
 .formula sub { vertical-align:sub; font-size:.75em; line-height:0; }.formula sup { vertical-align:super; font-size:.75em; line-height:0; }
 :root .app-shell .formula i { font-size:10px; width:12px; flex-basis:12px; }
 .app-shell .diagram-actions { display:flex; justify-content:flex-start; align-items:center; gap:8px; padding:5px 0; margin:0; min-height:32px; }
-:root .app-shell .diagram-actions button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:30px; margin:0!important; padding:5px 8px!important; border:1px solid #ffffff12!important; border-radius:7px; background:transparent!important; box-shadow:none!important; font-size:11px; line-height:1; color:#a7cdb5; }
+:root .app-shell .diagram-actions button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:30px; margin:0!important; padding:5px 8px!important; border:1px solid #ffffff12!important; border-radius:7px; background:transparent!important; box-shadow:none!important; font-size:11px; line-height:1; color:#bca7cd; }
 .app-shell .diagram-actions button i { display:inline-flex; align-items:center; justify-content:center; margin:0!important; height:14px; width:14px; flex-basis:14px; font-size:12px; line-height:1; }
 .app-shell .answer-actions { display:flex; align-items:center; gap:4px; clear:both; margin:14px 0 0!important; padding:0; }
 :root .app-shell .answer-actions > button { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; min-height:32px; margin:0!important; padding:0!important; border:0!important; line-height:1; }
@@ -23,32 +23,32 @@
 .reaction-participant>img { display:block; width:100%; height:auto; max-height:none; filter:invert(1) hue-rotate(180deg); }
 .reaction-participant strong { font-size:12px; line-height:1.5; font-weight:500; overflow-wrap:anywhere; max-width:100%; }
 .reaction-participant .formula { font-size:12px; line-height:1.5; }
-.reaction-plus { font-size:20px; color:#9db5a6; }
+.reaction-plus { font-size:20px; color:#aa9db5; }
 .intermediate-metadata { display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:12px; margin:8px 0; }.intermediate-metadata strong { font-weight:500; }
-.reaction-arrow { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; width:140px; min-width:110px; text-align:center; color:#c4d5ca; }
+.reaction-arrow { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; width:140px; min-width:110px; text-align:center; color:#cdc4d5; }
 .reaction-arrow>span { font-size:11px; line-height:1.5; white-space:normal; overflow-wrap:anywhere; }.reaction-arrow b { font-size:38px; line-height:1; font-weight:400; }
-:root[data-diagram-layout=scroll] .molecule-row,:root[data-diagram-layout=scroll] .reaction-layout { flex-wrap:nowrap; overflow-x:auto; padding-bottom:14px; scrollbar-width:thin; scrollbar-color:#506c59 transparent; }
+:root[data-diagram-layout=scroll] .molecule-row,:root[data-diagram-layout=scroll] .reaction-layout { flex-wrap:nowrap; overflow-x:auto; padding-bottom:14px; scrollbar-width:thin; scrollbar-color:#5f506c transparent; }
 :root[data-diagram-layout=scroll] .reaction-term,:root[data-diagram-layout=scroll] .reaction-arrow { flex-shrink:0; }
 .structure-panel .molecule-card { width:100%!important; max-width:100%; margin:18px 0!important; }.structure-panel .chem-card figcaption strong { display:block; }.structure-panel .reaction-participant { width:150px; }
 .diagram-preferences { padding:12px 0; margin:8px 0 16px; border-top:1px solid #ffffff12; border-bottom:1px solid #ffffff12; }
-.diagram-preferences summary { cursor:pointer; font-size:13px; color:#badac5; padding:5px 0; }
-.diagram-preferences label { display:block; font-size:12px; margin:15px 0 0; line-height:1.6; }.diagram-preferences select { display:block; width:100%; padding:10px; margin-top:7px; border:1px solid #ffffff20; border-radius:8px; background:#15241c; color:#dfebe3; font-size:12px; }
+.diagram-preferences summary { cursor:pointer; font-size:13px; color:#cbbada; padding:5px 0; }
+.diagram-preferences label { display:block; font-size:12px; margin:15px 0 0; line-height:1.6; }.diagram-preferences select { display:block; width:100%; padding:10px; margin-top:7px; border:1px solid #ffffff20; border-radius:8px; background:#1e1524; color:#e5dfeb; font-size:12px; }
 @media(max-width:720px) { .molecule-row { gap:14px; }.reaction-participant { width:145px; min-width:100px; }.reaction-arrow { width:110px; min-width:100px; }.molecule-row .molecule-card { max-width:100%; } }
 :root .app-shell button.structure-trigger { display:block; width:100%; min-height:0; padding:0!important; margin:0!important; border:0!important; border-radius:12px; background:transparent!important; box-shadow:none!important; cursor: pointer; }
 .structure-trigger img { display:block; width:100%; height:auto; filter:invert(1) hue-rotate(180deg); }
-.structure-trigger:focus-visible { outline:2px solid #65f5a2; outline-offset:4px; }
+.structure-trigger:focus-visible { outline:2px solid #b765f5; outline-offset:4px; }
 .diagram { position:relative; }
 :root .app-shell button.scheme-menu-trigger { position:absolute; top:0; right:0; width:28px; height:28px; padding:0!important; background:transparent!important; border:0!important; box-shadow:none!important; opacity:.5; }
 .scheme-menu-trigger:hover,.scheme-menu-trigger:focus-visible { opacity:1!important; }
-.structure-popover { position:fixed; z-index:10000; box-sizing:border-box; width:220px; padding:10px 12px 8px; display:flex; flex-direction:column; gap:3px; border:1px solid #ffffff20; border-radius:12px; background:rgba(15,26,20,.94); backdrop-filter:blur(18px); box-shadow:0 10px 26px #0007; color:#e3eee7; font:12px/1.35 system-ui,sans-serif; opacity:.25; transition:opacity 160ms ease-out; animation:structure-menu-in 140ms ease-out; }
+.structure-popover { position:fixed; z-index:10000; box-sizing:border-box; width:220px; padding:10px 12px 8px; display:flex; flex-direction:column; gap:3px; border:1px solid #ffffff20; border-radius:12px; background:rgba(21,15,26,.94); backdrop-filter:blur(18px); box-shadow:0 10px 26px #0007; color:#e9e3ee; font:12px/1.35 system-ui,sans-serif; opacity:.25; transition:opacity 160ms ease-out; animation:structure-menu-in 140ms ease-out; }
 .structure-popover:hover,.structure-popover:focus-within { opacity:1; }
 @media(hover:none) { .structure-popover { opacity:1; } }
 .structure-popover strong { font-size:12px; font-weight:500; line-height:1.4; overflow-wrap:anywhere; margin-bottom:5px; }
-.structure-detail-label { font-size:9px; color:#9eafa4; letter-spacing:.035em; }
+.structure-detail-label { font-size:9px; color:#a79eaf; letter-spacing:.035em; }
 .structure-popover button { display:flex; align-items:center; gap:8px; min-height:26px; padding:3px 5px; margin:0; border:0; border-radius:6px; color:inherit; background:transparent; font:inherit; text-align:left; cursor:pointer; transition:background 120ms ease; }
-.structure-popover button:hover,.structure-popover button:focus-visible { background:#9be9b71a; }
+.structure-popover button:hover,.structure-popover button:focus-visible { background:#c59be91a; }
 .structure-popover .formula { width:fit-content; }.structure-popover .formula i { margin-left:4px; font-size:10px; }
-.structure-save { border-top:1px solid #ffffff15!important; margin-top:3px!important; padding-top:6px!important; border-radius:0!important; color:#9aefae!important; }
+.structure-save { border-top:1px solid #ffffff15!important; margin-top:3px!important; padding-top:6px!important; border-radius:0!important; color:#c49aef!important; }
 .structure-save i { width:14px; text-align:center; }
 @keyframes structure-menu-in { from { transform:translateY(-4px); } to { transform:translateY(0); } }
 @media(prefers-reduced-motion:reduce) { .structure-popover { animation:none; transition:none; }.structure-popover button { transition:none; } }
@@ -64,40 +64,40 @@
 .structure-caption { display:flex; flex-direction:column; align-items:inherit; gap:2px; max-width:max(150px,100%); text-align:inherit; }
 .molecule-card .structure-caption { align-items:flex-start; text-align:left; }
 .reaction-participant .structure-caption { align-items:center; text-align:center; }
-.structure-name { font-size:13px; font-weight:500; line-height:1.4; color:#e3eee7; overflow-wrap:anywhere; }
-.structure-formula { font-size:12px; line-height:1.4; color:#9fbfaa; font-variant-numeric:tabular-nums; }
+.structure-name { font-size:13px; font-weight:500; line-height:1.4; color:#e9e3ee; overflow-wrap:anywhere; }
+.structure-formula { font-size:12px; line-height:1.4; color:#b09fbf; font-variant-numeric:tabular-nums; }
 .structure-formula sub { font-size:.75em; vertical-align:sub; line-height:0; }.structure-formula sup { font-size:.75em; vertical-align:super; line-height:0; }
 .app-shell .reaction-participant { width:auto; min-width:0; max-width:none; }
 .reaction-card { padding:16px 18px 6px; border:1px solid #ffffff12!important; border-radius:14px!important; background:#ffffff05!important; }
 .reaction-card>figcaption { display:flex; flex-direction:column; gap:3px; padding:0 0 6px; }
 .reaction-card>figcaption strong { font-size:14px; font-weight:500; }
-.chem-card .eyebrow,.mechanism .eyebrow { display:block; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#8fb39c; font-weight:500; }
+.chem-card .eyebrow,.mechanism .eyebrow { display:block; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#a38fb3; font-weight:500; }
 .reaction-layout { align-items:center; gap:14px 14px; }
 .reaction-term { gap:14px; }
 .reaction-plus { align-self:center; }
-.reaction-arrow { width:auto; min-width:120px; max-width:180px; gap:4px; color:#c4d5ca; }
-.reaction-arrow svg { width:100%; min-width:110px; height:12px; color:#c4d5ca; }
+.reaction-arrow { width:auto; min-width:120px; max-width:180px; gap:4px; color:#cdc4d5; }
+.reaction-arrow svg { width:100%; min-width:110px; height:12px; color:#cdc4d5; }
 .reaction-arrow>span { min-height:1.5em; font-size:12px; }
-.reaction-reagents { color:#e3eee7; font-weight:500; }.reaction-conditions { color:#9fbfaa; }
+.reaction-reagents { color:#e9e3ee; font-weight:500; }.reaction-conditions { color:#b09fbf; }
 .mechanism h3 { display:flex; flex-direction:column; gap:3px; margin:26px 0 12px; font-size:15px; font-weight:500; }
 .mechanism-steps { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
 .mechanism-step { margin:0!important; padding:14px 16px; border:1px solid #ffffff12!important; border-radius:14px!important; background:#ffffff05!important; }
 .mechanism-step-header { display:flex; align-items:center; gap:10px; font-size:13px; line-height:1.5; }
 .mechanism-step-header strong { font-weight:500; }
-.mechanism .step-number { display:inline-flex; align-items:center; justify-content:center; flex:0 0 22px; width:22px!important; height:22px!important; border-radius:50%!important; background:#9be9b71f!important; color:#9aefae!important; font-size:11px; font-weight:600; }
+.mechanism .step-number { display:inline-flex; align-items:center; justify-content:center; flex:0 0 22px; width:22px!important; height:22px!important; border-radius:50%!important; background:#c59be91f!important; color:#c49aef!important; font-size:11px; font-weight:600; }
 .mechanism-step .structure-trigger { margin:6px auto 0!important; width:auto!important; max-width:100%; }
-.mechanism-note { font-size:12px; color:#9fbfaa!important; padding:6px 0 0!important; }
+.mechanism-note { font-size:12px; color:#b09fbf!important; padding:6px 0 0!important; }
 .structure-popover .structure-smiles { width:100%; justify-content:space-between; }
 .structure-smiles code { font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; white-space:normal; }
-.structure-action { border-radius:6px!important; color:#9aefae!important; }
+.structure-action { border-radius:6px!important; color:#c49aef!important; }
 .structure-action i,.structure-save i { width:14px; text-align:center; }
 .smiles-explorer { width:min(620px,94vw)!important; }
-.smiles-explorer-help { margin:0 0 12px; font-size:12.5px; line-height:1.6; color:#c4d5ca; }
-.charge-negative { color:#f1a6d2; }.charge-positive { color:#a8e08a; }
+.smiles-explorer-help { margin:0 0 12px; font-size:12.5px; line-height:1.6; color:#cdc4d5; }
+.charge-negative { color:#f1a340; }.charge-positive { color:#a08ae0; }
 .smiles-explorer-view { display:block; width:100%; border:0; border-radius:12px; background:#fff; }
-.smiles-explorer-status { font-size:12px; color:#9fbfaa; }
+.smiles-explorer-status { font-size:12px; color:#b09fbf; }
 .smiles-explorer-string { display:block; margin:12px 0 4px; padding:8px 10px; border-radius:8px; background:#ffffff0a; font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; user-select:text; }
-.smiles-explorer-credit { margin:6px 0 0; font-size:11px; color:#8a9e91; }
+.smiles-explorer-credit { margin:6px 0 0; font-size:11px; color:#958a9e; }
 .reaction-layout { --structure-context:.85; gap:12px 10px; }
 .reaction-term { gap:10px; }
 .reaction-arrow { min-width:104px; }
@@ -112,70 +112,70 @@
 .structure-popover .copy-value strong { margin:0; }
 .reaction-arrow .katex { font-size:1em; }
 .explorer-tabs { display:flex; gap:4px; padding:3px; margin:0 0 14px; border-radius:10px; background:#ffffff08; }
-:root .app-shell .explorer-tabs button,.explorer-tabs button { flex:1; padding:7px 10px!important; border:0!important; border-radius:8px; background:transparent!important; color:#a9c0b2; font-size:12.5px; }
-:root .app-shell .explorer-tabs button[aria-selected=true],.explorer-tabs button[aria-selected=true] { background:#9be9b71f!important; color:#e3eee7; }
-.model-view { position:relative; width:100%; height:340px; border-radius:12px; overflow:hidden; background:#0f1a14; cursor:grab; }
+:root .app-shell .explorer-tabs button,.explorer-tabs button { flex:1; padding:7px 10px!important; border:0!important; border-radius:8px; background:transparent!important; color:#b6a9c0; font-size:12.5px; }
+:root .app-shell .explorer-tabs button[aria-selected=true],.explorer-tabs button[aria-selected=true] { background:#c59be91f!important; color:#e9e3ee; }
+.model-view { position:relative; width:100%; height:340px; border-radius:12px; overflow:hidden; background:#150f1a; cursor:grab; }
 .model-controls { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
-:root .app-shell .model-controls button,.model-controls button { display:inline-flex; align-items:center; gap:6px; padding:6px 10px!important; border:1px solid #ffffff17!important; border-radius:8px; background:transparent!important; font-size:12px; color:#c4d5ca; }
-:root .app-shell .model-controls button[aria-pressed=true],.model-controls button[aria-pressed=true] { border-color:#9be9b766!important; color:#e3eee7; background:#9be9b712!important; }
+:root .app-shell .model-controls button,.model-controls button { display:inline-flex; align-items:center; gap:6px; padding:6px 10px!important; border:1px solid #ffffff17!important; border-radius:8px; background:transparent!important; font-size:12px; color:#cdc4d5; }
+:root .app-shell .model-controls button[aria-pressed=true],.model-controls button[aria-pressed=true] { border-color:#c59be966!important; color:#e9e3ee; background:#c59be912!important; }
 .property-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:8px; margin:0; }
 .property-grid div { padding:10px 12px; border-radius:10px; background:#ffffff07; border:1px solid #ffffff0d; }
-.property-grid dt { font-size:10.5px; letter-spacing:.03em; color:#8fb39c; margin-bottom:3px; }
-.property-grid dd { margin:0; font-size:14px; color:#e3eee7; font-variant-numeric:tabular-nums; }
+.property-grid dt { font-size:10.5px; letter-spacing:.03em; color:#a38fb3; margin-bottom:3px; }
+.property-grid dd { margin:0; font-size:14px; color:#e9e3ee; font-variant-numeric:tabular-nums; }
 .property-grid sub { font-size:.75em; }
 .model-canvas { display:block; width:100%; height:100%; touch-action:none; }
 .group-drawing { display:flex; justify-content:center; align-items:center; min-height:200px; padding:12px; border-radius:12px; background:#ffffff05; }
 .group-drawing img { max-width:100%; max-height:260px; transform:scale(1.25); filter:invert(1) hue-rotate(180deg); }
 .group-chips { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:14px 0 4px; }
-:root .app-shell .group-chip,.group-chip { display:inline-flex; align-items:center; gap:5px; padding:6px 11px!important; border:1px solid #ffffff17!important; border-radius:999px; background:transparent!important; color:#c4d5ca; font-size:12px; }
-:root .app-shell .group-chip[aria-pressed=true],.group-chip[aria-pressed=true] { border-color:#65f5a2aa!important; background:#65f5a21f!important; color:#e3eee7; }
-.group-count { font-size:10.5px; color:#8fb39c; }
-.stereo-list { margin:12px 0 0; font-size:12.5px; color:#c4d5ca; text-align:center; }.stereo-list strong { font-weight:500; color:#e3eee7; }
+:root .app-shell .group-chip,.group-chip { display:inline-flex; align-items:center; gap:5px; padding:6px 11px!important; border:1px solid #ffffff17!important; border-radius:999px; background:transparent!important; color:#cdc4d5; font-size:12px; }
+:root .app-shell .group-chip[aria-pressed=true],.group-chip[aria-pressed=true] { border-color:#b765f5aa!important; background:#b765f51f!important; color:#e9e3ee; }
+.group-count { font-size:10.5px; color:#a38fb3; }
+.stereo-list { margin:12px 0 0; font-size:12.5px; color:#cdc4d5; text-align:center; }.stereo-list strong { font-weight:500; color:#e9e3ee; }
 .identifier-list { margin:14px 0 0; display:grid; gap:6px; }
-.identifier-list dt { font-size:10.5px; color:#8fb39c; letter-spacing:.03em; }
+.identifier-list dt { font-size:10.5px; color:#a38fb3; letter-spacing:.03em; }
 .identifier-list dd { margin:2px 0 0; }
-:root .app-shell .identifier-list button,.identifier-list button { display:flex; width:100%; justify-content:space-between; align-items:center; gap:10px; padding:6px 9px!important; border:0!important; border-radius:8px; background:#ffffff07!important; color:#dfebe3; text-align:left; }
+:root .app-shell .identifier-list button,.identifier-list button { display:flex; width:100%; justify-content:space-between; align-items:center; gap:10px; padding:6px 9px!important; border:0!important; border-radius:8px; background:#ffffff07!important; color:#e5dfeb; text-align:left; }
 .identifier-list code { font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; }
 .reaction-card>figcaption { position:relative; }
-:root .app-shell .changes-toggle,.changes-toggle { display:inline-flex; align-items:center; justify-content:center; margin-top:6px; width:26px; padding:0!important; border:1px solid #ffffff17!important; border-radius:999px; background:transparent!important; color:#9aefae; font-size:11px; }
-:root .app-shell .changes-toggle[aria-pressed=true],.changes-toggle[aria-pressed=true] { background:#65f5a21f!important; border-color:#65f5a2aa!important; }
+:root .app-shell .changes-toggle,.changes-toggle { display:inline-flex; align-items:center; justify-content:center; margin-top:6px; width:26px; padding:0!important; border:1px solid #ffffff17!important; border-radius:999px; background:transparent!important; color:#c49aef; font-size:11px; }
+:root .app-shell .changes-toggle[aria-pressed=true],.changes-toggle[aria-pressed=true] { background:#b765f51f!important; border-color:#b765f5aa!important; }
 /* Reactants, and arrow + products, wrap as two units so the arrow never ends a line alone. */
 .reaction-side { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px 10px; max-width:100%; }
 :root[data-diagram-layout=scroll] .reaction-side { flex-wrap:nowrap; flex-shrink:0; }
 /* Resonance series: contributors joined by ↔, then ≡ hybrid; wraps between whole terms. */
 .resonance-layout { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px 6px; padding:8px 0 12px; --structure-context:.7; }
 .resonance-term { display:flex; align-items:center; gap:6px; }
-.resonance-arrow { font-size:26px; line-height:1; color:#c4d5ca; padding:0 4px; }
-.resonance-arrow.equivalent { color:#9aefae; }
+.resonance-arrow { font-size:26px; line-height:1; color:#cdc4d5; padding:0 4px; }
+.resonance-arrow.equivalent { color:#c49aef; }
 .resonance-card .mechanism-note { max-width:180px; }
 .resonance-hybrid { display:flex; align-items:center; justify-content:center; gap:16px; border-top:1px solid #ffffff0b; padding:12px 0 0; --structure-context:.7; }
-.hybrid-label { max-width:120px; color:#93a99c; font-size:11px; line-height:1.5; }
-.structure-view-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:12px 0;color:#c4d8cb;font-size:12px}
-.structure-view-controls label{display:flex;align-items:center;gap:6px}.structure-view-controls input{accent-color:#7de6a9}
+.hybrid-label { max-width:120px; color:#9f93a9; font-size:11px; line-height:1.5; }
+.structure-view-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:12px 0;color:#cfc4d8;font-size:12px}
+.structure-view-controls label{display:flex;align-items:center;gap:6px}.structure-view-controls input{accent-color:#b97de6}
 .structure-view-controls button{margin-left:auto;display:flex;gap:7px;align-items:center;padding:7px 11px}
 .structure-2d-viewport{height:340px;overflow:auto;display:flex;align-items:center;justify-content:safe center}
 .structure-2d-viewport img{transform:none;object-fit:contain;flex-shrink:0;max-height:none!important;min-height:120px}
 
 .structure-2d-stage{position:relative;margin-bottom:12px}
 .structure-2d-viewport{padding:12px 12px 44px;background:transparent;align-items:safe center}
-.structure-zoom-tools{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:3px;padding:3px;border:1px solid #ffffff15;border-radius:10px;background:#102018c9;backdrop-filter:blur(10px)}
+.structure-zoom-tools{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:3px;padding:3px;border:1px solid #ffffff15;border-radius:10px;background:#1a1020c9;backdrop-filter:blur(10px)}
 :root .app-shell .structure-zoom-tools button,.structure-zoom-tools button{min-width:28px;min-height:28px;padding:2px 7px!important;border:0!important;background:transparent!important;box-shadow:none!important;font-size:16px;border-radius:6px}
-.structure-zoom-tools output{min-width:42px;text-align:center;font-size:11px;color:#b7cbbf;font-variant-numeric:tabular-nums}
+.structure-zoom-tools output{min-width:42px;text-align:center;font-size:11px;color:#c2b7cb;font-variant-numeric:tabular-nums}
 :root .app-shell .structure-zoom-tools .zoom-fit,.structure-zoom-tools .zoom-fit{font-size:11px;border-left:1px solid #ffffff12!important;border-radius:0 5px 5px 0;margin-left:2px;padding:3px 9px!important}
 .bond-change-list{display:flex;gap:8px;flex-wrap:wrap;padding:8px 14px 14px;font-size:12px;color:var(--muted)}
 .bond-change{padding:3px 7px;border-radius:6px;background:#ffffff08}
-.bond-change.form_bond{color:#9aefae}.bond-change.break_bond{color:#ffc9a1}
+.bond-change.form_bond{color:#c49aef}.bond-change.break_bond{color:#ffc9a1}
 .settings-level{display:block;font-size:12px;margin:16px 0}.settings-level select{margin-top:7px}
 .resonance-bond-changes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;font-size:11px;color:var(--muted)}
 .resonance-bond-changes>span{white-space:nowrap;background:#ffffff06;border-radius:4px;padding:2px 5px}
 .resonance-flow-summary{margin:0 auto 14px;padding:0 16px;max-width:520px;color:var(--muted);font-size:12px;line-height:1.6;text-align:center}
-.derived-note { font-size:10.5px; color:#8fb39c; letter-spacing:.01em; }
+.derived-note { font-size:10.5px; color:#a38fb3; letter-spacing:.01em; }
 /* 2D / 3D switch inside the Structure tab (same segmented style as the tabs). */
 .view-switch { display:inline-flex; gap:3px; padding:3px; margin:0 0 12px; border-radius:999px; background:#ffffff08; border:1px solid #ffffff14; }
-:root .app-shell .view-switch button,.view-switch button { min-width:58px; padding:5px 14px!important; border:0!important; border-radius:999px; background:transparent!important; box-shadow:none!important; color:#a9c0b2; font-size:12px; font-weight:500; }
-:root .app-shell .view-switch button[aria-checked=true],.view-switch button[aria-checked=true] { background:#9be9b724!important; color:#e3eee7; }
+:root .app-shell .view-switch button,.view-switch button { min-width:58px; padding:5px 14px!important; border:0!important; border-radius:999px; background:transparent!important; box-shadow:none!important; color:#b6a9c0; font-size:12px; font-weight:500; }
+:root .app-shell .view-switch button[aria-checked=true],.view-switch button[aria-checked=true] { background:#c59be924!important; color:#e9e3ee; }
 /* Drawn resonance arrow replaces the ↔ text glyph. */
-svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:0 4px; color:#c4d5ca; }
+svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:0 4px; color:#cdc4d5; }
 .mechanism-step .derived-note { display:block; margin-top:4px; text-align:center; }
 /* Segmented 2D/3D switch: the selected thumb follows the track's pill shape. */
 :root .app-shell .view-switch button,.view-switch button { border-radius:999px!important; }
@@ -186,12 +186,12 @@ svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:
 @container (min-width:600px) { .compound-card .compound-layout { grid-template-columns:minmax(180px,34%) minmax(0,1fr); gap:24px; align-items:start; } }
 .compound-card .compound-layout>.molecule-structure { min-width:0; max-width:100%; }
 .compound-properties { width:100%; table-layout:fixed; border-collapse:collapse; font-size:12px; line-height:1.5; }
-.compound-properties th { width:clamp(92px,30%,150px); text-align:left; font-weight:500; color:#9fb6a8; padding:6px 12px 6px 0; vertical-align:top; overflow-wrap:anywhere; }
-.compound-properties td { color:#dbe6df; padding:6px 0; overflow-wrap:anywhere; word-break:break-word; }
+.compound-properties th { width:clamp(92px,30%,150px); text-align:left; font-weight:500; color:#ac9fb6; padding:6px 12px 6px 0; vertical-align:top; overflow-wrap:anywhere; }
+.compound-properties td { color:#e1dbe6; padding:6px 0; overflow-wrap:anywhere; word-break:break-word; }
 .compound-properties tr+tr { border-top:1px solid #ffffff10; }
-.compound-properties code { font-size:11px; color:#b8cbbf; overflow-wrap:anywhere; }
-.compound-interpreted { margin:8px 4px 0; font-size:11.5px; color:#9aefae; }
-.compound-source { margin:0 4px 10px; font-size:11px; color:#8ea596; }
+.compound-properties code { font-size:11px; color:#c2b8cb; overflow-wrap:anywhere; }
+.compound-interpreted { margin:8px 4px 0; font-size:11.5px; color:#c49aef; }
+.compound-source { margin:0 4px 10px; font-size:11px; color:#9a8ea5; }
 /* The 2D stage's size must not depend on the drawing's zoom, or Fit would chase its own result. */
 .structure-2d-stage { width:100%; min-width:0; }
 .structure-2d-viewport { width:100%; contain:inline-size; }
@@ -205,12 +205,12 @@ svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:
 
 /* Structure popover actions (rendered outside .app-shell): green text side by side; hover shows the copy rows' soft box. */
 .structure-popover .structure-buttons{display:flex;gap:6px;margin-top:6px;padding-top:8px;border-top:1px solid #ffffff15}
-.structure-popover .structure-buttons .structure-button{flex:1;justify-content:center;gap:6px;height:28px;min-height:0;padding:0 10px;border:0;border-radius:6px;background:transparent;color:#9aefae;font-size:12px;white-space:nowrap}
-.structure-popover .structure-buttons .structure-button:hover,.structure-popover .structure-buttons .structure-button:focus-visible{background:#9be9b71a;color:#c7f8d1}
+.structure-popover .structure-buttons .structure-button{flex:1;justify-content:center;gap:6px;height:28px;min-height:0;padding:0 10px;border:0;border-radius:6px;background:transparent;color:#c49aef;font-size:12px;white-space:nowrap}
+.structure-popover .structure-buttons .structure-button:hover,.structure-popover .structure-buttons .structure-button:focus-visible{background:#c59be91a;color:#dfc7f8}
 .structure-popover .structure-buttons .structure-button i{font-size:11px;width:auto}
 
 /* Reaction-type badge beside the mechanism heading. */
-.mechanism h3 .mechanism-family{display:inline-flex;align-items:center;margin-left:10px;padding:2px 9px;border-radius:999px;border:1px solid #9aefae40;background:#9aefae14;color:#b8f2c9;font-size:11px;font-weight:600;letter-spacing:.02em;vertical-align:middle}
+.mechanism h3 .mechanism-family{display:inline-flex;align-items:center;margin-left:10px;padding:2px 9px;border-radius:999px;border:1px solid #c49aef40;background:#c49aef14;color:#d6b8f2;font-size:11px;font-weight:600;letter-spacing:.02em;vertical-align:middle}
 .mechanism h3 .mechanism-family sub{font-size:.75em;line-height:0}
 .mechanism h3 .mechanism-title{display:inline-flex;align-items:center;gap:10px}
 .mechanism h3 .mechanism-family{margin-left:0;width:auto;align-self:center;line-height:1.5;font-size:11.5px}
@@ -223,30 +223,30 @@ svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:
 /* Reaction scheme card */
 :root .app-shell .reaction-card{padding:16px 20px 18px;border-radius:16px;border:1px solid #ffffff12;background:linear-gradient(180deg,#ffffff07,#ffffff03)}
 :root .app-shell .reaction-card figcaption{display:flex;align-items:baseline;gap:10px;justify-content:flex-start;text-align:left;margin-bottom:6px}
-:root .app-shell .reaction-card figcaption .eyebrow{font-size:10px;letter-spacing:.14em;color:#7fa892}
-:root .app-shell .reaction-card figcaption strong{font-family:var(--chem-serif);font-style:italic;font-weight:500;font-size:17px;color:#e8f1ec;letter-spacing:.005em}
+:root .app-shell .reaction-card figcaption .eyebrow{font-size:10px;letter-spacing:.14em;color:#977fa8}
+:root .app-shell .reaction-card figcaption strong{font-family:var(--chem-serif);font-style:italic;font-weight:500;font-size:17px;color:#ede8f1;letter-spacing:.005em}
 :root .app-shell .reaction-card figcaption .card-tools{margin-left:auto}
 /* Every participant ends on one baseline: structures sit on the line, names and formulas below. */
 :root .app-shell .reaction-layout,:root .app-shell .reaction-side{align-items:flex-end}
 :root .app-shell .reaction-term{display:flex;align-items:flex-end}
 :root .app-shell .reaction-participant{display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
-:root .app-shell .reaction-plus{align-self:center;margin-bottom:34px;color:#8fa79a;font-weight:300;font-size:18px}
+:root .app-shell .reaction-plus{align-self:center;margin-bottom:34px;color:#9d8fa7;font-weight:300;font-size:18px}
 :root .app-shell .reaction-arrow{align-self:center;margin-bottom:30px;gap:4px}
-:root .app-shell .reaction-arrow svg{color:#cfe3d6;width:116px}
-:root .app-shell .reaction-reagents{font-size:12.5px;font-weight:500;color:#dfeee5;font-style:normal}
-:root .app-shell .reaction-conditions{font-family:var(--chem-serif);font-style:italic;font-size:13px;color:#a8bdb0}
+:root .app-shell .reaction-arrow svg{color:#dacfe3;width:116px}
+:root .app-shell .reaction-reagents{font-size:12.5px;font-weight:500;color:#e7dfee;font-style:normal}
+:root .app-shell .reaction-conditions{font-family:var(--chem-serif);font-style:italic;font-size:13px;color:#b4a8bd}
 
 /* Mechanism: a vertical timeline of light cards. */
-.mechanism h3 .mechanism-title{font-family:var(--chem-serif);font-style:italic;font-weight:500;font-size:17px;color:#e8f1ec}
+.mechanism h3 .mechanism-title{font-family:var(--chem-serif);font-style:italic;font-weight:500;font-size:17px;color:#ede8f1}
 .mechanism h3 .mechanism-family{font-family:inherit;font-style:normal}
 :root .app-shell .mechanism-steps{position:relative;padding-left:0;gap:10px}
-:root .app-shell .mechanism-steps::before{content:'';position:absolute;left:15px;top:22px;bottom:22px;border-left:1px dashed #9aefae33}
+:root .app-shell .mechanism-steps::before{content:'';position:absolute;left:15px;top:22px;bottom:22px;border-left:1px dashed #c49aef33}
 :root .app-shell .mechanism-step{position:relative;padding:12px 16px 12px 44px;border-radius:14px;border:1px solid #ffffff10;background:#ffffff05;min-height:0}
 :root .app-shell .mechanism-step-header{display:block;margin:0}
-:root .app-shell .mechanism-step .step-number{position:absolute;left:4px;top:12px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;color:#0d241a;background:linear-gradient(145deg,#b8f2c9,#7fcf9b);box-shadow:0 0 0 4px #0f1a14}
-:root .app-shell .step-label{margin:0;font-size:13.5px;line-height:1.5;color:#b7c8be}
-:root .app-shell .step-label strong{font-weight:600;color:#eef6f1;margin-right:5px}
-:root .app-shell .step-label span{color:#a9bcb1}
+:root .app-shell .mechanism-step .step-number{position:absolute;left:4px;top:12px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:600;color:#1b0d24;background:linear-gradient(145deg,#d6b8f2,#aa7fcf);box-shadow:0 0 0 4px #150f1a}
+:root .app-shell .step-label{margin:0;font-size:13.5px;line-height:1.5;color:#c1b7c8}
+:root .app-shell .step-label strong{font-weight:600;color:#f2eef6;margin-right:5px}
+:root .app-shell .step-label span{color:#b4a9bc}
 :root .app-shell .mechanism-step .structure-menu,:root .app-shell .mechanism-step figure{margin:6px 0 2px}
 :root .app-shell .bond-change-list{margin-top:4px;gap:6px}
 :root .app-shell .bond-change{font-size:11px;padding:2px 8px;border-radius:999px}
@@ -289,7 +289,7 @@ svg.resonance-arrow { width:52px; height:14px; flex:0 0 52px; padding:0; margin:
 :root .app-shell .reaction-card figcaption{padding-left:96px!important;padding-right:96px!important}
 :root .app-shell .reaction-card figcaption strong{white-space:normal!important;text-overflow:clip!important;overflow:visible!important}
 /* No reaction: the crossed arrow is followed by "N.R." rather than a product. */
-:root .app-shell .no-reaction-label{align-self:center;margin:0 0 30px 6px;font-family:var(--chem-sans);font-weight:500;font-size:15px;letter-spacing:.04em;color:#e8f1ec}
+:root .app-shell .no-reaction-label{align-self:center;margin:0 0 30px 6px;font-family:var(--chem-sans);font-weight:500;font-size:15px;letter-spacing:.04em;color:#ede8f1}
 
 /* Reaction row: every structure is centred in a band of equal height; names and formulas share
    one baseline underneath; the plus signs, arrow and N.R. are centred on the structures' band. */

@@ -27,7 +27,7 @@ function SmilesView({molecule:m}:{molecule:Molecule}){
           const assets=await import('./xsmilesAssets');
           const scores=usable?charges:new Array(smilesAtomCount(m.smiles)).fill(0);
           const limit=Math.max(0.25,...scores.map(Math.abs));
-          const setup={molecule:{string:m.smiles,method:{name:usable?'Gasteiger partial charge':'Structure',scores,attributes:{}},attributes:{}},gradientConfig:{palette:'PiYG_5',colorDomain:[-limit,0,limit],highlight:false,thresholds:[]},drawerType:'RDKitDrawer',width:540,height:300,hideBarChart:!usable,hideAttributesTable:true,showScoresOnStructure:false};
+          const setup={molecule:{string:m.smiles,method:{name:usable?'Gasteiger partial charge':'Structure',scores,attributes:{}},attributes:{}},gradientConfig:{palette:'PuOr_5',colorDomain:[-limit,0,limit],highlight:false,thresholds:[]},drawerType:'RDKitDrawer',width:540,height:300,hideBarChart:!usable,hideAttributesTable:true,showScoresOnStructure:false};
           if(live)frame.current?.contentWindow?.postMessage({type:'render',rdkit:assets.rdkit,xsmiles:assets.xsmiles,wasm:assets.wasm,setup},'*');
         }catch{if(live)setState('error');}
       }
@@ -40,7 +40,7 @@ function SmilesView({molecule:m}:{molecule:Molecule}){
   },[m.smiles]);
   const title=m.iupac_name||m.label||m.formula||'Structure';
   return <>
-    <p className="smiles-explorer-help">Hover an atom in the structure or a character in the SMILES string to see how they correspond.{usable&&<> Colours show Gasteiger partial charge: <span className="charge-negative">pink is more negative</span>, <span className="charge-positive">green is more positive</span>.</>}</p>
+    <p className="smiles-explorer-help">Hover an atom in the structure or a character in the SMILES string to see how they correspond.{usable&&<> Colours show Gasteiger partial charge: <span className="charge-negative">orange is more negative</span>, <span className="charge-positive">purple is more positive</span>.</>}</p>
     <iframe ref={frame} className="smiles-explorer-view" title={`Interactive SMILES view of ${title}`} src={new URL('xsmiles-viewer.html',document.baseURI).href} sandbox="allow-scripts" style={{height,visibility:state==='ready'?'visible':'hidden',position:state==='ready'?'static':'absolute'}}/>
     {state==='loading'&&<p className="smiles-explorer-status" role="status">Loading the SMILES viewer…</p>}
     {state==='error'&&<p className="notice error" role="alert">The interactive SMILES viewer could not load. The structure drawing is still accurate.</p>}
@@ -63,7 +63,7 @@ function ModelView({data}:{data:Structure3D}){
     if(!webglAvailable)return;
     import('3dmol').then(($3Dmol)=>{
       if(!live||!host.current||!data.molblock)return;
-      const v=$3Dmol.createViewer(host.current,{backgroundColor:'#0f1a14',antialias:true});
+      const v=$3Dmol.createViewer(host.current,{backgroundColor:'#150f1a',antialias:true});
       v.addModel(data.molblock,'sdf');v.setStyle({},styles[style]);v.zoomTo();v.render();
       viewer.current=v as unknown as typeof viewer.current;
       if(spinning)v.spin('y');
