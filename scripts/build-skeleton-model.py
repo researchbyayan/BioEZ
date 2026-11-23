@@ -5,7 +5,7 @@ International" (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html). Inp
 https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/: isa_BP3D_4.0_obj_99.zip (unzipped),
 isa_element_parts.txt and isa_inclusion_relation_list.txt.
 
-Left and right copies of a bone become one part ("femur"), phalanges are grouped per hand and foot,
+Left and right copies of a bone become one part ("femur"), each finger and toe bone is named,
 and costal cartilages and the sternum are added. Usage:
   .venv/bin/python scripts/build-skeleton-model.py <folder with the tables and obj/isa_BP3D_4.0_obj_99>
 """
@@ -33,7 +33,6 @@ INFO = {
     'mandible': 'The lower jaw, the only movable bone of the skull.', 'sternum': 'The breastbone: manubrium, body and xiphoid process.',
     'atlas': 'First cervical vertebra; it holds up the skull.', 'axis': 'Second cervical vertebra; its dens lets the head turn.',
     'hyoid bone': 'U-shaped neck bone that anchors the tongue; it touches no other bone.', 'costal cartilages': 'Hyaline cartilage joining the ribs to the sternum.',
-    'phalanges of hand': 'The 14 finger bones of each hand.', 'phalanges of foot': 'The 14 toe bones of each foot.',
 }
 
 
@@ -53,16 +52,15 @@ def tables(folder):
 def base_name(name):
     name = re.sub(r'^(left|right) ', '', name)
     name = re.sub(r' of (left|right) (foot|hand)$', r' of \2', name)
-    if 'phalanx' in name:
-        return 'phalanges of hand' if re.search(r'finger|thumb', name) else 'phalanges of foot'
+    name = re.sub(r' of (left|right) ', ' of ', name)  # 'distal phalanx of left thumb' -> 'distal phalanx of thumb'
     return name
 
 
 ORDINAL = {w: i for i, w in enumerate('first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth'.split(), 1)}
 REGIONS = [r'frontal|parietal|occipital|temporal|sphenoid|ethmoid', r'zygomatic|maxilla|nasal|lacrimal|palatine|vomer|concha', r'mandible', r'hyoid',
            r'atlas|axis|cervical', r'thoracic vertebra', r'lumbar', r'sacrum|coccyx', r'sternum', r'rib$', r'costal', r'clavicle|scapula', r'humerus',
-           r'radius|ulna', r'scaphoid|lunate|triquetral|pisiform|trapez|capitate|hamate', r'metacarpal', r'phalanges of hand', r'hip bone', r'femur', r'patella',
-           r'tibia|fibula', r'talus|calcaneus|navicular|cuboid|cuneiform', r'metatarsal', r'phalanges of foot|sesamoid']
+           r'radius|ulna', r'scaphoid|lunate|triquetral|pisiform|trapez|capitate|hamate', r'metacarpal', r'phalanx of (thumb|index|middle|ring|little) finger|phalanx of thumb', r'hip bone', r'femur', r'patella',
+           r'tibia|fibula', r'talus|calcaneus|navicular|cuboid|cuneiform', r'metatarsal', r'phalanx of (big|second|third|fourth|little) toe|sesamoid']
 
 
 def anatomical_order(name):

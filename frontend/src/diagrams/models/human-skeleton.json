@@ -363,9 +363,74 @@
    "info": ""
   },
   {
-   "id": "phalanges-of-hand",
-   "label": "Phalanges of hand",
-   "info": "The 14 finger bones of each hand."
+   "id": "distal-phalanx-of-index-finger",
+   "label": "Distal phalanx of index finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-little-finger",
+   "label": "Distal phalanx of little finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-middle-finger",
+   "label": "Distal phalanx of middle finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-ring-finger",
+   "label": "Distal phalanx of ring finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-thumb",
+   "label": "Distal phalanx of thumb",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-index-finger",
+   "label": "Middle phalanx of index finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-little-finger",
+   "label": "Middle phalanx of little finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-middle-finger",
+   "label": "Middle phalanx of middle finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-ring-finger",
+   "label": "Middle phalanx of ring finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-index-finger",
+   "label": "Proximal phalanx of index finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-little-finger",
+   "label": "Proximal phalanx of little finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-middle-finger",
+   "label": "Proximal phalanx of middle finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-ring-finger",
+   "label": "Proximal phalanx of ring finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-thumb",
+   "label": "Proximal phalanx of thumb",
+   "info": ""
   },
   {
    "id": "hip-bone",
@@ -453,9 +518,74 @@
    "info": ""
   },
   {
-   "id": "phalanges-of-foot",
-   "label": "Phalanges of foot",
-   "info": "The 14 toe bones of each foot."
+   "id": "distal-phalanx-of-big-toe",
+   "label": "Distal phalanx of big toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-fourth-toe",
+   "label": "Distal phalanx of fourth toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-little-toe",
+   "label": "Distal phalanx of little toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-second-toe",
+   "label": "Distal phalanx of second toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-third-toe",
+   "label": "Distal phalanx of third toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-fourth-toe",
+   "label": "Middle phalanx of fourth toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-little-toe",
+   "label": "Middle phalanx of little toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-second-toe",
+   "label": "Middle phalanx of second toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-third-toe",
+   "label": "Middle phalanx of third toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-big-toe",
+   "label": "Proximal phalanx of big toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-fourth-toe",
+   "label": "Proximal phalanx of fourth toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-little-toe",
+   "label": "Proximal phalanx of little toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-second-toe",
+   "label": "Proximal phalanx of second toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-third-toe",
+   "label": "Proximal phalanx of third toe",
+   "info": ""
   },
   {
    "id": "sesamoid-bone-of-foot",
