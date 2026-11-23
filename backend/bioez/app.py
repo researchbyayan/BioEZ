@@ -15,9 +15,12 @@ from .models import Block, ChatRequest, ProviderConfig, GeminiModelsRequest
 from .storage import Store, Credentials
 from .providers import Provider, ProviderError, SYSTEM
 from .answer_format import decode_answer, readable_fallback,biology_markdown
-from .biology import render_block, expand_resonance, formula_only_question, enrich_names, structure_3d, analyse
+from .lazy import lazy, lazy_function
+_biology = lazy('bioez.biology')
+render_block, expand_resonance, formula_only_question, enrich_names, structure_3d, analyse = (lazy_function(_biology, n) for n in ('render_block', 'expand_resonance', 'formula_only_question', 'enrich_names', 'structure_3d', 'analyse'))
 from .processing import process_biology, ProcessingError, prewarm
-from . import mechanisms, routes, nmr, autopick, drawing
+from . import autopick, drawing
+mechanisms, routes, nmr = lazy('bioez.mechanisms'), lazy('bioez.routes'), lazy('bioez.nmr')
 from .vision import interpret_images, VISION_SYSTEM
 from .styles import answer_system, style_issue, diagram_issue, split_command, COMMANDS, command_issue
 from .followups import suggest_followups, clean_next_question

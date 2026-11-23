@@ -7,8 +7,8 @@ checked with RDKit; a model may only suggest which name was meant.
 """
 import difflib, json, re, sqlite3
 import httpx
-from rdkit import Chem
-from rdkit.Chem import Descriptors, rdMolDescriptors
+from .lazy import lazy
+Chem, Descriptors, rdMolDescriptors = lazy('rdkit.Chem'), lazy('rdkit.Chem.Descriptors'), lazy('rdkit.Chem.rdMolDescriptors')
 from .common_names import COMMON, normalize
 
 PUBCHEM = 'https://pubchem.ncbi.nlm.nih.gov/rest'

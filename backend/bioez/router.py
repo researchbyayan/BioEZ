@@ -2,7 +2,8 @@
 import json, re
 from pathlib import Path
 from uuid import uuid4
-from .biology import render_block
+from .lazy import lazy, lazy_function
+render_block = lazy_function(lazy('bioez.biology'), 'render_block')
 from .common_names import COMMON, normalize
 from .compounds import computed
 from .models import MoleculeBlock

@@ -20,3 +20,6 @@ release-audit/
 release-biology/
 release-mechanisms/
 release-benzene/
+
+# fast-anything profiling cache
+.fast/
