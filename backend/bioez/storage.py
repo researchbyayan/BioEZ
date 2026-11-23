@@ -111,7 +111,9 @@ class Store:
             if not isinstance(content,list):
                 continue
             for block in content:
-                if block.get('type') in {'molecule','reaction','mechanism','resonance'} and (block.get('svg') or any(step.get('svg') for step in block.get('steps',[])+block.get('contributors',[]))):
+                drawn = block.get('type') in {'molecule','reaction','mechanism','resonance'} and (block.get('svg') or any(step.get('svg') for step in block.get('steps',[])+block.get('contributors',[])))
+                # Proteins with a PDB structure and built-in diagrams are explorable too, so they belong here as well.
+                if drawn or (block.get('type') == 'protein' and block.get('pdb')) or block.get('type') == 'diagram':
                     results.append({'id':mid+':'+str(block.get('id','')),'conversation_id':cid,'title':title,'block':block})
                 if len(results)>=120:
                     return results

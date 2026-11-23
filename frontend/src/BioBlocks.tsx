@@ -87,33 +87,58 @@ export function PrimersView({block:b}:{block:Of<'primers'>}){
   </Card>;
 }
 
-function ProteinStructure({pdb,onClose}:{pdb:string;onClose:()=>void}){
-  const host=useRef<HTMLDivElement>(null);
-  const [state,setState]=useState<'loading'|'ready'|string>('loading');
+type ProteinStyle='cartoon'|'sticks';
+const PROTEIN_STYLES:[ProteinStyle,string][]=[['cartoon','Ribbon'],['sticks','Atoms']];
+
+/** Live 3D protein (3Dmol), used inline in answers and in the full view. Starts when scrolled into view. */
+function ProteinCanvas({pdb,compact,style,colour}:{pdb:string;compact?:boolean;style:ProteinStyle;colour:'spectrum'|'chain'}){
+  const host=useRef<HTMLDivElement>(null),viewer=useRef<any>(null);
+  const [state,setState]=useState<'idle'|'loading'|'ready'|'nowebgl'|string>('idle');
   useEffect(()=>{
-    let live=true,viewer:{clear:()=>void}|null=null;
+    if(!host.current)return;
+    const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();setState(s=>s==='idle'?'loading':s);}},{rootMargin:'200px'});
+    observer.observe(host.current);return()=>observer.disconnect();
+  },[]);
+  // Start once when it scrolls into view; cleared only on unmount or a different structure (not on the state change to 'ready').
+  const started=state!=='idle';
+  useEffect(()=>{
+    if(!started)return;
     if(!webgl()){setState('nowebgl');return;}
-    (async()=>{
-      try{
-        const [{data},$3Dmol]=await Promise.all([window.bioez.request('proteinStructure',{pdb}),import('3dmol')]);
-        if(!live||!host.current)return;
-        const v=$3Dmol.createViewer(host.current,{backgroundColor:'#150f1a',antialias:true});viewer=v;
-        v.addModel(data,'pdb');v.setStyle({},{cartoon:{color:'spectrum'}});v.setStyle({hetflag:true},{stick:{radius:0.18}});v.zoomTo();v.render();
-        setState('ready');
-      }catch(error){if(live)setState(error instanceof Error&&error.message?error.message.replace(/^Error invoking remote method '[^']+': (?:Error: )?/,''):'This structure could not be loaded.');}
-    })();
-    return()=>{live=false;viewer?.clear();};
-  },[pdb]);
-  return <Dialog title={`PDB ${pdb}`} onClose={onClose} className="smiles-explorer protein-viewer">
-    <p className="smiles-explorer-help">Cartoon coloured from the N-terminus (blue) to the C-terminus (red); ligands and hemes as sticks. Drag to rotate, scroll to zoom.</p>
-    {state==='nowebgl'?<p className="notice">The 3D viewer needs graphics acceleration (WebGL), which is turned off or unavailable on this computer. <button type="button" className="reference-link" onClick={()=>void window.bioez.openReference?.(`https://www.rcsb.org/3d-view/${pdb}`)}>Open {pdb} in the RCSB 3D viewer</button> instead.</p>:<>
-    {state!=='ready'&&<p className={state==='loading'?'smiles-explorer-status':'notice error'} role={state==='loading'?'status':'alert'}>{state==='loading'?'Downloading the structure from RCSB PDB…':state}</p>}
-    <div ref={host} className="protein-3d" aria-label={`3D structure of PDB entry ${pdb}`}/></>}
-  </Dialog>;
+    let live=true;
+    (async()=>{try{
+      const [{data},$3Dmol]=await Promise.all([window.bioez.request('proteinStructure',{pdb}),import('3dmol')]);
+      if(!live||!host.current)return;
+      const v=$3Dmol.createViewer(host.current,{backgroundColor:'black',backgroundAlpha:0,antialias:true});viewer.current=v;
+      v.addModel(data,'pdb');v.zoomTo();setState('ready');
+    }catch(error){if(live)setState(error instanceof Error&&error.message?error.message.replace(/^Error invoking remote method '[^']+': (?:Error: )?/,''):'This structure could not be loaded.');}})();
+    return()=>{live=false;viewer.current?.clear();viewer.current=null;};
+  },[started,pdb]);
+  useEffect(()=>{
+    const v=viewer.current;if(!v||state!=='ready')return;
+    const paint=colour==='chain'?{colorscheme:'chain'}:{color:'spectrum'};
+    v.setStyle({},{});
+    if(style==='cartoon'){v.setStyle({},{cartoon:{...paint,opacity:0.95}});v.setStyle({hetflag:true},{stick:{radius:0.2}});}
+    if(style==='sticks')v.setStyle({},{stick:{radius:0.14,colorscheme:'Jmol'},sphere:{scale:0.22,colorscheme:'Jmol'}});
+    v.render();
+  },[style,colour,state]);
+  return <div className={'explorer-stage protein-stage hologram'+(compact?' compact':'')}>
+    <div ref={host} className="protein-3d" aria-label={`3D structure of PDB entry ${pdb}`}/>
+    {(state==='loading'||state==='idle')&&<p className="smiles-explorer-status explorer-overlay" role="status">Downloading {pdb} from RCSB PDB…</p>}
+    {state==='nowebgl'&&<p className="notice explorer-overlay">The 3D view needs graphics acceleration (WebGL), which is unavailable here. <button type="button" className="reference-link" onClick={()=>void window.bioez.openReference?.(`https://www.rcsb.org/3d-view/${pdb}`)}>Open {pdb} on RCSB</button>.</p>}
+    {!['idle','loading','ready','nowebgl'].includes(state)&&<p className="notice error explorer-overlay" role="alert">{state}</p>}
+    {state==='ready'&&<p className="explorer-hint">{compact?'Drag to rotate · Full view to zoom':'Drag to rotate · scroll to zoom · right-drag to pan'}</p>}
+  </div>;
+}
+
+function ProteinControls({style,setStyle,colour,setColour}:{style:ProteinStyle;setStyle:(s:ProteinStyle)=>void;colour:'spectrum'|'chain';setColour:(c:'spectrum'|'chain')=>void}){
+  return <>
+    <div className="cut-control" role="group" aria-label="Display">{PROTEIN_STYLES.map(([k,l])=><button type="button" key={k} className="cut-mode" aria-pressed={style===k} onClick={()=>setStyle(k)}>{l}</button>)}</div>
+    {style!=='sticks'&&<div className="dimension-switch" role="group" aria-label="Colour"><button type="button" className="cut-mode" aria-pressed={colour==='spectrum'} onClick={()=>setColour('spectrum')} title="N-terminus blue to C-terminus red">Rainbow</button><button type="button" className="cut-mode" aria-pressed={colour==='chain'} onClick={()=>setColour('chain')}>By chain</button></div>}
+  </>;
 }
 
 export function ProteinView({block:b}:{block:Of<'protein'>}){
-  const [open,setOpen]=useState(false);
+  const [open,setOpen]=useState(false),[style,setStyle]=useState<ProteinStyle>('cartoon'),[colour,setColour]=useState<'spectrum'|'chain'>('spectrum');
   const rows:[string,string][]=[];
   if(b.gene)rows.push(['Gene',b.gene]);
   if(b.organism)rows.push(['Organism',b.organism]);
@@ -121,11 +146,18 @@ export function ProteinView({block:b}:{block:Of<'protein'>}){
   if(b.location)rows.push(['Location',b.location]);
   if(b.uniprot)rows.push(['UniProt',b.uniprot]);
   if(b.pdb)rows.push(['Structure',`${b.pdb}${b.method?` · ${b.method}`:''}${b.resolution?` · ${b.resolution} Å`:''}`]);
+  const controls=<ProteinControls style={style} setStyle={setStyle} colour={colour} setColour={setColour}/>;
   return <Card eyebrow="Protein" title={b.name||b.label} source={b.source}>
+    {b.pdb&&<div className="diagram-inline protein-inline">
+      {open?<div className="diagram-inline paused" aria-hidden="true"/>:<ProteinCanvas pdb={b.pdb} compact style={style} colour={colour}/>}
+      <div className="diagram-inline-bar">{controls}<span className="diagram-inline-status">{b.pdb_title&&<span className="protein-caption">{b.pdb_title.charAt(0)+b.pdb_title.slice(1).toLowerCase()}</span>}</span>
+        <button type="button" className="holo-toggle expand" onClick={()=>setOpen(true)}><i className="fas fa-expand" aria-hidden="true"/> Full view</button></div>
+    </div>}
     <Facts rows={rows}/>
     {b.function&&<p className="bio-function"><strong>Function.</strong> {b.function}</p>}
-    {b.pdb_title&&<p className="bio-pdb-title">{b.pdb_title.charAt(0)+b.pdb_title.slice(1).toLowerCase()}</p>}
-    {b.pdb&&<button type="button" className="bio-action" onClick={()=>setOpen(true)}><i className="fas fa-cube" aria-hidden="true"/> View 3D structure</button>}
-    {open&&b.pdb&&<ProteinStructure pdb={b.pdb} onClose={()=>setOpen(false)}/>}
+    {open&&b.pdb&&<Dialog title={`${b.name||b.label} · PDB ${b.pdb}`} onClose={()=>setOpen(false)} className="diagram-explorer protein-viewer">
+      <div className="protein-full"><ProteinCanvas pdb={b.pdb} style={style} colour={colour}/><div className="protein-full-tools">{controls}</div></div>
+      <p className="explorer-credit">Structure {b.pdb} from the RCSB Protein Data Bank; drawn with 3Dmol.js. {style!=='sticks'&&colour==='spectrum'?'Rainbow runs from the N-terminus (blue) to the C-terminus (red).':''}</p>
+    </Dialog>}
   </Card>;
 }

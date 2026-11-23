@@ -546,3 +546,15 @@ dialog.diagram-explorer .explorer-tools { left:12px; bottom:12px; }
 .explorer-trail i { font-size:9px; opacity:.6; }
 :root .app-shell .utility-dialog .explorer-trail button { padding:2px 8px!important; border-radius:999px!important; font-size:12px; color:#d8b4fe; }
 .explorer-trail b { color:var(--text); font-weight:500; }
+
+/* ---- Inline protein viewer ---- */
+.protein-inline { margin-bottom:14px; }
+.protein-stage { position:relative; height:360px; border-radius:20px; overflow:hidden; }
+.protein-stage .protein-3d { position:absolute; inset:0; height:auto; }
+.protein-caption { font-size:11.5px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.protein-full { display:flex; flex-direction:column; gap:10px; flex:1; min-height:0; }
+.protein-full .protein-stage { flex:1; height:auto; min-height:420px; border-radius:14px; }
+.protein-full-tools { display:flex; gap:8px; flex-wrap:wrap; }
+.library-thumbnail .library-glyph { font-size:30px; color:var(--green); opacity:.85; }
+.protein-inline .diagram-inline-bar { flex-wrap:wrap; row-gap:8px; }
+.protein-inline .cut-mode { white-space:nowrap; }
