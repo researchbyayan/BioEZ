@@ -1,0 +1,316 @@
+{
+ "title": "Human lungs and airways",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "bronchus",
+   "label": "Bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-anterior-basal-bronchus",
+   "label": "Right anterior basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-apical-bronchus",
+   "label": "Right apical bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-superior-bronchus",
+   "label": "Right superior bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-posterior-bronchus",
+   "label": "Right posterior bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-posterior-basal",
+   "label": "Right posterior basal",
+   "info": ""
+  },
+  {
+   "id": "right-medial-bronchus",
+   "label": "Right medial bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-medial-basal-bronchus",
+   "label": "Right medial basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-lower-lobar-bronchus",
+   "label": "Right lower lobar bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-lateral-bronchus",
+   "label": "Right lateral bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-lateral-basal-bronchus",
+   "label": "Right lateral basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-anterior-bronchus",
+   "label": "Right anterior bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-superior-lobar-bronchus",
+   "label": "Right superior lobar bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-middle-lobar-bronchus",
+   "label": "Right middle lobar bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-intermediate-bronchus",
+   "label": "Right intermediate bronchus",
+   "info": ""
+  },
+  {
+   "id": "right-main-bronchus",
+   "label": "Right main bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-anterior-basal-bronchus",
+   "label": "Left anterior basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-lateral-basal-bronchus",
+   "label": "Left lateral basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-lingula-inferior-bronchus",
+   "label": "Left lingula inferior bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-lingula-superior-bronchus",
+   "label": "Left lingula superior bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-lingular-bronchus",
+   "label": "Left lingular bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-anterior-bronchus",
+   "label": "Left anterior bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-apical-bronchus",
+   "label": "Left apical bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-medial-basal-bronchus",
+   "label": "Left medial basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-posterior-basal-bronchus",
+   "label": "Left posterior basal bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-superior-bronchus",
+   "label": "Left superior bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-inferior-lobar-bronchus",
+   "label": "Left inferior lobar bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-superior-lobar-bronchus",
+   "label": "Left superior lobar bronchus",
+   "info": ""
+  },
+  {
+   "id": "left-main-bronchus",
+   "label": "Left main bronchus",
+   "info": ""
+  },
+  {
+   "id": "tracheal-cartilage",
+   "label": "Tracheal cartilage",
+   "info": ""
+  },
+  {
+   "id": "corniculate-cartilage",
+   "label": "Corniculate cartilage",
+   "info": ""
+  },
+  {
+   "id": "arytenoid-cartilage",
+   "label": "Arytenoid cartilage",
+   "info": ""
+  },
+  {
+   "id": "thyroid-cartilage",
+   "label": "Thyroid cartilage",
+   "info": ""
+  },
+  {
+   "id": "epiglottic-cartilage",
+   "label": "Epiglottic cartilage",
+   "info": ""
+  },
+  {
+   "id": "cricoid-cartilage",
+   "label": "Cricoid cartilage",
+   "info": ""
+  },
+  {
+   "id": "carina",
+   "label": "Carina",
+   "info": ""
+  },
+  {
+   "id": "bronchial-cartilage",
+   "label": "Bronchial cartilage",
+   "info": ""
+  },
+  {
+   "id": "trachea",
+   "label": "Trachea",
+   "info": ""
+  },
+  {
+   "id": "hilum-upper",
+   "label": "Hilum upper",
+   "info": ""
+  },
+  {
+   "id": "right-anterior-bronchopulmonary-segment",
+   "label": "Right anterior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-posterior-bronchopulmonary-segment",
+   "label": "Right posterior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-apical-bronchopulmonary-segment",
+   "label": "Right apical bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-superior-bronchopulmonary-segment",
+   "label": "Right superior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-posterior-basal-bronchopulmonary-segment",
+   "label": "Right posterior basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-medial-basal-bronchopulmonary-segment",
+   "label": "Right medial basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-lateral-basal-bronchopulmonary-segment",
+   "label": "Right lateral basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-anterior-basal-bronchopulmonary-segment",
+   "label": "Right anterior basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "hilum-lower",
+   "label": "Hilum lower",
+   "info": ""
+  },
+  {
+   "id": "hilum-middle",
+   "label": "Hilum middle",
+   "info": ""
+  },
+  {
+   "id": "right-medial-bronchopulmonary-segment",
+   "label": "Right medial bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "right-lateral-bronchopulmonary-segment",
+   "label": "Right lateral bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "hilum",
+   "label": "Hilum",
+   "info": ""
+  },
+  {
+   "id": "left-superior-bronchopulmonary-segment",
+   "label": "Left superior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-posetrior-basal-bronchopulmonary-segment",
+   "label": "Left posetrior basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-medial-basal-bronchopulmonary-segment",
+   "label": "Left medial basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-lateral-basal-bronchopulmonary-segment",
+   "label": "Left lateral basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-anterior-basal-bronchopulmonary-segment",
+   "label": "Left anterior basal bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-lingula-inferior-bronchopulmonary-segment",
+   "label": "Left lingula inferior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-apical-bronchopulmonary-segment",
+   "label": "Left apical bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-anterior-bronchopulmonary-segment",
+   "label": "Left anterior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-posterior-bronchopulmonary-segment",
+   "label": "Left posterior bronchopulmonary segment",
+   "info": ""
+  },
+  {
+   "id": "left-lingula-superior-bronchopulmonary-segment",
+   "label": "Left lingula superior bronchopulmonary segment",
+   "info": ""
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "title": "Human fallopian tube",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "uterine-tube-infundibulum",
+   "label": "Uterine tube infundibulum",
+   "info": ""
+  },
+  {
+   "id": "fimbria-of-uterine-tube",
+   "label": "Fimbria of uterine tube",
+   "info": ""
+  },
+  {
+   "id": "isthmus-of-fallopian-tube",
+   "label": "Isthmus of fallopian tube",
+   "info": ""
+  },
+  {
+   "id": "ampulla-of-uterine-tube",
+   "label": "Ampulla of uterine tube",
+   "info": ""
+  }
+ ]
+}

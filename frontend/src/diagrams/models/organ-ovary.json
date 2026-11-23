@@ -1,0 +1,11 @@
+{
+ "title": "Human ovary",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "left-ovary",
+   "label": "Left ovary",
+   "info": ""
+  }
+ ]
+}

@@ -1,8 +1,7 @@
 """Build BioEZ's explorable 3D human anatomy models from BodyParts3D.
 
-Data: BodyParts3D, (c) The Database Center for Life Science, licensed under CC Attribution-Share
-Alike 2.1 Japan (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html). The derived GLB
-files keep that licence; they are not relicensed under BioEZ's MIT licence.
+Data: BodyParts3D, (c) The Database Center for Life Science, licensed under CC Attribution 4.0
+International (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html, updated 2025-02-27).
 
 Usage:
   .venv/bin/python scripts/build-anatomy-models.py <dir with FMA*.stl> <composite_parts.txt>
@@ -21,7 +20,7 @@ import numpy as np
 import trimesh
 
 OUT = Path(__file__).resolve().parents[1] / 'frontend' / 'src' / 'diagrams' / 'models'
-CREDIT = 'BodyParts3D, © The Database Center for Life Science, CC BY-SA 2.1 Japan. Simplified for BioEZ.'
+CREDIT = 'BodyParts3D, © The Database Center for Life Science, licensed under CC Attribution 4.0 International. Simplified for BioEZ.'
 
 
 def load_tables(composite_file):

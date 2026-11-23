@@ -1,0 +1,66 @@
+{
+ "title": "Human prostate",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "anterior-fibromuscular-stroma",
+   "label": "Anterior fibromuscular stroma",
+   "info": ""
+  },
+  {
+   "id": "central-zone-of-prostate",
+   "label": "Central zone of prostate",
+   "info": ""
+  },
+  {
+   "id": "transition-zone-of-prostate",
+   "label": "Transition zone of prostate",
+   "info": ""
+  },
+  {
+   "id": "peripheral-zone-of-prostate",
+   "label": "Peripheral zone of prostate",
+   "info": ""
+  },
+  {
+   "id": "base-of-prostate",
+   "label": "Base of prostate",
+   "info": ""
+  },
+  {
+   "id": "apex-of-prostate",
+   "label": "Apex of prostate",
+   "info": ""
+  },
+  {
+   "id": "prostate-duct",
+   "label": "Prostate duct",
+   "info": ""
+  },
+  {
+   "id": "seminal-colliculus",
+   "label": "Seminal colliculus",
+   "info": ""
+  },
+  {
+   "id": "prostatic-utricle",
+   "label": "Prostatic utricle",
+   "info": ""
+  },
+  {
+   "id": "ejaculatory-duct",
+   "label": "Ejaculatory duct",
+   "info": ""
+  },
+  {
+   "id": "seminal-vesicle",
+   "label": "Seminal vesicle",
+   "info": ""
+  },
+  {
+   "id": "vas-deferens",
+   "label": "Vas deferens",
+   "info": ""
+  }
+ ]
+}

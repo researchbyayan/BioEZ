@@ -1,0 +1,56 @@
+{
+ "title": "Human large intestine",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "vermiform-appendix",
+   "label": "Vermiform appendix",
+   "info": ""
+  },
+  {
+   "id": "caecum",
+   "label": "Caecum",
+   "info": ""
+  },
+  {
+   "id": "ileocecal-valve",
+   "label": "Ileocecal valve",
+   "info": ""
+  },
+  {
+   "id": "transverse-colon",
+   "label": "Transverse colon",
+   "info": ""
+  },
+  {
+   "id": "splenic-flexure-of-colon",
+   "label": "Splenic flexure of colon",
+   "info": ""
+  },
+  {
+   "id": "sigmoid-colon",
+   "label": "Sigmoid colon",
+   "info": ""
+  },
+  {
+   "id": "rectum",
+   "label": "Rectum",
+   "info": ""
+  },
+  {
+   "id": "hepatic-flexure-of-colon",
+   "label": "Hepatic flexure of colon",
+   "info": ""
+  },
+  {
+   "id": "descending-colon",
+   "label": "Descending colon",
+   "info": ""
+  },
+  {
+   "id": "ascending-colon",
+   "label": "Ascending colon",
+   "info": ""
+  }
+ ]
+}

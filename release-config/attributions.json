@@ -214,8 +214,17 @@
       "name": "BodyParts3D",
       "url": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html",
       "group": "data",
-      "license": "CC-BY-SA-2.1-JP",
+      "license": "CC-BY-4.0",
       "note": "3D human body, skeleton and heart models, simplified for BioEZ. (c) The Database Center for Life Science.",
+      "licenseFiles": []
+    },
+    {
+      "id": "hubmap-hra",
+      "name": "HuBMAP Human Reference Atlas",
+      "url": "https://hubmapconsortium.github.io/ccf/pages/ccf-3d-reference-library.html",
+      "group": "data",
+      "license": "CC-BY-4.0",
+      "note": "3D organ models (CCF 3D Reference Object Library v1.2), simplified for BioEZ.",
       "licenseFiles": []
     }
   ]

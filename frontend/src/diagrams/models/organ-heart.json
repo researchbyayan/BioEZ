@@ -1,0 +1,76 @@
+{
+ "title": "Human heart",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "heart-left-ventricle",
+   "label": "Left ventricle",
+   "info": ""
+  },
+  {
+   "id": "interventricular-septum",
+   "label": "Interventricular septum",
+   "info": ""
+  },
+  {
+   "id": "heart-right-ventricle",
+   "label": "Right ventricle",
+   "info": ""
+  },
+  {
+   "id": "right-cardiac-atrium",
+   "label": "Right atrium",
+   "info": ""
+  },
+  {
+   "id": "left-cardiac-atrium",
+   "label": "Left atrium",
+   "info": ""
+  },
+  {
+   "id": "papillary-muscle-of-heart-posteromedial",
+   "label": "Papillary muscle of heart posteromedial",
+   "info": ""
+  },
+  {
+   "id": "papillary-muscle-of-heart-posterior",
+   "label": "Papillary muscle of heart posterior",
+   "info": ""
+  },
+  {
+   "id": "papillary-muscle-of-heart-medial",
+   "label": "Papillary muscle of heart medial",
+   "info": ""
+  },
+  {
+   "id": "papillary-muscle-of-heart-anterolateral",
+   "label": "Papillary muscle of heart anterolateral",
+   "info": ""
+  },
+  {
+   "id": "papillary-muscle-of-heart-anterior",
+   "label": "Papillary muscle of heart anterior",
+   "info": ""
+  },
+  {
+   "id": "pulmonary-valve",
+   "label": "Pulmonary valve",
+   "info": ""
+  },
+  {
+   "id": "aortic-valve",
+   "label": "Aortic valve",
+   "info": ""
+  },
+  {
+   "id": "tricuspid-valve",
+   "label": "Tricuspid valve",
+   "info": ""
+  },
+  {
+   "id": "mitral-valve",
+   "label": "Mitral valve",
+   "info": ""
+  }
+ ]
+}

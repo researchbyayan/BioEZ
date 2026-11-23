@@ -76,12 +76,20 @@ them is included:
 `frontend/src/diagrams/models/human-body.glb`, `human-skeleton.glb` and `human-heart.glb` are simplified
 from BodyParts3D release 3.0 (2011-09-15), via the STL conversion at
 https://github.com/Kevin-Mattheus-Moerman/BodyParts3D, by `scripts/build-anatomy-models.py`.
-"BodyParts3D, (c) The Database Center for Life Science licensed under CC Attribution-Share Alike 2.1 Japan"
-(https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html). The derived models keep that licence and are
-not relicensed under BioEZ's MIT licence. Please cite: Mitsuhashi N. et al. BodyParts3D: 3D structure database
+"BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International"
+(https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html, licence updated 2025-02-27; it supersedes the older
+CC BY-SA 2.1 Japan notice in the source files). Please cite: Mitsuhashi N. et al. BodyParts3D: 3D structure database
 for anatomical concepts. Nucleic Acids Res. 2009;37:D782-5.
 
 ## BioEZ diagrams
 
 The 3D cell models (`scripts/build-cell-models.py`) and the section diagrams in `frontend/src/diagrams/sections`
 are original BioEZ work under BioEZ's MIT licence.
+
+## HuBMAP Human Reference Atlas (3D organ models)
+
+`frontend/src/diagrams/models/organ-*.glb` are simplified by `scripts/build-organ-models.py` from the HuBMAP
+CCF 3D Reference Object Library v1.2 (https://hubmapconsortium.github.io/ccf/pages/ccf-3d-reference-library.html,
+https://github.com/hubmapconsortium/ccf-releases), licensed under CC BY 4.0. Structures are merged across left/right
+copies and sub-pieces, simplified and recoloured by tissue type. Please cite: Börner K. et al. Human BioMolecular Atlas
+Program (HuBMAP): 3D Human Reference Atlas construction and usage. Nature Methods (2025).

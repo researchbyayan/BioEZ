@@ -1,0 +1,716 @@
+{
+ "title": "Human brain",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "optic-chiasm",
+   "label": "Optic chiasm",
+   "info": ""
+  },
+  {
+   "id": "subthalamic-nucleus",
+   "label": "Subthalamic nucleus",
+   "info": ""
+  },
+  {
+   "id": "mammillary-region-of-hth",
+   "label": "Mammillary region of hypothalamus",
+   "info": ""
+  },
+  {
+   "id": "inferior-colliculus",
+   "label": "Inferior colliculus",
+   "info": ""
+  },
+  {
+   "id": "red-nucleus",
+   "label": "Red nucleus",
+   "info": ""
+  },
+  {
+   "id": "midbrain-tegmentum",
+   "label": "Midbrain tegmentum",
+   "info": ""
+  },
+  {
+   "id": "preoptic-region-of-hth",
+   "label": "Preoptic region of hypothalamus",
+   "info": ""
+  },
+  {
+   "id": "tuberal-region-of-hth",
+   "label": "Tuberal region of hypothalamus",
+   "info": ""
+  },
+  {
+   "id": "hypothalamus",
+   "label": "Hypothalamus",
+   "info": ""
+  },
+  {
+   "id": "perirhinal-gyrus-rostral-part-of-fugt",
+   "label": "Perirhinal gyrus rostral part of (temporal fusiform gyrus)",
+   "info": ""
+  },
+  {
+   "id": "frontal-pole",
+   "label": "Frontal pole",
+   "info": ""
+  },
+  {
+   "id": "frontomarginal-gyrus",
+   "label": "Frontomarginal gyrus",
+   "info": ""
+  },
+  {
+   "id": "rostral-gyrus",
+   "label": "Rostral gyrus",
+   "info": ""
+  },
+  {
+   "id": "paracingulate-gyrus",
+   "label": "Paracingulate gyrus",
+   "info": ""
+  },
+  {
+   "id": "atrium-of-lateral-ventricle",
+   "label": "Atrium of lateral ventricle",
+   "info": ""
+  },
+  {
+   "id": "posteroventral-putamen",
+   "label": "Posteroventral putamen",
+   "info": ""
+  },
+  {
+   "id": "optic-radiation",
+   "label": "Optic radiation",
+   "info": ""
+  },
+  {
+   "id": "parietal-operculum",
+   "label": "Parietal operculum",
+   "info": ""
+  },
+  {
+   "id": "lateral-olfactory-gyrus",
+   "label": "Lateral olfactory gyrus",
+   "info": ""
+  },
+  {
+   "id": "midline-nuclear-complex",
+   "label": "Midline nuclear complex",
+   "info": ""
+  },
+  {
+   "id": "central-canal-of-medulla-oblongata",
+   "label": "Central canal of medulla oblongata",
+   "info": ""
+  },
+  {
+   "id": "fourth-ventricle",
+   "label": "Fourth ventricle",
+   "info": ""
+  },
+  {
+   "id": "middle-cerebellar-peduncle",
+   "label": "Middle cerebellar peduncle",
+   "info": ""
+  },
+  {
+   "id": "inferior-cerebellar-peduncle",
+   "label": "Inferior cerebellar peduncle",
+   "info": ""
+  },
+  {
+   "id": "inferior-olive",
+   "label": "Inferior olive",
+   "info": ""
+  },
+  {
+   "id": "tegmentum-of-medulla-oblongata",
+   "label": "Tegmentum of medulla oblongata",
+   "info": ""
+  },
+  {
+   "id": "pyramidal-part-of-medulla-oblongata",
+   "label": "Pyramidal part of medulla oblongata",
+   "info": ""
+  },
+  {
+   "id": "pontine-tegmentum",
+   "label": "Pontine tegmentum",
+   "info": ""
+  },
+  {
+   "id": "basilar-part-of-pons",
+   "label": "Basilar part of pons",
+   "info": ""
+  },
+  {
+   "id": "lateral-hemisphere-of-cerebellum",
+   "label": "Lateral hemisphere of cerebellum",
+   "info": ""
+  },
+  {
+   "id": "paravermis-of-cerebellum",
+   "label": "Paravermis of cerebellum",
+   "info": ""
+  },
+  {
+   "id": "cerebral-aqueduct",
+   "label": "Cerebral aqueduct",
+   "info": ""
+  },
+  {
+   "id": "superior-cerebellar-peduncle-brachium-conjunctivum",
+   "label": "Superior cerebellar peduncle brachium conjunctivum",
+   "info": ""
+  },
+  {
+   "id": "cerebral-peduncle-crus-cerebri",
+   "label": "Cerebral peduncle crus cerebri",
+   "info": ""
+  },
+  {
+   "id": "superior-colliculus",
+   "label": "Superior colliculus",
+   "info": ""
+  },
+  {
+   "id": "substantia-nigra",
+   "label": "Substantia nigra",
+   "info": ""
+  },
+  {
+   "id": "pretectal-region",
+   "label": "Pretectal region",
+   "info": ""
+  },
+  {
+   "id": "limen-insula",
+   "label": "Limen insula",
+   "info": ""
+  },
+  {
+   "id": "short-insular-gyri",
+   "label": "Short insular gyri",
+   "info": ""
+  },
+  {
+   "id": "long-insular-gyri",
+   "label": "Long insular gyri",
+   "info": ""
+  },
+  {
+   "id": "tail-of-hippocampus",
+   "label": "Tail of hippocampus",
+   "info": ""
+  },
+  {
+   "id": "body-of-hippocampus",
+   "label": "Body of hippocampus",
+   "info": ""
+  },
+  {
+   "id": "head-of-hippocampus",
+   "label": "Head of hippocampus",
+   "info": ""
+  },
+  {
+   "id": "gyrus-ambiens",
+   "label": "Gyrus ambiens",
+   "info": ""
+  },
+  {
+   "id": "posterior-parahippocampal-gyrus",
+   "label": "Posterior parahippocampal gyrus",
+   "info": ""
+  },
+  {
+   "id": "anterior-parahippocampal-gyrus",
+   "label": "Anterior parahippocampal gyrus",
+   "info": ""
+  },
+  {
+   "id": "subcallosal-gyrus-parolfactory-gyrus",
+   "label": "Subcallosal gyrus parolfactory gyrus",
+   "info": ""
+  },
+  {
+   "id": "ingulo-parahippocampal-isthmus",
+   "label": "Ingulo parahippocampal isthmus",
+   "info": ""
+  },
+  {
+   "id": "cingulate-gyrus-caudal-posterior-part",
+   "label": "Cingulate gyrus caudal posterior part",
+   "info": ""
+  },
+  {
+   "id": "cingulate-gyrus-rostral-anterior-part",
+   "label": "Cingulate gyrus rostral anterior part",
+   "info": ""
+  },
+  {
+   "id": "superior-occipital-gyrus",
+   "label": "Superior occipital gyrus",
+   "info": ""
+  },
+  {
+   "id": "inferior-occipital-gyrus",
+   "label": "Inferior occipital gyrus",
+   "info": ""
+  },
+  {
+   "id": "lateral-occipitotemporal-fusiform-gyrus-occipital-part",
+   "label": "Lateral occipitotemporal fusiform gyrus occipital part",
+   "info": ""
+  },
+  {
+   "id": "lingual-gyrus-medial-occipitotemporal-gyrus",
+   "label": "Lingual gyrus medial occipitotemporal gyrus",
+   "info": ""
+  },
+  {
+   "id": "cuneus",
+   "label": "Cuneus",
+   "info": ""
+  },
+  {
+   "id": "occipital-pole",
+   "label": "Occipital pole",
+   "info": ""
+  },
+  {
+   "id": "planum-polare",
+   "label": "Planum polare",
+   "info": ""
+  },
+  {
+   "id": "temporal-pole",
+   "label": "Temporal pole",
+   "info": ""
+  },
+  {
+   "id": "planum-temporale",
+   "label": "Planum temporale",
+   "info": ""
+  },
+  {
+   "id": "transverse-temporal-gyrus-heschls-gyrus",
+   "label": "Transverse temporal gyrus heschls gyrus",
+   "info": ""
+  },
+  {
+   "id": "occipitotemporal-fusiform-gyrus-temporal-part",
+   "label": "Occipitotemporal fusiform gyrus temporal part",
+   "info": ""
+  },
+  {
+   "id": "inferior-temporal-gyrus",
+   "label": "Inferior temporal gyrus",
+   "info": ""
+  },
+  {
+   "id": "middle-temporal-gyrus",
+   "label": "Middle temporal gyrus",
+   "info": ""
+  },
+  {
+   "id": "superior-temporal-gyrus",
+   "label": "Superior temporal gyrus",
+   "info": ""
+  },
+  {
+   "id": "paracentral-lobule-caudal-part",
+   "label": "Paracentral lobule caudal part",
+   "info": ""
+  },
+  {
+   "id": "precuneus",
+   "label": "Precuneus",
+   "info": ""
+  },
+  {
+   "id": "angular-gyrus",
+   "label": "Angular gyrus",
+   "info": ""
+  },
+  {
+   "id": "supramarginal-gyrus",
+   "label": "Supramarginal gyrus",
+   "info": ""
+  },
+  {
+   "id": "supraparietal-lobule",
+   "label": "Supraparietal lobule",
+   "info": ""
+  },
+  {
+   "id": "postcentral-gyrus",
+   "label": "Postcentral gyrus",
+   "info": ""
+  },
+  {
+   "id": "frontal-operculum",
+   "label": "Frontal operculum",
+   "info": ""
+  },
+  {
+   "id": "paracentral-lobule-rostral-part",
+   "label": "Paracentral lobule rostral part",
+   "info": ""
+  },
+  {
+   "id": "lateral-orbital-gyrus",
+   "label": "Lateral orbital gyrus",
+   "info": ""
+  },
+  {
+   "id": "posterior-intermediate-orbital-gyrus",
+   "label": "Posterior intermediate orbital gyrus",
+   "info": ""
+  },
+  {
+   "id": "anterior-intermediate-orbital-gyrus",
+   "label": "Anterior intermediate orbital gyrus",
+   "info": ""
+  },
+  {
+   "id": "medial-orbital-gyrus",
+   "label": "Medial orbital gyrus",
+   "info": ""
+  },
+  {
+   "id": "gyrus-rectus-straight-gyrus",
+   "label": "Gyrus rectus straight gyrus",
+   "info": ""
+  },
+  {
+   "id": "inferior-frontal-gyrus-opercular-part",
+   "label": "Inferior frontal gyrus opercular part",
+   "info": ""
+  },
+  {
+   "id": "inferior-frontal-gyrus-triangular-part",
+   "label": "Inferior frontal gyrus triangular part",
+   "info": ""
+  },
+  {
+   "id": "middle-frontal-gyrus",
+   "label": "Middle frontal gyrus",
+   "info": ""
+  },
+  {
+   "id": "superior-frontal-gyrus",
+   "label": "Superior frontal gyrus",
+   "info": ""
+  },
+  {
+   "id": "precentral-gyrus",
+   "label": "Precentral gyrus",
+   "info": ""
+  },
+  {
+   "id": "olfactory-tract",
+   "label": "Olfactory tract",
+   "info": ""
+  },
+  {
+   "id": "white-matter-of-hindbrain",
+   "label": "White matter of hindbrain",
+   "info": ""
+  },
+  {
+   "id": "cerebellar-deep-nuclei",
+   "label": "Cerebellar deep nuclei",
+   "info": ""
+  },
+  {
+   "id": "cerebellar-vermis",
+   "label": "Cerebellar vermis",
+   "info": ""
+  },
+  {
+   "id": "third-ventricle",
+   "label": "Third ventricle",
+   "info": ""
+  },
+  {
+   "id": "inferior-horn-of-lateral-ventricle",
+   "label": "Inferior horn of lateral ventricle",
+   "info": ""
+  },
+  {
+   "id": "posterior-horn-of-lateral-ventricle",
+   "label": "Posterior horn of lateral ventricle",
+   "info": ""
+  },
+  {
+   "id": "body-of-lateral-ventricle",
+   "label": "Body of lateral ventricle",
+   "info": ""
+  },
+  {
+   "id": "anterior-horn-of-lateral-ventricle",
+   "label": "Anterior horn of lateral ventricle",
+   "info": ""
+  },
+  {
+   "id": "optic-tract",
+   "label": "Optic tract",
+   "info": ""
+  },
+  {
+   "id": "mammillothalamic-tract",
+   "label": "Mammillothalamic tract",
+   "info": ""
+  },
+  {
+   "id": "fornix",
+   "label": "Fornix",
+   "info": ""
+  },
+  {
+   "id": "corpus-callosum",
+   "label": "Corpus callosum",
+   "info": ""
+  },
+  {
+   "id": "anterior-commissure",
+   "label": "Anterior commissure",
+   "info": ""
+  },
+  {
+   "id": "white-matter-of-forebrain",
+   "label": "White matter of forebrain",
+   "info": ""
+  },
+  {
+   "id": "supraoptic-region-of-hth",
+   "label": "Supraoptic region of hypothalamus",
+   "info": ""
+  },
+  {
+   "id": "zona-incerta",
+   "label": "Zona incerta",
+   "info": ""
+  },
+  {
+   "id": "pineal-body",
+   "label": "Pineal body",
+   "info": ""
+  },
+  {
+   "id": "habenular-nuclei",
+   "label": "Habenular nuclei",
+   "info": ""
+  },
+  {
+   "id": "parafascicular-nucleus-of-thalamus",
+   "label": "Parafascicular nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "centromedian-nucleus-of-thalamus",
+   "label": "Centromedian nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "medial-geniculate-nuclei",
+   "label": "Medial geniculate nuclei",
+   "info": ""
+  },
+  {
+   "id": "dorsal-lateral-geniculate-nucleus",
+   "label": "Dorsal lateral geniculate nucleus",
+   "info": ""
+  },
+  {
+   "id": "ventral-posterior-medial-nucleus",
+   "label": "Ventral posterior medial nucleus",
+   "info": ""
+  },
+  {
+   "id": "ventral-posterior-lateral-nucleus",
+   "label": "Ventral posterior lateral nucleus",
+   "info": ""
+  },
+  {
+   "id": "ventral-lateral-nucleus-of-thalamus",
+   "label": "Ventral lateral nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "ventral-anterior-nucleus-of-thalamus",
+   "label": "Ventral anterior nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "pulvinar-of-thalamus",
+   "label": "Pulvinar of thalamus",
+   "info": ""
+  },
+  {
+   "id": "lateral-posterior-nucleus-of-thalamus",
+   "label": "Lateral posterior nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "reuniens-nucleus-medioventral-nucleus-of-thalamus",
+   "label": "Reuniens nucleus medioventral nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "mediodorsal-nucleus-of-thalamus",
+   "label": "Mediodorsal nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "lateral-dorsal-nucleus-of-thalamus",
+   "label": "Lateral dorsal nucleus of thalamus",
+   "info": ""
+  },
+  {
+   "id": "anterior-nuclear-complex-of-thalamus",
+   "label": "Anterior nuclear complex of thalamus",
+   "info": ""
+  },
+  {
+   "id": "thalamus",
+   "label": "Thalamus",
+   "info": ""
+  },
+  {
+   "id": "bed-nucleus-of-stria-terminalis",
+   "label": "Bed nucleus of stria terminalis",
+   "info": ""
+  },
+  {
+   "id": "amygdalohippocampal-area",
+   "label": "Amygdalohippocampal area",
+   "info": ""
+  },
+  {
+   "id": "medial-nucleus",
+   "label": "Medial nucleus",
+   "info": ""
+  },
+  {
+   "id": "posterior-cortical-nucleus",
+   "label": "Posterior cortical nucleus",
+   "info": ""
+  },
+  {
+   "id": "anterior-cortical-nucleus",
+   "label": "Anterior cortical nucleus",
+   "info": ""
+  },
+  {
+   "id": "basomedial-nucleus-accessory-basal-nucleus",
+   "label": "Basomedial nucleus accessory basal nucleus",
+   "info": ""
+  },
+  {
+   "id": "basolateral-nucleus-basal-nucleus",
+   "label": "Basolateral nucleus basal nucleus",
+   "info": ""
+  },
+  {
+   "id": "lateral-nucleus",
+   "label": "Lateral nucleus",
+   "info": ""
+  },
+  {
+   "id": "central-nuclear-group",
+   "label": "Central nuclear group",
+   "info": ""
+  },
+  {
+   "id": "anterior-amygdaloid-area",
+   "label": "Anterior amygdaloid area",
+   "info": ""
+  },
+  {
+   "id": "amygdaloid-complex",
+   "label": "Amygdaloid complex",
+   "info": ""
+  },
+  {
+   "id": "septal-nuclei",
+   "label": "Septal nuclei",
+   "info": ""
+  },
+  {
+   "id": "basal-forebrain",
+   "label": "Basal forebrain",
+   "info": ""
+  },
+  {
+   "id": "claustrum",
+   "label": "Claustrum",
+   "info": ""
+  },
+  {
+   "id": "internal-segment-of-globus-pallidus",
+   "label": "Internal segment of globus pallidus",
+   "info": ""
+  },
+  {
+   "id": "external-segment-of-globus-pallidus",
+   "label": "External segment of globus pallidus",
+   "info": ""
+  },
+  {
+   "id": "nucleus-accumbens",
+   "label": "Nucleus accumbens",
+   "info": ""
+  },
+  {
+   "id": "putamen",
+   "label": "Putamen",
+   "info": ""
+  },
+  {
+   "id": "tail-of-caudate",
+   "label": "Tail of caudate",
+   "info": ""
+  },
+  {
+   "id": "body-of-caudate",
+   "label": "Body of caudate",
+   "info": ""
+  },
+  {
+   "id": "head-of-caudate",
+   "label": "Head of caudate",
+   "info": ""
+  },
+  {
+   "id": "temporal-agranular-insular-cortex-area-tl",
+   "label": "Temporal agranular insular cortex area tl",
+   "info": ""
+  },
+  {
+   "id": "frontal-agranular-insular-cortex-area-fl",
+   "label": "Frontal agranular insular cortex area fl",
+   "info": ""
+  },
+  {
+   "id": "piriform-region",
+   "label": "Piriform region",
+   "info": ""
+  },
+  {
+   "id": "anterior-olfactory-nucleus",
+   "label": "Anterior olfactory nucleus",
+   "info": ""
+  },
+  {
+   "id": "olfactory-bulb",
+   "label": "Olfactory bulb",
+   "info": ""
+  }
+ ]
+}

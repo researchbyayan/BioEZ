@@ -25,7 +25,8 @@ function Info({part}:{part:Part|undefined}){
   return <div className="explorer-info" aria-live="polite">{part?<><strong>{part.label}</strong>{part.info&&<p>{part.info}</p>}</>:<p className="muted">Hover a part to identify it; click it to zoom in.</p>}</div>;
 }
 
-interface ViewerProps {toolsTarget?:HTMLElement|null;entry:DiagramEntry;focus?:string;compact?:boolean;hologram:boolean;onParts?:(parts:Part[])=>void;active:string|null;setActive:(id:string|null)=>void;zoomTo:{id:string;n:number}|null;hidden?:Set<string>}
+export type Cut={mode:'off'|'ts'|'ls';t:number};
+interface ViewerProps {cut?:Cut;toolsTarget?:HTMLElement|null;entry:DiagramEntry;focus?:string;compact?:boolean;hologram:boolean;onParts?:(parts:Part[])=>void;active:string|null;setActive:(id:string|null)=>void;zoomTo:{id:string;n:number}|null;hidden?:Set<string>}
 
 /* ---------- 2D sections (T.S. / L.S. / V.S.) ---------- */
 function SectionViewer({entry,focus,compact,hologram,onParts,active,setActive,zoomTo,toolsTarget}:ViewerProps){
@@ -83,9 +84,9 @@ const props_tools=(target?:HTMLElement|null)=>target?createPortal(<span classNam
 /** X-ray look: shells (skin, membranes) become see-through, solid parts stay nearly solid, colours unchanged. */
 const xray=(base:number,on:boolean)=>on?(base<1?base*0.6:0.88):base;
 
-type ModelApi={highlight:(id:string|null)=>void;visible:(id:string,on:boolean)=>void;focus:(id:string|null)=>void;hologram:(on:boolean)=>void};
+type ModelApi={cut:(cut:Cut)=>void;highlight:(id:string|null)=>void;visible:(id:string,on:boolean)=>void;focus:(id:string|null)=>void;hologram:(on:boolean)=>void};
 
-function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoomTo,hidden,toolsTarget}:ViewerProps){
+function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoomTo,hidden,toolsTarget,cut}:ViewerProps){
   const host=useRef<HTMLDivElement>(null);
   const visible=useVisible(host,!compact);
   const [state,setState]=useState<'idle'|'loading'|'ready'|'nowebgl'|'error'>('idle');
@@ -100,10 +101,12 @@ function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoom
       if(!live||!host.current)return;
       type Mesh=import('three').Mesh;type Std=import('three').MeshStandardMaterial;
       const el=host.current,width=el.clientWidth,height=el.clientHeight;
-      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(2,window.devicePixelRatio));renderer.setSize(width,height);renderer.setClearColor(0x000000,0);renderer.domElement.classList.add('model-canvas');el.prepend(renderer.domElement);
+      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(2,window.devicePixelRatio));renderer.setSize(width,height);renderer.setClearColor(0x000000,0);renderer.localClippingEnabled=true;renderer.domElement.classList.add('model-canvas');el.querySelectorAll('canvas.model-canvas').forEach(c=>c.remove());el.prepend(renderer.domElement);
       const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(40,width/height,0.01,5000);
       scene.add(new THREE.HemisphereLight(0xffffff,0x332244,1.6));const sun=new THREE.DirectionalLight(0xffffff,1.6);sun.position.set(3,5,4);scene.add(sun);const rim=new THREE.DirectionalLight(0xc084fc,1.1);rim.position.set(-4,-2,-3);scene.add(rim);
       const gltf=await new GLTFLoader().parseAsync(model.glb,'');
+      // Cancelled while parsing (closed, or React re-running the effect): don't leave a frozen canvas behind.
+      if(!live){renderer.dispose();renderer.domElement.remove();return;}
       const root=gltf.scene;scene.add(root);
       const box=new THREE.Box3().setFromObject(root),size=box.getSize(new THREE.Vector3()).length(),center=box.getCenter(new THREE.Vector3());
       root.position.sub(center);root.updateMatrixWorld(true);
@@ -113,12 +116,13 @@ function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoom
       const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.autoRotate=!focus;controls.autoRotateSpeed=0.8;controls.enableZoom=!compact;controls.addEventListener('start',()=>{controls.autoRotate=false;});
       const byPart=new Map<string,Mesh[]>(),holo:Mesh[]=[];
       const holoMaterial=new THREE.ShaderMaterial({vertexShader:HOLO_VERTEX,fragmentShader:HOLO_FRAGMENT,uniforms:{tint:{value:new THREE.Color(0xb47cff)},strength:{value:0.42}},transparent:true,blending:THREE.AdditiveBlending,depthWrite:false});
-      const meshes:Mesh[]=[];root.traverse(o=>{if((o as Mesh).isMesh)meshes.push(o as Mesh);});meshes.forEach(m=>{if(!m.geometry.getAttribute('normal'))m.geometry.computeVertexNormals();const id=m.name.replace(/_\d+$/,'');const key=model.parts.find(p=>id===p.id||id.startsWith(p.id))?.id||id;(byPart.get(key)||byPart.set(key,[]).get(key)!).push(m);m.material=(m.material as Std).clone();
+      const meshes:Mesh[]=[];root.traverse(o=>{if((o as Mesh).isMesh)meshes.push(o as Mesh);});meshes.forEach(m=>{if(!m.geometry.getAttribute('normal'))m.geometry.computeVertexNormals();const id=m.name.replace(/_\d+$/,'');const key=(model.parts.find(p=>id===p.id)||model.parts.find(p=>id.startsWith(p.id+'_')))?.id||id;(byPart.get(key)||byPart.set(key,[]).get(key)!).push(m);m.material=(m.material as Std).clone();
         const glow=new THREE.Mesh(m.geometry,holoMaterial);glow.raycast=()=>{};m.add(glow);holo.push(glow);});
       const swatch=(id:string)=>{const m=byPart.get(id)?.[0]?.material as Std|undefined;return m?.color?'#'+m.color.getHexString():undefined;};
       onParts?.(model.parts.filter(p=>byPart.has(p.id)).map(p=>({...p,colour:swatch(p.id)})));
       // Smoothly move the camera to frame one part (or the whole model).
-      let tween:{from:import('three').Vector3;to:import('three').Vector3;tFrom:import('three').Vector3;tTo:import('three').Vector3;t:number}|null=null;let holoOn=hologram;
+      let tween:{from:import('three').Vector3;to:import('three').Vector3;tFrom:import('three').Vector3;tTo:import('three').Vector3;t:number}|null=null;let holoOn=hologram;let lastCut:Cut['mode']='off';
+      const plane=new THREE.Plane(),modelBox=new THREE.Box3().setFromObject(root);
       const focusOn=(id:string|null)=>{
         const meshes=id?byPart.get(id):null,target=new THREE.Box3();
         if(meshes?.length)meshes.forEach(m=>target.expandByObject(m));else target.setFromObject(root);
@@ -132,11 +136,33 @@ function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoom
           const faded=!!id&&!on;mat.opacity=faded?Math.min(base,0.2):xray(base,holoOn);mat.transparent=mat.opacity<1;mat.depthWrite=!faded;mat.needsUpdate=true;})),
         visible:(id,on)=>byPart.get(id)?.forEach(m=>{m.visible=on;}),
         focus:focusOn,
+        cut:({mode,t})=>{
+          const planes=mode==='off'?[]:[plane];
+          if(mode!=='off'){
+            const dims=modelBox.getSize(new THREE.Vector3()),axes=[new THREE.Vector3(1,0,0),new THREE.Vector3(0,1,0),new THREE.Vector3(0,0,1)];
+            const lengths=[dims.x,dims.y,dims.z],long=lengths.indexOf(Math.max(...lengths));
+            // T.S.: across the organ's long axis. L.S.: lengthwise, viewed from the front (or the side for front-to-back organs).
+            const normal=mode==='ts'?axes[long].clone():(long===2?axes[0].clone():axes[2].clone());
+            const lo=modelBox.min.dot(normal),hi=modelBox.max.dot(normal);
+            plane.set(normal,-(lo+(hi-lo)*t));
+            if(lastCut!==mode){
+              // Three.js keeps the side the normal points to, so look from the removed side straight at the cut face,
+              // framing it by the organ's size across the cut rather than along it.
+              const centre=modelBox.getCenter(new THREE.Vector3()),onPlane=centre.clone().add(normal.clone().multiplyScalar(lo+(hi-lo)*t-centre.dot(normal)));
+              const across=[dims.x,dims.y,dims.z].filter((_,i)=>i!==axes.findIndex(a=>Math.abs(a.dot(normal))>0.5)),fov=camera.fov*Math.PI/180;
+              const distance=Math.max(across[0]/2/Math.tan(fov/2)/camera.aspect,across[1]/2/Math.tan(fov/2),across[0]/2/Math.tan(fov/2))*1.45;
+              tween={from:camera.position.clone(),to:onPlane.clone().add(normal.clone().multiplyScalar(-distance)).add(Math.abs(normal.y)>0.9?new THREE.Vector3(0,0,distance*0.06):new THREE.Vector3(0,0,0)),tFrom:controls.target.clone(),tTo:onPlane,t:performance.now()};controls.autoRotate=false;}
+          }else if(lastCut!=='off'){focusOn(null);}
+          lastCut=mode;
+          byPart.forEach(meshes=>meshes.forEach(m=>{const mat=m.material as Std;mat.clippingPlanes=planes;mat.clipShadows=true;mat.needsUpdate=true;}));
+          holoMaterial.clippingPlanes=planes;holoMaterial.needsUpdate=true;
+        },
         hologram:on=>{holoOn=on;holo.forEach(g=>{g.visible=on;});byPart.forEach(meshes=>meshes.forEach(m=>{const mat=m.material as Std;const base=(mat.userData.opacity??=mat.opacity);mat.opacity=xray(base,on);mat.transparent=mat.opacity<1;mat.needsUpdate=true;}));},
       };
       api.current.hologram(hologram);
       hidden?.forEach(id=>api.current?.visible(id,false));
-      if(focus){api.current.highlight(focus);focusOn(focus);setActive(focus);}
+      if(cut&&cut.mode!=='off')api.current.cut(cut);
+      if(focus){api.current.highlight(focus);if(!cut||cut.mode==='off')focusOn(focus);setActive(focus);}
       const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();
       let down={x:0,y:0};
       const press=(e:PointerEvent)=>{down={x:e.clientX,y:e.clientY};};
@@ -157,6 +183,7 @@ function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoom
   },[entry.id,visible]);
   useEffect(()=>{api.current?.highlight(active);},[active]);
   useEffect(()=>{api.current?.hologram(hologram);},[hologram]);
+  useEffect(()=>{if(cut)api.current?.cut(cut);},[cut?.mode,cut?.t]);
   useEffect(()=>{if(zoomTo)api.current?.focus(zoomTo.id);},[zoomTo]);
   const shown=useRef<Set<string>>(new Set());
   useEffect(()=>{if(!api.current||!hidden)return;
@@ -172,8 +199,27 @@ function ModelViewer({entry,focus,compact,hologram,onParts,active,setActive,zoom
   </div>;
 }
 
+function CutControl({cut,setCut}:{cut:Cut;setCut:(cut:Cut)=>void}){
+  return <div className="cut-control" role="group" aria-label="Section cut">
+    {(['off','ts','ls'] as const).map(mode=><button type="button" key={mode} className="cut-mode" aria-pressed={cut.mode===mode} onClick={()=>setCut({mode,t:0.5})} title={mode==='ts'?'Transverse section: cut across':mode==='ls'?'Longitudinal section: cut lengthwise':'Whole organ'}>{mode==='off'?'Whole':mode==='ts'?'T.S.':'L.S.'}</button>)}
+    {cut.mode!=='off'&&<input type="range" min={0.05} max={0.95} step={0.01} value={cut.t} aria-label="Move the cut" onChange={e=>setCut({...cut,t:Number(e.target.value)})}/>}
+  </div>;
+}
+
 /** Live viewer used inline in answers and inside the explorer dialog. */
-export function DiagramViewer({id,focus,compact=false,onExpand}:{id:string;focus?:string;compact?:boolean;onExpand?:()=>void}){
+/** Switches a diagram between its 3D model and its linked 2D section drawing, when it has one. */
+export function DiagramViewer({id,focus,cut,compact=false,onExpand}:{id:string;focus?:string;cut?:'ts'|'ls'|'';compact?:boolean;onExpand?:()=>void}){
+  const [current,setCurrent]=useState(id);
+  useEffect(()=>setCurrent(id),[id]);
+  const base=DIAGRAMS.find(d=>d.id===id),twin=base?.twin?DIAGRAMS.find(d=>d.id===base.twin):undefined;
+  const switcher=twin&&base?<div className="dimension-switch" role="group" aria-label="View">
+    {[base,twin].sort((a,b)=>a.kind==='model'?-1:b.kind==='model'?1:0).map(d=><button type="button" key={d.id} className="cut-mode" aria-pressed={current===d.id} onClick={()=>setCurrent(d.id)} title={d.title}>{d.kind==='model'?'3D':'2D'}</button>)}
+  </div>:null;
+  return <ViewerBody key={current} id={current} focus={current===id?focus:undefined} cut={current===id?cut:''} compact={compact} onExpand={onExpand} switcher={switcher}/>;
+}
+
+function ViewerBody({id,focus,cut:initialCut,compact=false,onExpand,switcher}:{id:string;focus?:string;cut?:'ts'|'ls'|'';compact?:boolean;onExpand?:()=>void;switcher?:React.ReactNode}){
+  const [cut,setCut]=useState<Cut>({mode:initialCut||'off',t:0.5});
   const entry=useMemo(()=>DIAGRAMS.find(d=>d.id===id),[id]);
   const [parts,setParts]=useState<Part[]>([]),[active,setActive]=useState<string|null>(focus||null),[hidden,setHidden]=useState<Set<string>>(new Set());
   const [hologram,setHologram]=useState(true),[zoomTo,setZoomTo]=useState<{id:string;n:number}|null>(null);
@@ -181,13 +227,16 @@ export function DiagramViewer({id,focus,compact=false,onExpand}:{id:string;focus
   if(!entry)return null;
   const select=(partId:string)=>{setActive(partId);setZoomTo(z=>({id:partId,n:(z?.n||0)+1}));};
   const toggle=(partId:string)=>setHidden(previous=>{const next=new Set(previous);next.has(partId)?next.delete(partId):next.add(partId);return next;});
-  const props={entry,focus,compact,hologram,onParts:setParts,active,setActive,zoomTo,hidden,toolsTarget};
+  const props={entry,focus,compact,hologram,onParts:setParts,active,setActive,zoomTo,hidden,toolsTarget,cut};
+  const cutControl=entry.sectionable?<CutControl cut={cut} setCut={setCut}/>:null;
   const viewer=entry.kind==='model'?<ModelViewer {...props}/>:<SectionViewer {...props}/>;
   const focusLabel=focus?parts.find(p=>p.id===focus)?.label:'';
   if(compact)return <div className="diagram-inline">
     {viewer}
     <div className="diagram-inline-bar">
       <div className="diagram-inline-tools" ref={setToolsTarget}/>
+      {switcher}
+      {cutControl}
       <span className="diagram-inline-status">{focusLabel&&<span className="diagram-focus-chip"><i className="fas fa-crosshairs" aria-hidden="true"/> {focusLabel}</span>}{active&&active!==focus&&<span className="diagram-focus-chip muted-chip">{parts.find(p=>p.id===active)?.label}</span>}</span>
       <button type="button" className="holo-toggle" aria-pressed={hologram} onClick={()=>setHologram(!hologram)}><i className="fas fa-magic" aria-hidden="true"/> Hologram</button>
       {onExpand&&<button type="button" className="holo-toggle expand" onClick={onExpand}><i className="fas fa-expand" aria-hidden="true"/> Full view</button>}
@@ -196,6 +245,7 @@ export function DiagramViewer({id,focus,compact=false,onExpand}:{id:string;focus
   return <div className="explorer-layout">
     {viewer}
     <aside className="explorer-side">
+      {(switcher||cutControl)&&<div className="explorer-cut">{switcher}{cutControl}</div>}
       <div className="explorer-side-tools"><button type="button" className="holo-toggle" aria-pressed={hologram} onClick={()=>setHologram(!hologram)}><i className="fas fa-magic" aria-hidden="true"/> Hologram</button></div>
       <Info part={parts.find(p=>p.id===active)}/>
       <PartList parts={parts} active={active} hidden={entry.kind==='model'?hidden:undefined} onHover={partId=>setActive(partId??(focus||null))} onSelect={select} onToggle={entry.kind==='model'?toggle:undefined}/>
@@ -203,11 +253,11 @@ export function DiagramViewer({id,focus,compact=false,onExpand}:{id:string;focus
   </div>;
 }
 
-export function DiagramExplorer({id,focus,onClose}:{id:string;focus?:string;onClose:()=>void}){
+export function DiagramExplorer({id,focus,cut,onClose}:{id:string;focus?:string;cut?:'ts'|'ls'|'';onClose:()=>void}){
   const entry=useMemo(()=>DIAGRAMS.find(d=>d.id===id),[id]);
   if(!entry)return null;
   return <Dialog title={entry.title} onClose={onClose} className="diagram-explorer">
-    <DiagramViewer id={id} focus={focus}/>
+    <DiagramViewer id={id} focus={focus} cut={cut}/>
     <p className="explorer-credit">{entry.credit}</p>
   </Dialog>;
 }
@@ -230,7 +280,7 @@ export function FigureExplorer({svg,title,onClose}:{svg:string;title:string;onCl
 /* ---------- Browse every built-in diagram ---------- */
 export function DiagramLibrary({onClose}:{onClose:()=>void}){
   const [open,setOpen]=useState<string|null>(null),[query,setQuery]=useState('');
-  const shown=DIAGRAMS.filter(d=>(d.title+' '+d.keywords).toLowerCase().includes(query.toLowerCase()));
+  const shown=DIAGRAMS.filter(d=>!d.hidden&&(d.title+' '+d.keywords).toLowerCase().includes(query.toLowerCase()));
   const groups=[...new Set(shown.map(d=>d.group))];
   return <Dialog title="Diagram library" onClose={onClose} className="diagram-library">
     <input className="library-search" type="search" placeholder="Search diagrams (e.g. stem, kidney, mitochondria)" value={query} onChange={e=>setQuery(e.target.value)} aria-label="Search diagrams"/>

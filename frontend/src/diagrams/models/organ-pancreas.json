@@ -1,0 +1,31 @@
+{
+ "title": "Human pancreas",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "uncinate-process-of-the-pancreas",
+   "label": "Uncinate process of the pancreas",
+   "info": ""
+  },
+  {
+   "id": "neck-of-pancreas",
+   "label": "Neck of pancreas",
+   "info": ""
+  },
+  {
+   "id": "head-of-pancreas",
+   "label": "Head of pancreas",
+   "info": ""
+  },
+  {
+   "id": "tail-of-pancreas",
+   "label": "Tail of pancreas",
+   "info": ""
+  },
+  {
+   "id": "body-of-pancreas",
+   "label": "Body of pancreas",
+   "info": ""
+  }
+ ]
+}

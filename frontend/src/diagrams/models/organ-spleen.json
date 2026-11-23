@@ -1,0 +1,31 @@
+{
+ "title": "Human spleen",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "renal-surface-of-spleen",
+   "label": "Renal surface of spleen",
+   "info": ""
+  },
+  {
+   "id": "hilum-of-spleen",
+   "label": "Hilum of spleen",
+   "info": ""
+  },
+  {
+   "id": "gastric-surface-of-spleen",
+   "label": "Gastric surface of spleen",
+   "info": ""
+  },
+  {
+   "id": "diaphragmatic-surface-of-spleen",
+   "label": "Diaphragmatic surface of spleen",
+   "info": ""
+  },
+  {
+   "id": "colic-surface-of-spleen",
+   "label": "Colic surface of spleen",
+   "info": ""
+  }
+ ]
+}

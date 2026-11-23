@@ -1,0 +1,121 @@
+{
+ "title": "Human eye",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "sclera",
+   "label": "Sclera",
+   "info": ""
+  },
+  {
+   "id": "retina",
+   "label": "Retina",
+   "info": ""
+  },
+  {
+   "id": "optic-disc",
+   "label": "Optic disc",
+   "info": ""
+  },
+  {
+   "id": "macula-lutea",
+   "label": "Macula lutea",
+   "info": ""
+  },
+  {
+   "id": "fovea",
+   "label": "Fovea",
+   "info": ""
+  },
+  {
+   "id": "ciliary-processes",
+   "label": "Ciliary processes",
+   "info": ""
+  },
+  {
+   "id": "suspensory-ligament-of-lens",
+   "label": "Suspensory ligament of lens",
+   "info": ""
+  },
+  {
+   "id": "vitreous-humor",
+   "label": "Vitreous humor",
+   "info": ""
+  },
+  {
+   "id": "lens",
+   "label": "Lens",
+   "info": ""
+  },
+  {
+   "id": "iris",
+   "label": "Iris",
+   "info": ""
+  },
+  {
+   "id": "optic-choroid",
+   "label": "Optic choroid",
+   "info": ""
+  },
+  {
+   "id": "schlemms-canal",
+   "label": "Schlemms canal",
+   "info": ""
+  },
+  {
+   "id": "aqueous-humor",
+   "label": "Aqueous humor",
+   "info": ""
+  },
+  {
+   "id": "trabecular-meshwork",
+   "label": "Trabecular meshwork",
+   "info": ""
+  },
+  {
+   "id": "ciliary-body",
+   "label": "Ciliary body",
+   "info": ""
+  },
+  {
+   "id": "ciliary-muscle",
+   "label": "Ciliary muscle",
+   "info": ""
+  },
+  {
+   "id": "cornea",
+   "label": "Cornea",
+   "info": ""
+  },
+  {
+   "id": "pupil",
+   "label": "Pupil",
+   "info": ""
+  },
+  {
+   "id": "corneo-scleral-junction",
+   "label": "Corneo scleral junction",
+   "info": ""
+  },
+  {
+   "id": "ora-serrata-of-retina",
+   "label": "Ora serrata of retina",
+   "info": ""
+  },
+  {
+   "id": "bulbar-conjunctiva",
+   "label": "Bulbar conjunctiva",
+   "info": ""
+  },
+  {
+   "id": "palpebral-conjunctiva-of-left-upper-eyelid",
+   "label": "Palpebral conjunctiva of upper eyelid",
+   "info": ""
+  },
+  {
+   "id": "palpebral-conjunctiva-of-left-lower-eyelid",
+   "label": "Palpebral conjunctiva of lower eyelid",
+   "info": ""
+  }
+ ]
+}

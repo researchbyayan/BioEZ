@@ -1,0 +1,26 @@
+{
+ "title": "Human urinary bladder",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "fundus-of-urinary-bladder",
+   "label": "Fundus of urinary bladder",
+   "info": ""
+  },
+  {
+   "id": "trigone-of-urinary-bladder",
+   "label": "Trigone of urinary bladder",
+   "info": ""
+  },
+  {
+   "id": "ureteral-orifice",
+   "label": "Ureteral orifice",
+   "info": ""
+  },
+  {
+   "id": "urinary-bladder-neck-smooth-muscle",
+   "label": "Urinary bladder neck smooth muscle",
+   "info": ""
+  }
+ ]
+}

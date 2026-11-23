@@ -1,0 +1,46 @@
+{
+ "title": "Human pelvis (bony)",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "ischium-spongy-bone",
+   "label": "Ischium spongy bone",
+   "info": ""
+  },
+  {
+   "id": "ischium-compact-bone",
+   "label": "Ischium compact bone",
+   "info": ""
+  },
+  {
+   "id": "ilium-spongy-bone",
+   "label": "Ilium spongy bone",
+   "info": ""
+  },
+  {
+   "id": "ilium-compact-bone",
+   "label": "Ilium compact bone",
+   "info": ""
+  },
+  {
+   "id": "pubis-spongy-bone",
+   "label": "Pubis spongy bone",
+   "info": ""
+  },
+  {
+   "id": "pubis-compact-bone",
+   "label": "Pubis compact bone",
+   "info": ""
+  },
+  {
+   "id": "coccyx",
+   "label": "Coccyx",
+   "info": ""
+  },
+  {
+   "id": "sacrum",
+   "label": "Sacrum",
+   "info": ""
+  }
+ ]
+}

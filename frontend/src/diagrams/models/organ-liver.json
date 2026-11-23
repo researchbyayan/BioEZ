@@ -1,0 +1,136 @@
+{
+ "title": "Human liver",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "coronary-ligament-of-liver",
+   "label": "Coronary ligament of liver",
+   "info": ""
+  },
+  {
+   "id": "falciform-ligament",
+   "label": "Falciform ligament",
+   "info": ""
+  },
+  {
+   "id": "triangular-ligament-of-liver",
+   "label": "Triangular ligament of liver",
+   "info": ""
+  },
+  {
+   "id": "round-ligament-of-liver",
+   "label": "Round ligament of liver",
+   "info": ""
+  },
+  {
+   "id": "ligamentum-venosum",
+   "label": "Ligamentum venosum",
+   "info": ""
+  },
+  {
+   "id": "hepatoduodenal-ligament",
+   "label": "Hepatoduodenal ligament",
+   "info": ""
+  },
+  {
+   "id": "left-inferomedial-segment",
+   "label": "Left inferomedial segment",
+   "info": ""
+  },
+  {
+   "id": "quadrate-lobe-of-liver",
+   "label": "Quadrate lobe of liver",
+   "info": ""
+  },
+  {
+   "id": "left-superomedial-segment",
+   "label": "Left superomedial segment",
+   "info": ""
+  },
+  {
+   "id": "left-posterolateral-segment",
+   "label": "Left posterolateral segment",
+   "info": ""
+  },
+  {
+   "id": "left-anterolateral-segment",
+   "label": "Left anterolateral segment",
+   "info": ""
+  },
+  {
+   "id": "right-anteroinferior-segment",
+   "label": "Right anteroinferior segment",
+   "info": ""
+  },
+  {
+   "id": "right-anterosuperior-segment",
+   "label": "Right anterosuperior segment",
+   "info": ""
+  },
+  {
+   "id": "right-posterosuperior-segment",
+   "label": "Right posterosuperior segment",
+   "info": ""
+  },
+  {
+   "id": "right-posteroinferior-segment",
+   "label": "Right posteroinferior segment",
+   "info": ""
+  },
+  {
+   "id": "caudate-lobe-of-liver",
+   "label": "Caudate lobe of liver",
+   "info": ""
+  },
+  {
+   "id": "porta-hepatis",
+   "label": "Porta hepatis",
+   "info": ""
+  },
+  {
+   "id": "duodenal-impression-of-liver",
+   "label": "Duodenal impression of liver",
+   "info": ""
+  },
+  {
+   "id": "esophageal-impression-of-liver",
+   "label": "Esophageal impression of liver",
+   "info": ""
+  },
+  {
+   "id": "colic-impression-of-liver",
+   "label": "Colic impression of liver",
+   "info": ""
+  },
+  {
+   "id": "gastric-impression-of-liver",
+   "label": "Gastric impression of liver",
+   "info": ""
+  },
+  {
+   "id": "renal-impression-of-liver",
+   "label": "Renal impression of liver",
+   "info": ""
+  },
+  {
+   "id": "suprarenal-impression-of-liver",
+   "label": "Suprarenal impression of liver",
+   "info": ""
+  },
+  {
+   "id": "diaphragmatic-surface",
+   "label": "Diaphragmatic surface",
+   "info": ""
+  },
+  {
+   "id": "liver-capsule",
+   "label": "Liver capsule",
+   "info": ""
+  },
+  {
+   "id": "bare-area-of-liver",
+   "label": "Bare area of liver",
+   "info": ""
+  }
+ ]
+}

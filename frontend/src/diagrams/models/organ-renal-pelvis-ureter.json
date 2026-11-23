@@ -1,0 +1,26 @@
+{
+ "title": "Renal pelvis, calyces and ureter",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "ureter",
+   "label": "Ureter",
+   "info": ""
+  },
+  {
+   "id": "minor-calyx",
+   "label": "Minor calyx",
+   "info": ""
+  },
+  {
+   "id": "major-calyx",
+   "label": "Major calyx",
+   "info": ""
+  },
+  {
+   "id": "renal-pelvis",
+   "label": "Renal pelvis",
+   "info": ""
+  }
+ ]
+}

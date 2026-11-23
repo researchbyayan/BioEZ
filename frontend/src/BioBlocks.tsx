@@ -40,9 +40,9 @@ export function DiagramView({block:b}:{block:Of<'diagram'>}){
   // Diagrams sit apart from the prose: a floating glass stage, not a boxed card.
   return <figure className="diagram-float">
     <figcaption className="diagram-float-head"><span className="eyebrow">{b.kind==='model'?'3D model':b.section||'Diagram'}</span><strong>{b.title}</strong></figcaption>
-    <Suspense fallback={<div className="diagram-inline loading"/>}><Viewer id={b.name} focus={b.focus||undefined} compact onExpand={()=>setOpen(true)}/></Suspense>
+    <Suspense fallback={<div className="diagram-inline loading"/>}><Viewer id={b.name} focus={b.focus||undefined} cut={b.cut||''} compact onExpand={()=>setOpen(true)}/></Suspense>
     {b.caption&&<p className="diagram-float-caption">{b.caption}</p>}
-    {open&&<Suspense fallback={null}><Explorer id={b.name} focus={b.focus||undefined} onClose={()=>setOpen(false)}/></Suspense>}
+    {open&&<Suspense fallback={null}><Explorer id={b.name} focus={b.focus||undefined} cut={b.cut||''} onClose={()=>setOpen(false)}/></Suspense>}
   </figure>;
 }
 

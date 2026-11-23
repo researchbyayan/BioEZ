@@ -1,0 +1,41 @@
+{
+ "title": "Human lymph node",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "blood-vasculature",
+   "label": "Blood vasculature",
+   "info": ""
+  },
+  {
+   "id": "paracortex",
+   "label": "Paracortex",
+   "info": ""
+  },
+  {
+   "id": "medulla-of-lymph-node",
+   "label": "Medulla of lymph node",
+   "info": ""
+  },
+  {
+   "id": "efferent-lymph-node",
+   "label": "Efferent lymph node",
+   "info": ""
+  },
+  {
+   "id": "follicles",
+   "label": "Follicles",
+   "info": ""
+  },
+  {
+   "id": "capsule-of-lymph-node",
+   "label": "Capsule of lymph node",
+   "info": ""
+  },
+  {
+   "id": "afferent-lymphatic-vessel",
+   "label": "Afferent lymphatic vessel",
+   "info": ""
+  }
+ ]
+}

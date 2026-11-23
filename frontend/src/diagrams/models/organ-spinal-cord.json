@@ -1,0 +1,156 @@
+{
+ "title": "Human spinal cord (segments)",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "fifth-sacral-spinal-cord-segment",
+   "label": "Fifth sacral spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "fourth-sacral-spinal-cord-segment",
+   "label": "Fourth sacral spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "third-sacral-spinal-cord-segment",
+   "label": "Third sacral spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "second-sacral-spinal-cord-segment",
+   "label": "Second sacral spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "first-sacral-spinal-cord-segment",
+   "label": "First sacral spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "fifth-lumbar-spinal-cord-segment",
+   "label": "Fifth lumbar spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "fourth-lumbar-spinal-cord-segment",
+   "label": "Fourth lumbar spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "third-lumbar-spinal-cord-segment",
+   "label": "Third lumbar spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "second-lumbar-spinal-cord-segment",
+   "label": "Second lumbar spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "first-lumbar-spinal-cord-segment",
+   "label": "First lumbar spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "twelfth-thoracic-spinal-cord-segment",
+   "label": "Twelfth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "eleventh-thoracic-spinal-cord-segment",
+   "label": "Eleventh thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "tenth-thoracic-spinal-cord-segment",
+   "label": "Tenth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "ninth-thoracic-spinal-cord-segment",
+   "label": "Ninth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "eighth-thoracic-spinal-cord-segment",
+   "label": "Eighth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "seventh-thoracic-spinal-cord-segment",
+   "label": "Seventh thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "sixth-thoracic-spinal-cord-segment",
+   "label": "Sixth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "fifth-thoracic-spinal-cord-segment",
+   "label": "Fifth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "fourth-thoracic-spinal-cord-segment",
+   "label": "Fourth thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "third-thoracic-spinal-cord-segment",
+   "label": "Third thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "second-thoracic-spinal-cord-segment",
+   "label": "Second thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "first-thoracic-spinal-cord-segment",
+   "label": "First thoracic spinal cord segment",
+   "info": ""
+  },
+  {
+   "id": "c8-segment-of-cervical-spinal-cord",
+   "label": "C8 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c7-segment-of-cervical-spinal-cord",
+   "label": "C7 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c6-segment-of-cervical-spinal-cord",
+   "label": "C6 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c5-segment-of-cervical-spinal-cord",
+   "label": "C5 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c4-segment-of-cervical-spinal-cord",
+   "label": "C4 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c3-segment-of-cervical-spinal-cord",
+   "label": "C3 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c2-segment-of-cervical-spinal-cord",
+   "label": "C2 segment of cervical spinal cord",
+   "info": ""
+  },
+  {
+   "id": "c1-segment-of-cervical-spinal-cord",
+   "label": "C1 segment of cervical spinal cord",
+   "info": ""
+  }
+ ]
+}

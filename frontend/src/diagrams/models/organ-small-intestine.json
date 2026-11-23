@@ -1,0 +1,56 @@
+{
+ "title": "Human small intestine",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "papilla-of-santorini",
+   "label": "Papilla of santorini",
+   "info": ""
+  },
+  {
+   "id": "sphincter-of-hepatopancreatic-ampulla",
+   "label": "Sphincter of hepatopancreatic ampulla",
+   "info": ""
+  },
+  {
+   "id": "duodenum-superior",
+   "label": "Duodenum superior",
+   "info": ""
+  },
+  {
+   "id": "duodenal-ampulla",
+   "label": "Duodenal ampulla",
+   "info": ""
+  },
+  {
+   "id": "duodenum-horizontal",
+   "label": "Duodenum horizontal",
+   "info": ""
+  },
+  {
+   "id": "duodenum-descending",
+   "label": "Duodenum descending",
+   "info": ""
+  },
+  {
+   "id": "duodenum-ascending",
+   "label": "Duodenum ascending",
+   "info": ""
+  },
+  {
+   "id": "jejunum",
+   "label": "Jejunum",
+   "info": ""
+  },
+  {
+   "id": "ileum",
+   "label": "Ileum",
+   "info": ""
+  },
+  {
+   "id": "ileum-terminal",
+   "label": "Ileum terminal",
+   "info": ""
+  }
+ ]
+}

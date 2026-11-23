@@ -79,8 +79,10 @@ def test_offline_lookup_is_a_readable_error(monkeypatch):
 
 
 def test_diagram_blocks_use_the_built_in_catalog():
-    blocks, failed = render({'type': 'diagram', 'name': 'ts-dicot-stem', 'caption': 'Look at the ring of bundles.'})
-    assert not failed and blocks[0]['title'] == 'T.S. of a dicot stem' and blocks[0]['kind'] == 'section'
+    blocks, failed = render({'type': 'diagram', 'name': 'organ-heart', 'caption': 'Look at the valves.'})
+    assert not failed and blocks[0]['title'] == 'Human heart' and blocks[0]['kind'] == 'model'
+    blocks, failed = render({'type': 'diagram', 'name': 'ts-dicot-stem'})
+    assert not failed and blocks[0]['kind'] == 'section'  # drawn 2D sections are available alongside the 3D organs
     assert len(blocks[0]['id']) == 36  # the block keeps its own id; the diagram is named separately
     blocks, failed = render({'type': 'diagram', 'name': 'made-up-diagram'})
     assert failed and 'no built-in diagram' in blocks[0]['text']
@@ -97,7 +99,7 @@ def test_every_catalog_diagram_has_its_asset():
 def test_diagram_focus_matches_a_named_part():
     blocks, failed = render({'type': 'diagram', 'name': 'human-skeleton', 'focus': 'Femur'})
     assert not failed and (blocks[0]['focus'], blocks[0]['focus_label']) == ('femur', 'Femur')
-    blocks, _ = render({'type': 'diagram', 'name': 'ts-dicot-stem', 'focus': 'xylem'})
-    assert blocks[0]['focus'] == 'part-xylem'
-    blocks, failed = render({'type': 'diagram', 'name': 'ls-heart', 'focus': 'not a part'})
+    blocks, _ = render({'type': 'diagram', 'name': 'organ-kidney', 'focus': 'renal pyramid', 'cut': 'ls'})
+    assert (blocks[0]['focus'], blocks[0]['cut']) == ('renal-pyramid', 'ls')
+    blocks, failed = render({'type': 'diagram', 'name': 'organ-heart', 'focus': 'not a part'})
     assert not failed and blocks[0]['focus'] == ''  # an unknown focus still shows the whole diagram

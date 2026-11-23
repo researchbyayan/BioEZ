@@ -1,0 +1,41 @@
+{
+ "title": "Human placenta and umbilical cord",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "umbilical-vein",
+   "label": "Umbilical vein",
+   "info": ""
+  },
+  {
+   "id": "umbilical-artery",
+   "label": "Umbilical artery",
+   "info": ""
+  },
+  {
+   "id": "umbilical-cord",
+   "label": "Umbilical cord",
+   "info": ""
+  },
+  {
+   "id": "amnion",
+   "label": "Amnion",
+   "info": ""
+  },
+  {
+   "id": "placenta-vessels",
+   "label": "Placenta vessels",
+   "info": ""
+  },
+  {
+   "id": "chorionic-plate",
+   "label": "Chorionic plate",
+   "info": ""
+  },
+  {
+   "id": "basal-plate",
+   "label": "Basal plate",
+   "info": ""
+  }
+ ]
+}

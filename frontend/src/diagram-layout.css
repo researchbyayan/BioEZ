@@ -469,3 +469,21 @@ dialog.diagram-explorer .explorer-stage.figure { flex:1; height:auto; }
 .explorer-side-tools { min-height:32px; }
 dialog.diagram-explorer .explorer-tools { left:12px; bottom:12px; }
 :root .app-shell .utility-dialog .library-card,.library-card { justify-content:flex-start!important; }
+
+/* Section cut control (Whole / T.S. / L.S. + position slider) */
+.cut-control { display:inline-flex; align-items:center; gap:4px; padding:3px; border-radius:999px; background:#160f22cc; border:1px solid #c084fc40; }
+:root .app-shell .cut-control .cut-mode,:root .app-shell .utility-dialog .cut-control .cut-mode,.cut-mode { padding:4px 10px!important; border-radius:999px; font-size:11px; color:#d9c8f0; background:transparent!important; border:0!important; }
+:root .app-shell .cut-control .cut-mode[aria-pressed=true],:root .app-shell .utility-dialog .cut-control .cut-mode[aria-pressed=true] { background:#7c3aed66!important; color:#fff; }
+.cut-control input[type=range] { width:110px; margin:0 6px; accent-color:#c084fc; }
+.explorer-cut { display:flex; justify-content:flex-start; }
+.explorer-cut .cut-control { width:100%; justify-content:flex-start; flex-wrap:wrap; border-radius:14px; }
+.explorer-cut .cut-control input[type=range] { flex:1; min-width:120px; }
+.diagram-focus-chip { white-space:nowrap; }
+.diagram-inline-status { min-width:0; overflow:hidden; }
+.diagram-focus-chip { max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+.diagram-focus-chip i { flex-shrink:0; }
+.dimension-switch { display:inline-flex; align-items:center; gap:2px; padding:3px; border-radius:999px; background:#160f22cc; border:1px solid #c084fc40; }
+:root .app-shell .dimension-switch .cut-mode[aria-pressed=true],:root .app-shell .utility-dialog .dimension-switch .cut-mode[aria-pressed=true] { background:#7c3aed66!important; color:#fff; }
+.explorer-cut { gap:8px; flex-wrap:wrap; align-items:center; }
+.explorer-cut .cut-control { flex:1; }
+.diagram-inline-status:not(:empty) { min-width:140px; }

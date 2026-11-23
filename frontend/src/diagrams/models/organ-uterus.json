@@ -1,0 +1,56 @@
+{
+ "title": "Human uterus",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "cervix",
+   "label": "Cervix",
+   "info": ""
+  },
+  {
+   "id": "external-cervical-os",
+   "label": "External cervical os",
+   "info": ""
+  },
+  {
+   "id": "internal-cervical-os",
+   "label": "Internal cervical os",
+   "info": ""
+  },
+  {
+   "id": "anterior-wall-of-uterus",
+   "label": "Anterior wall of uterus",
+   "info": ""
+  },
+  {
+   "id": "posterior-wall-of-uterus",
+   "label": "Posterior wall of uterus",
+   "info": ""
+  },
+  {
+   "id": "lower-uterine-segment",
+   "label": "Lower uterine segment",
+   "info": ""
+  },
+  {
+   "id": "cornua",
+   "label": "Cornua",
+   "info": ""
+  },
+  {
+   "id": "fundus-of-uterus",
+   "label": "Fundus of uterus",
+   "info": ""
+  },
+  {
+   "id": "body-of-uterus",
+   "label": "Body of uterus",
+   "info": ""
+  },
+  {
+   "id": "abdominal-ostium-of-uterine-tube",
+   "label": "Abdominal ostium of uterine tube",
+   "info": ""
+  }
+ ]
+}

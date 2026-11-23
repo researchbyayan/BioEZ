@@ -1,0 +1,401 @@
+{
+ "title": "Major blood vessels",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "hepatic-portal-vein",
+   "label": "Hepatic portal vein",
+   "info": ""
+  },
+  {
+   "id": "portal-vein",
+   "label": "Portal vein",
+   "info": ""
+  },
+  {
+   "id": "right-branch-of-portal-vein",
+   "label": "Right branch of portal vein",
+   "info": ""
+  },
+  {
+   "id": "left-branch-of-portal-vein",
+   "label": "Left branch of portal vein",
+   "info": ""
+  },
+  {
+   "id": "middle-hepatic-vein",
+   "label": "Middle hepatic vein",
+   "info": ""
+  },
+  {
+   "id": "left-hepatic-vein",
+   "label": "Left hepatic vein",
+   "info": ""
+  },
+  {
+   "id": "right-hepatic-vein",
+   "label": "Right hepatic vein",
+   "info": ""
+  },
+  {
+   "id": "middle-hepatic-artery-branch-of-left-hepatic-artery",
+   "label": "Middle hepatic artery branch of hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "common-hepatic-artery",
+   "label": "Common hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "anterior-segmental-right-hepatic-artery",
+   "label": "Anterior segmental right hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "right-hepatic-artery",
+   "label": "Right hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "posterior-segmental-right-hepatic-artery",
+   "label": "Posterior segmental right hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "proper-hepatic-artery",
+   "label": "Proper hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "left-hepatic-artery",
+   "label": "Left hepatic artery",
+   "info": ""
+  },
+  {
+   "id": "celiac-trunk",
+   "label": "Celiac trunk",
+   "info": ""
+  },
+  {
+   "id": "cystic-artery",
+   "label": "Cystic artery",
+   "info": ""
+  },
+  {
+   "id": "cystic-vein",
+   "label": "Cystic vein",
+   "info": ""
+  },
+  {
+   "id": "splenic-artery",
+   "label": "Splenic artery",
+   "info": ""
+  },
+  {
+   "id": "splenic-vein",
+   "label": "Splenic vein",
+   "info": ""
+  },
+  {
+   "id": "inferior-vena-cava",
+   "label": "Inferior vena cava",
+   "info": ""
+  },
+  {
+   "id": "superior-vena-cava",
+   "label": "Superior vena cava",
+   "info": ""
+  },
+  {
+   "id": "brachiocephalic-vein",
+   "label": "Brachiocephalic vein",
+   "info": ""
+  },
+  {
+   "id": "pulmonary-vein",
+   "label": "Pulmonary vein",
+   "info": ""
+  },
+  {
+   "id": "small-cardiac-vein",
+   "label": "Small cardiac vein",
+   "info": ""
+  },
+  {
+   "id": "posterior-vein-of-left-ventricle",
+   "label": "Posterior vein of ventricle",
+   "info": ""
+  },
+  {
+   "id": "coronary-sinus",
+   "label": "Coronary sinus",
+   "info": ""
+  },
+  {
+   "id": "anterior-cardiac-vein",
+   "label": "Anterior cardiac vein",
+   "info": ""
+  },
+  {
+   "id": "oblique-vein-of-left-atrium",
+   "label": "Oblique vein of atrium",
+   "info": ""
+  },
+  {
+   "id": "middle-cardiac-vein",
+   "label": "Middle cardiac vein",
+   "info": ""
+  },
+  {
+   "id": "great-cardiac-vein",
+   "label": "Great cardiac vein",
+   "info": ""
+  },
+  {
+   "id": "pulmonary-trunk",
+   "label": "Pulmonary trunk",
+   "info": ""
+  },
+  {
+   "id": "pulmonary-artery",
+   "label": "Pulmonary artery",
+   "info": ""
+  },
+  {
+   "id": "left-marginal-branch",
+   "label": "Left marginal branch",
+   "info": ""
+  },
+  {
+   "id": "diagonal-branch-of-left-anterior-descending-artery",
+   "label": "Diagonal branch of anterior descending artery",
+   "info": ""
+  },
+  {
+   "id": "right-coronary-artery",
+   "label": "Right coronary artery",
+   "info": ""
+  },
+  {
+   "id": "left-coronary-artery",
+   "label": "Left coronary artery",
+   "info": ""
+  },
+  {
+   "id": "diagonal-branch-of-anterior-descending-branch-of-left-coronary-artery",
+   "label": "Diagonal branch of anterior descending branch of coronary artery",
+   "info": ""
+  },
+  {
+   "id": "right-posterior-descending-artery",
+   "label": "Right posterior descending artery",
+   "info": ""
+  },
+  {
+   "id": "right-marginal-artery",
+   "label": "Right marginal artery",
+   "info": ""
+  },
+  {
+   "id": "left-anterior-descending-artery",
+   "label": "Left anterior descending artery",
+   "info": ""
+  },
+  {
+   "id": "descending-aorta",
+   "label": "Descending aorta",
+   "info": ""
+  },
+  {
+   "id": "left-subclavian-artery",
+   "label": "Left subclavian artery",
+   "info": ""
+  },
+  {
+   "id": "left-common-carotid-artery",
+   "label": "Left common carotid artery",
+   "info": ""
+  },
+  {
+   "id": "brachiocephalic-artery",
+   "label": "Brachiocephalic artery",
+   "info": ""
+  },
+  {
+   "id": "ascending-aorta",
+   "label": "Ascending aorta",
+   "info": ""
+  },
+  {
+   "id": "aortic-arch",
+   "label": "Aortic arch",
+   "info": ""
+  },
+  {
+   "id": "right-renal-artery",
+   "label": "Right renal artery",
+   "info": ""
+  },
+  {
+   "id": "left-renal-artery",
+   "label": "Left renal artery",
+   "info": ""
+  },
+  {
+   "id": "renal-vein",
+   "label": "Renal vein",
+   "info": ""
+  },
+  {
+   "id": "marginal-artery-of-drummond",
+   "label": "Marginal artery of drummond",
+   "info": ""
+  },
+  {
+   "id": "superior-mesenteric-artery",
+   "label": "Superior mesenteric artery",
+   "info": ""
+  },
+  {
+   "id": "inferior-mesenteric-artery",
+   "label": "Inferior mesenteric artery",
+   "info": ""
+  },
+  {
+   "id": "sigmoid-artery",
+   "label": "Sigmoid artery",
+   "info": ""
+  },
+  {
+   "id": "ileocolic-artery",
+   "label": "Ileocolic artery",
+   "info": ""
+  },
+  {
+   "id": "left-colic-artery",
+   "label": "Left colic artery",
+   "info": ""
+  },
+  {
+   "id": "middle-colic-artery",
+   "label": "Middle colic artery",
+   "info": ""
+  },
+  {
+   "id": "right-colic-artery",
+   "label": "Right colic artery",
+   "info": ""
+  },
+  {
+   "id": "middle-rectal-vein",
+   "label": "Middle rectal vein",
+   "info": ""
+  },
+  {
+   "id": "middle-colic-vein",
+   "label": "Middle colic vein",
+   "info": ""
+  },
+  {
+   "id": "right-colic-vein",
+   "label": "Right colic vein",
+   "info": ""
+  },
+  {
+   "id": "ileocolic-vein",
+   "label": "Ileocolic vein",
+   "info": ""
+  },
+  {
+   "id": "left-colic-vein",
+   "label": "Left colic vein",
+   "info": ""
+  },
+  {
+   "id": "internal-iliac-vein",
+   "label": "Internal iliac vein",
+   "info": ""
+  },
+  {
+   "id": "internal-pudendal-vein",
+   "label": "Internal pudendal vein",
+   "info": ""
+  },
+  {
+   "id": "inferior-rectal-vein",
+   "label": "Inferior rectal vein",
+   "info": ""
+  },
+  {
+   "id": "external-iliac-vein",
+   "label": "External iliac vein",
+   "info": ""
+  },
+  {
+   "id": "inferior-pancreaticoduodenal-vein",
+   "label": "Inferior pancreaticoduodenal vein",
+   "info": ""
+  },
+  {
+   "id": "common-iliac-vein",
+   "label": "Common iliac vein",
+   "info": ""
+  },
+  {
+   "id": "superior-rectal-vein",
+   "label": "Superior rectal vein",
+   "info": ""
+  },
+  {
+   "id": "superior-mesenteric-vein",
+   "label": "Superior mesenteric vein",
+   "info": ""
+  },
+  {
+   "id": "sigmoid-vein",
+   "label": "Sigmoid vein",
+   "info": ""
+  },
+  {
+   "id": "median-sacral-vein",
+   "label": "Median sacral vein",
+   "info": ""
+  },
+  {
+   "id": "inferior-mesenteric-vein",
+   "label": "Inferior mesenteric vein",
+   "info": ""
+  },
+  {
+   "id": "central-retinal-artery",
+   "label": "Central retinal artery",
+   "info": ""
+  },
+  {
+   "id": "opthalmic-artery",
+   "label": "Opthalmic artery",
+   "info": ""
+  },
+  {
+   "id": "inferior-ophthalmic-vein",
+   "label": "Inferior ophthalmic vein",
+   "info": ""
+  },
+  {
+   "id": "central-retinal-vein",
+   "label": "Central retinal vein",
+   "info": ""
+  },
+  {
+   "id": "ophthalmic-vein",
+   "label": "Ophthalmic vein",
+   "info": ""
+  },
+  {
+   "id": "superior-ophthalmic-vein",
+   "label": "Superior ophthalmic vein",
+   "info": ""
+  }
+ ]
+}

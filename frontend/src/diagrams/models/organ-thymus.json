@@ -1,0 +1,11 @@
+{
+ "title": "Human thymus",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "thymus-lobe",
+   "label": "Thymus lobe",
+   "info": ""
+  }
+ ]
+}

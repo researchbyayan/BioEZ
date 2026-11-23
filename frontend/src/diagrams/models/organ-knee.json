@@ -1,0 +1,101 @@
+{
+ "title": "Human knee joint",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "patella",
+   "label": "Patella",
+   "info": ""
+  },
+  {
+   "id": "tibia",
+   "label": "Tibia",
+   "info": ""
+  },
+  {
+   "id": "femur",
+   "label": "Femur",
+   "info": ""
+  },
+  {
+   "id": "patellar-surface",
+   "label": "Patellar surface",
+   "info": ""
+  },
+  {
+   "id": "medial-perichondral-surface",
+   "label": "Medial perichondral surface",
+   "info": ""
+  },
+  {
+   "id": "medial-epicondylar-enthesis",
+   "label": "Medial epicondylar enthesis",
+   "info": ""
+  },
+  {
+   "id": "medial-condyle-of-left-femur",
+   "label": "Medial condyle of femur",
+   "info": ""
+  },
+  {
+   "id": "distal-most-point-of-medial-condyle-of-femur",
+   "label": "Distal most point of medial condyle of femur",
+   "info": ""
+  },
+  {
+   "id": "lateral-perichondral-surface",
+   "label": "Lateral perichondral surface",
+   "info": ""
+  },
+  {
+   "id": "lateral-epicondylar-enthesis",
+   "label": "Lateral epicondylar enthesis",
+   "info": ""
+  },
+  {
+   "id": "lateral-condyle-of-femur-sup",
+   "label": "Lateral condyle of femur sup",
+   "info": ""
+  },
+  {
+   "id": "lateral-condyle-of-femur-inf",
+   "label": "Lateral condyle of femur inf",
+   "info": ""
+  },
+  {
+   "id": "lateral-condyle-of-femur-frontal",
+   "label": "Lateral condyle of femur frontal",
+   "info": ""
+  },
+  {
+   "id": "intercondylar-fossa",
+   "label": "Intercondylar fossa",
+   "info": ""
+  },
+  {
+   "id": "posterior-cruciate-enthesis",
+   "label": "Posterior cruciate enthesis",
+   "info": ""
+  },
+  {
+   "id": "anterior-cruciate-enthesis",
+   "label": "Anterior cruciate enthesis",
+   "info": ""
+  },
+  {
+   "id": "articular-cartilage-of-knee",
+   "label": "Articular cartilage of knee",
+   "info": ""
+  },
+  {
+   "id": "fibula",
+   "label": "Fibula",
+   "info": ""
+  },
+  {
+   "id": "meniscus",
+   "label": "Meniscus",
+   "info": ""
+  }
+ ]
+}

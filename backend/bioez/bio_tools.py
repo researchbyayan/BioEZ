@@ -289,10 +289,10 @@ def diagram_catalog():
 
 
 def diagram_result(block):
-    entry = next((d for d in diagram_catalog() if d['id'] == block['name'].strip()), None)
+    entry = next((d for d in diagram_catalog() if d['id'] == block['name'].strip() and not d.get('hidden')), None)
     if entry is None:
         raise ValueError(f'BioEZ has no built-in diagram "{block["name"]}". Use one of the listed diagram names, or answer without it.')
-    result = {'name': entry['id'], 'title': entry['title'], 'kind': entry['kind'], 'section': entry.get('section', ''), 'group': entry['group'], 'focus': '', 'focus_label': ''}
+    result = {'name': entry['id'], 'title': entry['title'], 'kind': entry['kind'], 'section': entry.get('section', ''), 'group': entry['group'], 'focus': '', 'focus_label': '', 'cut': block.get('cut') or '' if entry.get('sectionable') else ''}
     wanted = _slug(block.get('focus') or '')
     if wanted:
         part = next((p for p in entry.get('parts', []) if wanted in (_slug(p['id']), _slug(p['id']).removeprefix('part-'), _slug(p['label']))), None)

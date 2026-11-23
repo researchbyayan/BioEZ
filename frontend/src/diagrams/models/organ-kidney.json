@@ -1,0 +1,36 @@
+{
+ "title": "Human kidney",
+ "credit": "HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "renal-pyramid",
+   "label": "Renal pyramid",
+   "info": ""
+  },
+  {
+   "id": "renal-papilla",
+   "label": "Renal papilla",
+   "info": ""
+  },
+  {
+   "id": "outer-cortex-of-kidney",
+   "label": "Outer cortex of kidney",
+   "info": ""
+  },
+  {
+   "id": "renal-column",
+   "label": "Renal column",
+   "info": ""
+  },
+  {
+   "id": "hilum-of-kidney",
+   "label": "Hilum of kidney",
+   "info": ""
+  },
+  {
+   "id": "kidney-capsule",
+   "label": "Kidney capsule",
+   "info": ""
+  }
+ ]
+}
