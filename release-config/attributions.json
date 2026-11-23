@@ -226,6 +226,17 @@
       "license": "CC-BY-4.0",
       "note": "3D organ models (CCF 3D Reference Object Library v1.2), simplified for BioEZ.",
       "licenseFiles": []
+    },
+    {
+      "id": "spl-inner-ear",
+      "name": "SPL Inner Ear Atlas",
+      "url": "https://www.openanatomy.org/atlas-pages/atlas-spl-inner-ear.html",
+      "group": "data",
+      "license": "LicenseRef-3D-Slicer",
+      "note": "3D middle and inner ear model, simplified for BioEZ. The Brigham and Women's Hospital, Inc.",
+      "licenseFiles": [
+        "licenses/3d-slicer-license.txt"
+      ]
     }
   ]
 }

@@ -2,6 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import type {Block} from './types';
 import {Dialog} from './Dialog';
 import {savePNG} from './Blocks';
+import {DIAGRAMS} from './diagramCatalog';
 import {lazy,Suspense} from 'react';
 const Explorer=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.DiagramExplorer})));
 const Viewer=lazy(()=>import('./DiagramExplorer').then(m=>({default:m.DiagramViewer})));
@@ -36,13 +37,16 @@ function Figure({svg,label}:{svg:string;label:string}){
 }
 
 export function DiagramView({block:b}:{block:Of<'diagram'>}){
-  const [open,setOpen]=useState(false);
+  const [open,setOpen]=useState(false),[view,setView]=useState<string|undefined>();
+  // The heading follows what is on screen: the 3D model first when the drawing has one.
+  const base=DIAGRAMS.find(d=>d.id===b.name),twin=base?.twin?DIAGRAMS.find(d=>d.id===base.twin):undefined;
+  const shownEntry=DIAGRAMS.find(d=>d.id===(view??(base?.kind==='section'&&twin?.kind==='model'?twin.id:b.name)));
   // Diagrams sit apart from the prose: a floating glass stage, not a boxed card.
   return <figure className="diagram-float">
-    <figcaption className="diagram-float-head"><span className="eyebrow">{b.kind==='model'?'3D model':b.section||'Diagram'}</span><strong>{b.title}</strong></figcaption>
-    <Suspense fallback={<div className="diagram-inline loading"/>}><Viewer id={b.name} focus={b.focus||undefined} cut={b.cut||''} compact onExpand={()=>setOpen(true)}/></Suspense>
+    <figcaption className="diagram-float-head"><span className="eyebrow">{shownEntry?.kind==='model'?'3D model':shownEntry?.section||'Diagram'}</span><strong>{shownEntry?.title||b.title}</strong></figcaption>
+    {open?<div className="diagram-inline paused" aria-hidden="true"/>:<Suspense fallback={<div className="diagram-inline loading"/>}><Viewer id={b.name} focus={b.focus||undefined} cut={b.cut||''} compact onExpand={()=>setOpen(true)} view={view} onView={setView}/></Suspense>}
     {b.caption&&<p className="diagram-float-caption">{b.caption}</p>}
-    {open&&<Suspense fallback={null}><Explorer id={b.name} focus={b.focus||undefined} cut={b.cut||''} onClose={()=>setOpen(false)}/></Suspense>}
+    {open&&<Suspense fallback={null}><Explorer id={b.name} focus={b.focus||undefined} cut={b.cut||''} onClose={()=>setOpen(false)} view={view} onView={setView}/></Suspense>}
   </figure>;
 }
 

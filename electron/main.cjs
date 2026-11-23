@@ -11,6 +11,9 @@ let window, child, baseURL, activeRequest, backendReady, stopping = false;
 let recentRestarts = [];
 const token = randomBytes(32).toString('hex');
 const root = path.join(__dirname, '..');
+// Intel Macs run Electron 39 (see scripts/electron-target.mjs). Let Chromium try the GPU even when it is
+// blocklisted, so WebGL falls back to Apple's renderer instead of being switched off.
+if (Number(process.versions.electron.split('.')[0]) < 40 && process.platform === 'darwin') app.commandLine.appendSwitch('ignore-gpu-blocklist');
 if (process.env.BIOEZ_PROFILE) app.setPath('userData', path.resolve(process.env.BIOEZ_PROFILE));
 const dev = !app.isPackaged && process.env.BIOEZ_DEV === '1';
 function launchBackend() {

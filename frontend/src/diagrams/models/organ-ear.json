@@ -1,0 +1,76 @@
+{
+ "title": "Human middle and inner ear",
+ "credit": "SPL Inner Ear Atlas (Bartling, Jakab, Kikinis), Open Anatomy Project, 3D Slicer License. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "tympanic-membrane",
+   "label": "Tympanic membrane (eardrum)",
+   "info": "Thin membrane that vibrates with sound and passes the vibration to the malleus."
+  },
+  {
+   "id": "malleus",
+   "label": "Malleus (hammer)",
+   "info": "First ossicle; its handle is attached to the eardrum."
+  },
+  {
+   "id": "incus",
+   "label": "Incus (anvil)",
+   "info": "Middle ossicle linking the malleus to the stapes."
+  },
+  {
+   "id": "stapes",
+   "label": "Stapes (stirrup)",
+   "info": "Smallest bone in the body; its footplate pushes on the oval window of the cochlea."
+  },
+  {
+   "id": "bony-labyrinth",
+   "label": "Bony labyrinth (cochlea, vestibule, semicircular canals)",
+   "info": "Fluid-filled inner ear: the cochlea for hearing, the vestibule and semicircular canals for balance."
+  },
+  {
+   "id": "osseous-spiral-lamina",
+   "label": "Osseous spiral lamina",
+   "info": "Bony shelf spiralling inside the cochlea that supports the basilar membrane."
+  },
+  {
+   "id": "round-window",
+   "label": "Round window",
+   "info": "Membrane-covered opening that bulges to release pressure as the stapes moves."
+  },
+  {
+   "id": "tensor-tympani-muscle",
+   "label": "Tensor tympani muscle",
+   "info": "Pulls the malleus to stiffen the eardrum against loud sounds."
+  },
+  {
+   "id": "stapedius-muscle",
+   "label": "Stapedius muscle",
+   "info": "Smallest skeletal muscle; damps stapes movement in the acoustic reflex."
+  },
+  {
+   "id": "cochlear-nerve",
+   "label": "Cochlear nerve",
+   "info": "Carries hearing signals from the cochlea to the brainstem."
+  },
+  {
+   "id": "vestibular-nerve",
+   "label": "Vestibular nerve",
+   "info": "Carries balance signals from the vestibule and semicircular canals."
+  },
+  {
+   "id": "facial-nerve",
+   "label": "Facial nerve",
+   "info": "Runs through the temporal bone close to the middle ear; supplies the stapedius."
+  },
+  {
+   "id": "internal-carotid-artery",
+   "label": "Internal carotid artery",
+   "info": "Major artery to the brain, passing just in front of the middle ear."
+  },
+  {
+   "id": "internal-jugular-vein",
+   "label": "Internal jugular vein",
+   "info": "Main vein draining the head, below the middle ear."
+  }
+ ]
+}

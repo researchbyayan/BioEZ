@@ -487,3 +487,62 @@ dialog.diagram-explorer .explorer-tools { left:12px; bottom:12px; }
 .explorer-cut { gap:8px; flex-wrap:wrap; align-items:center; }
 .explorer-cut .cut-control { flex:1; }
 .diagram-inline-status:not(:empty) { min-width:140px; }
+
+/* ---- X-ray look without a purple stage ---- */
+.explorer-stage.hologram { background:radial-gradient(120% 90% at 50% 40%,#ffffff0a,#ffffff02 60%,transparent)!important; border-color:#ffffff1a!important; animation:none!important; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+.explorer-stage.hologram::before,.explorer-stage.hologram::after { content:none!important; }
+
+/* ---- Stable inline controls: view switch, its controls, status, Full view pinned right ---- */
+.diagram-inline-bar { flex-wrap:nowrap; min-height:38px; }
+.diagram-inline-status { flex:1; min-width:0; justify-content:flex-start; }
+.diagram-inline-bar .expand { margin-left:auto; flex-shrink:0; }
+.diagram-inline .explorer-hint { left:14px; bottom:10px; z-index:3; }
+
+/* ---- Inner buttons follow their outline: pill groups get pill buttons, squircles get squircle buttons ---- */
+.dimension-switch,.cut-control { padding:3px!important; gap:3px; border-radius:999px; }
+:root .app-shell .dimension-switch .cut-mode,:root .app-shell .cut-control .cut-mode,:root .app-shell .utility-dialog .dimension-switch .cut-mode,:root .app-shell .utility-dialog .cut-control .cut-mode { border-radius:999px!important; height:26px; padding:0 12px!important; display:inline-flex; align-items:center; }
+.explorer-cut .cut-control { border-radius:14px!important; }
+:root .app-shell .utility-dialog .explorer-cut .cut-control .cut-mode { border-radius:10px!important; }
+:root .app-shell .explorer-tools button,:root .app-shell .utility-dialog .explorer-tools button { border-radius:10px!important; height:30px; }
+:root .app-shell .holo-toggle,:root .app-shell .utility-dialog .holo-toggle { border-radius:999px!important; height:30px; }
+/* Side panel: view switch and cut controls each on their own row, so they never wrap mid-group. */
+.explorer-cut { flex-direction:column; align-items:flex-start!important; flex-wrap:nowrap!important; }
+.explorer-cut .cut-control { flex:none!important; width:auto; flex-wrap:nowrap!important; }
+.explorer-cut .cut-control input[type=range] { min-width:90px; flex:1; }
+.explorer-cut { width:100%; }
+.explorer-cut .cut-control { width:100%!important; box-sizing:border-box; }
+.explorer-cut .cut-control input[type=range] { min-width:0!important; width:auto; flex:1 1 0; }
+
+/* ---- Parts panel: filter, bulk show/hide, no overlap with the eye buttons ---- */
+.explorer-parts-panel { display:flex; flex-direction:column; gap:8px; min-height:0; flex:1; }
+.parts-toolbar { display:flex; flex-direction:column; gap:7px; }
+.parts-filter { width:100%; box-sizing:border-box; padding:7px 11px; border-radius:10px; border:1px solid #ffffff1c; background:#ffffff06; font-size:12px; color:var(--text); }
+.parts-bulk { display:flex; flex-wrap:wrap; align-items:center; gap:5px; }
+.parts-count { font-size:11px; color:var(--muted); margin-right:auto; }
+:root .app-shell .utility-dialog .parts-bulk button,.parts-bulk button { height:26px; padding:0 10px!important; border-radius:999px!important; font-size:11px; color:#e9dcfa; background:#160f22cc!important; border:1px solid #c084fc40!important; }
+:root .app-shell .utility-dialog .parts-bulk button:hover:not(:disabled) { border-color:#d8b4fe!important; color:#fff; }
+:root .app-shell .utility-dialog .parts-bulk button:disabled { opacity:.4; }
+.explorer-parts { overflow-y:auto; overflow-x:hidden; scrollbar-gutter:stable; padding-right:4px; }
+.explorer-parts li { display:grid!important; grid-template-columns:minmax(0,1fr) 30px; align-items:center; gap:4px; }
+.explorer-parts li.is-hidden .explorer-part { opacity:.45; }
+.explorer-part-label { min-width:0; overflow:hidden; text-overflow:ellipsis; }
+:root .app-shell .utility-dialog .explorer-eye { width:30px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px!important; padding:0!important; }
+.parts-empty { font-size:12px; color:var(--muted); padding:8px; display:block!important; }
+.explorer-side { min-width:0; overflow:hidden; }
+.diagram-inline.paused { height:380px; border-radius:20px; border:1px solid #ffffff12; background:#ffffff04; }
+
+/* ---- Library by organism ---- */
+.organism-tabs { display:inline-flex; gap:3px; padding:3px; border-radius:999px; background:#160f22cc; border:1px solid #c084fc40; margin:0 0 6px; }
+:root .app-shell .utility-dialog .organism-tabs button { display:inline-flex; align-items:center; gap:7px; height:30px; padding:0 14px!important; border-radius:999px!important; font-size:12px; color:#d9c8f0; border:0!important; background:transparent!important; }
+:root .app-shell .utility-dialog .organism-tabs button[aria-selected=true] { background:#7c3aed66!important; color:#fff; }
+.organism-tabs span { font-size:10px; opacity:.65; }
+:root .app-shell .utility-dialog .library-card.feature { grid-column:span 2; border-color:#c084fc66!important; background:linear-gradient(140deg,#7c3aed24,#ffffff05)!important; }
+.library-card small { font-size:11px; color:var(--muted); }
+/* ---- Drill-down from the whole body ---- */
+:root .app-shell .utility-dialog .detail-link { margin-top:10px; display:inline-flex; align-items:center; gap:8px; height:30px; padding:0 13px!important; border-radius:999px!important; font-size:12px; color:#fff; background:#7c3aed66!important; border:1px solid #c084fc88!important; }
+:root .app-shell .utility-dialog .detail-link:hover { background:#7c3aed99!important; }
+.explorer-trail { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:-4px 0 12px; font-size:12px; color:var(--muted); }
+.explorer-trail span { display:inline-flex; align-items:center; gap:6px; }
+.explorer-trail i { font-size:9px; opacity:.6; }
+:root .app-shell .utility-dialog .explorer-trail button { padding:2px 8px!important; border-radius:999px!important; font-size:12px; color:#d8b4fe; }
+.explorer-trail b { color:var(--text); font-weight:500; }

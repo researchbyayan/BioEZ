@@ -303,8 +303,19 @@ def diagram_result(block):
             part = part or next((p for p in parts if wanted in names(p)), None)
         for wanted in (exact, re.sub(r'^(left|right)-', '', exact)):
             part = part or next((p for p in parts if any(wanted in n for n in names(p))), None)
+        if part is None:  # a close misspelling ("timpanum" for tympanic membrane, "stapies")
+            import difflib
+            # Compare with each part's full name and its first word only, so "timpanum" finds the tympanic membrane
+            # rather than a part that merely mentions the tympanum (tensor tympani).
+            words = {w: p for p in parts for n in names(p) for w in (n, n.removeprefix('part-').split('-')[0]) if len(w) > 3}
+            close = [w for w in difflib.get_close_matches(exact, list(words), n=3, cutoff=0.6) if w[0] == exact[0]]
+            part = words[close[0]] if close else None
         if part:
             result.update(focus=part['id'], focus_label=part['label'])
+        else:
+            # The asked-for structure isn't in this diagram (e.g. the eardrum in the eye): leave the diagram out
+            # rather than show the wrong anatomy.
+            result['unrelated'] = True
     return result
 
 

@@ -5,7 +5,8 @@
   {
    "id": "skin",
    "label": "Skin",
-   "info": "The body's largest organ: a waterproof, protective barrier that also senses and helps control temperature."
+   "info": "The body's largest organ: a waterproof, protective barrier that also senses and helps control temperature.",
+   "detail": "vs-skin"
   },
   {
    "id": "muscles",
@@ -15,32 +16,38 @@
   {
    "id": "skeleton",
    "label": "Skeleton",
-   "info": "Bones and cartilage that support, protect organs and make blood cells."
+   "info": "Bones and cartilage that support, protect organs and make blood cells.",
+   "detail": "human-skeleton"
   },
   {
    "id": "brain",
    "label": "Brain",
-   "info": "Controls the body and processes information."
+   "info": "Controls the body and processes information.",
+   "detail": "organ-brain"
   },
   {
    "id": "heart",
    "label": "Heart",
-   "info": "Muscular pump that drives blood around the body."
+   "info": "Muscular pump that drives blood around the body.",
+   "detail": "organ-heart"
   },
   {
    "id": "blood-vessels",
    "label": "Major blood vessels",
-   "info": "Arteries and veins that carry blood to and from the heart."
+   "info": "Arteries and veins that carry blood to and from the heart.",
+   "detail": "organ-blood-vessels"
   },
   {
    "id": "lungs",
    "label": "Lungs",
-   "info": "Site of gas exchange between air and blood."
+   "info": "Site of gas exchange between air and blood.",
+   "detail": "organ-lungs"
   },
   {
    "id": "liver",
    "label": "Liver",
-   "info": "Processes nutrients, makes bile and detoxifies the blood."
+   "info": "Processes nutrients, makes bile and detoxifies the blood.",
+   "detail": "organ-liver"
   },
   {
    "id": "stomach",
@@ -50,17 +57,20 @@
   {
    "id": "small-intestine",
    "label": "Small intestine",
-   "info": "Where most digestion and absorption of nutrients happen."
+   "info": "Where most digestion and absorption of nutrients happen.",
+   "detail": "organ-small-intestine"
   },
   {
    "id": "large-intestine",
    "label": "Large intestine",
-   "info": "Absorbs water and forms faeces."
+   "info": "Absorbs water and forms faeces.",
+   "detail": "organ-large-intestine"
   },
   {
    "id": "kidneys",
    "label": "Kidneys",
-   "info": "Filter the blood to make urine and balance water and salts."
+   "info": "Filter the blood to make urine and balance water and salts.",
+   "detail": "organ-kidney"
   }
  ]
 }

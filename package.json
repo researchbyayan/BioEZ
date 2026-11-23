@@ -15,8 +15,8 @@
     "test:images": "node --test shared/image-input.test.mjs",
     "test:e2e": "playwright test",
     "bundle:backend": "node scripts/bundle-backend.mjs",
-    "package": "npm run setup:runtime && npm run build && npm run bundle:backend && npm run stage:app && electron-builder --publish never",
-    "package:dir": "npm run setup:runtime && npm run build && npm run bundle:backend && npm run stage:app && electron-builder --dir --publish never",
+    "package": "npm run setup:runtime && npm run build && npm run bundle:backend && npm run stage:app && node scripts/builder.mjs --publish never",
+    "package:dir": "npm run setup:runtime && npm run build && npm run bundle:backend && npm run stage:app && node scripts/builder.mjs --dir --publish never",
     "smoke:backend": "node scripts/smoke-backend.mjs",
     "icons": "node scripts/generate-icons.mjs",
     "setup:runtime": "node scripts/setup-runtime.mjs",
@@ -50,6 +50,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "electron": "^45.0.0",
     "electron-builder": "^26.0.12",
+    "electron39": "npm:electron@39.8.10",
     "typescript": "^5.8.2",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"

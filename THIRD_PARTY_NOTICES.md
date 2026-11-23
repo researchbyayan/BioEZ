@@ -96,3 +96,12 @@ Program (HuBMAP): 3D Human Reference Atlas construction and usage. Nature Method
 
 `frontend/src/diagrams/models/human-skeleton.glb` (92 individually named bones) is built by
 `scripts/build-skeleton-model.py` from BodyParts3D 4.0 (`isa_BP3D_4.0_obj_99.zip`), under the same CC BY 4.0 licence.
+
+## SPL Inner Ear Atlas (3D ear model)
+
+`frontend/src/diagrams/models/organ-ear.glb` is built by `scripts/build-ear-model.py` from the SPL Inner Ear Atlas,
+release 2018-02, by Bartling, Jakab and Kikinis (German Cancer Research Center and the Surgical Planning Laboratory,
+Brigham and Women's Hospital), Open Anatomy Project: https://www.openanatomy.org/atlas-pages/atlas-spl-inner-ear.html.
+All or portions of this licensed product have been obtained under license from The Brigham and Women's Hospital, Inc.
+and are subject to the 3D Slicer License, section B (`licenses/3d-slicer-license.txt`). For education only; not for
+clinical use. Meshes are simplified and recoloured.

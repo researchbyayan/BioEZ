@@ -1,12 +1,13 @@
 import catalog from '../../shared/diagrams.json';
 
-export interface Part {id:string;label:string;info?:string;colour?:string}
-export interface DiagramEntry {id:string;kind:'model'|'section';group:string;title:string;section?:string;keywords:string;credit:string;hidden?:boolean;sectionable?:boolean;twin?:string}
+export interface Part {id:string;label:string;info?:string;colour?:string;detail?:string}
+export interface DiagramEntry {id:string;kind:'model'|'section';group:string;title:string;section?:string;keywords:string;credit:string;hidden?:boolean;sectionable?:boolean;twin?:string;organism?:string}
 
 const ORIGINAL='Original BioEZ illustration (MIT).';
 const ANATOMY='BodyParts3D, © The Database Center for Life Science, licensed under CC Attribution 4.0 International. Simplified for BioEZ.';
+const EAR='SPL Inner Ear Atlas (Bartling, Jakab, Kikinis), Open Anatomy Project, 3D Slicer License. Simplified for BioEZ.';
 const HRA='HuBMAP Human Reference Atlas (CCF 3D Reference Object Library v1.2), CC BY 4.0. Simplified for BioEZ.';
-export const DIAGRAMS:DiagramEntry[]=(catalog as Omit<DiagramEntry,'credit'>[]).map(d=>({...d,credit:d.id.startsWith('human-')?ANATOMY:d.id.startsWith('organ-')?HRA:ORIGINAL}));
+export const DIAGRAMS:DiagramEntry[]=(catalog as Omit<DiagramEntry,'credit'>[]).map(d=>({...d,credit:d.id==='organ-ear'?EAR:d.id.startsWith('human-')?ANATOMY:d.id.startsWith('organ-')?HRA:ORIGINAL}));
 
 // Assets are bundled into lazily loaded chunks: the packaged app loads from file://, where fetch is unavailable.
 const sections=import.meta.glob<string>('./diagrams/sections/*.svg',{query:'?raw',import:'default'});

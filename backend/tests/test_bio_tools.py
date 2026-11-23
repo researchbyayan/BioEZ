@@ -101,5 +101,5 @@ def test_diagram_focus_matches_a_named_part():
     assert not failed and (blocks[0]['focus'], blocks[0]['focus_label']) == ('femur', 'Femur')
     blocks, _ = render({'type': 'diagram', 'name': 'organ-kidney', 'focus': 'renal pyramid', 'cut': 'ls'})
     assert (blocks[0]['focus'], blocks[0]['cut']) == ('renal-pyramid', 'ls')
-    blocks, failed = render({'type': 'diagram', 'name': 'organ-heart', 'focus': 'not a part'})
-    assert not failed and blocks[0]['focus'] == ''  # an unknown focus still shows the whole diagram
+    blocks, failed = render({'type': 'markdown', 'text': 'The eardrum…'}, {'type': 'diagram', 'name': 'ls-eye', 'focus': 'tympanic membrane'})
+    assert not failed and [b['type'] for b in blocks] == ['markdown']  # a diagram without the asked part is left out

@@ -120,6 +120,8 @@ def prepare_answer(text):
                 block=block.model_copy(update={'text':biology_markdown(block.text)})
             try:
                 rendered=render_block(block)
+                if rendered.get('unrelated'):
+                    continue
             except ValueError:
                 if block.type=='mechanism' and (rebuilt:=mechanisms.recognise(item,data['blocks'])):
                     # The model's panels could not be read: draw the named mechanism BioEZ knows.
