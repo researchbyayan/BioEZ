@@ -242,7 +242,7 @@ function ViewerBody({id,focus,cut:initialCut,compact=false,onExpand,switcher}:{i
       {onExpand&&<button type="button" className="holo-toggle expand" onClick={onExpand}><i className="fas fa-expand" aria-hidden="true"/> Full view</button>}
     </div>
   </div>;
-  return <div className="explorer-layout">
+  return <><div className="explorer-layout">
     {viewer}
     <aside className="explorer-side">
       {(switcher||cutControl)&&<div className="explorer-cut">{switcher}{cutControl}</div>}
@@ -250,7 +250,7 @@ function ViewerBody({id,focus,cut:initialCut,compact=false,onExpand,switcher}:{i
       <Info part={parts.find(p=>p.id===active)}/>
       <PartList parts={parts} active={active} hidden={entry.kind==='model'?hidden:undefined} onHover={partId=>setActive(partId??(focus||null))} onSelect={select} onToggle={entry.kind==='model'?toggle:undefined}/>
     </aside>
-  </div>;
+  </div><p className="explorer-credit">{entry.credit}</p></>;
 }
 
 export function DiagramExplorer({id,focus,cut,onClose}:{id:string;focus?:string;cut?:'ts'|'ls'|'';onClose:()=>void}){
@@ -258,7 +258,6 @@ export function DiagramExplorer({id,focus,cut,onClose}:{id:string;focus?:string;
   if(!entry)return null;
   return <Dialog title={entry.title} onClose={onClose} className="diagram-explorer">
     <DiagramViewer id={id} focus={focus} cut={cut}/>
-    <p className="explorer-credit">{entry.credit}</p>
   </Dialog>;
 }
 

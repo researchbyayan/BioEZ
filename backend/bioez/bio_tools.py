@@ -293,11 +293,16 @@ def diagram_result(block):
     if entry is None:
         raise ValueError(f'BioEZ has no built-in diagram "{block["name"]}". Use one of the listed diagram names, or answer without it.')
     result = {'name': entry['id'], 'title': entry['title'], 'kind': entry['kind'], 'section': entry.get('section', ''), 'group': entry['group'], 'focus': '', 'focus_label': '', 'cut': block.get('cut') or '' if entry.get('sectionable') else ''}
-    wanted = _slug(block.get('focus') or '')
-    if wanted:
-        part = next((p for p in entry.get('parts', []) if wanted in (_slug(p['id']), _slug(p['id']).removeprefix('part-'), _slug(p['label']))), None)
-        if part is None:  # a partial name such as "ventricle" picks the first matching part
-            part = next((p for p in entry.get('parts', []) if wanted in _slug(p['label']) or wanted in _slug(p['id'])), None)
+    exact = _slug(block.get('focus') or '')
+    if exact:
+        parts = entry.get('parts', [])
+        names = lambda p: (_slug(p['id']), _slug(p['id']).removeprefix('part-'), _slug(p['label']))
+        part = None
+        # Exact name first, then without "left/right" (paired bones are one part), then a partial match.
+        for wanted in (exact, re.sub(r'^(left|right)-', '', exact)):
+            part = part or next((p for p in parts if wanted in names(p)), None)
+        for wanted in (exact, re.sub(r'^(left|right)-', '', exact)):
+            part = part or next((p for p in parts if any(wanted in n for n in names(p))), None)
         if part:
             result.update(focus=part['id'], focus_label=part['label'])
     return result

@@ -1,11 +1,71 @@
 {
  "title": "Human skeleton",
- "credit": "BodyParts3D, © The Database Center for Life Science, licensed under CC Attribution 4.0 International. Simplified for BioEZ.",
+ "credit": "BodyParts3D 4.0, © The Database Center for Life Science, licensed under CC Attribution 4.0 International. Simplified for BioEZ.",
  "parts": [
   {
-   "id": "skull",
-   "label": "Skull (cranium and face)",
-   "info": "Protects the brain and supports the face; the cranial bones are fused at sutures."
+   "id": "ethmoid",
+   "label": "Ethmoid",
+   "info": ""
+  },
+  {
+   "id": "frontal-bone",
+   "label": "Frontal bone",
+   "info": ""
+  },
+  {
+   "id": "occipital-bone",
+   "label": "Occipital bone",
+   "info": ""
+  },
+  {
+   "id": "parietal-bone",
+   "label": "Parietal bone",
+   "info": ""
+  },
+  {
+   "id": "sphenoid-bone",
+   "label": "Sphenoid bone",
+   "info": ""
+  },
+  {
+   "id": "temporal-bone",
+   "label": "Temporal bone",
+   "info": ""
+  },
+  {
+   "id": "inferior-nasal-concha",
+   "label": "Inferior nasal concha",
+   "info": ""
+  },
+  {
+   "id": "lacrimal-bone",
+   "label": "Lacrimal bone",
+   "info": ""
+  },
+  {
+   "id": "maxilla",
+   "label": "Maxilla",
+   "info": ""
+  },
+  {
+   "id": "nasal-bone",
+   "label": "Nasal bone",
+   "info": ""
+  },
+  {
+   "id": "palatine-bone",
+   "label": "Palatine bone",
+   "info": ""
+  },
+  {
+   "id": "vomer",
+   "label": "Vomer",
+   "info": ""
+  },
+  {
+   "id": "zygomatic-bone",
+   "label": "Zygomatic bone",
+   "info": ""
   },
   {
    "id": "mandible",
@@ -13,24 +73,214 @@
    "info": "The lower jaw, the only movable bone of the skull."
   },
   {
-   "id": "vertebral-column",
-   "label": "Vertebral column",
-   "info": "Stack of vertebrae and discs that supports the body and protects the spinal cord."
+   "id": "hyoid-bone",
+   "label": "Hyoid bone",
+   "info": "U-shaped neck bone that anchors the tongue; it touches no other bone."
   },
   {
-   "id": "ribs",
-   "label": "Ribs and costal cartilages",
-   "info": "Twelve pairs that form the thoracic cage and move during breathing."
+   "id": "atlas",
+   "label": "Atlas",
+   "info": "First cervical vertebra; it holds up the skull."
+  },
+  {
+   "id": "axis",
+   "label": "Axis",
+   "info": "Second cervical vertebra; its dens lets the head turn."
+  },
+  {
+   "id": "third-cervical-vertebra",
+   "label": "Third cervical vertebra",
+   "info": ""
+  },
+  {
+   "id": "fourth-cervical-vertebra",
+   "label": "Fourth cervical vertebra",
+   "info": ""
+  },
+  {
+   "id": "fifth-cervical-vertebra",
+   "label": "Fifth cervical vertebra",
+   "info": ""
+  },
+  {
+   "id": "sixth-cervical-vertebra",
+   "label": "Sixth cervical vertebra",
+   "info": ""
+  },
+  {
+   "id": "seventh-cervical-vertebra",
+   "label": "Seventh cervical vertebra",
+   "info": ""
+  },
+  {
+   "id": "first-thoracic-vertebra",
+   "label": "First thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "second-thoracic-vertebra",
+   "label": "Second thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "third-thoracic-vertebra",
+   "label": "Third thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "fourth-thoracic-vertebra",
+   "label": "Fourth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "fifth-thoracic-vertebra",
+   "label": "Fifth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "sixth-thoracic-vertebra",
+   "label": "Sixth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "seventh-thoracic-vertebra",
+   "label": "Seventh thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "eighth-thoracic-vertebra",
+   "label": "Eighth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "ninth-thoracic-vertebra",
+   "label": "Ninth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "tenth-thoracic-vertebra",
+   "label": "Tenth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "eleventh-thoracic-vertebra",
+   "label": "Eleventh thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "twelfth-thoracic-vertebra",
+   "label": "Twelfth thoracic vertebra",
+   "info": ""
+  },
+  {
+   "id": "first-lumbar-vertebra",
+   "label": "First lumbar vertebra",
+   "info": ""
+  },
+  {
+   "id": "second-lumbar-vertebra",
+   "label": "Second lumbar vertebra",
+   "info": ""
+  },
+  {
+   "id": "third-lumbar-vertebra",
+   "label": "Third lumbar vertebra",
+   "info": ""
+  },
+  {
+   "id": "fourth-lumbar-vertebra",
+   "label": "Fourth lumbar vertebra",
+   "info": ""
+  },
+  {
+   "id": "fifth-lumbar-vertebra",
+   "label": "Fifth lumbar vertebra",
+   "info": ""
+  },
+  {
+   "id": "sacrum",
+   "label": "Sacrum",
+   "info": "Five fused vertebrae joining the spine to the pelvis."
   },
   {
    "id": "sternum",
    "label": "Sternum",
-   "info": "The breastbone, joined to the ribs by costal cartilage."
+   "info": "The breastbone: manubrium, body and xiphoid process."
   },
   {
-   "id": "shoulder-girdle",
-   "label": "Clavicle and scapula",
-   "info": "The shoulder girdle that attaches the arm to the trunk."
+   "id": "first-rib",
+   "label": "First rib",
+   "info": ""
+  },
+  {
+   "id": "second-rib",
+   "label": "Second rib",
+   "info": ""
+  },
+  {
+   "id": "third-rib",
+   "label": "Third rib",
+   "info": ""
+  },
+  {
+   "id": "fourth-rib",
+   "label": "Fourth rib",
+   "info": ""
+  },
+  {
+   "id": "fifth-rib",
+   "label": "Fifth rib",
+   "info": ""
+  },
+  {
+   "id": "sixth-rib",
+   "label": "Sixth rib",
+   "info": ""
+  },
+  {
+   "id": "seventh-rib",
+   "label": "Seventh rib",
+   "info": ""
+  },
+  {
+   "id": "eighth-rib",
+   "label": "Eighth rib",
+   "info": ""
+  },
+  {
+   "id": "ninth-rib",
+   "label": "Ninth rib",
+   "info": ""
+  },
+  {
+   "id": "tenth-rib",
+   "label": "Tenth rib",
+   "info": ""
+  },
+  {
+   "id": "eleventh-rib",
+   "label": "Eleventh rib",
+   "info": ""
+  },
+  {
+   "id": "twelfth-rib",
+   "label": "Twelfth rib",
+   "info": ""
+  },
+  {
+   "id": "costal-cartilages",
+   "label": "Costal cartilages",
+   "info": "Hyaline cartilage joining the ribs to the sternum."
+  },
+  {
+   "id": "clavicle",
+   "label": "Clavicle",
+   "info": "The collarbone, a strut between the sternum and scapula."
+  },
+  {
+   "id": "scapula",
+   "label": "Scapula",
+   "info": "The shoulder blade."
   },
   {
    "id": "humerus",
@@ -38,19 +288,89 @@
    "info": "The upper-arm bone."
   },
   {
-   "id": "forearm",
-   "label": "Radius and ulna",
-   "info": "The two forearm bones; the radius rotates around the ulna."
+   "id": "radius",
+   "label": "Radius",
+   "info": "Forearm bone on the thumb side; it rotates around the ulna."
   },
   {
-   "id": "hand",
-   "label": "Hand (carpals, metacarpals, phalanges)",
-   "info": "Twenty-seven bones that give the hand its fine movement."
+   "id": "ulna",
+   "label": "Ulna",
+   "info": "Forearm bone on the little-finger side."
   },
   {
-   "id": "pelvis",
-   "label": "Hip bones (pelvis)",
-   "info": "Each hip bone is a fused ilium, ischium and pubis; together they bear the body's weight."
+   "id": "capitate",
+   "label": "Capitate",
+   "info": ""
+  },
+  {
+   "id": "hamate",
+   "label": "Hamate",
+   "info": ""
+  },
+  {
+   "id": "lunate",
+   "label": "Lunate",
+   "info": ""
+  },
+  {
+   "id": "pisiform",
+   "label": "Pisiform",
+   "info": ""
+  },
+  {
+   "id": "scaphoid",
+   "label": "Scaphoid",
+   "info": ""
+  },
+  {
+   "id": "trapezium",
+   "label": "Trapezium",
+   "info": ""
+  },
+  {
+   "id": "trapezoid",
+   "label": "Trapezoid",
+   "info": ""
+  },
+  {
+   "id": "triquetral",
+   "label": "Triquetral",
+   "info": ""
+  },
+  {
+   "id": "first-metacarpal-bone",
+   "label": "First metacarpal bone",
+   "info": ""
+  },
+  {
+   "id": "second-metacarpal-bone",
+   "label": "Second metacarpal bone",
+   "info": ""
+  },
+  {
+   "id": "third-metacarpal-bone",
+   "label": "Third metacarpal bone",
+   "info": ""
+  },
+  {
+   "id": "fourth-metacarpal-bone",
+   "label": "Fourth metacarpal bone",
+   "info": ""
+  },
+  {
+   "id": "fifth-metacarpal-bone",
+   "label": "Fifth metacarpal bone",
+   "info": ""
+  },
+  {
+   "id": "phalanges-of-hand",
+   "label": "Phalanges of hand",
+   "info": "The 14 finger bones of each hand."
+  },
+  {
+   "id": "hip-bone",
+   "label": "Hip bone",
+   "info": "Fused ilium, ischium and pubis; the two hip bones and sacrum form the pelvis."
   },
   {
    "id": "femur",
@@ -63,19 +383,84 @@
    "info": "The kneecap, a sesamoid bone in the quadriceps tendon."
   },
   {
-   "id": "leg",
-   "label": "Tibia and fibula",
-   "info": "The shin bone (tibia) carries the weight; the fibula anchors muscles."
+   "id": "fibula",
+   "label": "Fibula",
+   "info": "Thin outer leg bone that anchors muscles."
   },
   {
-   "id": "foot",
-   "label": "Foot (tarsals, metatarsals, phalanges)",
-   "info": "Twenty-six bones forming the arches of the foot."
+   "id": "tibia",
+   "label": "Tibia",
+   "info": "The shin bone, which carries the body's weight to the foot."
   },
   {
-   "id": "other-bones",
-   "label": "Other bones and ligaments",
-   "info": "Smaller skeletal parts such as the hyoid and ligaments."
+   "id": "calcaneus",
+   "label": "Calcaneus",
+   "info": ""
+  },
+  {
+   "id": "cuboid-bone",
+   "label": "Cuboid bone",
+   "info": ""
+  },
+  {
+   "id": "intermediate-cuneiform-bone",
+   "label": "Intermediate cuneiform bone",
+   "info": ""
+  },
+  {
+   "id": "lateral-cuneiform-bone",
+   "label": "Lateral cuneiform bone",
+   "info": ""
+  },
+  {
+   "id": "medial-cuneiform-bone",
+   "label": "Medial cuneiform bone",
+   "info": ""
+  },
+  {
+   "id": "navicular-bone-of-foot",
+   "label": "Navicular bone of foot",
+   "info": ""
+  },
+  {
+   "id": "talus",
+   "label": "Talus",
+   "info": ""
+  },
+  {
+   "id": "first-metatarsal-bone",
+   "label": "First metatarsal bone",
+   "info": ""
+  },
+  {
+   "id": "second-metatarsal-bone",
+   "label": "Second metatarsal bone",
+   "info": ""
+  },
+  {
+   "id": "third-metatarsal-bone",
+   "label": "Third metatarsal bone",
+   "info": ""
+  },
+  {
+   "id": "fourth-metatarsal-bone",
+   "label": "Fourth metatarsal bone",
+   "info": ""
+  },
+  {
+   "id": "fifth-metatarsal-bone",
+   "label": "Fifth metatarsal bone",
+   "info": ""
+  },
+  {
+   "id": "phalanges-of-foot",
+   "label": "Phalanges of foot",
+   "info": "The 14 toe bones of each foot."
+  },
+  {
+   "id": "sesamoid-bone-of-foot",
+   "label": "Sesamoid bone of foot",
+   "info": ""
   }
  ]
 }

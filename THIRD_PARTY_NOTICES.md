@@ -73,7 +73,7 @@ them is included:
 
 ## BodyParts3D (3D human anatomy models)
 
-`frontend/src/diagrams/models/human-body.glb`, `human-skeleton.glb` and `human-heart.glb` are simplified
+`frontend/src/diagrams/models/human-body.glb` and `human-heart.glb` are simplified
 from BodyParts3D release 3.0 (2011-09-15), via the STL conversion at
 https://github.com/Kevin-Mattheus-Moerman/BodyParts3D, by `scripts/build-anatomy-models.py`.
 "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International"
@@ -93,3 +93,6 @@ CCF 3D Reference Object Library v1.2 (https://hubmapconsortium.github.io/ccf/pag
 https://github.com/hubmapconsortium/ccf-releases), licensed under CC BY 4.0. Structures are merged across left/right
 copies and sub-pieces, simplified and recoloured by tissue type. Please cite: Börner K. et al. Human BioMolecular Atlas
 Program (HuBMAP): 3D Human Reference Atlas construction and usage. Nature Methods (2025).
+
+`frontend/src/diagrams/models/human-skeleton.glb` (92 individually named bones) is built by
+`scripts/build-skeleton-model.py` from BodyParts3D 4.0 (`isa_BP3D_4.0_obj_99.zip`), under the same CC BY 4.0 licence.
