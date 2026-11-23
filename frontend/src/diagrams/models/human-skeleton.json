@@ -18,8 +18,13 @@
    "info": ""
   },
   {
-   "id": "parietal-bone",
-   "label": "Parietal bone",
+   "id": "left-parietal-bone",
+   "label": "Left parietal bone",
+   "info": ""
+  },
+  {
+   "id": "right-parietal-bone",
+   "label": "Right parietal bone",
    "info": ""
   },
   {
@@ -28,33 +33,63 @@
    "info": ""
   },
   {
-   "id": "temporal-bone",
-   "label": "Temporal bone",
+   "id": "left-temporal-bone",
+   "label": "Left temporal bone",
    "info": ""
   },
   {
-   "id": "inferior-nasal-concha",
-   "label": "Inferior nasal concha",
+   "id": "right-temporal-bone",
+   "label": "Right temporal bone",
    "info": ""
   },
   {
-   "id": "lacrimal-bone",
-   "label": "Lacrimal bone",
+   "id": "left-inferior-nasal-concha",
+   "label": "Left inferior nasal concha",
    "info": ""
   },
   {
-   "id": "maxilla",
-   "label": "Maxilla",
+   "id": "right-inferior-nasal-concha",
+   "label": "Right inferior nasal concha",
    "info": ""
   },
   {
-   "id": "nasal-bone",
-   "label": "Nasal bone",
+   "id": "left-lacrimal-bone",
+   "label": "Left lacrimal bone",
    "info": ""
   },
   {
-   "id": "palatine-bone",
-   "label": "Palatine bone",
+   "id": "right-lacrimal-bone",
+   "label": "Right lacrimal bone",
+   "info": ""
+  },
+  {
+   "id": "left-maxilla",
+   "label": "Left maxilla",
+   "info": ""
+  },
+  {
+   "id": "right-maxilla",
+   "label": "Right maxilla",
+   "info": ""
+  },
+  {
+   "id": "left-nasal-bone",
+   "label": "Left nasal bone",
+   "info": ""
+  },
+  {
+   "id": "right-nasal-bone",
+   "label": "Right nasal bone",
+   "info": ""
+  },
+  {
+   "id": "left-palatine-bone",
+   "label": "Left palatine bone",
+   "info": ""
+  },
+  {
+   "id": "right-palatine-bone",
+   "label": "Right palatine bone",
    "info": ""
   },
   {
@@ -63,8 +98,13 @@
    "info": ""
   },
   {
-   "id": "zygomatic-bone",
-   "label": "Zygomatic bone",
+   "id": "left-zygomatic-bone",
+   "label": "Left zygomatic bone",
+   "info": ""
+  },
+  {
+   "id": "right-zygomatic-bone",
+   "label": "Right zygomatic bone",
    "info": ""
   },
   {
@@ -208,63 +248,123 @@
    "info": "The breastbone: manubrium, body and xiphoid process."
   },
   {
-   "id": "first-rib",
-   "label": "First rib",
+   "id": "left-first-rib",
+   "label": "Left first rib",
    "info": ""
   },
   {
-   "id": "second-rib",
-   "label": "Second rib",
+   "id": "right-first-rib",
+   "label": "Right first rib",
    "info": ""
   },
   {
-   "id": "third-rib",
-   "label": "Third rib",
+   "id": "left-second-rib",
+   "label": "Left second rib",
    "info": ""
   },
   {
-   "id": "fourth-rib",
-   "label": "Fourth rib",
+   "id": "right-second-rib",
+   "label": "Right second rib",
    "info": ""
   },
   {
-   "id": "fifth-rib",
-   "label": "Fifth rib",
+   "id": "left-third-rib",
+   "label": "Left third rib",
    "info": ""
   },
   {
-   "id": "sixth-rib",
-   "label": "Sixth rib",
+   "id": "right-third-rib",
+   "label": "Right third rib",
    "info": ""
   },
   {
-   "id": "seventh-rib",
-   "label": "Seventh rib",
+   "id": "left-fourth-rib",
+   "label": "Left fourth rib",
    "info": ""
   },
   {
-   "id": "eighth-rib",
-   "label": "Eighth rib",
+   "id": "right-fourth-rib",
+   "label": "Right fourth rib",
    "info": ""
   },
   {
-   "id": "ninth-rib",
-   "label": "Ninth rib",
+   "id": "left-fifth-rib",
+   "label": "Left fifth rib",
    "info": ""
   },
   {
-   "id": "tenth-rib",
-   "label": "Tenth rib",
+   "id": "right-fifth-rib",
+   "label": "Right fifth rib",
    "info": ""
   },
   {
-   "id": "eleventh-rib",
-   "label": "Eleventh rib",
+   "id": "left-sixth-rib",
+   "label": "Left sixth rib",
    "info": ""
   },
   {
-   "id": "twelfth-rib",
-   "label": "Twelfth rib",
+   "id": "right-sixth-rib",
+   "label": "Right sixth rib",
+   "info": ""
+  },
+  {
+   "id": "left-seventh-rib",
+   "label": "Left seventh rib",
+   "info": ""
+  },
+  {
+   "id": "right-seventh-rib",
+   "label": "Right seventh rib",
+   "info": ""
+  },
+  {
+   "id": "left-eighth-rib",
+   "label": "Left eighth rib",
+   "info": ""
+  },
+  {
+   "id": "right-eighth-rib",
+   "label": "Right eighth rib",
+   "info": ""
+  },
+  {
+   "id": "left-ninth-rib",
+   "label": "Left ninth rib",
+   "info": ""
+  },
+  {
+   "id": "right-ninth-rib",
+   "label": "Right ninth rib",
+   "info": ""
+  },
+  {
+   "id": "left-tenth-rib",
+   "label": "Left tenth rib",
+   "info": ""
+  },
+  {
+   "id": "right-tenth-rib",
+   "label": "Right tenth rib",
+   "info": ""
+  },
+  {
+   "id": "left-eleventh-rib",
+   "label": "Left eleventh rib",
+   "info": ""
+  },
+  {
+   "id": "right-eleventh-rib",
+   "label": "Right eleventh rib",
+   "info": ""
+  },
+  {
+   "id": "left-twelfth-rib",
+   "label": "Left twelfth rib",
+   "info": ""
+  },
+  {
+   "id": "right-twelfth-rib",
+   "label": "Right twelfth rib",
    "info": ""
   },
   {
@@ -273,323 +373,643 @@
    "info": "Hyaline cartilage joining the ribs to the sternum."
   },
   {
-   "id": "clavicle",
-   "label": "Clavicle",
+   "id": "left-clavicle",
+   "label": "Left clavicle",
    "info": "The collarbone, a strut between the sternum and scapula."
   },
   {
-   "id": "scapula",
-   "label": "Scapula",
+   "id": "right-clavicle",
+   "label": "Right clavicle",
+   "info": "The collarbone, a strut between the sternum and scapula."
+  },
+  {
+   "id": "left-scapula",
+   "label": "Left scapula",
    "info": "The shoulder blade."
   },
   {
-   "id": "humerus",
-   "label": "Humerus",
+   "id": "right-scapula",
+   "label": "Right scapula",
+   "info": "The shoulder blade."
+  },
+  {
+   "id": "left-humerus",
+   "label": "Left humerus",
    "info": "The upper-arm bone."
   },
   {
-   "id": "radius",
-   "label": "Radius",
+   "id": "right-humerus",
+   "label": "Right humerus",
+   "info": "The upper-arm bone."
+  },
+  {
+   "id": "left-radius",
+   "label": "Left radius",
    "info": "Forearm bone on the thumb side; it rotates around the ulna."
   },
   {
-   "id": "ulna",
-   "label": "Ulna",
+   "id": "right-radius",
+   "label": "Right radius",
+   "info": "Forearm bone on the thumb side; it rotates around the ulna."
+  },
+  {
+   "id": "left-ulna",
+   "label": "Left ulna",
    "info": "Forearm bone on the little-finger side."
   },
   {
-   "id": "capitate",
-   "label": "Capitate",
+   "id": "right-ulna",
+   "label": "Right ulna",
+   "info": "Forearm bone on the little-finger side."
+  },
+  {
+   "id": "left-capitate",
+   "label": "Left capitate",
    "info": ""
   },
   {
-   "id": "hamate",
-   "label": "Hamate",
+   "id": "right-capitate",
+   "label": "Right capitate",
    "info": ""
   },
   {
-   "id": "lunate",
-   "label": "Lunate",
+   "id": "left-hamate",
+   "label": "Left hamate",
    "info": ""
   },
   {
-   "id": "pisiform",
-   "label": "Pisiform",
+   "id": "right-hamate",
+   "label": "Right hamate",
    "info": ""
   },
   {
-   "id": "scaphoid",
-   "label": "Scaphoid",
+   "id": "left-lunate",
+   "label": "Left lunate",
    "info": ""
   },
   {
-   "id": "trapezium",
-   "label": "Trapezium",
+   "id": "right-lunate",
+   "label": "Right lunate",
    "info": ""
   },
   {
-   "id": "trapezoid",
-   "label": "Trapezoid",
+   "id": "left-pisiform",
+   "label": "Left pisiform",
    "info": ""
   },
   {
-   "id": "triquetral",
-   "label": "Triquetral",
+   "id": "right-pisiform",
+   "label": "Right pisiform",
    "info": ""
   },
   {
-   "id": "first-metacarpal-bone",
-   "label": "First metacarpal bone",
+   "id": "left-scaphoid",
+   "label": "Left scaphoid",
    "info": ""
   },
   {
-   "id": "second-metacarpal-bone",
-   "label": "Second metacarpal bone",
+   "id": "right-scaphoid",
+   "label": "Right scaphoid",
    "info": ""
   },
   {
-   "id": "third-metacarpal-bone",
-   "label": "Third metacarpal bone",
+   "id": "left-trapezium",
+   "label": "Left trapezium",
    "info": ""
   },
   {
-   "id": "fourth-metacarpal-bone",
-   "label": "Fourth metacarpal bone",
+   "id": "right-trapezium",
+   "label": "Right trapezium",
    "info": ""
   },
   {
-   "id": "fifth-metacarpal-bone",
-   "label": "Fifth metacarpal bone",
+   "id": "left-trapezoid",
+   "label": "Left trapezoid",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-index-finger",
-   "label": "Distal phalanx of index finger",
+   "id": "right-trapezoid",
+   "label": "Right trapezoid",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-little-finger",
-   "label": "Distal phalanx of little finger",
+   "id": "left-triquetral",
+   "label": "Left triquetral",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-middle-finger",
-   "label": "Distal phalanx of middle finger",
+   "id": "right-triquetral",
+   "label": "Right triquetral",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-ring-finger",
-   "label": "Distal phalanx of ring finger",
+   "id": "left-first-metacarpal-bone",
+   "label": "Left first metacarpal bone",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-thumb",
-   "label": "Distal phalanx of thumb",
+   "id": "right-first-metacarpal-bone",
+   "label": "Right first metacarpal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-index-finger",
-   "label": "Middle phalanx of index finger",
+   "id": "left-second-metacarpal-bone",
+   "label": "Left second metacarpal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-little-finger",
-   "label": "Middle phalanx of little finger",
+   "id": "right-second-metacarpal-bone",
+   "label": "Right second metacarpal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-middle-finger",
-   "label": "Middle phalanx of middle finger",
+   "id": "left-third-metacarpal-bone",
+   "label": "Left third metacarpal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-ring-finger",
-   "label": "Middle phalanx of ring finger",
+   "id": "right-third-metacarpal-bone",
+   "label": "Right third metacarpal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-index-finger",
-   "label": "Proximal phalanx of index finger",
+   "id": "left-fourth-metacarpal-bone",
+   "label": "Left fourth metacarpal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-little-finger",
-   "label": "Proximal phalanx of little finger",
+   "id": "right-fourth-metacarpal-bone",
+   "label": "Right fourth metacarpal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-middle-finger",
-   "label": "Proximal phalanx of middle finger",
+   "id": "left-fifth-metacarpal-bone",
+   "label": "Left fifth metacarpal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-ring-finger",
-   "label": "Proximal phalanx of ring finger",
+   "id": "right-fifth-metacarpal-bone",
+   "label": "Right fifth metacarpal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-thumb",
-   "label": "Proximal phalanx of thumb",
-   "info": ""
-  },
-  {
-   "id": "hip-bone",
-   "label": "Hip bone",
+   "id": "left-hip-bone",
+   "label": "Left hip bone",
    "info": "Fused ilium, ischium and pubis; the two hip bones and sacrum form the pelvis."
   },
   {
-   "id": "femur",
-   "label": "Femur",
+   "id": "right-hip-bone",
+   "label": "Right hip bone",
+   "info": "Fused ilium, ischium and pubis; the two hip bones and sacrum form the pelvis."
+  },
+  {
+   "id": "left-femur",
+   "label": "Left femur",
    "info": "The thigh bone, the longest and strongest bone in the body."
   },
   {
-   "id": "patella",
-   "label": "Patella",
+   "id": "right-femur",
+   "label": "Right femur",
+   "info": "The thigh bone, the longest and strongest bone in the body."
+  },
+  {
+   "id": "left-patella",
+   "label": "Left patella",
    "info": "The kneecap, a sesamoid bone in the quadriceps tendon."
   },
   {
-   "id": "fibula",
-   "label": "Fibula",
+   "id": "right-patella",
+   "label": "Right patella",
+   "info": "The kneecap, a sesamoid bone in the quadriceps tendon."
+  },
+  {
+   "id": "left-fibula",
+   "label": "Left fibula",
    "info": "Thin outer leg bone that anchors muscles."
   },
   {
-   "id": "tibia",
-   "label": "Tibia",
+   "id": "right-fibula",
+   "label": "Right fibula",
+   "info": "Thin outer leg bone that anchors muscles."
+  },
+  {
+   "id": "left-tibia",
+   "label": "Left tibia",
    "info": "The shin bone, which carries the body's weight to the foot."
   },
   {
-   "id": "calcaneus",
-   "label": "Calcaneus",
+   "id": "right-tibia",
+   "label": "Right tibia",
+   "info": "The shin bone, which carries the body's weight to the foot."
+  },
+  {
+   "id": "left-calcaneus",
+   "label": "Left calcaneus",
    "info": ""
   },
   {
-   "id": "cuboid-bone",
-   "label": "Cuboid bone",
+   "id": "right-calcaneus",
+   "label": "Right calcaneus",
    "info": ""
   },
   {
-   "id": "intermediate-cuneiform-bone",
-   "label": "Intermediate cuneiform bone",
+   "id": "left-cuboid-bone",
+   "label": "Left cuboid bone",
    "info": ""
   },
   {
-   "id": "lateral-cuneiform-bone",
-   "label": "Lateral cuneiform bone",
+   "id": "right-cuboid-bone",
+   "label": "Right cuboid bone",
    "info": ""
   },
   {
-   "id": "medial-cuneiform-bone",
-   "label": "Medial cuneiform bone",
+   "id": "left-intermediate-cuneiform-bone",
+   "label": "Left intermediate cuneiform bone",
    "info": ""
   },
   {
-   "id": "navicular-bone-of-foot",
-   "label": "Navicular bone of foot",
+   "id": "right-intermediate-cuneiform-bone",
+   "label": "Right intermediate cuneiform bone",
    "info": ""
   },
   {
-   "id": "talus",
-   "label": "Talus",
+   "id": "left-lateral-cuneiform-bone",
+   "label": "Left lateral cuneiform bone",
    "info": ""
   },
   {
-   "id": "first-metatarsal-bone",
-   "label": "First metatarsal bone",
+   "id": "right-lateral-cuneiform-bone",
+   "label": "Right lateral cuneiform bone",
    "info": ""
   },
   {
-   "id": "second-metatarsal-bone",
-   "label": "Second metatarsal bone",
+   "id": "left-medial-cuneiform-bone",
+   "label": "Left medial cuneiform bone",
    "info": ""
   },
   {
-   "id": "third-metatarsal-bone",
-   "label": "Third metatarsal bone",
+   "id": "right-medial-cuneiform-bone",
+   "label": "Right medial cuneiform bone",
    "info": ""
   },
   {
-   "id": "fourth-metatarsal-bone",
-   "label": "Fourth metatarsal bone",
+   "id": "navicular-bone-of-left-foot",
+   "label": "Navicular bone of left foot",
    "info": ""
   },
   {
-   "id": "fifth-metatarsal-bone",
-   "label": "Fifth metatarsal bone",
+   "id": "navicular-bone-of-right-foot",
+   "label": "Navicular bone of right foot",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-big-toe",
-   "label": "Distal phalanx of big toe",
+   "id": "left-talus",
+   "label": "Left talus",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-fourth-toe",
-   "label": "Distal phalanx of fourth toe",
+   "id": "right-talus",
+   "label": "Right talus",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-little-toe",
-   "label": "Distal phalanx of little toe",
+   "id": "left-first-metatarsal-bone",
+   "label": "Left first metatarsal bone",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-second-toe",
-   "label": "Distal phalanx of second toe",
+   "id": "right-first-metatarsal-bone",
+   "label": "Right first metatarsal bone",
    "info": ""
   },
   {
-   "id": "distal-phalanx-of-third-toe",
-   "label": "Distal phalanx of third toe",
+   "id": "left-second-metatarsal-bone",
+   "label": "Left second metatarsal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-fourth-toe",
-   "label": "Middle phalanx of fourth toe",
+   "id": "right-second-metatarsal-bone",
+   "label": "Right second metatarsal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-little-toe",
-   "label": "Middle phalanx of little toe",
+   "id": "left-third-metatarsal-bone",
+   "label": "Left third metatarsal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-second-toe",
-   "label": "Middle phalanx of second toe",
+   "id": "right-third-metatarsal-bone",
+   "label": "Right third metatarsal bone",
    "info": ""
   },
   {
-   "id": "middle-phalanx-of-third-toe",
-   "label": "Middle phalanx of third toe",
+   "id": "left-fourth-metatarsal-bone",
+   "label": "Left fourth metatarsal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-big-toe",
-   "label": "Proximal phalanx of big toe",
+   "id": "right-fourth-metatarsal-bone",
+   "label": "Right fourth metatarsal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-fourth-toe",
-   "label": "Proximal phalanx of fourth toe",
+   "id": "left-fifth-metatarsal-bone",
+   "label": "Left fifth metatarsal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-little-toe",
-   "label": "Proximal phalanx of little toe",
+   "id": "right-fifth-metatarsal-bone",
+   "label": "Right fifth metatarsal bone",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-second-toe",
-   "label": "Proximal phalanx of second toe",
+   "id": "sesamoid-bone-of-left-foot",
+   "label": "Sesamoid bone of left foot",
    "info": ""
   },
   {
-   "id": "proximal-phalanx-of-third-toe",
-   "label": "Proximal phalanx of third toe",
+   "id": "sesamoid-bone-of-right-foot",
+   "label": "Sesamoid bone of right foot",
    "info": ""
   },
   {
-   "id": "sesamoid-bone-of-foot",
-   "label": "Sesamoid bone of foot",
+   "id": "distal-phalanx-of-left-big-toe",
+   "label": "Distal phalanx of left big toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-big-toe",
+   "label": "Distal phalanx of right big toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-fourth-toe",
+   "label": "Distal phalanx of left fourth toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-fourth-toe",
+   "label": "Distal phalanx of right fourth toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-index-finger",
+   "label": "Distal phalanx of left index finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-index-finger",
+   "label": "Distal phalanx of right index finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-little-finger",
+   "label": "Distal phalanx of left little finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-little-finger",
+   "label": "Distal phalanx of right little finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-little-toe",
+   "label": "Distal phalanx of left little toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-little-toe",
+   "label": "Distal phalanx of right little toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-middle-finger",
+   "label": "Distal phalanx of left middle finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-middle-finger",
+   "label": "Distal phalanx of right middle finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-ring-finger",
+   "label": "Distal phalanx of left ring finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-ring-finger",
+   "label": "Distal phalanx of right ring finger",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-second-toe",
+   "label": "Distal phalanx of left second toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-second-toe",
+   "label": "Distal phalanx of right second toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-third-toe",
+   "label": "Distal phalanx of left third toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-third-toe",
+   "label": "Distal phalanx of right third toe",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-left-thumb",
+   "label": "Distal phalanx of left thumb",
+   "info": ""
+  },
+  {
+   "id": "distal-phalanx-of-right-thumb",
+   "label": "Distal phalanx of right thumb",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-fourth-toe",
+   "label": "Middle phalanx of left fourth toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-fourth-toe",
+   "label": "Middle phalanx of right fourth toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-index-finger",
+   "label": "Middle phalanx of left index finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-index-finger",
+   "label": "Middle phalanx of right index finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-little-finger",
+   "label": "Middle phalanx of left little finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-little-finger",
+   "label": "Middle phalanx of right little finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-little-toe",
+   "label": "Middle phalanx of left little toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-little-toe",
+   "label": "Middle phalanx of right little toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-middle-finger",
+   "label": "Middle phalanx of left middle finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-middle-finger",
+   "label": "Middle phalanx of right middle finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-ring-finger",
+   "label": "Middle phalanx of left ring finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-ring-finger",
+   "label": "Middle phalanx of right ring finger",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-second-toe",
+   "label": "Middle phalanx of left second toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-second-toe",
+   "label": "Middle phalanx of right second toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-left-third-toe",
+   "label": "Middle phalanx of left third toe",
+   "info": ""
+  },
+  {
+   "id": "middle-phalanx-of-right-third-toe",
+   "label": "Middle phalanx of right third toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-big-toe",
+   "label": "Proximal phalanx of left big toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-big-toe",
+   "label": "Proximal phalanx of right big toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-fourth-toe",
+   "label": "Proximal phalanx of left fourth toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-fourth-toe",
+   "label": "Proximal phalanx of right fourth toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-index-finger",
+   "label": "Proximal phalanx of left index finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-index-finger",
+   "label": "Proximal phalanx of right index finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-little-finger",
+   "label": "Proximal phalanx of left little finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-little-finger",
+   "label": "Proximal phalanx of right little finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-little-toe",
+   "label": "Proximal phalanx of left little toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-little-toe",
+   "label": "Proximal phalanx of right little toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-middle-finger",
+   "label": "Proximal phalanx of left middle finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-middle-finger",
+   "label": "Proximal phalanx of right middle finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-ring-finger",
+   "label": "Proximal phalanx of left ring finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-ring-finger",
+   "label": "Proximal phalanx of right ring finger",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-second-toe",
+   "label": "Proximal phalanx of left second toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-second-toe",
+   "label": "Proximal phalanx of right second toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-third-toe",
+   "label": "Proximal phalanx of left third toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-third-toe",
+   "label": "Proximal phalanx of right third toe",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-left-thumb",
+   "label": "Proximal phalanx of left thumb",
+   "info": ""
+  },
+  {
+   "id": "proximal-phalanx-of-right-thumb",
+   "label": "Proximal phalanx of right thumb",
    "info": ""
   }
  ]

@@ -94,7 +94,7 @@ https://github.com/hubmapconsortium/ccf-releases), licensed under CC BY 4.0. Str
 copies and sub-pieces, simplified and recoloured by tissue type. Please cite: Börner K. et al. Human BioMolecular Atlas
 Program (HuBMAP): 3D Human Reference Atlas construction and usage. Nature Methods (2025).
 
-`frontend/src/diagrams/models/human-skeleton.glb` (118 individually named bones) and `human-muscles.glb` (156 named
+`frontend/src/diagrams/models/human-skeleton.glb` (199 of the 206 bones, left and right separate) and `human-muscles.glb` (156 named
 muscles) are built by `scripts/build-skeleton-model.py` and `scripts/build-muscle-model.py` from BodyParts3D 4.0 (`isa_BP3D_4.0_obj_99.zip`), under the same CC BY 4.0 licence.
 
 ## SPL Inner Ear Atlas (3D ear model)

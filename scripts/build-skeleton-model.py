@@ -5,7 +5,7 @@ International" (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html). Inp
 https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/: isa_BP3D_4.0_obj_99.zip (unzipped),
 isa_element_parts.txt and isa_inclusion_relation_list.txt.
 
-Left and right copies of a bone become one part ("femur"), each finger and toe bone is named,
+Every bone is its own part, left and right separately, including each finger and toe bone;
 and costal cartilages and the sternum are added. Usage:
   .venv/bin/python scripts/build-skeleton-model.py <folder with the tables and obj/isa_BP3D_4.0_obj_99>
 """
@@ -50,9 +50,7 @@ def tables(folder):
 
 
 def base_name(name):
-    name = re.sub(r'^(left|right) ', '', name)
-    name = re.sub(r' of (left|right) (foot|hand)$', r' of \2', name)
-    name = re.sub(r' of (left|right) ', ' of ', name)  # 'distal phalanx of left thumb' -> 'distal phalanx of thumb'
+    # Left and right bones stay separate, so the skeleton counts like a textbook (206 in an adult).
     return name
 
 
@@ -66,8 +64,9 @@ REGIONS = [r'frontal|parietal|occipital|temporal|sphenoid|ethmoid', r'zygomatic|
 def anatomical_order(name):
     """Head to feet, then numbered bones in order (C1, C2 ... first rib, second rib ...)."""
     region = next((i for i, pattern in enumerate(REGIONS) if re.search(pattern, name)), len(REGIONS))
-    number = 1 if name == 'atlas' else 2 if name == 'axis' else ORDINAL.get(name.split()[0], 0)
-    return region, number, name
+    plain = re.sub(r'^(left|right) | of (left|right) ', ' ', name).strip()
+    number = 1 if plain == 'atlas' else 2 if plain == 'axis' else ORDINAL.get(plain.split()[0], 0)
+    return region, number, plain, name
 
 
 def colour(name):
@@ -114,7 +113,7 @@ def main(folder):
         mesh.visual = trimesh.visual.TextureVisuals(material=trimesh.visual.material.PBRMaterial(baseColorFactor=[r, g, b, a], metallicFactor=0, roughnessFactor=0.6))
         part_id = re.sub(r'[^a-z0-9]+', '-', name).strip('-')
         scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)
-        parts.append({'id': part_id, 'label': name[:1].upper() + name[1:], 'info': INFO.get(name, '')})
+        parts.append({'id': part_id, 'label': name[:1].upper() + name[1:], 'info': INFO.get(re.sub(r'^(left|right) ', '', name), '')})
     scene.export(OUT / 'human-skeleton.glb')
     (OUT / 'human-skeleton.json').write_text(json.dumps({'title': 'Human skeleton', 'credit': CREDIT, 'parts': parts}, indent=1, ensure_ascii=False))
     print(len(parts), 'bones', round((OUT / 'human-skeleton.glb').stat().st_size / 1e6, 2), 'MB')

@@ -98,7 +98,7 @@ def test_every_catalog_diagram_has_its_asset():
 
 def test_diagram_focus_matches_a_named_part():
     blocks, failed = render({'type': 'diagram', 'name': 'human-skeleton', 'focus': 'Femur'})
-    assert not failed and (blocks[0]['focus'], blocks[0]['focus_label']) == ('femur', 'Femur')
+    assert not failed and (blocks[0]['focus'], blocks[0]['focus_label']) == ('left-femur', 'Left femur')
     blocks, _ = render({'type': 'diagram', 'name': 'organ-kidney', 'focus': 'renal pyramid', 'cut': 'ls'})
     assert (blocks[0]['focus'], blocks[0]['cut']) == ('renal-pyramid', 'ls')
     blocks, failed = render({'type': 'markdown', 'text': 'The eardrum…'}, {'type': 'diagram', 'name': 'ls-eye', 'focus': 'tympanic membrane'})
