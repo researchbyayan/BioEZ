@@ -11,7 +11,8 @@
   {
    "id": "muscles",
    "label": "Skeletal muscles",
-   "info": "About 600 muscles that move the skeleton by contracting."
+   "info": "About 600 muscles that move the skeleton by contracting.",
+   "detail": "human-muscles"
   },
   {
    "id": "skeleton",

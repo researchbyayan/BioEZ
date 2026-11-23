@@ -1,0 +1,856 @@
+{
+ "title": "Human muscles",
+ "credit": "BodyParts3D 4.0, © The Database Center for Life Science, licensed under CC Attribution 4.0 International. Simplified for BioEZ.",
+ "parts": [
+  {
+   "id": "abductor-digiti-minimi-of-foot",
+   "label": "Abductor digiti minimi of foot",
+   "info": ""
+  },
+  {
+   "id": "abductor-digiti-minimi-of-hand",
+   "label": "Abductor digiti minimi of hand",
+   "info": ""
+  },
+  {
+   "id": "abductor-hallucis",
+   "label": "Abductor hallucis",
+   "info": ""
+  },
+  {
+   "id": "abductor-pollicis-brevis",
+   "label": "Abductor pollicis brevis",
+   "info": ""
+  },
+  {
+   "id": "abductor-pollicis-longus",
+   "label": "Abductor pollicis longus",
+   "info": ""
+  },
+  {
+   "id": "adductor-brevis",
+   "label": "Adductor brevis",
+   "info": ""
+  },
+  {
+   "id": "adductor-hallucis",
+   "label": "Adductor hallucis",
+   "info": ""
+  },
+  {
+   "id": "adductor-longus",
+   "label": "Adductor longus",
+   "info": ""
+  },
+  {
+   "id": "adductor-magnus",
+   "label": "Adductor magnus",
+   "info": ""
+  },
+  {
+   "id": "adductor-minimus",
+   "label": "Adductor minimus",
+   "info": ""
+  },
+  {
+   "id": "adductor-pollicis",
+   "label": "Adductor pollicis",
+   "info": ""
+  },
+  {
+   "id": "anconeus",
+   "label": "Anconeus",
+   "info": ""
+  },
+  {
+   "id": "biceps-brachii",
+   "label": "Biceps brachii",
+   "info": ""
+  },
+  {
+   "id": "biceps-femoris",
+   "label": "Biceps femoris",
+   "info": ""
+  },
+  {
+   "id": "brachialis",
+   "label": "Brachialis",
+   "info": ""
+  },
+  {
+   "id": "brachioradialis",
+   "label": "Brachioradialis",
+   "info": ""
+  },
+  {
+   "id": "cervical-rotator",
+   "label": "Cervical rotator",
+   "info": ""
+  },
+  {
+   "id": "coccygeus",
+   "label": "Coccygeus",
+   "info": ""
+  },
+  {
+   "id": "coracobrachialis",
+   "label": "Coracobrachialis",
+   "info": ""
+  },
+  {
+   "id": "deltoid",
+   "label": "Deltoid",
+   "info": ""
+  },
+  {
+   "id": "diaphragm",
+   "label": "Diaphragm",
+   "info": ""
+  },
+  {
+   "id": "digastric",
+   "label": "Digastric",
+   "info": ""
+  },
+  {
+   "id": "extensor-carpi-radialis-brevis",
+   "label": "Extensor carpi radialis brevis",
+   "info": ""
+  },
+  {
+   "id": "extensor-carpi-radialis-longus",
+   "label": "Extensor carpi radialis longus",
+   "info": ""
+  },
+  {
+   "id": "extensor-carpi-ulnaris",
+   "label": "Extensor carpi ulnaris",
+   "info": ""
+  },
+  {
+   "id": "extensor-digiti-minimi",
+   "label": "Extensor digiti minimi",
+   "info": ""
+  },
+  {
+   "id": "extensor-digitorum",
+   "label": "Extensor digitorum",
+   "info": ""
+  },
+  {
+   "id": "extensor-digitorum-longus",
+   "label": "Extensor digitorum longus",
+   "info": ""
+  },
+  {
+   "id": "extensor-hallucis-brevis",
+   "label": "Extensor hallucis brevis",
+   "info": ""
+  },
+  {
+   "id": "extensor-hallucis-longus",
+   "label": "Extensor hallucis longus",
+   "info": ""
+  },
+  {
+   "id": "extensor-indicis",
+   "label": "Extensor indicis",
+   "info": ""
+  },
+  {
+   "id": "extensor-pollicis-brevis",
+   "label": "Extensor pollicis brevis",
+   "info": ""
+  },
+  {
+   "id": "extensor-pollicis-longus",
+   "label": "Extensor pollicis longus",
+   "info": ""
+  },
+  {
+   "id": "external-anal-sphincter",
+   "label": "External anal sphincter",
+   "info": ""
+  },
+  {
+   "id": "external-intercostal-muscle",
+   "label": "External intercostal muscle",
+   "info": ""
+  },
+  {
+   "id": "external-oblique",
+   "label": "External oblique",
+   "info": ""
+  },
+  {
+   "id": "fibularis-brevis",
+   "label": "Fibularis brevis",
+   "info": ""
+  },
+  {
+   "id": "fibularis-longus",
+   "label": "Fibularis longus",
+   "info": ""
+  },
+  {
+   "id": "fibularis-tertius",
+   "label": "Fibularis tertius",
+   "info": ""
+  },
+  {
+   "id": "first-lumbrical-of-foot",
+   "label": "First lumbrical of foot",
+   "info": ""
+  },
+  {
+   "id": "first-plantar-interosseous-of-foot",
+   "label": "First plantar interosseous of foot",
+   "info": ""
+  },
+  {
+   "id": "flexor-accessorius",
+   "label": "Flexor accessorius",
+   "info": ""
+  },
+  {
+   "id": "flexor-carpi-radialis",
+   "label": "Flexor carpi radialis",
+   "info": ""
+  },
+  {
+   "id": "flexor-carpi-ulnaris",
+   "label": "Flexor carpi ulnaris",
+   "info": ""
+  },
+  {
+   "id": "flexor-digiti-minimi-brevis-of-foot",
+   "label": "Flexor digiti minimi brevis of foot",
+   "info": ""
+  },
+  {
+   "id": "flexor-digiti-minimi-brevis-of-hand",
+   "label": "Flexor digiti minimi brevis of hand",
+   "info": ""
+  },
+  {
+   "id": "flexor-digitorum-brevis",
+   "label": "Flexor digitorum brevis",
+   "info": ""
+  },
+  {
+   "id": "flexor-digitorum-longus",
+   "label": "Flexor digitorum longus",
+   "info": ""
+  },
+  {
+   "id": "flexor-digitorum-profundus",
+   "label": "Flexor digitorum profundus",
+   "info": ""
+  },
+  {
+   "id": "flexor-digitorum-superficialis",
+   "label": "Flexor digitorum superficialis",
+   "info": ""
+  },
+  {
+   "id": "flexor-hallucis-brevis",
+   "label": "Flexor hallucis brevis",
+   "info": ""
+  },
+  {
+   "id": "flexor-hallucis-longus",
+   "label": "Flexor hallucis longus",
+   "info": ""
+  },
+  {
+   "id": "flexor-pollicis-brevis",
+   "label": "Flexor pollicis brevis",
+   "info": ""
+  },
+  {
+   "id": "flexor-pollicis-longus",
+   "label": "Flexor pollicis longus",
+   "info": ""
+  },
+  {
+   "id": "fourth-lumbrical-of-foot",
+   "label": "Fourth lumbrical of foot",
+   "info": ""
+  },
+  {
+   "id": "gastrocnemius",
+   "label": "Gastrocnemius",
+   "info": ""
+  },
+  {
+   "id": "gemellus-inferior",
+   "label": "Gemellus inferior",
+   "info": ""
+  },
+  {
+   "id": "gemellus-superior",
+   "label": "Gemellus superior",
+   "info": ""
+  },
+  {
+   "id": "genioglossus",
+   "label": "Genioglossus",
+   "info": ""
+  },
+  {
+   "id": "geniohyoid",
+   "label": "Geniohyoid",
+   "info": ""
+  },
+  {
+   "id": "gluteus-maximus",
+   "label": "Gluteus maximus",
+   "info": ""
+  },
+  {
+   "id": "gluteus-medius",
+   "label": "Gluteus medius",
+   "info": ""
+  },
+  {
+   "id": "gluteus-minimus",
+   "label": "Gluteus minimus",
+   "info": ""
+  },
+  {
+   "id": "gracilis",
+   "label": "Gracilis",
+   "info": ""
+  },
+  {
+   "id": "hyoglossus",
+   "label": "Hyoglossus",
+   "info": ""
+  },
+  {
+   "id": "iliacus",
+   "label": "Iliacus",
+   "info": ""
+  },
+  {
+   "id": "iliocostalis-cervicis",
+   "label": "Iliocostalis cervicis",
+   "info": ""
+  },
+  {
+   "id": "iliocostalis-lumborum",
+   "label": "Iliocostalis lumborum",
+   "info": ""
+  },
+  {
+   "id": "iliocostalis-thoracis",
+   "label": "Iliocostalis thoracis",
+   "info": ""
+  },
+  {
+   "id": "inferior-oblique",
+   "label": "Inferior oblique",
+   "info": ""
+  },
+  {
+   "id": "inferior-pharyngeal-constrictor",
+   "label": "Inferior pharyngeal constrictor",
+   "info": ""
+  },
+  {
+   "id": "inferior-rectus",
+   "label": "Inferior rectus",
+   "info": ""
+  },
+  {
+   "id": "infraspinatus-muscle",
+   "label": "Infraspinatus muscle",
+   "info": ""
+  },
+  {
+   "id": "innermost-intercostal-muscle",
+   "label": "Innermost intercostal muscle",
+   "info": ""
+  },
+  {
+   "id": "internal-intercostal-muscle",
+   "label": "Internal intercostal muscle",
+   "info": ""
+  },
+  {
+   "id": "interspinalis-thoracis",
+   "label": "Interspinalis thoracis",
+   "info": ""
+  },
+  {
+   "id": "lateral-crico-arytenoid",
+   "label": "Lateral crico-arytenoid",
+   "info": ""
+  },
+  {
+   "id": "lateral-lumbar-intertransversarius",
+   "label": "Lateral lumbar intertransversarius",
+   "info": ""
+  },
+  {
+   "id": "lateral-rectus",
+   "label": "Lateral rectus",
+   "info": ""
+  },
+  {
+   "id": "levator-palpebrae-superioris",
+   "label": "Levator palpebrae superioris",
+   "info": ""
+  },
+  {
+   "id": "levator-scapulae",
+   "label": "Levator scapulae",
+   "info": ""
+  },
+  {
+   "id": "levator-veli-palatini",
+   "label": "Levator veli palatini",
+   "info": ""
+  },
+  {
+   "id": "longissimus-capitis",
+   "label": "Longissimus capitis",
+   "info": ""
+  },
+  {
+   "id": "longissimus-cervicis",
+   "label": "Longissimus cervicis",
+   "info": ""
+  },
+  {
+   "id": "longissimus-thoracis",
+   "label": "Longissimus thoracis",
+   "info": ""
+  },
+  {
+   "id": "longus-capitis",
+   "label": "Longus capitis",
+   "info": ""
+  },
+  {
+   "id": "longus-colli",
+   "label": "Longus colli",
+   "info": ""
+  },
+  {
+   "id": "lumbar-rotator",
+   "label": "Lumbar rotator",
+   "info": ""
+  },
+  {
+   "id": "medial-lumbar-intertransversarius",
+   "label": "Medial lumbar intertransversarius",
+   "info": ""
+  },
+  {
+   "id": "medial-rectus",
+   "label": "Medial rectus",
+   "info": ""
+  },
+  {
+   "id": "middle-pharyngeal-constrictor",
+   "label": "Middle pharyngeal constrictor",
+   "info": ""
+  },
+  {
+   "id": "mylohyoid",
+   "label": "Mylohyoid",
+   "info": ""
+  },
+  {
+   "id": "oblique-arytenoid",
+   "label": "Oblique arytenoid",
+   "info": ""
+  },
+  {
+   "id": "obliquus-capitis-inferior",
+   "label": "Obliquus capitis inferior",
+   "info": ""
+  },
+  {
+   "id": "obliquus-capitis-superior",
+   "label": "Obliquus capitis superior",
+   "info": ""
+  },
+  {
+   "id": "obturator-externus",
+   "label": "Obturator externus",
+   "info": ""
+  },
+  {
+   "id": "obturator-internus",
+   "label": "Obturator internus",
+   "info": ""
+  },
+  {
+   "id": "omohyoid",
+   "label": "Omohyoid",
+   "info": ""
+  },
+  {
+   "id": "opponens-digiti-minimi-of-foot",
+   "label": "Opponens digiti minimi of foot",
+   "info": ""
+  },
+  {
+   "id": "opponens-digiti-minimi-of-hand",
+   "label": "Opponens digiti minimi of hand",
+   "info": ""
+  },
+  {
+   "id": "opponens-pollicis",
+   "label": "Opponens pollicis",
+   "info": ""
+  },
+  {
+   "id": "palatopharyngeus",
+   "label": "Palatopharyngeus",
+   "info": ""
+  },
+  {
+   "id": "palmaris-longus",
+   "label": "Palmaris longus",
+   "info": ""
+  },
+  {
+   "id": "pectineus",
+   "label": "Pectineus",
+   "info": ""
+  },
+  {
+   "id": "pectoralis-major",
+   "label": "Pectoralis major",
+   "info": ""
+  },
+  {
+   "id": "pectoralis-minor",
+   "label": "Pectoralis minor",
+   "info": ""
+  },
+  {
+   "id": "piriformis",
+   "label": "Piriformis",
+   "info": ""
+  },
+  {
+   "id": "plantaris",
+   "label": "Plantaris",
+   "info": ""
+  },
+  {
+   "id": "platysma",
+   "label": "Platysma",
+   "info": ""
+  },
+  {
+   "id": "popliteus",
+   "label": "Popliteus",
+   "info": ""
+  },
+  {
+   "id": "posterior-crico-arytenoid",
+   "label": "Posterior crico-arytenoid",
+   "info": ""
+  },
+  {
+   "id": "pronator-quadratus",
+   "label": "Pronator quadratus",
+   "info": ""
+  },
+  {
+   "id": "pronator-teres",
+   "label": "Pronator teres",
+   "info": ""
+  },
+  {
+   "id": "psoas-major",
+   "label": "Psoas major",
+   "info": ""
+  },
+  {
+   "id": "quadratus-femoris",
+   "label": "Quadratus femoris",
+   "info": ""
+  },
+  {
+   "id": "rectus-capitis-anterior",
+   "label": "Rectus capitis anterior",
+   "info": ""
+  },
+  {
+   "id": "rectus-capitis-lateralis",
+   "label": "Rectus capitis lateralis",
+   "info": ""
+  },
+  {
+   "id": "rectus-capitis-posterior-major",
+   "label": "Rectus capitis posterior major",
+   "info": ""
+  },
+  {
+   "id": "rectus-capitis-posterior-minor",
+   "label": "Rectus capitis posterior minor",
+   "info": ""
+  },
+  {
+   "id": "rhomboid-major",
+   "label": "Rhomboid major",
+   "info": ""
+  },
+  {
+   "id": "rhomboid-minor",
+   "label": "Rhomboid minor",
+   "info": ""
+  },
+  {
+   "id": "salpingopharyngeus",
+   "label": "Salpingopharyngeus",
+   "info": ""
+  },
+  {
+   "id": "sartorius",
+   "label": "Sartorius",
+   "info": ""
+  },
+  {
+   "id": "scalenus-anterior",
+   "label": "Scalenus anterior",
+   "info": ""
+  },
+  {
+   "id": "scalenus-medius",
+   "label": "Scalenus medius",
+   "info": ""
+  },
+  {
+   "id": "scalenus-posterior",
+   "label": "Scalenus posterior",
+   "info": ""
+  },
+  {
+   "id": "second-lumbrical-of-foot",
+   "label": "Second lumbrical of foot",
+   "info": ""
+  },
+  {
+   "id": "second-plantar-interosseous-of-foot",
+   "label": "Second plantar interosseous of foot",
+   "info": ""
+  },
+  {
+   "id": "semimembranosus",
+   "label": "Semimembranosus",
+   "info": ""
+  },
+  {
+   "id": "semispinalis-capitis",
+   "label": "Semispinalis capitis",
+   "info": ""
+  },
+  {
+   "id": "semispinalis-cervicis",
+   "label": "Semispinalis cervicis",
+   "info": ""
+  },
+  {
+   "id": "semispinalis-thoracis",
+   "label": "Semispinalis thoracis",
+   "info": ""
+  },
+  {
+   "id": "semitendinosus",
+   "label": "Semitendinosus",
+   "info": ""
+  },
+  {
+   "id": "serratus-anterior",
+   "label": "Serratus anterior",
+   "info": ""
+  },
+  {
+   "id": "serratus-posterior-inferior",
+   "label": "Serratus posterior inferior",
+   "info": ""
+  },
+  {
+   "id": "serratus-posterior-superior",
+   "label": "Serratus posterior superior",
+   "info": ""
+  },
+  {
+   "id": "soleus",
+   "label": "Soleus",
+   "info": ""
+  },
+  {
+   "id": "spinalis-thoracis",
+   "label": "Spinalis thoracis",
+   "info": ""
+  },
+  {
+   "id": "splenius-capitis",
+   "label": "Splenius capitis",
+   "info": ""
+  },
+  {
+   "id": "splenius-cervicis",
+   "label": "Splenius cervicis",
+   "info": ""
+  },
+  {
+   "id": "sternocleidomastoid",
+   "label": "Sternocleidomastoid",
+   "info": ""
+  },
+  {
+   "id": "sternohyoid",
+   "label": "Sternohyoid",
+   "info": ""
+  },
+  {
+   "id": "sternothyroid",
+   "label": "Sternothyroid",
+   "info": ""
+  },
+  {
+   "id": "stylohyoid",
+   "label": "Stylohyoid",
+   "info": ""
+  },
+  {
+   "id": "stylopharyngeus",
+   "label": "Stylopharyngeus",
+   "info": ""
+  },
+  {
+   "id": "subclavius",
+   "label": "Subclavius",
+   "info": ""
+  },
+  {
+   "id": "subscapularis",
+   "label": "Subscapularis",
+   "info": ""
+  },
+  {
+   "id": "superior-oblique",
+   "label": "Superior oblique",
+   "info": ""
+  },
+  {
+   "id": "superior-pharyngeal-constrictor",
+   "label": "Superior pharyngeal constrictor",
+   "info": ""
+  },
+  {
+   "id": "superior-rectus",
+   "label": "Superior rectus",
+   "info": ""
+  },
+  {
+   "id": "supinator",
+   "label": "Supinator",
+   "info": ""
+  },
+  {
+   "id": "supraspinatus",
+   "label": "Supraspinatus",
+   "info": ""
+  },
+  {
+   "id": "tensor-fasciae-latae",
+   "label": "Tensor fasciae latae",
+   "info": ""
+  },
+  {
+   "id": "tensor-veli-palatini",
+   "label": "Tensor veli palatini",
+   "info": ""
+  },
+  {
+   "id": "teres-major",
+   "label": "Teres major",
+   "info": ""
+  },
+  {
+   "id": "teres-minor",
+   "label": "Teres minor",
+   "info": ""
+  },
+  {
+   "id": "third-lumbrical-of-foot",
+   "label": "Third lumbrical of foot",
+   "info": ""
+  },
+  {
+   "id": "third-plantar-interosseous-of-foot",
+   "label": "Third plantar interosseous of foot",
+   "info": ""
+  },
+  {
+   "id": "thoracic-rotator",
+   "label": "Thoracic rotator",
+   "info": ""
+  },
+  {
+   "id": "thyro-arytenoid",
+   "label": "Thyro-arytenoid",
+   "info": ""
+  },
+  {
+   "id": "thyrohyoid",
+   "label": "Thyrohyoid",
+   "info": ""
+  },
+  {
+   "id": "tibialis-anterior",
+   "label": "Tibialis anterior",
+   "info": ""
+  },
+  {
+   "id": "tibialis-posterior",
+   "label": "Tibialis posterior",
+   "info": ""
+  },
+  {
+   "id": "transverse-arytenoid",
+   "label": "Transverse arytenoid",
+   "info": ""
+  },
+  {
+   "id": "transversus-thoracis",
+   "label": "Transversus thoracis",
+   "info": ""
+  },
+  {
+   "id": "trapezius",
+   "label": "Trapezius",
+   "info": ""
+  },
+  {
+   "id": "triceps-brachii",
+   "label": "Triceps brachii",
+   "info": ""
+  },
+  {
+   "id": "uvular-muscle",
+   "label": "Uvular muscle",
+   "info": ""
+  },
+  {
+   "id": "vocalis",
+   "label": "Vocalis",
+   "info": ""
+  },
+  {
+   "id": "skeleton",
+   "label": "Skeleton (for reference)",
+   "info": "The bones the muscles attach to."
+  }
+ ]
+}
